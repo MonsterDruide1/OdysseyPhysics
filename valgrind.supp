@@ -1,0 +1,479 @@
+{
+   dl_open stuff
+   Memcheck:Addr8
+   fun:strncmp
+   fun:is_dst
+   ...
+   fun:fillin_rpath.isra.0
+   fun:decompose_rpath
+   fun:cache_rpath
+   fun:cache_rpath
+   fun:_dl_map_object
+   fun:openaux
+   fun:_dl_catch_exception
+   fun:_dl_map_object_deps
+   fun:dl_open_worker_begin
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+}
+{
+   wsl1
+   Memcheck:Addr4
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+}
+{
+   wsl2
+   Memcheck:Cond
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+}
+{
+   wsl3
+   Memcheck:Addr8
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+}
+{
+   wsl4
+   Memcheck:Param
+   ioctl(generic)
+   fun:ioctl
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+}
+{
+   wsl5
+   Memcheck:Addr2
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+}
+{
+   wsl6
+   Memcheck:Param
+   ioctl(generic)
+   fun:ioctl
+   ...
+   obj:/usr/lib/wsl/lib/libd3d12core.so
+   ...
+}
+{
+   wsl7
+   Memcheck:Addr8
+   ...
+   obj:/usr/lib/wsl/lib/libd3d12core.so
+   ...
+}
+{
+   wsl8
+   Memcheck:Addr16
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/lib/libd3d12core.so
+}
+{
+   wsl9
+   Memcheck:Addr1
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   fun:start_thread
+   fun:clone
+}
+
+{
+   swrast_dri1
+   Memcheck:Addr8
+   fun:memmove
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+}
+{
+   swrast_dri2
+   Memcheck:Addr2
+   fun:memmove
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+}
+{
+   wsl_leak1
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+}
+{
+   swrast_dri_leak1
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+}
+{
+   swrast_dri_leak2
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+   obj:/usr/lib/x86_64-linux-gnu/libEGL_mesa.so.0.0.0
+}
+{
+   swrast_dri_leak3
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   ...
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+}
+{
+   d3d12_leak1
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   ...
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   obj:*
+   obj:*
+}
+{
+   d3d12_leak2
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   ...
+   obj:/usr/lib/wsl/lib/libd3d12.so
+}
+{
+   d3d12_leak3
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   ...
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   obj:*
+}
+{
+   d3d12_leak4
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:memalign
+   ...
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   obj:*
+   obj:*
+   obj:*
+}
+{
+   d3d12_leak5
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   ...
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   obj:/usr/lib/wsl/lib/libd3d12.so
+   obj:*
+   obj:*
+}
+{
+   wsl_leak2
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:memalign
+   fun:posix_memalign
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+}
+
+{
+   unk1
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:FcFontRenderPrepare
+   obj:/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.5000.6
+   obj:/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.7200.4
+   fun:start_thread
+   fun:clone
+}
+{
+   unk2
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   obj:/usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0
+}
+{
+   unk3
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.5000.6
+}
+{
+   unk4
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libdecor/plugins-1/libdecor-cairo.so
+}
+{
+   unk5
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:realloc
+   obj:/usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0
+   obj:/usr/lib/x86_64-linux-gnu/libfontconfig.so.1.12.0
+   fun:FcFontRenderPrepare
+   obj:/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.5000.6
+   obj:/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.7200.4
+   fun:start_thread
+   fun:clone
+}
+{
+   unk6
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:libdecor_plugin_init
+   obj:/usr/lib/x86_64-linux-gnu/libdecor/plugins-1/libdecor-cairo.so
+   fun:libdecor_new
+   fun:_glfwInitWayland
+   fun:glfwInit
+   fun:InitPlatform
+   fun:InitWindow
+   fun:main
+}
+{
+   unk7
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:g_malloc0
+   fun:pango_language_from_string
+   fun:pango_language_get_default
+   obj:/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.5000.6
+   fun:g_type_create_instance
+   obj:/usr/lib/x86_64-linux-gnu/libgobject-2.0.so.0.7200.4
+   fun:g_object_new_with_properties
+   fun:g_object_new
+   fun:pango_font_map_create_context
+   fun:pango_cairo_create_context
+   fun:pango_cairo_create_layout
+}
+{
+   unk8
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:malloc
+   fun:FcFontSetSort
+   obj:/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.5000.6
+   obj:/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.7200.4
+   fun:start_thread
+   fun:clone
+}
+{
+   unk9
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:g_malloc0
+   obj:/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.7200.4
+   obj:/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.5000.6
+   obj:/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.5000.6
+   obj:/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.5000.6
+   obj:/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.5000.6
+   fun:pango_layout_get_size
+   obj:/usr/lib/x86_64-linux-gnu/libdecor/plugins-1/libdecor-cairo.so
+   obj:/usr/lib/x86_64-linux-gnu/libdecor/plugins-1/libdecor-cairo.so
+   obj:/usr/lib/x86_64-linux-gnu/libdecor/plugins-1/libdecor-cairo.so
+   fun:createLibdecorFrame
+}
+{
+   unk10
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:calloc
+   fun:g_malloc0
+   obj:/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.7200.4
+   obj:/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.5000.6
+   obj:/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.5000.6
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libpango-1.0.so.0.5000.6
+}
+{
+   unk11
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   ...
+   fun:_glfwCreateContextEGL
+   fun:_glfwCreateWindowWayland
+}
+{
+   unk12
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:malloc
+   ...
+   fun:call_init.part.0
+   fun:call_init
+   fun:_dl_init
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+}
+{
+   unk13
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   obj:*
+   obj:*
+   fun:_glfwInitEGL
+   fun:_glfwCreateWindowWayland
+   fun:glfwCreateWindow
+   fun:InitPlatform
+   fun:InitWindow
+   fun:main
+}
+{
+   unk14
+   Memcheck:Leak
+   match-leak-kinds: possible
+   fun:realloc
+   fun:FcFontSetAdd
+   fun:FcFontSetSort
+   obj:/usr/lib/x86_64-linux-gnu/libpangoft2-1.0.so.0.5000.6
+   obj:/usr/lib/x86_64-linux-gnu/libglib-2.0.so.0.7200.4
+   fun:start_thread
+   fun:clone
+}
+{
+   unk15
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   ...
+   fun:rlLoadShaderProgram
+   fun:rlLoadShaderDefault
+}
+{
+   unk16
+   Memcheck:Free
+   fun:free
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+}
+{
+   unk17
+   Memcheck:Free
+   fun:free
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/lib/libd3d12core.so
+}
+{
+   unk18
+   Memcheck:Free
+   fun:_ZdlPv
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   fun:call_destructors
+   fun:_dl_catch_exception
+   fun:_dl_close_worker.part.0.isra.0
+}
+{
+   unk19
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   fun:pthread_cond_broadcast@GLIBC_2.2.5
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+}
+{
+   unk20
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:_Znam
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   fun:call_init.part.0
+   fun:call_init
+   fun:_dl_init
+   fun:_dl_catch_exception
+   fun:dl_open_worker
+   fun:dl_open_worker
+   fun:_dl_catch_exception
+   fun:_dl_open
+   fun:dlopen_doit
+}
+{
+   unk21
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+   fun:rlLoadShaderProgram
+   fun:rlLoadShaderCode
+}
+{
+   unk22
+   Memcheck:Free
+   fun:_ZdlPv
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+}
+{
+   unk23
+   Memcheck:Leak
+   match-leak-kinds: definite
+   fun:calloc
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+}
+{
+   unk24
+   Memcheck:Addr1
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/lib/libd3d12core.so
+   obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+}
