@@ -11,6 +11,8 @@ namespace game {
 StageScene::StageScene() {
     mActors = new LiveActor*[mActorsMax];
     mCamera = new Camera();
+    mPartsKeeper = new CollisionPartsKeeper();
+    mInfo = {mPartsKeeper};
 }
 
 StageScene::~StageScene()
@@ -20,6 +22,7 @@ StageScene::~StageScene()
     delete[] mActors;
     delete mPlayer;
     delete mCamera;
+    delete mPartsKeeper;
 }
 
 void StageScene::init(const char* stageName, int scenario) {
@@ -45,7 +48,7 @@ void StageScene::init(const char* stageName, int scenario) {
 
     for(int i=0; i<objectlist.getSize(); i++) {
         al::ByamlIter objiter = objectlist.getIterByIndex(i);
-        addObject(new LiveActor(objiter));
+        addObject(new LiveActor(objiter, mInfo));
     }
 
     al::ByamlIter playerlist = lists.getIterByKey("PlayerList");
@@ -53,7 +56,7 @@ void StageScene::init(const char* stageName, int scenario) {
         printf("PlayerList size is not 1\n");
         return;
     }
-    mPlayer = new Player(playerlist.getIterByIndex(0));
+    mPlayer = new Player(playerlist.getIterByIndex(0), mInfo);
     mPlayer->raylibModel.materials[0].maps->color = RED;
 }
 

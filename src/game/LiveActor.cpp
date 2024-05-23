@@ -1,21 +1,26 @@
 #include "game/LiveActor.h"
+#include "Library/Collision/CollisionParts.h"
+#include "Library/Collision/KCollisionServer.h"
+#include "Library/Matrix/MatrixUtil.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Yaml/ByamlUtil.h"
-#include "file/KCollision.h"
 #include "nlib/util.h"
 #include "oead/sarc.h"
 #include "oead/yaz0.h"
 #include "raylib.h"
 #include <cstdio>
+#include <cstring>
 #include <filesystem>
+
+#include "../stubs/missing.h"
 
 namespace game {
 
 Shader checkerShader;
 Mesh cubeMesh;
 
-LiveActor::LiveActor(const al::ByamlIter& data) {
-    mPoseKeeper = new al::ActorPoseKeeperTQSV();
+LiveActor::LiveActor(const al::ByamlIter& data, const SceneInfo& info) : mInfo(info) {
+    mPoseKeeper = new al::ActorPoseKeeperTQGMSV();
 
     sead::Vector3f trans = {0,0,0};
     al::tryGetByamlV3f(&trans, data, "Translate");
@@ -32,19 +37,34 @@ LiveActor::LiveActor(const al::ByamlIter& data) {
     const char* modelName = nullptr;
     if(!al::tryGetByamlString(&modelName, data, "ModelName"))
         al::tryGetByamlString(&modelName, data, "UnitConfigName");
-    initRaylibModel(modelName);
+    initRaylibModel(modelName, data);
 
     mName = new char[strlen(modelName)+1];
     strcpy((char*)mName, modelName);
 }
 
 LiveActor::~LiveActor() {
-    UnloadModel(raylibModel);
+    // do not unload model completely if it is the fallback model
+    if(raylibModel.meshCount != 1 || raylibModel.meshes[0].vertices != cubeMesh.vertices)
+        UnloadModel(raylibModel);
+    else {
+        // manually clear relevant fields
+        for (int i = 0; i < raylibModel.materialCount; i++) RL_FREE(raylibModel.materials[i].maps);
+        RL_FREE(raylibModel.meshes);
+        RL_FREE(raylibModel.materials);
+        RL_FREE(raylibModel.meshMaterial);
+    }
     delete mPoseKeeper;
     delete[] mName;
+    if(mCollisionParts)
+        delete mCollisionParts;
+    if(kclData)
+        delete[] kclData;
+    if(collisionByml)
+        delete[] collisionByml;
 }
 
-void LiveActor::initRaylibModel(const char* modelName) {
+void LiveActor::initRaylibModel(const char* modelName, const al::ByamlIter& data) {
     std::string szsPath = nlib::util::format("res/romfs/ObjectData/%s.szs", modelName);
 
     if (!std::filesystem::exists(szsPath)) {
@@ -57,6 +77,7 @@ void LiveActor::initRaylibModel(const char* modelName) {
     std::vector<u8> sarcData = oead::yaz0::Decompress(szsData);
     oead::Sarc sarc(sarcData);
     const oead::Sarc::File* kclFile = nullptr;
+    const oead::Sarc::File* bymlFile = nullptr;
     for(u16 i=0; i<sarc.GetNumFiles(); i++) {
         const oead::Sarc::File& file = sarc.GetFile(i);
         if(file.name.ends_with(".kcl")) {
@@ -69,33 +90,71 @@ void LiveActor::initRaylibModel(const char* modelName) {
         initFallbackModel();
         return;
     }
+    for(u16 i=0; i<sarc.GetNumFiles(); i++) {
+        const oead::Sarc::File& file = sarc.GetFile(i);
+        if(file.name.compare(std::string(kclFile->name.substr(0, kclFile->name.size()-4))+("Attribute.byml")) == 0) {
+            bymlFile = &file;
+            break;
+        }
+    }
 
     try {
-        fl::KCL kcl(kclFile->data);
-        std::string objName = nlib::util::format("%s.obj", kclFile->name.data());
-        std::string mtlName = nlib::util::format("%s.mtl", kclFile->name.data());
-        std::string objStr = nlib::util::format("mtllib %s\n", mtlName.c_str());
-        objStr.append(kcl.toObj());
-        std::string mtlStr = kcl.toMtl();
-        std::vector<u8> obj(objStr.begin(), objStr.end());
-        std::vector<u8> mtl(mtlStr.begin(), mtlStr.end());
+        kclData = new u8[kclFile->data.size()];
+        memcpy(kclData, kclFile->data.data(), kclFile->data.size());
+        collisionByml = new u8[bymlFile->data.size()];
+        memcpy(collisionByml, bymlFile->data.data(), bymlFile->data.size());
+        mCollisionParts = new al::CollisionParts(kclData, collisionByml);
+        sead::Matrix34f mat;
+        // al::makeMtxSRT
+        mPoseKeeper->calcBaseMtx(&mat);
+        al::preScaleMtx(&mat, *mPoseKeeper->getScalePtr());
+        // ---
+        if(data.getKeyIndex("Sensor") != -1)
+            printf("Sensor-attribute exists, but is not implemented! (%s)\n", modelName);
+        mCollisionParts->mConnectedSensor = nullptr;
 
-        nlib::util::writeFile(objName, std::span<const u8>(obj));
-        nlib::util::writeFile(mtlName, std::span<const u8>(mtl));
-        raylibModel = LoadModel(objName.c_str());
+        mCollisionParts->initParts(mat);
 
-        Color colors[] = {WHITE, RED,     BLUE,   GREEN,      YELLOW, ORANGE, PINK,
-                          LIME,  SKYBLUE, PURPLE, DARKPURPLE, BROWN,  BLACK};
+        if(data.getKeyIndex("Joint") != -1)
+            printf("Joint-attribute exists, but is not implemented! (%s)\n", modelName);
+        mCollisionParts->mJointMtx = nullptr;
+        mInfo.mPartsKeeper->addCollisionParts(mCollisionParts);
 
-        for (int i = 0; i < raylibModel.materialCount; i++) {
-            raylibModel.materials[i].maps->color = colors[i % 11];
-            raylibModel.materials[i].shader = checkerShader;
+
+        const al::KCollisionServer& coll = mCollisionParts->getKCollisionServer();
+        raylibModel = Model { 0 };
+        raylibModel.materialCount = 1;
+        raylibModel.materials = (Material*) RL_CALLOC(raylibModel.materialCount, sizeof(Material));
+        raylibModel.materials[0] = LoadMaterialDefault();
+        raylibModel.materials[0].shader = checkerShader;
+
+        raylibModel.meshCount = coll.getNumInnerKcl();
+        raylibModel.meshes = (Mesh*) RL_CALLOC(raylibModel.meshCount, sizeof(Mesh));
+        raylibModel.meshMaterial = (int *)RL_CALLOC(raylibModel.meshCount, sizeof(int));
+
+        for (int i = 0; i < coll.getNumInnerKcl(); i++) {
+            Mesh& mesh = raylibModel.meshes[i];
+            const al::KCPrismHeader* header = coll.getV1Header(i);
+            
+            raylibModel.meshMaterial[i] = 0;  // First material index
+            mesh.triangleCount = coll.getTriangleNum(header);
+            mesh.vertexCount = mesh.triangleCount * 3;
+            mesh.vertices = (float*) MemAlloc(mesh.vertexCount * 3 * sizeof(float));
+
+            for(int j = 0; j < mesh.triangleCount; j++) {
+                const al::KCPrismData& prism = coll.getPrismData(j, header);
+                for(int k = 0; k < 3; k++) {
+                    sead::Vector3f pos;
+                    coll.calcPosLocal(&pos, &prism, k, header);
+                    mesh.vertices[j*9+k*3+0] = pos.x;
+                    mesh.vertices[j*9+k*3+1] = pos.y;
+                    mesh.vertices[j*9+k*3+2] = pos.z;
+                }
+            }
+
+            UploadMesh(&mesh, false);
         }
 
-        std::filesystem::remove(objName);
-        std::filesystem::remove(mtlName);
-
-        printf("Loaded model: %s\n", modelName);
     } catch (const nlib::Exception& ex) {
         printf("Invalid kcl: %s\n", modelName);
         initFallbackModel();

@@ -28,6 +28,9 @@ public:
     int mActorsMax = 5120;
     Player* mPlayer;
     Camera* mCamera;
+    CollisionPartsKeeper* mPartsKeeper;
+
+    SceneInfo mInfo;
 };
 
 }

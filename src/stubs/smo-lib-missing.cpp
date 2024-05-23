@@ -10,9 +10,8 @@
 #include "prim/seadStringUtil.h"
 #include "vapours/results/results_common.hpp"
 
-#define DEREF_NULL *(volatile int*)0;
-#define WARN_UNIMPL printf("Function not implemented: %s\n", __func__)
-#define CRASH WARN_UNIMPL;DEREF_NULL
+#include "missing.h"
+
 
 u64 nn::os::GetSystemTick() {CRASH}
 u64 nn::os::GetSystemTickFrequency() {WARN_UNIMPL; return 1;}

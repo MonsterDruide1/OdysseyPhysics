@@ -1,4 +1,4 @@
-#include "file/KCollision.h"
+#include "game/LiveActor.h"
 #include "game/StageScene.h"
 #include "math/seadMatrix.h"
 #include "nlib/types.h"
@@ -8,6 +8,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "rcamera.h"
+#include "stubs/missing.h"
 #include "types.h"
 #include "ui/RaylibUtil.h"
 #include <filesystem>
@@ -27,19 +28,23 @@ int main() {
     game::checkerShader = LoadShader("res/shaders/normal.vs", "res/shaders/normal.fs");
     game::cubeMesh = GenMeshCube(50, 50, 50);
     game::StageScene scene{};
+    //scene.init("SandWorldSlotStageMap", 0);
     scene.init("SandWorldMeganeExStageMap", 0);
 
     Camera3D cam = {0};
-    cam.position = {0, 0, 0};
-    cam.target = {0, 0, 1};
-    cam.up = {0, 1, 0};
+    cam.position = raylibVec(scene.mCamera->position() * SCALE);
+    cam.target = raylibVec(scene.mCamera->lookAtPos * SCALE);
+    printf("Camera up: %f %f %f\n", scene.mCamera->up().x, scene.mCamera->up().y, scene.mCamera->up().z);
+    cam.up = raylibVec(scene.mCamera->up());
     cam.fovy = 45;
     cam.projection = CAMERA_PERSPECTIVE;
 
     int cameraDirLoc = GetShaderLocation(game::checkerShader, "cameraDirection");
     while (!WindowShouldClose()) {
 
-        UpdateCamera(&cam, CAMERA_FREE);
+        printf("----------------------------\n");
+
+        //UpdateCamera(&cam, CAMERA_FREE);
 
         sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
         cameraDir.normalize();
@@ -67,6 +72,17 @@ int main() {
                 scene.mPlayer->mPoseKeeper->calcBaseMtx(&mtx);
                 scene.mPlayer->raylibModel.transform = raylibMtx(mtx);
                 DrawModel(scene.mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
+
+                scene.mPlayer->mPoseKeeper->getVelocityPtr()->x = 0.0f;
+                scene.mPlayer->mPoseKeeper->getVelocityPtr()->z = 0.0f;
+
+                IsKeyPressed(KEY_SPACE) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->y = 18.5f : 0;
+                IsKeyDown(KEY_W) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->z = -5.0f : 0;
+                IsKeyDown(KEY_A) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->x = -5.0f : 0;
+                IsKeyDown(KEY_S) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->z = 5.0f : 0;
+                IsKeyDown(KEY_D) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->x = 5.0f : 0;
+
+                scene.mPlayer->update();
             }
 
             EndMode3D();
@@ -74,5 +90,12 @@ int main() {
         EndDrawing();
     }
 
+    UnloadShader(game::checkerShader);
+    UnloadMesh(game::cubeMesh);
+
+    CloseWindow();
+    
+
+    printf("Exiting...\n");
     return 0;
 }
