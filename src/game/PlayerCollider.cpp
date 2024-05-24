@@ -3,6 +3,7 @@
 #include "../stubs/missing.h"
 #include "Library/Collision/KTriangle.h"
 #include "Stuff.h"
+#include "math/seadMathCalcCommon.h"
 #include "math/seadMatrix.h"
 #include "Library/Collision/CollisionUtil.h"
 #include "Library/Math/MathAngleUtil.h"
@@ -394,9 +395,7 @@ sead::Vector3f PlayerCollider::collide(sead::Vector3f const& velocity){
     skipFirstStep);
   v16 = destTrans.y + (float)(curTrans.y - destTrans.y);
   v17 = destTrans.z + (float)(curTrans.z - destTrans.z);
-  v60.x = curTrans.x - destTrans.x;
-  v60.y = curTrans.y - destTrans.y;
-  v60.z = curTrans.z - destTrans.z;
+  v60 = curTrans - destTrans;
   mMtxPtr = (sead::Matrix34f *)a1->mMtxPtr;
   x = a1->mTrans.x;
   y = a1->mTrans.y;
@@ -517,9 +516,7 @@ LABEL_29:
     a1->mTrans.z = *(float *)&mTransPtr + velocity.z;
     a1->mSize = newSize;
     a1->mMtx = *v43;
-    v48 = velocity.z;
-    v49 = velocity.x;
-    v50 = velocity.y;*/
+    v60 = velocity;*/
   }
   else
   {
@@ -528,24 +525,15 @@ LABEL_29:
       v51 = destTrans.x;
       v52 = destTrans.y;
       v53 = destTrans.z;
-      v49 = v60.x;
-      v50 = v60.y;
-      v48 = v60.z;
     }
     else
     {
       al::verticalizeVec(&v60, a1->mCutCollideAffectDir, v60);
-      v54 = a1->mCutCollideAffectDir.x;
-      v55 = a1->mCutCollideAffectDir.y;
-      v56 = a1->mCutCollideAffectDir.z;
-      v57 = (float)((float)(v54 * velocity.x) + (float)(v55 * velocity.y)) + (float)(v56 * velocity.z);
-      v49 = v60.x + (float)(v54 * v57);
-      v50 = (float)(v57 * v55) + v60.y;
-      v48 = (float)(v57 * v56) + v60.z;
+      v57 = mCutCollideAffectDir.dot(velocity);
+      v60.x += (float)(v57 * a1->mCutCollideAffectDir.x);
+      v60.y += (float)(v57 * a1->mCutCollideAffectDir.y);
+      v60.z += (float)(v57 * a1->mCutCollideAffectDir.z);
       v51 = destTrans.x;
-      v60.x = v49;
-      v60.y = v50;
-      v60.z = v48;
       a1->mTrans.x = destTrans.x + v49;
       v52 = destTrans.y;
       a1->mTrans.y = destTrans.y + v50;
@@ -553,155 +541,95 @@ LABEL_29:
       a1->mTrans.z = destTrans.z + v48;
     }
 
-    v58 = (float)(curTrans.y - y) - (float)((float)((float)(v52 - y) + movePower.y) + velocity.y);
-    v59 = (float)(curTrans.x - x) - (float)((float)((float)(v51 - x) + movePower.x) + velocity.x);
+    a1->unk3.x = (float)(curTrans.x - x) - (float)((float)((float)(v51 - x) + movePower.x) + velocity.x);
+    a1->unk3.y = (float)(curTrans.y - y) - (float)((float)((float)(v52 - y) + movePower.y) + velocity.y);
     a1->unk3.z = (float)(curTrans.z - v21) - (float)((float)((float)(v53 - v21) + movePower.z) + velocity.z);
-    a1->unk3.x = v59;
-    a1->unk3.y = v58;
   }
 
-  result.z = v48;
-  result.y = v50;
-  result.x = v49;
+  result = v60;
+  printf("Collide: (%f, %f, %f) => (%f, %f, %f)\n", velocity.x, velocity.y, velocity.z, result.x, result.y, result.z);
   return result;
 }
 bool PlayerCollider::calcMovePowerByContact(sead::Vector3f *,sead::Vector3f const&){ CRASH return false; }
 void PlayerCollider::moveCollide(sead::Vector3f *trans,float *size,sead::Quatf *quat,sead::Vector3f const& newTrans,float newSize,sead::Quatf const& newQuat,sead::Vector3f const& velocity,float checkStepRange,bool skipFirstStep){
-
-  float v17; // w27
-  float v18; // w28
-  float v19; // w26
-  float z; // s4
-  float x; // s1
-  float v22; // s2
-  float v23; // s3
-  float v24; // s5
-  float v25; // s1
-  int someBitField; // w8
-  int v27; // w8
-  float v29; // s0
-  float v30; // s3
-  float v31; // s2
-  float v32; // s1
-  float v33; // w19
-  float v34; // w25
-  float v35; // w23
-  float v36; // s7
-  float v37; // s0
-  float v38; // s3
-  float v39; // s2
-  float v40; // s0
-  int v41; // [xsp+14h] [xbp-13Ch]
-  sead::Vector3f a3a; // [xsp+20h] [xbp-130h] BYREF
-  sead::Vector3f a2a; // [xsp+30h] [xbp-120h] BYREF
-  sead::Vector3f x2_0; // [xsp+40h] [xbp-110h] BYREF
-  sead::Vector3f a1a; // [xsp+50h] [xbp-100h] BYREF
-  sead::Vector3f v47; // [xsp+60h] [xbp-F0h] BYREF
-  sead::Vector3f a4a; // [xsp+70h] [xbp-E0h] BYREF
-  const sead::Vector3f *v50; // [xsp+D8h] [xbp-78h]
-
-  v50 = &velocity;
   al::SpherePoseInterpolator interp = {};
   interp.startInterp(*trans, newTrans, *size, newSize, *quat, newQuat, checkStepRange);
   if (skipFirstStep)
       interp.nextStep();
 
-  a4a = {0.0f, 0.0f, 0.0f};
+  sead::Vector3f a4a = {0.0f, 0.0f, 0.0f};
   if ( (PlayerCollider::findCollidePos(&interp) & 1) != 0 )
   {
-    v41 = 0;
-    v17 = 0.0;
-    v18 = 0.0;
-    v19 = 0.0;
+    int v41 = 0;
+    int v27;
+    sead::Vector3f v17v = {0.0f, 0.0f, 0.0f};
     do
     {
-      v47 = {0.0f, 0.0f, 0.0f};
-      interp.calcInterp(trans, size, quat, &v47);
-      a1a = {0.0f, 0.0f, 0.0f};
-      x2_0 = {0.0f, 0.0f, 0.0f};
+      sead::Vector3f remainMoveVec = {0.0f, 0.0f, 0.0f};
+      interp.calcInterp(trans, size, quat, &remainMoveVec);
+      sead::Vector3f a1a = {0.0f, 0.0f, 0.0f};
+      sead::Vector3f x2_0 = {0.0f, 0.0f, 0.0f};
+      printf("before calcResultVec: progress=%f\n", interp.mCurrentStep);
       PlayerCollider::calcResultVec(&a1a, &x2_0, a4a);
       *trans += a1a;
+
+      sead::Vector3f v33v;
+
       if ( interp.mCurrentStep >= 1.0 )
         goto LABEL_47;
 
-      if ( al::isNearZero(a1a, 0.0000001)
+      f32 v29;
+      if ( al::isNearZero(a1a, 0.0000001f)
         || (v29 = a1a.length(), v29 <= 0.0) )
       {
-        v35 = 0.0;
-        v34 = 0.0;
-        v33 = 0.0;
+        v33v = {0.0f, 0.0f, 0.0f};
       }
       else
       {
-        v30 = (float)(1.0 / v29) * a1a.x;
-        v31 = (float)(1.0 / v29) * a1a.y;
-        v32 = (float)(1.0 / v29) * a1a.z;
-        v33 = v30;
-        v34 = v31;
-        v35 = v32;
-        v36 = (float)((float)(v30 * v47.x) + (float)(v31 * v47.y)) + (float)(v32 * v47.z);
+        v33v = (1.0f / v29) * a1a;
+        f32 v36 = v33v.dot(remainMoveVec);
         if ( v36 >= 0.0 )
         {
           if ( v36 < v29 )
-            v29 = (float)((float)(v30 * v47.x) + (float)(v31 * v47.y)) + (float)(v32 * v47.z);
+            v29 = v33v.dot(remainMoveVec);
 
-          v38 = v30 * v29;
-          v39 = v31 * v29;
-          v37 = v32 * v29;
-          v47.x = v47.x - v38;
-          v47.y = v47.y - v39;
+          remainMoveVec -= v33v * v29;
         }
         else
         {
-          v47.x = v47.x - (float)(v30 * v36);
-          v47.y = v47.y - (float)(v31 * v36);
-          v37 = v32 * v36;
+          remainMoveVec -= v33v * v36;
         }
-
-        v47.z = v47.z - v37;
       }
 
-      if ( ((v40 = (float)((float)(v50->x * v47.x) + (float)(v50->y * v47.y)) + (float)(v50->z * v47.z), v40 >= 0.0)
-         || al::isNearZero(v40, 0.001))
-        && (!al::isNearZero(v47, 0.001)
-         || (float)((float)(v19 * v35) + (float)((float)(v18 * v34) + (float)(v17 * v33))) >= 0.0) )
+      f32 v40;
+      if ( ((v40 = velocity.dot(remainMoveVec), v40 >= 0.0)
+         || al::isNearZero(v40, 0.001f))
+        && (!al::isNearZero(remainMoveVec, 0.001f)
+         || v17v.dot(v33v) >= 0.0) )
       {
-        z = trans->z;
-        x = trans->x;
-        v22 = trans->y;
-        a2a.x = trans->x - a1a.x;
-        a2a.y = v22 - a1a.y;
-        a2a.z = z - a1a.z;
-        a3a.x = x + v47.x;
-        a3a.y = v22 + v47.y;
-        a3a.z = z + v47.z;
+        sead::Vector3f a2a = *trans - a1a;
+        sead::Vector3f a3a = *trans + remainMoveVec;
         interp.startInterp(a2a, a3a, *size, newSize, *quat, newQuat, checkStepRange);
         interp.nextStep();
         a2a = {0.0f, 0.0f, 0.0f};
         interp.calcInterpPos(&a2a);
-        v23 = (float)((float)(trans->y - a1a.y) - a2a.y) + x2_0.y;
-        v24 = (float)((float)(trans->x - a1a.x) - a2a.x) + x2_0.x;
-        v25 = (float)((float)(trans->z - a1a.z) - a2a.z) + x2_0.z;
-        a4a.x = v24;
-        a4a.y = v23;
-        a4a.z = v25;
+        a4a = *trans - a1a - a2a + x2_0;
         if ( mIsInFastMoveCollisionArea )
         {
-          someBitField = someBitField;
-          if ( (someBitField & 0x100) != 0 && v24 < 0.0 && x2_0.x < 0.0
-            || (someBitField & 0x80) != 0 && v24 > 0.0 && x2_0.x > 0.0 )
+          if ( (someBitField & 0x100) != 0 && a4a.x < 0.0 && x2_0.x < 0.0
+            || (someBitField & 0x80) != 0 && a4a.x > 0.0 && x2_0.x > 0.0 )
           {
             a4a.x = 0.0;
           }
 
-          if ( (someBitField & 0x400) != 0 && v23 < 0.0 && x2_0.y < 0.0
-            || (someBitField & 0x200) != 0 && v23 > 0.0 && x2_0.y > 0.0 )
+          if ( (someBitField & 0x400) != 0 && a4a.y < 0.0 && x2_0.y < 0.0
+            || (someBitField & 0x200) != 0 && a4a.y > 0.0 && x2_0.y > 0.0 )
           {
             a4a.y = 0.0;
           }
 
-          if ( (someBitField & 0x1000) != 0 && v25 < 0.0 && x2_0.z < 0.0
-            || (someBitField & 0x800) != 0 && v25 > 0.0 && x2_0.z > 0.0 )
+          if ( (someBitField & 0x1000) != 0 && a4a.z < 0.0 && x2_0.z < 0.0
+            || (someBitField & 0x800) != 0 && a4a.z > 0.0 && x2_0.z > 0.0 )
           {
             a4a.z = 0.0;
           }
@@ -726,14 +654,10 @@ void PlayerCollider::moveCollide(sead::Vector3f *trans,float *size,sead::Quatf *
       {
 LABEL_47:
         v27 = 3;
-        v33 = v17;
-        v34 = v18;
-        v35 = v19;
+        v33v = v17v;
       }
 
-      v17 = v33;
-      v18 = v34;
-      v19 = v35;
+      v17v = v33v;
     }
     while ( !v27 );
   }
@@ -745,55 +669,27 @@ LABEL_47:
   printf("PostMoveCollide: (%.02f, %.02f, %.02f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.02f, %.02f, %.02f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.02f, %.02f, %.02f), %.02f, %s\n",
     trans->x, trans->y, trans->z, *size, quat->x, quat->y, quat->z, quat->w, newTrans.x, newTrans.y, newTrans.z, newSize, newQuat.x, newQuat.y, newQuat.z, newQuat.w, velocity.x, velocity.y, velocity.z, checkStepRange, skipFirstStep ? "true" : "false");
 }
-bool PlayerCollider::findCollidePos(al::SpherePoseInterpolator *interp){
-  sead::Matrix34f *p_mCollidePosMtx; // x21
-  float v5; // s0
-  float y; // s1
-  float x; // s3
-  float v8; // s0
-  float v9; // s18
-  float v10; // s16
-  float v11; // s7
-  float v12; // s17
-  float v13; // s6
-  float v14; // s4
-  float v15; // s2
-  float v16; // s3
-  float v17; // s1
-  float v18; // s17
-  sead::Vector3f remainMoveVec; // [xsp+0h] [xbp-60h] BYREF
-  sead::Quatf quat; // [xsp+10h] [xbp-50h] BYREF
-  sead::Vector3f trans; // [xsp+20h] [xbp-40h] BYREF
-  float size; // [xsp+3Ch] [xbp-24h] BYREF
-
-
-    p_mCollidePosMtx = &this->mCollidePosMtx;
+bool PlayerCollider::findCollidePos(al::SpherePoseInterpolator *interp) {
     while (interp->mPrevStep != 1.0 || interp->mCurrentStep != 1.0) {
-        trans = {0.0f, 0.0f, 0.0f};
-        size = 0.0;
-        quat = {1.0f, 0.0f, 0.0f, 0.0f};
-        remainMoveVec = {0.0f, 0.0f, 0.0f};
+        sead::Vector3f trans = {0.0f, 0.0f, 0.0f};
+        f32 size = 0.0;
+        sead::Quatf quat = {1.0f, 0.0f, 0.0f, 0.0f};
+        sead::Vector3f remainMoveVec = {0.0f, 0.0f, 0.0f};
         interp->calcInterp(&trans, &size, &quat, &remainMoveVec);
-        v5 = interp->calcRadiusBaseScale(size);
-        v8 = v5 * this->mCollisionShapeScale;
+        f32 scale = interp->calcRadiusBaseScale(size) * this->mCollisionShapeScale;
         mCollidePosMtx.makeQT(quat, trans);
         if (mCollisionMultiShape->check(mCollisionShapeKeeper,
-                                       p_mCollidePosMtx, v8, remainMoveVec,
+                                       &mCollidePosMtx, scale, remainMoveVec,
                                        nullptr)) {
-                                        printf("Found!\n");
             return true;
         }
 
         interp->nextStep();
     }
 
-    printf("not.found.\n");
     return false;
 }
 void PlayerCollider::calcResultVec(sead::Vector3f *a2,sead::Vector3f *a3,sead::Vector3f const&a4){
-  printf("PRE-calcResultVec\n");
-  const CollisionShapeKeeper *mCollisionShapeKeeper; // x8
-  int someBitField; // w28
   int mNumCollideResult; // w19
   sead::BitFlag<u32>* p_someBitField; // x22
   unsigned int v11; // w24
@@ -804,17 +700,12 @@ void PlayerCollider::calcResultVec(sead::Vector3f *a2,sead::Vector3f *a3,sead::V
   float v16; // s11
   float v17; // s0
   float v18; // s1
-  int v20; // w8
   const al::SphereHitInfo *SphereHitInfo; // x0
   float v22; // s10
   const al::Triangle *v23; // x25
   const sead::Vector3f *v24; // x25
   float v25; // s11
-  float v26; // s0
-  float v27; // s1
-  bool v28; // nf
   float v29; // s0
-  float v30; // s11
   const al::DiskHitInfo *DiskHitInfo; // x0
   float unk11; // s10
   const al::Triangle *p_mTriangle; // x25
@@ -845,33 +736,24 @@ void PlayerCollider::calcResultVec(sead::Vector3f *a2,sead::Vector3f *a3,sead::V
   float v58; // s3
   float v59; // s2
   float v60; // s15
-  float v61; // w24
   float v62; // s1
   float v63; // s0
-  float v64; // w25
-  float v65; // w26
-  float v66; // s8
   float v67; // s0
   float v68; // s1
   bool v69; // zf
   float v70; // s0
-  float v71; // s8
   float v72; // s0
   float v73; // s1
   bool v74; // zf
   float v75; // s0
-  float v76; // s8
   float v77; // s0
   float v78; // s1
   bool v79; // zf
   float v80; // s0
   float v81; // s10
   float v82; // s9
-  float v83; // s1
   float v84; // s0
   float v85; // s10
-  float v86; // s12
-  float v87; // s13
   float v88; // s1
   float v89; // s0
   float v90; // s1
@@ -879,38 +761,19 @@ void PlayerCollider::calcResultVec(sead::Vector3f *a2,sead::Vector3f *a3,sead::V
   bool v92; // w27
   bool v93; // w23
   bool v94; // w22
-  float v95; // w10
-  float v96; // w11
-  float v97; // w12
   int v98; // w19
   int v99; // w28
-  float v100; // w8
   const sead::Vector3f *CollisionHitPos; // x0
-  float v102; // w19
-  float v103; // w28
   const sead::Vector3f *CollisionHitNormal; // x0
-  float v105; // w22
-  bool isCollisionCodePress; // w0
   const sead::Vector3f *v107; // x0
-  float v108; // w19
-  float v109; // w22
   const CollisionShapeKeeper *v110; // x8
-  float v111; // s18
-  float v112; // s19
-  float v113; // s20
-  float v114; // s9
-  float v115; // s10
-  float v116; // s11
   float v117; // s0
-  float v118; // s13
-  float v119; // s12
-  float v120; // s8
   s16 v121; // w8
-  float v122; // [xsp+Ch] [xbp-174h]
-  float v123; // [xsp+10h] [xbp-170h]
-  float v124; // [xsp+10h] [xbp-170h]
-  float v125; // [xsp+10h] [xbp-170h]
+  
+  float v86; // s12
+  float v87; // s13
   float v126; // [xsp+14h] [xbp-16Ch]
+
   float v128; // [xsp+20h] [xbp-160h]
   float v129; // [xsp+24h] [xbp-15Ch]
   sead::Vector3f v130; // [xsp+28h] [xbp-158h] BYREF
@@ -927,120 +790,89 @@ void PlayerCollider::calcResultVec(sead::Vector3f *a2,sead::Vector3f *a3,sead::V
   bool v141; // [xsp+CCh] [xbp-B4h] BYREF
   sead::Vector3f v142; // [xsp+D0h] [xbp-B0h] BYREF
   sead::Vector3f a2a; // [xsp+E0h] [xbp-A0h] BYREF
+  sead::Vector3f v111v;
+  sead::Vector3f v114v;
+  sead::Vector3f v118v;
+  sead::Vector3f v61v;
+  sead::Vector3f v95v;
 
   v142 = *this->mGravityPtr;
-  mCollisionShapeKeeper = this->mCollisionShapeKeeper;
-  someBitField = this->someBitField;
   this->someBitField = 0;
   mNumCollideResult = mCollisionShapeKeeper->mNumCollideResult;
   p_someBitField = &this->someBitField;
-  if ( mNumCollideResult >= 1 )
+  for ( v11=0; v11 < mNumCollideResult; v11++ )
   {
-    for ( v11=0; v11 < mNumCollideResult; v11++ )
+    collidedShapeResult = mCollisionShapeKeeper->getCollidedShapeResult(v11);
+    if ( collidedShapeResult->isArrow() ) {
+      ArrowHitInfo = &collidedShapeResult->getArrowHitInfo();
+      v14 = this->unk11;
+      v15 = &ArrowHitInfo->mTriangle.getFaceNormal();
+      if ( al::isNearZero(*v15, 0.001) )
+        continue;
+
+      v16 = v15->dot(v142);
+      v17 = cosf(sead::Mathf::deg2rad(v14));
+      v18 = sead::Mathf::abs(v16);
+      if ( v16 >= 0.0 || v18 < v17 )
+        continue;
+
+      *p_someBitField = *p_someBitField | 0x40;
+    }
+    else if ( collidedShapeResult->isSphere() )
     {
-      collidedShapeResult = mCollisionShapeKeeper->getCollidedShapeResult(v11);
-      if ( collidedShapeResult->isArrow() ) {
-        ArrowHitInfo = &collidedShapeResult->getArrowHitInfo();
-        v14 = this->unk11;
-        v15 = &ArrowHitInfo->mTriangle.getFaceNormal();
-        if ( al::isNearZero(*v15, 0.001) )
-          goto LABEL_50;
-
-        v16 = (float)((float)(v15->x * v142.x) + (float)(v15->y * v142.y)) + (float)(v15->z * v142.z);
-        v17 = cosf(v14 * 0.017453);
-        v18 = v16 <= 0.0 ? -v16 : v16;
-        if ( v16 >= 0.0 || v18 < v17 )
-          goto LABEL_50;
-
-        v20 = *p_someBitField | 0x40;
-        goto LABEL_49;
-      }
-      else if ( !collidedShapeResult->isSphere() )
-      {
-        if ( !collidedShapeResult->isDisk() )
-          goto LABEL_50;
-
-        DiskHitInfo = &collidedShapeResult->getDiskHitInfo();
-        unk11 = this->unk11;
-        p_mTriangle = &DiskHitInfo->mTriangle;
-        if ( !DiskHitInfo->isCollisionAtFace() )
-          goto LABEL_50;
-
-        FaceNormal = &p_mTriangle->getFaceNormal();
-        if ( al::isNearZero(*FaceNormal, 0.001)
-          || ((v35 = (float)((float)(FaceNormal->x * v142.x) + (float)(FaceNormal->y * v142.y))
-                   + (float)(FaceNormal->z * v142.z),
-               v36 = cosf(unk11 * 0.017453),
-               v35 <= 0.0)
-            ? (v37 = -v35)
-            : (v37 = v35),
-              v35 < 0.0 ? (v38 = v37 < v36) : (v38 = 1),
-              v38) )
-        {
-          if ( al::isNearZero(*FaceNormal, 0.001)
-            || ((v39 = (float)((float)(FaceNormal->x * v142.x) + (float)(FaceNormal->y * v142.y))
-                     + (float)(FaceNormal->z * v142.z),
-                 v39 <= 0.0)
-              ? (v40 = -v39)
-              : (v40 = (float)((float)(FaceNormal->x * v142.x) + (float)(FaceNormal->y * v142.y))
-                     + (float)(FaceNormal->z * v142.z)),
-                v40 >= cosf(unk11 * 0.017453)) )
-          {
-            v20 = *p_someBitField | 0x20;
-          }
-          else
-          {
-            v20 = *p_someBitField | 0x10;
-          }
-        }
-        else
-        {
-          v20 = *p_someBitField | 8;
-        }
-
-        goto LABEL_49;
-      }
-
       SphereHitInfo = &collidedShapeResult->getSphereHitInfo();
       v22 = this->unk11;
       v23 = &SphereHitInfo->mTriangle;
-      if ( SphereHitInfo->isCollisionAtFace() )
+      if(!SphereHitInfo->isCollisionAtFace())
+        continue;
+
+      v24 = &v23->getFaceNormal();
+      if ( al::isNearZero(*v24, 0.001)
+        || (v25 = v24->dot(v142),
+            v25 < 0.0 && (sead::Mathf::abs(v25) < cosf(sead::Mathf::deg2rad(v22)))) )
       {
-        v24 = &v23->getFaceNormal();
         if ( al::isNearZero(*v24, 0.001)
-          || ((v25 = (float)((float)(v24->x * v142.x) + (float)(v24->y * v142.y)) + (float)(v24->z * v142.z),
-               v26 = cosf(v22 * 0.017453),
-               v25 <= 0.0)
-            ? (v27 = -v25)
-            : (v27 = v25),
-              v25 < 0.0 ? (v28 = v27 < v26) : (v28 = 1),
-              v28) )
+          || (sead::Mathf::abs(v24->dot(v142)) >= cosf(sead::Mathf::deg2rad(v22))) )
         {
-          if ( al::isNearZero(*v24, 0.001)
-            || ((v29 = (float)((float)(v24->x * v142.x) + (float)(v24->y * v142.y)) + (float)(v24->z * v142.z),
-                 v29 <= 0.0)
-              ? (v30 = -v29)
-              : (v30 = (float)((float)(v24->x * v142.x) + (float)(v24->y * v142.y)) + (float)(v24->z * v142.z)),
-                v30 >= cosf(v22 * 0.017453)) )
-          {
-            v20 = *p_someBitField | 4;
-          }
-          else
-          {
-            v20 = *p_someBitField | 2;
-          }
+          *p_someBitField = *p_someBitField | 4;
         }
         else
         {
-          v20 = *p_someBitField | 1;
+          *p_someBitField = *p_someBitField | 2;
         }
-
-LABEL_49:
-        *p_someBitField = v20;
       }
+      else
+      {
+        *p_someBitField = *p_someBitField | 1;
+      }
+    }
+    else if ( collidedShapeResult->isDisk() ){
+      DiskHitInfo = &collidedShapeResult->getDiskHitInfo();
+      unk11 = this->unk11;
+      p_mTriangle = &DiskHitInfo->mTriangle;
+      if ( !DiskHitInfo->isCollisionAtFace() )
+        continue;
 
-LABEL_50:
-      mCollisionShapeKeeper = this->mCollisionShapeKeeper;
+      FaceNormal = &p_mTriangle->getFaceNormal();
+      if ( al::isNearZero(*FaceNormal, 0.001)
+        || (v35 = FaceNormal->dot(v142),
+            v35 < 0.0 ? (v38 = sead::Mathf::abs(FaceNormal->dot(v142)) < cosf(sead::Mathf::deg2rad(unk11))) : (v38 = 1),
+            v38) )
+      {
+        if ( al::isNearZero(*FaceNormal, 0.001)
+          || (sead::Mathf::abs(FaceNormal->dot(v142)) >= cosf(sead::Mathf::deg2rad(unk11))) )
+        {
+          *p_someBitField = *p_someBitField | 0x20;
+        }
+        else
+        {
+          *p_someBitField = *p_someBitField | 0x10;
+        }
+      }
+      else
+      {
+        *p_someBitField = *p_someBitField | 8;
+      }
     }
   }
 
@@ -1048,31 +880,23 @@ LABEL_51:
   v141 = 0;
   v140 = 0;
   PlayerCollider::calcGroundArrowAverage(&v141, &this->unk9, &v140, &this->unk10, mCollisionShapeKeeper);
+  
   v139 = {0.0f, 0.0f, 0.0f};
   v138 = {0.0f, 0.0f, 0.0f};
   v137 = {0.0f, 0.0f, 0.0f};
   v136 = {0.0f, 0.0f, 0.0f};
-  if ( mNumCollideResult >= 1 )
-  {
-    for ( i = 0; i != mNumCollideResult; ++i )
-    {
-      printf("%d/%d: %s\n", i+1, mNumCollideResult, typeid(*mCollisionShapeKeeper->getCollidedShapeResult(i)).name());
-      v42 = mCollisionShapeKeeper->getCollidedShapeResult(i);
-      if ( v42->isArrow() )
-      {
-        PlayerCollider::calcResultVecArrow(p_someBitField, &v136, &v137, &v138, &v139, v42);
-      }
+  for ( i = 0; i != mNumCollideResult; ++i ) {
+    v42 = mCollisionShapeKeeper->getCollidedShapeResult(i);
 
-      else if ( v42->isSphere() )
-      {
-        PlayerCollider::calcResultVecSphere(p_someBitField, &v136, &v137, &v138, &v139, v42);
-      }
+    if ( v42->isArrow() )
+      PlayerCollider::calcResultVecArrow(p_someBitField, &v136, &v137, &v138, &v139, v42);
+    else if ( v42->isSphere() )
+      PlayerCollider::calcResultVecSphere(p_someBitField, &v136, &v137, &v138, &v139, v42);
+    else if ( v42->isDisk() )
+      PlayerCollider::calcResultVecDisk(p_someBitField, &v136, &v137, &v138, &v139, v42);
 
-      else if ( v42->isDisk() )
-      {
-        PlayerCollider::calcResultVecDisk(p_someBitField, &v136, &v137, &v138, &v139, v42);
-      }
-    }
+    printf("after %d/%d (%s): v136=(%.02f, %.02f, %.02f), v137=(%.02f, %.02f, %.02f), v138=(%.02f, %.02f, %.02f), v139=(%.02f, %.02f, %.02f)\n",
+      i+1, mNumCollideResult, v42->isArrow() ? "arrow" : v42->isSphere() ? "sphere" : "disk", v136.x, v136.y, v136.z, v137.x, v137.y, v137.z, v138.x, v138.y, v138.z, v139.x, v139.y, v139.z);
   }
 
   if ( this->val1 >= 0.0 )
@@ -1084,179 +908,140 @@ LABEL_51:
       this->unk10 = this->info1->mTriangle.getFaceNormal();
   }
 
-  y = v136.y;
-  x = v136.x;
   z = v136.z;
-  v47 = v137.y;
-  v46 = v137.x;
   v48 = v136.y + v137.y;
   v126 = v136.x + v137.x;
   v49 = v136.x + v137.x;
   v50 = v137.z;
-  if ( v136.x >= v138.x )
-    x = v138.x;
 
-  if ( v136.y >= v138.y )
-    y = v138.y;
+  x = sead::Mathf::min(v136.x, v138.x);
+  y = sead::Mathf::min(v136.y, v138.y);
+  v51 = sead::Mathf::min(v136.z, v138.z);
 
-  if ( v136.z >= v138.z )
-    v51 = v138.z;
-  else
-    v51 = v136.z;
+  v46 = sead::Mathf::max(v137.x, v138.x);
+  v47 = sead::Mathf::max(v137.y, v138.y);
+  v52 = sead::Mathf::max(v137.z, v138.z);
 
-  if ( v137.x <= v138.x )
-    v46 = v138.x;
 
-  if ( v137.y <= v138.y )
-    v47 = v138.y;
-
-  if ( v137.z <= v138.z )
-    v52 = v138.z;
-  else
-    v52 = v137.z;
-
-  if ( x >= v139.x )
-    v53 = v139.x;
-  else
-    v53 = x;
-
-  if ( y >= v139.y )
-    v54 = v139.y;
-  else
-    v54 = y;
+  v53 = sead::Mathf::min(x, v139.x);
+  v54 = sead::Mathf::min(y, v139.y);
+  v55 = sead::Mathf::min(v51, v139.z);
 
   v136.x = v53;
   v136.y = v54;
-  if ( v51 >= v139.z )
-    v55 = v139.z;
-  else
-    v55 = v51;
+  v136.z = v55;
 
-  if ( v46 <= v139.x )
-    v56 = v139.x;
-  else
-    v56 = v46;
 
-  if ( v47 <= v139.y )
-    v57 = v139.y;
-  else
-    v57 = v47;
+  v56 = sead::Mathf::max(v46, v139.x);
+  v57 = sead::Mathf::max(v47, v139.y);
+  v60 = sead::Mathf::max(v52, v139.z);
 
   v58 = v53 + v56;
   v59 = v54 + v57;
-  if ( v52 <= v139.z )
-    v60 = v139.z;
-  else
-    v60 = v52;
-
-  v136.z = v55;
   v137.x = v56;
   v137.y = v57;
   v137.z = v60;
-  if ( v58 <= 0.0 || (v61 = v49, (*((u8 *)p_someBitField + 1) & 1) == 0) )
+  if ( v58 <= 0.0 || (v61v.x = v49, (*((u8 *)p_someBitField + 1) & 1) == 0) )
   {
-    v61 = v53 + v56;
+    v61v.x = v53 + v56;
     if ( v58 < 0.0 && (*(u8 *)p_someBitField & 0x80) != 0 )
-      v61 = v49;
+      v61v.x = v49;
   }
 
   v62 = z + v50;
   v63 = v60 + v55;
-  if ( v59 <= 0.0 || (v64 = v48, (*((u8 *)p_someBitField + 1) & 4) == 0) )
+  if ( v59 <= 0.0 || (v61v.y = v48, (*((u8 *)p_someBitField + 1) & 4) == 0) )
   {
-    v64 = v54 + v57;
+    v61v.y = v54 + v57;
     if ( v59 < 0.0 && (*((u8 *)p_someBitField + 1) & 2) != 0 )
-      v64 = v48;
+      v61v.y = v48;
   }
 
   v128 = v62;
   v129 = v48;
-  if ( v63 <= 0.0 || (v65 = v62, (*((u8 *)p_someBitField + 1) & 0x10) == 0) )
+  if ( v63 <= 0.0 || (v61v.z = v62, (*((u8 *)p_someBitField + 1) & 0x10) == 0) )
   {
-    v65 = v60 + v55;
+    v61v.z = v60 + v55;
     if ( v63 < 0.0 && (*((u8 *)p_someBitField + 1) & 8) != 0 )
-      v65 = v62;
+      v61v.z = v62;
   }
 
-  v66 = a4.x;
   if ( (someBitField & 0x100) != 0 )
   {
-    if ( v61 <= 0.0 || v61 <= v66 || v66 < 0.0 && !al::isNearZero(v66, 0.001) )
+    if ( v61v.x <= 0.0 || v61v.x <= a4.x || a4.x < 0.0 && !al::isNearZero(a4.x, 0.001) )
       goto LABEL_128;
 
-    v67 = v61 + v66;
+    v67 = v61v.x + a4.x;
     v68 = 0.5;
     v69 = (*(u8 *)p_someBitField & 0x80) == 0;
   }
   else
   {
-    if ( (someBitField & 0x80) == 0 || v61 >= 0.0 || v61 >= v66 || v66 > 0.0 && !al::isNearZero(v66, 0.001) )
+    if ( (someBitField & 0x80) == 0 || v61v.x >= 0.0 || v61v.x >= a4.x || a4.x > 0.0 && !al::isNearZero(a4.x, 0.001) )
       goto LABEL_128;
 
-    v67 = v61 + v66;
+    v67 = v61v.x + a4.x;
     v68 = 0.5;
     v69 = (*((u8 *)p_someBitField + 1) & 1) == 0;
   }
 
   v70 = v67 * v68;
   if ( v69 )
-    v70 = v66;
+    v70 = a4.x;
 
-  v61 = v70;
+  v61v.x = v70;
 
 LABEL_128:
-  v71 = a4.y;
   if ( (someBitField & 0x400) != 0 )
   {
-    if ( v64 <= 0.0 || v64 <= v71 || v71 < 0.0 && !al::isNearZero(v71, 0.001) )
+    if ( v61v.y <= 0.0 || v61v.y <= a4.y || a4.y < 0.0 && !al::isNearZero(a4.y, 0.001) )
       goto LABEL_144;
 
-    v72 = v64 + v71;
+    v72 = v61v.y + a4.y;
     v73 = 0.5;
     v74 = (*((u8 *)p_someBitField + 1) & 2) == 0;
   }
   else
   {
-    if ( (someBitField & 0x200) == 0 || v64 >= 0.0 || v64 >= v71 || v71 > 0.0 && !al::isNearZero(v71, 0.001) )
+    if ( (someBitField & 0x200) == 0 || v61v.y >= 0.0 || v61v.y >= a4.y || a4.y > 0.0 && !al::isNearZero(a4.y, 0.001) )
       goto LABEL_144;
 
-    v72 = v64 + v71;
+    v72 = v61v.y + a4.y;
     v73 = 0.5;
     v74 = (*((u8 *)p_someBitField + 1) & 4) == 0;
   }
 
   v75 = v72 * v73;
   if ( v74 )
-    v75 = v71;
+    v75 = a4.y;
 
-  v64 = v75;
+  v61v.y = v75;
 
 LABEL_144:
-  v76 = a4.z;
   if ( (someBitField & 0x1000) != 0 )
   {
-    if ( v65 <= 0.0 || v65 <= v76 || v76 < 0.0 && !al::isNearZero(v76, 0.001) )
+    if ( v61v.z <= 0.0 || v61v.z <= a4.z || a4.z < 0.0 && !al::isNearZero(a4.z, 0.001) )
       goto LABEL_160;
 
-    v77 = v65 + v76;
+    v77 = v61v.z + a4.z;
     v78 = 0.5;
     v79 = (*((u8 *)p_someBitField + 1) & 8) == 0;
   }
   else
   {
-    if ( (someBitField & 0x800) == 0 || v65 >= 0.0 || v65 >= v76 || v76 > 0.0 && !al::isNearZero(v76, 0.001) )
+    if ( (someBitField & 0x800) == 0 || v61v.z >= 0.0 || v61v.z >= a4.z || a4.z > 0.0 && !al::isNearZero(a4.z, 0.001) )
       goto LABEL_160;
 
-    v77 = v65 + v76;
+    v77 = v61v.z + a4.z;
     v78 = 0.5;
     v79 = (*((u8 *)p_someBitField + 1) & 0x10) == 0;
   }
 
   v80 = v77 * v78;
   if ( v79 )
-    v80 = v76;
+    v80 = a4.z;
 
-  v65 = v80;
+  v61v.z = v80;
 
 LABEL_160:
   v81 = v56 - v53;
@@ -1266,16 +1051,12 @@ LABEL_160:
   a2a = {0.0f, 0.0f, 0.0f};
   if ( !al::isNearZero(v81, 0.001) )
   {
-    v83 = -v61;
-    if ( v61 > 0.0 )
-      v83 = v61;
-
-    if ( v83 < v81 )
+    if ( sead::Mathf::abs(v61v.x) < v81 )
     {
-      if ( v61 <= 0.0 )
-        v84 = -(float)(v61 + v81);
+      if ( v61v.x <= 0.0 )
+        v84 = -(float)(v61v.x + v81);
       else
-        v84 = v81 - v61;
+        v84 = v81 - v61v.x;
 
       a2a.x = v84;
     }
@@ -1286,16 +1067,14 @@ LABEL_160:
   v86 = v129;
   if ( !al::isNearZero(v82, 0.001) )
   {
-    v88 = -v64;
-    if ( v64 > 0.0 )
-      v88 = v64;
+    v88 = sead::Mathf::abs(v61v.y);
 
     if ( v88 < v82 )
     {
-      if ( v64 <= 0.0 )
-        v89 = -(float)(v64 + v82);
+      if ( v61v.y <= 0.0 )
+        v89 = -(float)(v61v.y + v82);
       else
-        v89 = v82 - v64;
+        v89 = v82 - v61v.y;
 
       a2a.y = v89;
     }
@@ -1303,16 +1082,14 @@ LABEL_160:
 
   if ( !al::isNearZero(v85, 0.001) )
   {
-    v90 = -v65;
-    if ( v65 > 0.0 )
-      v90 = v65;
+    v90 = sead::Mathf::abs(v61v.z);
 
     if ( v90 < v85 )
     {
-      if ( v65 <= 0.0 )
-        v91 = -(float)(v65 + v85);
+      if ( v61v.z <= 0.0 )
+        v91 = -(float)(v61v.z + v85);
       else
-        v91 = v85 - v65;
+        v91 = v85 - v61v.z;
 
       a2a.z = v91;
     }
@@ -1338,9 +1115,7 @@ LABEL_160:
   a2a = {0.0f, 0.0f, 0.0f};
   if ( !v93 && !v94 )
   {
-    v95 = 0.0;
-    v96 = 0.0;
-    v97 = 0.0;
+    v95v = {0.0f, 0.0f, 0.0f};
     v98 = 0;
     v99 = 1;
     goto LABEL_200;
@@ -1348,15 +1123,8 @@ LABEL_160:
 
   if ( this->val1 >= 0.0 && rs::isCollisionCodePress(this->info1) )
   {
-    v95 = this->unk9.x;
-    v96 = this->unk9.y;
-    v97 = this->unk9.z;
-    a2a.x = this->unk10.x;
-    a2a.y = this->unk10.y;
-    v100 = this->unk10.z;
-
-LABEL_198:
-    a2a.z = v100;
+    v95v = this->unk9;
+    a2a = this->unk10;
     v99 = 1;
     v98 = 1;
     goto LABEL_200;
@@ -1364,24 +1132,16 @@ LABEL_198:
 
   if ( this->val3 >= 0.0 && rs::isCollisionCodePress(this->info3) )
   {
-    CRASH
-    /*CollisionHitPos = alCollisionUtil::getCollisionHitPos(this->info3);
-    v123 = CollisionHitPos->x;
-    v103 = CollisionHitPos->y;
-    v102 = CollisionHitPos->z;
-    CollisionHitNormal = alCollisionUtil::getCollisionHitNormal(this->info3);
-    a2a.x = CollisionHitNormal->x;
-    a2a.y = CollisionHitNormal->y;
-    v95 = v123;
-    v100 = CollisionHitNormal->z;
-    v97 = v102;
-    v96 = v103;
-    goto LABEL_198;*/
+    CollisionHitPos = &alCollisionUtil::getCollisionHitPos(this->info3);
+    CollisionHitNormal = &alCollisionUtil::getCollisionHitNormal(this->info3);
+    a2a = *CollisionHitNormal;
+    v95v = *CollisionHitPos;
+    v99 = 1;
+    v98 = 1;
+    goto LABEL_200;
   }
 
-  v95 = 0.0;
-  v96 = 0.0;
-  v97 = 0.0;
+  v95v = {0.0f, 0.0f, 0.0f};
   v98 = 0;
   v99 = !v94;
 
@@ -1389,14 +1149,7 @@ LABEL_200:
   if ( !v94 )
   {
     if ( this->val2 < 0.0
-      || (v122 = v97,
-          v124 = v95,
-          v105 = v96,
-          isCollisionCodePress = rs::isCollisionCodePress(this->info2),
-          v97 = v122,
-          v95 = v124,
-          v96 = v105,
-          !isCollisionCodePress) )
+      || !rs::isCollisionCodePress(this->info2) )
     {
       if ( (v99 & v98 & 1) == 0 )
         goto LABEL_214;
@@ -1404,22 +1157,15 @@ LABEL_200:
       goto LABEL_210;
     }
 
-    if ( !v98
-      || sqrtf((float)((float)(v135.x * v135.x) + (float)(v135.y * v135.y)) + (float)(v135.z * v135.z)) > sqrtf((float)((float)(v134.x * v134.x) + (float)(v134.y * v134.y)) + (float)(v134.z * v134.z)) )
+    if ( !v98 || v135.length() > v134.length() )
     {
-      CRASH
-      /*v107 = alCollisionUtil::getCollisionHitPos(this->info2);
-      v125 = v107->x;
-      v109 = v107->y;
-      v108 = v107->z;
-      a2a = *alCollisionUtil::getCollisionHitNormal(this->info2);
+      v107 = &alCollisionUtil::getCollisionHitPos(this->info2);
+      a2a = alCollisionUtil::getCollisionHitNormal(this->info2);
       if ( (v99 & 1) == 0 )
         goto LABEL_214;
 
-      v95 = v125;
-      v96 = v109;
-      v97 = v108;
-      goto LABEL_210;*/
+      v95v = *v107;
+      goto LABEL_210;
     }
   }
 
@@ -1428,44 +1174,22 @@ LABEL_200:
 
 LABEL_210:
   v110 = this->mCollisionShapeKeeper;
-  v111 = v110->mBoundingCenter.y + 35.0;
-  v112 = v110->mBoundingCenter.x + 0.0;
-  v113 = v110->mBoundingCenter.z + 0.0;
-  v114 = this->mCollidePosMtx.m[0][3]
-       + (float)((float)((float)(v112 * this->mCollidePosMtx.m[0][0]) + (float)(v111 * this->mCollidePosMtx.m[0][1]))
-               + (float)(v113 * this->mCollidePosMtx.m[0][2]));
-  v115 = this->mCollidePosMtx.m[1][3]
-       + (float)((float)((float)(v112 * this->mCollidePosMtx.m[1][0]) + (float)(v111 * this->mCollidePosMtx.m[1][1]))
-               + (float)(v113 * this->mCollidePosMtx.m[1][2]));
-  v116 = this->mCollidePosMtx.m[2][3]
-       + (float)((float)((float)(v112 * this->mCollidePosMtx.m[2][0]) + (float)(v111 * this->mCollidePosMtx.m[2][1]))
-               + (float)(v113 * this->mCollidePosMtx.m[2][2]));
-  vert.x = v114 - v95;
-  vert.y = v115 - v96;
-  vert.z = v116 - v97;
+  v111v = v110->mBoundingCenter + sead::Vector3f{0.0f, 35.0f, 0.0f};
+  v114v.setMul(mCollidePosMtx, v111v);
+  vert = v114v - v95v;
   al::verticalizeVec(&vert, a2a, vert);
   a1 = {0.0f, 0.0f, 0.0f};
   if ( al::tryNormalizeOrZero(&a1, vert) )
   {
-    v117 = fmaxf(
-             50.0 - sqrtf((float)((float)(vert.x * vert.x) + (float)(vert.y * vert.y)) + (float)(vert.z * vert.z)),
-             0.0);
-    v118 = a1.x * v117;
-    v130.x = a2a.x * -200.0;
-    v119 = a1.y * v117;
-    v120 = a1.z * v117;
-    v131.x = (float)(v114 + (float)(a1.x * v117)) + a2a.x;
-    v131.y = (float)(v115 + (float)(a1.y * v117)) + a2a.y;
-    v131.z = (float)(v116 + (float)(a1.z * v117)) + a2a.z;
-    v130.y = a2a.y * -200.0;
-    v130.z = a2a.z * -200.0;
+    v117 = fmaxf(50.0 - vert.length(), 0.0);
+    v118v = a1 * v117;
+    v131 = (v114v + (a1 * v117)) + a2a;
+    v130 = a2a * -200.0f;
 
     CRASH
     /*if ( !(unsigned int)alCollisionUtil::checkStrikeArrow(this, v131, v130, 0LL, 0LL) )
     {
-      v61 = v61 + (float)(v118 * 0.05);
-      v64 = v64 + (float)(v119 * 0.05);
-      v65 = v65 + (float)(v120 * 0.05);
+      v61v += (v118v * 0.05f);
       v92 = 0;
       v93 = 0;
     }*/
@@ -1477,9 +1201,7 @@ LABEL_210:
 LABEL_214:
   this->flag1 |= v93;
   this->flag2 |= v92;
-  a2->x = v61;
-  a2->y = v64;
-  a2->z = v65;
+  *a2 = v61v;
   a3->z = v87;
   a3->x = v126;
   a3->y = v86;
@@ -1495,8 +1217,6 @@ void sub_7100433D98(
         const sead::Vector3f *a5,
         float a6)
 {
-  const al::HitInfo *ArrowHitInfo; // x22
-  const sead::Vector3f *FaceNormal; // x25
   float v14; // s9
   float v15; // s0
   float v16; // s1
@@ -1507,87 +1227,82 @@ void sub_7100433D98(
   float v22; // w8
   float *v23; // x9
 
-  if ( a4->isArrow() )
+  if( !a4->isArrow() )
+    return;
+
+  const al::HitInfo& ArrowHitInfo = a4->getArrowHitInfo();
+  const sead::Vector3f& FaceNormal = ArrowHitInfo.mTriangle.getFaceNormal();
+  if ( al::isNearZero(FaceNormal, 0.001) )
+    return;
+
+  v14 = FaceNormal.dot(*a5);
+  v15 = cosf(sead::Mathf::deg2rad(a6));
+  v16 = sead::Mathf::abs(v14);
+  if ( v14 < 0.0 && v16 >= v15 )
   {
-    ArrowHitInfo = &a4->getArrowHitInfo();
-    FaceNormal = &ArrowHitInfo->mTriangle.getFaceNormal();
-    if ( !al::isNearZero(*FaceNormal, 0.001) )
+    v18 = a4->getShapeInfoArrow()->mArrowIndex;
+    v19 = (float *)(*a2 <= (unsigned int)v18 ? *((u64 *)a2 + 1) : *((u64 *)a2 + 1) + 4 * v18);
+    if ( *v19 < ArrowHitInfo.unk )
     {
-      v14 = (float)((float)(FaceNormal->x * a5->x) + (float)(FaceNormal->y * a5->y)) + (float)(FaceNormal->z * a5->z);
-      v15 = cosf(a6 * 0.017453);
-      v16 = v14 <= 0.0 ? -v14 : v14;
-      if ( v14 < 0.0 && v16 >= v15 )
-      {
-        v18 = a4->getShapeInfoArrow()->mArrowIndex;
-        v19 = (float *)(*a2 <= (unsigned int)v18 ? *((u64 *)a2 + 1) : *((u64 *)a2 + 1) + 4 * v18);
-        if ( *v19 < ArrowHitInfo->unk )
-        {
-          v20 = (al::HitInfo *)(a1->at(v18));
+      v20 = (al::HitInfo *)(a1->at(v18));
 
-          v20->mTriangle.mKCPrismHeader = ArrowHitInfo->mTriangle.mKCPrismHeader;
-          v20->mTriangle.mKCPrismData = ArrowHitInfo->mTriangle.mKCPrismData;
-          v20->mTriangle.mCollisionParts = ArrowHitInfo->mTriangle.mCollisionParts;
-          v20->mTriangle.mFaceNormal.x = ArrowHitInfo->mTriangle.mFaceNormal.x;
-          v20->mTriangle.mFaceNormal.y = ArrowHitInfo->mTriangle.mFaceNormal.y;
-          v20->mTriangle.mFaceNormal.z = ArrowHitInfo->mTriangle.mFaceNormal.z;
-          v20->mTriangle.mEdgeNormals[0].x = ArrowHitInfo->mTriangle.mEdgeNormals[0].x;
-          v20->mTriangle.mEdgeNormals[0].y = ArrowHitInfo->mTriangle.mEdgeNormals[0].y;
-          v20->mTriangle.mEdgeNormals[0].z = ArrowHitInfo->mTriangle.mEdgeNormals[0].z;
-          v20->mTriangle.mEdgeNormals[1].x = ArrowHitInfo->mTriangle.mEdgeNormals[1].x;
-          v20->mTriangle.mEdgeNormals[1].y = ArrowHitInfo->mTriangle.mEdgeNormals[1].y;
-          v20->mTriangle.mEdgeNormals[1].z = ArrowHitInfo->mTriangle.mEdgeNormals[1].z;
-          v20->mTriangle.mEdgeNormals[2].x = ArrowHitInfo->mTriangle.mEdgeNormals[2].x;
-          v20->mTriangle.mEdgeNormals[2].y = ArrowHitInfo->mTriangle.mEdgeNormals[2].y;
-          v20->mTriangle.mEdgeNormals[2].z = ArrowHitInfo->mTriangle.mEdgeNormals[2].z;
-          v20->mTriangle.mVerts[0].x = ArrowHitInfo->mTriangle.mVerts[0].x;
-          v20->mTriangle.mVerts[0].y = ArrowHitInfo->mTriangle.mVerts[0].y;
-          v20->mTriangle.mVerts[0].z = ArrowHitInfo->mTriangle.mVerts[0].z;
-          v20->mTriangle.mVerts[1].x = ArrowHitInfo->mTriangle.mVerts[1].x;
-          v20->mTriangle.mVerts[1].y = ArrowHitInfo->mTriangle.mVerts[1].y;
-          v20->mTriangle.mVerts[1].z = ArrowHitInfo->mTriangle.mVerts[1].z;
-          v20->mTriangle.mVerts[2].x = ArrowHitInfo->mTriangle.mVerts[2].x;
-          v20->mTriangle.mVerts[2].y = ArrowHitInfo->mTriangle.mVerts[2].y;
-          v20->mTriangle.mVerts[2].z = ArrowHitInfo->mTriangle.mVerts[2].z;
-          v20->unk = ArrowHitInfo->unk;
-          v20->mCollisionHitPos.x = ArrowHitInfo->mCollisionHitPos.x;
-          v20->mCollisionHitPos.y = ArrowHitInfo->mCollisionHitPos.y;
-          v20->mCollisionHitPos.z = ArrowHitInfo->mCollisionHitPos.z;
-          v20->unk3.x = ArrowHitInfo->unk3.x;
-          v20->unk3.y = ArrowHitInfo->unk3.y;
-          v20->unk3.z = ArrowHitInfo->unk3.z;
-          v20->mCollisionMovingReaction.x = ArrowHitInfo->mCollisionMovingReaction.x;
-          v20->mCollisionMovingReaction.y = ArrowHitInfo->mCollisionMovingReaction.y;
-          v20->mCollisionMovingReaction.z = ArrowHitInfo->mCollisionMovingReaction.z;
-          v20->mCollisionLocation = ArrowHitInfo->mCollisionLocation;
-          if ( *a2 <= (unsigned int)v18 )
-            v21 = (u32 *)*((u64 *)a2 + 1);
-          else
-            v21 = (u32 *)(*((u64 *)a2 + 1) + 4 * v18);
+      v20->mTriangle.mKCPrismHeader = ArrowHitInfo.mTriangle.mKCPrismHeader;
+      v20->mTriangle.mKCPrismData = ArrowHitInfo.mTriangle.mKCPrismData;
+      v20->mTriangle.mCollisionParts = ArrowHitInfo.mTriangle.mCollisionParts;
+      v20->mTriangle.mFaceNormal.x = ArrowHitInfo.mTriangle.mFaceNormal.x;
+      v20->mTriangle.mFaceNormal.y = ArrowHitInfo.mTriangle.mFaceNormal.y;
+      v20->mTriangle.mFaceNormal.z = ArrowHitInfo.mTriangle.mFaceNormal.z;
+      v20->mTriangle.mEdgeNormals[0].x = ArrowHitInfo.mTriangle.mEdgeNormals[0].x;
+      v20->mTriangle.mEdgeNormals[0].y = ArrowHitInfo.mTriangle.mEdgeNormals[0].y;
+      v20->mTriangle.mEdgeNormals[0].z = ArrowHitInfo.mTriangle.mEdgeNormals[0].z;
+      v20->mTriangle.mEdgeNormals[1].x = ArrowHitInfo.mTriangle.mEdgeNormals[1].x;
+      v20->mTriangle.mEdgeNormals[1].y = ArrowHitInfo.mTriangle.mEdgeNormals[1].y;
+      v20->mTriangle.mEdgeNormals[1].z = ArrowHitInfo.mTriangle.mEdgeNormals[1].z;
+      v20->mTriangle.mEdgeNormals[2].x = ArrowHitInfo.mTriangle.mEdgeNormals[2].x;
+      v20->mTriangle.mEdgeNormals[2].y = ArrowHitInfo.mTriangle.mEdgeNormals[2].y;
+      v20->mTriangle.mEdgeNormals[2].z = ArrowHitInfo.mTriangle.mEdgeNormals[2].z;
+      v20->mTriangle.mVerts[0].x = ArrowHitInfo.mTriangle.mVerts[0].x;
+      v20->mTriangle.mVerts[0].y = ArrowHitInfo.mTriangle.mVerts[0].y;
+      v20->mTriangle.mVerts[0].z = ArrowHitInfo.mTriangle.mVerts[0].z;
+      v20->mTriangle.mVerts[1].x = ArrowHitInfo.mTriangle.mVerts[1].x;
+      v20->mTriangle.mVerts[1].y = ArrowHitInfo.mTriangle.mVerts[1].y;
+      v20->mTriangle.mVerts[1].z = ArrowHitInfo.mTriangle.mVerts[1].z;
+      v20->mTriangle.mVerts[2].x = ArrowHitInfo.mTriangle.mVerts[2].x;
+      v20->mTriangle.mVerts[2].y = ArrowHitInfo.mTriangle.mVerts[2].y;
+      v20->mTriangle.mVerts[2].z = ArrowHitInfo.mTriangle.mVerts[2].z;
+      v20->unk = ArrowHitInfo.unk;
+      v20->mCollisionHitPos.x = ArrowHitInfo.mCollisionHitPos.x;
+      v20->mCollisionHitPos.y = ArrowHitInfo.mCollisionHitPos.y;
+      v20->mCollisionHitPos.z = ArrowHitInfo.mCollisionHitPos.z;
+      v20->unk3.x = ArrowHitInfo.unk3.x;
+      v20->unk3.y = ArrowHitInfo.unk3.y;
+      v20->unk3.z = ArrowHitInfo.unk3.z;
+      v20->mCollisionMovingReaction.x = ArrowHitInfo.mCollisionMovingReaction.x;
+      v20->mCollisionMovingReaction.y = ArrowHitInfo.mCollisionMovingReaction.y;
+      v20->mCollisionMovingReaction.z = ArrowHitInfo.mCollisionMovingReaction.z;
+      v20->mCollisionLocation = ArrowHitInfo.mCollisionLocation;
 
-          *v21 = ArrowHitInfo->unk;
-          v22 = a4->getShapeInfoArrow()->a5;
-          if ( *a3 <= (unsigned int)v18 )
-            v23 = (float *)*((u64 *)a3 + 1);
-          else
-            v23 = (float *)(*((u64 *)a3 + 1) + 4 * v18);
+      
+      if ( *a2 <= (unsigned int)v18 )
+        v21 = (u32 *)*((u64 *)a2 + 1);
+      else
+        v21 = (u32 *)(*((u64 *)a2 + 1) + 4 * v18);
 
-          *v23 = v22;
-        }
-      }
+      *v21 = ArrowHitInfo.unk;
+      v22 = a4->getShapeInfoArrow()->a5;
+      if ( *a3 <= (unsigned int)v18 )
+        v23 = (float *)*((u64 *)a3 + 1);
+      else
+        v23 = (float *)(*((u64 *)a3 + 1) + 4 * v18);
+
+      *v23 = v22;
     }
   }
 }
 
-bool sub_71004338F0(u32* a1, sead::Vector3f *x1_0, sead::Vector3f *a3)
+void sub_71004338F0(u32* a1, sead::Vector3f *x1_0, sead::Vector3f *a3)
 {
-  float v5; // s9
-  float x; // s0
-  float y; // s0
-  bool result; // x0
-  float z; // s0
-  sead::Vector3f a2; // [xsp+0h] [xbp-40h] BYREF
-
-  a2 = *x1_0;
+  sead::Vector3f a2 = *x1_0;
   if ( al::isNearZero(a2, 0.001) )
   {
     a2 = *a3;
@@ -1604,49 +1319,43 @@ bool sub_71004338F0(u32* a1, sead::Vector3f *x1_0, sead::Vector3f *a3)
   }
   else
   {
-    v5 = sqrtf((float)((float)(a2.x * a2.x) + (float)(a2.y * a2.y)) + (float)(a2.z * a2.z));
-    if ( al::isNearZero(a2.x / v5, 0.05) )
+    f32 a2length = a2.length();
+    if ( al::isNearZero(a2.x / a2length, 0.05) )
       a2.x = 0.0;
 
-    if ( al::isNearZero(a2.y / v5, 0.05) )
+    if ( al::isNearZero(a2.y / a2length, 0.05) )
       a2.y = 0.0;
 
-    if ( al::isNearZero(a2.z / v5, 0.05) )
+    if ( al::isNearZero(a2.z / a2length, 0.05) )
       a2.z = 0.0;
   }
 
   if ( !al::isNearZero(a2.x, 0.001) )
   {
-    x = a2.x;
     if ( a2.x > 0.0 )
       *a1 |= 0x80u;
 
-    if ( x < 0.0 )
+    if ( a2.x < 0.0 )
       *a1 |= 0x100u;
   }
 
   if ( !al::isNearZero(a2.y, 0.001) )
   {
-    y = a2.y;
     if ( a2.y > 0.0 )
       *a1 |= 0x200u;
 
-    if ( y < 0.0 )
+    if ( a2.y < 0.0 )
       *a1 |= 0x400u;
   }
 
-  result = al::isNearZero(a2.z, 0.001);
-  if ( !result )
+  if ( !al::isNearZero(a2.z, 0.001) )
   {
-    z = a2.z;
     if ( a2.z > 0.0 )
       *a1 |= 0x800u;
 
-    if ( z < 0.0 )
+    if ( a2.z < 0.0 )
       *a1 |= 0x1000u;
   }
-
-  return result;
 }
 
 void PlayerCollider::calcGroundArrowAverage(bool * a2,sead::Vector3f * a3,bool * a4,sead::Vector3f * a5,CollisionShapeKeeper const* a6){
@@ -1656,12 +1365,6 @@ void PlayerCollider::calcGroundArrowAverage(bool * a2,sead::Vector3f * a3,bool *
   int mNumCollideSupportResult; // w19
   unsigned int j; // w25
   const CollidedShapeResult *CollidedShapeSupportResult; // x0
-  float v16; // s12
-  float v17; // s14
-  float v18; // s13
-  float v19; // s11
-  float v20; // s10
-  float v21; // s9
   u64 v22; // x27
   int v23; // w26
   int v24; // w25
@@ -1669,68 +1372,46 @@ void PlayerCollider::calcGroundArrowAverage(bool * a2,sead::Vector3f * a3,bool *
   float v26; // s0
   float *anotherThreeFloats; // x8
   const al::HitInfo *v28; // x0
-  const sead::Vector3f *CollisionHitPos; // x0
-  const al::HitInfo *v30; // x0
   const sead::Vector3f *CollisionHitNormal; // x24
-  u64 v32; // x28
-  u64 v33; // x21
-  int v34; // w19
+  bool isNearExistingNormal; // w19
   float *v35; // x8
-  const al::HitInfo *v36; // x0
-  const sead::Vector3f *v37; // x0
-  float v38; // s0
-  float v39; // s0
 
   *a2 = 0;
   *a4 = 0;
-  a3->x = 0.0;
-  a3->y = 0.0;
-  a3->z = 0.0;
-  a5->x = 0.0;
-  a5->y = 0.0;
-  a5->z = 0.0;
+  *a3 = {0.0f, 0.0f, 0.0f};
+  *a5 = {0.0f, 0.0f, 0.0f};
   mNumCollideResult = a6->mNumCollideResult;
-  if ( mNumCollideResult >= 1 )
+  for ( i = 0; i != mNumCollideResult; ++i )
   {
-    for ( i = 0; i != mNumCollideResult; ++i )
-    {
-      collidedShapeResult = a6->getCollidedShapeResult(i);
-      sub_7100433D98(
-        &this->anotherPtrArray,
-        &this->sizeOfArrayBelowIs3,
-        &this->sizeOfArrayBelowIs3_2,
-        collidedShapeResult,
-        this->mGravityPtr,
-        this->unk11);
-    }
+    collidedShapeResult = a6->getCollidedShapeResult(i);
+    sub_7100433D98(
+      &this->anotherPtrArray,
+      &this->sizeOfArrayBelowIs3,
+      &this->sizeOfArrayBelowIs3_2,
+      collidedShapeResult,
+      this->mGravityPtr,
+      this->unk11);
   }
 
   mNumCollideSupportResult = a6->mNumCollideSupportResult;
-  if ( mNumCollideSupportResult >= 1 )
+  for ( j = 0; j != mNumCollideSupportResult; ++j )
   {
-    for ( j = 0; j != mNumCollideSupportResult; ++j )
-    {
-      CollidedShapeSupportResult = a6->getCollidedShapeSupportResult(j);
-      sub_7100433D98(
-        &this->anotherPtrArray,
-        &this->sizeOfArrayBelowIs3,
-        &this->sizeOfArrayBelowIs3_2,
-        CollidedShapeSupportResult,
-        this->mGravityPtr,
-        this->unk11);
-    }
+    CollidedShapeSupportResult = a6->getCollidedShapeSupportResult(j);
+    sub_7100433D98(
+      &this->anotherPtrArray,
+      &this->sizeOfArrayBelowIs3,
+      &this->sizeOfArrayBelowIs3_2,
+      CollidedShapeSupportResult,
+      this->mGravityPtr,
+      this->unk11);
   }
 
-  v16 = 0.0;
-  v17 = 0.0;
-  v18 = 0.0;
-  v19 = 0.0;
-  v20 = 0.0;
-  v21 = 0.0;
+  sead::Vector3f v16v = {0.0f, 0.0f, 0.0f};
+  sead::Vector3f v19v = {0.0f, 0.0f, 0.0f};
   v22 = 0LL;
   v23 = 0;
   v24 = 0;
-  do
+  for(v22=0; v22!=3; v22++)
   {
     if ( (unsigned int)this->sizeOfArrayBelowIs3 <= v22 )
       someThreeFloats = this->someThreeFloats;
@@ -1750,70 +1431,42 @@ void PlayerCollider::calcGroundArrowAverage(bool * a2,sead::Vector3f * a3,bool *
         ++v23;
         v28 = (const al::HitInfo *)this->anotherPtrArray[v22];
 
-        CollisionHitPos = &alCollisionUtil::getCollisionHitPos(v28);
-        v17 = v17 + CollisionHitPos->y;
-        v16 = v16 + CollisionHitPos->x;
-        v18 = v18 + CollisionHitPos->z;
+        v16v += alCollisionUtil::getCollisionHitPos(v28);
       }
 
-      v30 = (const al::HitInfo *)this->anotherPtrArray[v22];
+      CollisionHitNormal = &alCollisionUtil::getCollisionHitNormal(this->anotherPtrArray[v22]);
 
-      CollisionHitNormal = &alCollisionUtil::getCollisionHitNormal(v30);
-      if ( (u64)v22 < 1 )
-        goto LABEL_35;
-
-      v32 = 0LL;
-      v33 = 0LL;
-      v34 = 0;
-      do
+      isNearExistingNormal = false;
+      for(int v33=0; v33!=v22; v33++)
       {
         if ( (unsigned int)this->sizeOfArrayBelowIs3 <= v33 )
           v35 = this->someThreeFloats;
         else
-          v35 = &this->someThreeFloats[v32];
+          v35 = &this->someThreeFloats[v33];
 
         if ( *v35 >= 0.0 )
         {
-          v36 = (const al::HitInfo *)this->anotherPtrArray[v33];
-
-          v37 = &alCollisionUtil::getCollisionHitNormal(v36);
-          v34 |= al::isNearDirection(*CollisionHitNormal, *v37, 0.01);
+          isNearExistingNormal |= al::isNearDirection(*CollisionHitNormal, alCollisionUtil::getCollisionHitNormal(this->anotherPtrArray[v33]), 0.01);
         }
-
-        ++v33;
-        ++v32;
       }
-      while ( (u32)v22 != (u32)v33 );
 
-      if ( (v34 & 1) == 0 )
+      if ( !isNearExistingNormal )
       {
-LABEL_35:
-        v20 = v20 + CollisionHitNormal->y;
-        v19 = v19 + CollisionHitNormal->x;
-        v21 = v21 + CollisionHitNormal->z;
+        v19v += *CollisionHitNormal;
         ++v24;
       }
     }
-
-    ++v22;
   }
-  while ( v22 != 3 );
 
   if ( v23 > 0 )
   {
-    v38 = 1.0 / (float)v23;
-    a3->x = v16 * v38;
-    a3->y = v17 * v38;
-    a3->z = v18 * v38;
+    *a3 = v16v * (1.0f / v23);
     *a2 = 1;
   }
 
   if ( v24 >= 1 )
   {
-    v39 = 1.0 / (float)v24;
-    a5->x = v19 * v39;
-    a5->y = v20 * v39;
-    a5->z = v21 * v39;
+    *a5 = v19v * (1.0f / v24);
     al::normalize(a5);
     *a4 = 1;
   }
@@ -1823,9 +1476,6 @@ LABEL_35:
 void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint> *a2,sead::Vector3f *a3,sead::Vector3f *a4,sead::Vector3f *a5,sead::Vector3f *a6,CollidedShapeResult const*result){
   const al::HitInfo *ArrowHitInfo; // x0
   const sead::Vector3f *mGravityPtr; // x8
-  float x; // s10
-  float y; // s11
-  float z; // s8
   const al::HitInfo *v19; // x20
   const sead::Vector3f *FaceNormal; // x0
   float unk11; // s9
@@ -1835,13 +1485,7 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint> *a2,sead::Vector3f *
   float v25; // s1
   const CollisionShapeInfoArrow *ShapeInfoArrow; // x26
   float v28; // s0
-  float v29; // s4
-  float v30; // s2
-  float v31; // s1
   float v32; // s0
-  float v33; // s11
-  float v34; // s10
-  float v35; // s9
   float v36; // s3
   float v37; // s3
   float v38; // s4
@@ -1878,14 +1522,13 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint> *a2,sead::Vector3f *
   sead::Vector3f v77; // [xsp+10h] [xbp-90h] BYREF
   sead::Vector3f v78; // [xsp+20h] [xbp-80h] BYREF
   float v79; // [xsp+5Ch] [xbp-44h] BYREF
+  sead::Vector3f v33v;
+  sead::Vector3f v29v;
 
   if ( (this->someBitField & 0x40) != 0 )
   {
     ArrowHitInfo = &result->getArrowHitInfo();
     mGravityPtr = this->mGravityPtr;
-    x = mGravityPtr->x;
-    y = mGravityPtr->y;
-    z = mGravityPtr->z;
     v19 = ArrowHitInfo;
     FaceNormal = &ArrowHitInfo->mTriangle.getFaceNormal();
     unk11 = this->unk11;
@@ -1893,27 +1536,18 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint> *a2,sead::Vector3f *
     if ( !al::isNearZero(*FaceNormal, 0.001) )
     {
       v23 = mGravityPtr->dot(*p_x);
-      v24 = cosf(unk11 * 0.017453);
+      v24 = cosf(sead::Mathf::deg2rad(unk11));
       v25 = sead::Mathf::abs(v23);
-      printf("comparing v23=%f, v24=%f\n", v23, v24);
       if ( v23 < 0.0 && v25 >= v24 )
       {
         ShapeInfoArrow = result->getShapeInfoArrow();
         v77 = ShapeInfoArrow->vec4;
         al::tryNormalizeOrZero(&v77);
-        printf("unk=%f, a5=%f\n", v19->unk, ShapeInfoArrow->a5);
         v28 = fmaxf(v19->unk - ShapeInfoArrow->a5, 0.0);
-        v29 = this->unk10.x;
-        v30 = this->unk10.y;
-        v31 = this->unk10.z;
+        v29v = this->unk10;
         v32 = -(v77 * v28).dot(unk10);
-        printf("unk10 = (%f, %f, %f), v28 = %f, v32 = %f\n", unk10.x, unk10.y, unk10.z, v28, v32);
-        v33 = v29 * v32;
-        v34 = v30 * v32;
-        v35 = v31 * v32;
-        v76.x = v29 * v32;
-        v76.y = v30 * v32;
-        v76.z = v31 * v32;
+        v33v = v29v * v32;
+        v76 = v29v * v32;
         if ( alCollisionUtil::isCollisionMoving(v19) )
         {
           v79 = 0.0;
@@ -2040,14 +1674,13 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint> *a2,sead::Vector3f *
         }
         else
         {
-          printf("got (%.02f, %.02f, %.02f)\n", v33, v34, v35);
-          a3->x = sead::Mathf::min(a3->x, v33);
-          a3->y = sead::Mathf::min(a3->y, v34);
-          a3->z = sead::Mathf::min(a3->z, v35);
+          a3->x = sead::Mathf::min(a3->x, v33v.x);
+          a3->y = sead::Mathf::min(a3->y, v33v.y);
+          a3->z = sead::Mathf::min(a3->z, v33v.z);
 
-          a4->x = sead::Mathf::max(a4->x, v33);
-          a4->y = sead::Mathf::max(a4->y, v34);
-          a4->z = sead::Mathf::max(a4->z, v35);
+          a4->x = sead::Mathf::max(a4->x, v33v.x);
+          a4->y = sead::Mathf::max(a4->y, v33v.y);
+          a4->z = sead::Mathf::max(a4->z, v33v.z);
 
           sub_71004338F0((u32*)a2, &v76, &this->unk10);
         }
@@ -2081,7 +1714,6 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint> *a2,sead::Vector3f *
       }
     }
   }
-  printf("calcResultVecArrow: (%f, %f, %f), (%f, %f, %f), (%f, %f, %f), (%f, %f, %f)\n", a3->x, a3->y, a3->z, a4->x, a4->y, a4->z, a5->x, a5->y, a5->z, a6->x, a6->y, a6->z);
 }
 void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f *a3,sead::Vector3f *a4,sead::Vector3f *a5,sead::Vector3f *a6,CollidedShapeResult const*a7){
   const al::SphereHitInfo *sphereHitInfo; // x0
@@ -2093,8 +1725,6 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
   float v20; // s1
   bool v21; // nf
   float v22; // s9
-  float v23; // s0
-  float v24; // s10
   int mWallBorderCheckType; // w8
   const sead::Vector3f *p_mWorldShapeInfo; // x28
   float unk2; // s9
@@ -2119,15 +1749,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
   float v46; // s3
   float v47; // s4
   float v48; // s3
-  float v49; // s0
-  float v50; // s1
-  float v51; // s2
-  float v52; // s1
-  float v53; // s2
-  float v54; // s3
-  float v55; // s4
   float v56; // s0
-  float v57; // s0
   float v58; // s0
   float v59; // s1
   float y; // s2
@@ -2177,16 +1799,12 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
   v15 = sphereHitInfo;
   p_mCollisionHitPos = &sphereHitInfo->mCollisionHitPos;
   v97 = sphereHitInfo->mTriangle.getNormal(0);
-  v96.x = 0.0;
-  v96.y = 0.0;
-  v96.z = 0.0;
-  v95.x = 0.0;
-  v95.y = 0.0;
-  v95.z = 0.0;
+  v96 = {0.0f, 0.0f, 0.0f};
+  v95 = {0.0f, 0.0f, 0.0f};
   unk11 = this->unk11;
   if ( al::isNearZero(v97, 0.001)
-    || ((v18 = (float)((float)(v97.x * v98.x) + (float)(v97.y * v98.y)) + (float)(v97.z * v98.z),
-         v19 = cosf(unk11 * 0.017453),
+    || ((v18 = v97.dot(v98),
+         v19 = cosf(sead::Mathf::deg2rad(unk11)),
          v18 <= 0.0)
       ? (v20 = -v18)
       : (v20 = v18),
@@ -2196,9 +1814,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
     v22 = this->unk11;
     if ( !al::isNearZero(v97, 0.001) )
     {
-      v23 = (float)((float)(v97.x * v98.x) + (float)(v97.y * v98.y)) + (float)(v97.z * v98.z);
-      v24 = v23 <= 0.0 ? -v23 : (float)((float)(v97.x * v98.x) + (float)(v97.y * v98.y)) + (float)(v97.z * v98.z);
-      if ( v24 < cosf(v22 * 0.017453) )
+      if ( sead::Mathf::abs(v97.dot(v98)) < cosf(sead::Mathf::deg2rad(v22)) )
       {
         mWallBorderCheckType = this->mWallBorderCheckType;
         if ( (mWallBorderCheckType == 2 || mWallBorderCheckType == 1 && !v15->isCollisionAtFace())
@@ -2271,7 +1887,7 @@ LABEL_34:
   v100.y = v30;
   v100.z = v31 - z;
   al::verticalizeVec(&v100, *p_mWorldShapeInfo, v100);
-  if ( sqrtf((float)((float)(v100.x * v100.x) + (float)(v100.y * v100.y)) + (float)(v100.z * v100.z)) < unk2 )
+  if ( v100.length() < unk2 )
     goto LABEL_34;
 
   p_someBitField = (int*)&this->someBitField;
@@ -2303,10 +1919,8 @@ LABEL_117:
     if ( !al::tryNormalizeOrZero(&v100) )
       return;
 
-    v93 = (float)((float)(v96.x * v100.x) + (float)(v96.y * v100.y)) + (float)(v96.z * v100.z);
-    v96.x = v100.x * v93;
-    v96.y = v100.y * v93;
-    v96.z = v100.z * v93;
+    v93 = v96.dot(v100);
+    v96 = v100 * v93;
     al::verticalizeVec(&v96, v98, v96);
     if ( !al::tryNormalizeOrZero(&v95, v96) )
       return;
@@ -2316,12 +1930,7 @@ LABEL_117:
     goto LABEL_36;
   }
 
-  v94 = al::isNearZeroOrGreater(
-          this->mCollisionShapeKeeper->unk4
-        + (float)((float)((float)(v98.x * (float)(v15->mCollisionHitPos.x - this->unk9.x))
-                        + (float)(v98.y * (float)(v15->mCollisionHitPos.y - this->unk9.y)))
-                + (float)(v98.z * (float)(v15->mCollisionHitPos.z - this->unk9.z))),
-          0.001);
+  v94 = al::isNearZeroOrGreater(this->mCollisionShapeKeeper->unk4 + v98.dot(v15->mCollisionHitPos - this->unk9), 0.001);
   v15->calcFixVectorNormal(&v96, &v95);
   p_z = &v15->unk3.z;
   p_y = &v15->unk3.y;
@@ -2456,40 +2065,14 @@ LABEL_36:
   }
   else
   {
-    v49 = v96.x;
-    v50 = a3->x;
-    v51 = a3->y;
-    if ( a3->x >= v96.x )
-      v50 = v96.x;
+    a3->x = sead::Mathf::min(a3->x, v96.x);
+    a3->y = sead::Mathf::min(a3->y, v96.y);
+    a3->z = sead::Mathf::min(a3->z, v96.z);
 
-    a3->x = v50;
-    v52 = v96.y;
-    if ( v51 >= v96.y )
-      v51 = v96.y;
-
-    a3->y = v51;
-    v53 = a3->z;
-    v54 = v96.z;
-    if ( v53 >= v96.z )
-      v53 = v96.z;
-
-    a3->z = v53;
-    v55 = a4->y;
-    if ( a4->x > v49 )
-      v49 = a4->x;
-
-    a4->x = v49;
-    if ( v55 <= v52 )
-      v56 = v52;
-    else
-      v56 = v55;
-
-    a4->y = v56;
-    v57 = a4->z;
-    if ( v57 <= v54 )
-      v57 = v54;
-
-    a4->z = v57;
+    a4->x = sead::Mathf::max(a4->x, v96.x);
+    a4->y = sead::Mathf::max(a4->y, v96.y);
+    a4->z = sead::Mathf::max(a4->z, v96.z);
+    
     sub_71004338F0((u32*)a2, &v96, &v97);
   }
 
@@ -2497,8 +2080,8 @@ LABEL_36:
   {
     v75 = this->unk11;
     if ( al::isNearZero(v97, 0.001)
-      || ((v76 = (float)((float)(v97.x * v98.x) + (float)(v97.y * v98.y)) + (float)(v97.z * v98.z),
-           v77 = cosf(v75 * 0.017453),
+      || ((v76 = v97.dot(v98),
+           v77 = cosf(sead::Mathf::deg2rad(v75)),
            v76 <= 0.0)
         ? (v78 = -v76)
         : (v78 = v76),
@@ -2506,10 +2089,10 @@ LABEL_36:
     {
       v83 = this->unk11;
       if ( al::isNearZero(v97, 0.001)
-        || ((v84 = (float)((float)(v97.x * v98.x) + (float)(v97.y * v98.y)) + (float)(v97.z * v98.z), v84 <= 0.0)
+        || ((v84 = v97.dot(v98), v84 <= 0.0)
           ? (v85 = -v84)
-          : (v85 = (float)((float)(v97.x * v98.x) + (float)(v97.y * v98.y)) + (float)(v97.z * v98.z)),
-            v85 >= cosf(v83 * 0.017453)) )
+          : (v85 = v97.dot(v98)),
+            v85 >= cosf(sead::Mathf::deg2rad(v83))) )
       {
         if ( this->val3 < v15->unk )
         {

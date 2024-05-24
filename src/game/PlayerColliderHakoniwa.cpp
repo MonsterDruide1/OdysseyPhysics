@@ -31,7 +31,7 @@ sead::Vector3f PlayerColliderHakoniwa::updateCollider(const sead::Vector3f& pos)
 const char* legNames[3] = {"LegFront", "LegLeft", "LegRight"};
 
 void helperFunc(CollisionShapeKeeper* keeper, const sead::Vector3f& pos) {
-    float v2; // s14
+  float v2; // s14
   float v3; // s15
   float v4; // s8
   float v8; // s10
@@ -83,7 +83,6 @@ void helperFunc(CollisionShapeKeeper* keeper, const sead::Vector3f& pos) {
     a3.x = v22;
     a3.y = (float)(v21 + y) - v26;
     a4.z = a4.x;
-    //TODO add these back
     keeper->createShapeArrow(v10, a3, a4, 20.0, v7);
   }
 }
