@@ -162,7 +162,6 @@ void CollisionMultiShapeSimple::callbackFromParts(al::CollisionParts* parts) {
       else
       {
         v13 = alCollisionUtil::isFarAway(*parts, v9->getBoundingCenterWorld(), v9->getBoundingRadiusWorld());
-        printf("isFarAway=%s\n", v13 ? "true" : "false");
       }
 
 LABEL_17:
@@ -191,11 +190,7 @@ LABEL_17:
     ShapeInfoArrow = CollisionShapeFunction::getShapeInfoArrow(v9);
     if ( al::isNearCollideSphereAabb(a1, v11, ShapeInfoArrow->mAabb) )
     {
-      printf("checkHitSegmentSphere((%.02f,%.02f,%.02f), (%.02f,%.02f,%.02f), (%.02f,%.02f,%.02f), %.02f, 0, 0)\n",
-             a1.x, a1.y, a1.z, ShapeInfoArrow->vec2.x, ShapeInfoArrow->vec2.y, ShapeInfoArrow->vec2.z,
-              ShapeInfoArrow->vec3.x, ShapeInfoArrow->vec3.y, ShapeInfoArrow->vec3.z, v11);
       v13 = al::checkHitSegmentSphere(a1, ShapeInfoArrow->vec2, ShapeInfoArrow->vec3, v11, 0LL, 0LL) ^ 1;
-      printf("checkHitSegmentSphere=%s\n", (v13^1) ? "true" : "false");
       goto LABEL_17;
     }
 
@@ -222,12 +217,10 @@ void CollisionMultiShapeSimple::callbackFromServer(al::KCPrismData const* data,a
       sead::Vector3f v80 = arrow->vec5;// - unk4; -- only some value if moving
       u8 v87 = 0;
       bool hitarrow = mParts->mKCollisionServer->KCHitArrow(data, header, v80, arrow->vec6, &a3a, &v87);
-      printf("KCHitArrow result: %s ; %d=%f\n", hitarrow ? "true" : "false", v87, a3a);
       if(!hitarrow) return;
 
       sead::Vector3f v17 = (arrow->vec5 /*+ unk4*/) + (a3a * arrow->vec6);
       f32 v20 = (1.0f - a3a) * arrow->vec4.length();
-      printf("v20=%f, a3a=%f, vec4_len=%.02f\n", v20, a3a, arrow->vec4.length());
       info.mCollisionLocation = v87;
       info.unk = v20;
       info.mCollisionHitPos.setMul(mParts->mBaseMtx, v17);
@@ -235,10 +228,8 @@ void CollisionMultiShapeSimple::callbackFromServer(al::KCPrismData const* data,a
       // something if moving
 
       CollidedShapeResult result = {arrow};
-      printf("setHitInfo\n");
       result.setArrowHitInfo(info);
 
-      printf("v20=%f, a5=%f\n", v20, arrow->a5);
       if(v20 < arrow->a5) {
         if(mCollisionShapeKeeper->isCollidedSupportResultFull())
           mCollisionShapeKeeper->registerCollideSupportResult(result);
@@ -258,14 +249,13 @@ void CollisionMultiShapeSimple::callbackFromServer(al::KCPrismData const* data,a
       f32 v74 = 0.0f;
       u8 v73 = 0;
       bool hitsphere = mParts->mKCollisionServer->KCHitSphereForPlayer(data, header, &v75, sphere->mBoundingRadiusWorld * unk6, unk6, &v74, &v73);
-      printf("hitsphere=%s\n", hitsphere ? "true" : "false");
       if(!hitsphere) return;
 
       f32 v35 = al::isNearZero(unk6, 0.001f) ? 0.0f : 1.0f/unk6;
 
       sead::Vector3f v72;
       alKCollisionFunc::calcSphereHitPos(&v72, mParts->mKCollisionServer, a3a, *data, header, v73);
-      info.unk3.setRotated(mParts->mBaseMtx, a3a);
+      info.unk3.setMul(mParts->mBaseMtx, a3a);
       info.mCollisionLocation = v73;
       info.unk = v35 * v74;
       info.mCollisionHitPos.setMul(mParts->mBaseMtx, v72);
