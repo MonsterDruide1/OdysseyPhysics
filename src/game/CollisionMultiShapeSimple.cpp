@@ -1,5 +1,6 @@
 #include "game/CollisionMultiShapeSimple.h"
 #include <typeinfo>
+#include "Library/Collision/CollisionCheckInfo.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/KTriangle.h"
@@ -20,14 +21,11 @@ bool CollisionMultiShapeSimple::check(CollisionShapeKeeper* keeper, const sead::
     keeper->clearResult();
     keeper->calcWorldShapeInfo(*mtx, val);
 
-    al::SphereCheckInfo info = {};
-    info.mPos = &mCheckPos;
-    info.mRadius = keeper->mBoundingRadius;
-
+    al::SphereCheckInfo info = {mCheckPos, keeper->mBoundingRadius};
     mCheckPos.setMul(*mtx, keeper->mBoundingCenter);
 
     sead::Delegate1<CollisionMultiShapeSimple, al::CollisionParts*> delegate(this, &CollisionMultiShapeSimple::callbackFromParts);
-    mPartsKeeper->searchWithSphere(&info, delegate);
+    mPartsKeeper->searchWithSphere(info, delegate);
     printf("CollisionMultiShapeSimple::check((%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f), %.02f, (%.02f,%.02f,%.02f)) => %d\n",
            mtx->m[0][0], mtx->m[0][1], mtx->m[0][2], mtx->m[0][3],
            mtx->m[1][0], mtx->m[1][1], mtx->m[1][2], mtx->m[1][3],
@@ -48,7 +46,7 @@ void sub_71003F78A8(al::KCollisionServer* server, const CollisionShapeInfoBase* 
     }
     else if(CollisionShapeFunction::isShapeSphere(shape)) {
         sead::Vector3f v23;
-        v23.setMul(parts->mBaseMtx, shape->getBoundingCenterWorld());
+        v23.setMul(parts->mBaseInvMtx, shape->getBoundingCenterWorld());
         sead::Vector3f v28 = v23 + vec;
         server->searchPrism(&v28, parts->mMtxScale * shape->getBoundingRadiusWorld(), delegate);
     }
@@ -164,6 +162,7 @@ void CollisionMultiShapeSimple::callbackFromParts(al::CollisionParts* parts) {
       else
       {
         v13 = alCollisionUtil::isFarAway(*parts, v9->getBoundingCenterWorld(), v9->getBoundingRadiusWorld());
+        printf("isFarAway=%s\n", v13 ? "true" : "false");
       }
 
 LABEL_17:
@@ -280,6 +279,7 @@ void CollisionMultiShapeSimple::callbackFromServer(al::KCPrismData const* data,a
     else if(mCollisionShapeKeeper->isShapeDisk(mCurrentShapeIndex)) {
       CRASH
     }
+    else { CRASH }
 }
 
 }  // namespace game

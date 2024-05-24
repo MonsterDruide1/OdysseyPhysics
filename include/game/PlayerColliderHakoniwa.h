@@ -9,7 +9,7 @@ namespace game {
 
 class PlayerColliderHakoniwa {
 public:
-    PlayerColliderHakoniwa(LiveActor* actor, const PlayerConst* c, CollisionPartsKeeper* partsKeeper);
+    PlayerColliderHakoniwa(LiveActor* actor, const PlayerConst* c, al::CollisionDirector* collisionDirector);
     ~PlayerColliderHakoniwa();
 
     sead::Vector3f updateCollider(const sead::Vector3f&);

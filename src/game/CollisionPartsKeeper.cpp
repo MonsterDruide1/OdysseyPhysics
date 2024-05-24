@@ -1,5 +1,7 @@
 #include "game/CollisionPartsKeeper.h"
 #include "../stubs/missing.h"
+#include "Library/Collision/CollisionCheckInfo.h"
+#include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/CollisionUtil.h"
 
 namespace game {
@@ -27,26 +29,34 @@ void CollisionPartsKeeper::disconnectToCollisionPartsList(al::CollisionParts*) {
 void CollisionPartsKeeper::resetToCollisionPartsList(al::CollisionParts*) {
     CRASH
 }
-bool CollisionPartsKeeper::checkStrikePoint(al::HitInfo*, const al::CollisionCheckInfoBase*) const {
+bool CollisionPartsKeeper::checkStrikePoint(al::HitInfo*, const al::CollisionCheckInfoBase&) const {
     CRASH
 }
-bool CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer*, const al::SphereCheckInfo*, bool, const sead::Vector3f*) const {
+bool CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer*, const al::SphereCheckInfo&, bool, const sead::Vector3f&) const {
     CRASH
 }
-bool CollisionPartsKeeper::checkStrikeArrow(al::ArrowHitResultBuffer*, const al::ArrowCheckInfo*) const {
-    CRASH
-}
-bool CollisionPartsKeeper::checkStrikeSphereForPlayer(al::SphereHitResultBuffer*, const al::SphereCheckInfo*) const {
-    CRASH
-}
-bool CollisionPartsKeeper::checkStrikeDisk(al::DiskHitResultBuffer*, const al::DiskCheckInfo*) const {
-    CRASH
-}
-void CollisionPartsKeeper::searchWithSphere(const al::SphereCheckInfo* info, sead::IDelegate1<al::CollisionParts*>& delegate) const {
+bool CollisionPartsKeeper::checkStrikeArrow(al::ArrowHitResultBuffer* results, const al::ArrowCheckInfo& info) const {
+    int numCollisions = 0;
     for(int i=0; i<mPartsList.size(); i++) {
-        if(!alCollisionUtil::isFarAway(*mPartsList[i], *info->mPos, info->mRadius))
+        numCollisions += mPartsList[i]->checkStrikeArrow(results, info.mPos, info.unk1, info.mTriFilterBase);
+        if (results->isFull()) break;
+    }
+    return numCollisions;
+}
+bool CollisionPartsKeeper::checkStrikeSphereForPlayer(al::SphereHitResultBuffer*, const al::SphereCheckInfo&) const {
+    CRASH
+}
+bool CollisionPartsKeeper::checkStrikeDisk(al::DiskHitResultBuffer*, const al::DiskCheckInfo&) const {
+    CRASH
+}
+void CollisionPartsKeeper::searchWithSphere(const al::SphereCheckInfo& info, sead::IDelegate1<al::CollisionParts*>& delegate) const {
+    for(int i=0; i<mPartsList.size(); i++) {
+        if(!alCollisionUtil::isFarAway(*mPartsList[i], info.mPos, info.mRadius))
             delegate(mPartsList[i]);
     }
+}
+void CollisionPartsKeeper::movement() {
+    CRASH
 }
 
 }

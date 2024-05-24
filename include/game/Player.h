@@ -1,5 +1,6 @@
 #pragma once
 
+#include "Library/Collision/CollisionDirector.h"
 #include "game/LiveActor.h"
 
 class PlayerConst;
@@ -13,9 +14,11 @@ public:
     ~Player() override;
 
     void update() override;
-private:
+public:
     PlayerColliderHakoniwa* mColliderHakoniwa;
     PlayerConst* mPlayerConst;
+
+    al::CollisionDirector* mCollisionDirector;
 };
 
 }

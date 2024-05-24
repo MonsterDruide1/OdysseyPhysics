@@ -9,12 +9,15 @@ Player::Player(const al::ByamlIter& data, const SceneInfo& info) : LiveActor(dat
     //*mPoseKeeper->getTransPtr() += {0, 1000.0f, 0};
     *mPoseKeeper->getVelocityPtr() = {0, -0.01f, 0};
     mPlayerConst = new PlayerConst();
-    mColliderHakoniwa = new PlayerColliderHakoniwa(this, mPlayerConst, info.mPartsKeeper);
+    mCollisionDirector = new al::CollisionDirector(nullptr);
+    mCollisionDirector->setPartsKeeper(info.mPartsKeeper);
+    mColliderHakoniwa = new PlayerColliderHakoniwa(this, mPlayerConst, mCollisionDirector);
 }
 
 Player::~Player() {
     delete mColliderHakoniwa;
     delete mPlayerConst;
+    delete mCollisionDirector;
 }
 
 void Player::update() {
@@ -34,7 +37,7 @@ void Player::update() {
 
 
     
-    *mPoseKeeper->getVelocityPtr() -= {0, 1.5f, 0};
+    *mPoseKeeper->getVelocityPtr() = {0, -3.0f, 0};
 }
 
 }  // namespace game
