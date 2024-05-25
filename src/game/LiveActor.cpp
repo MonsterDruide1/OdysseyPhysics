@@ -19,7 +19,7 @@ namespace game {
 Shader checkerShader;
 Mesh cubeMesh;
 
-LiveActor::LiveActor(const al::ByamlIter& data, const SceneInfo& info) : mInfo(info) {
+LiveActor::LiveActor(const al::ByamlIter& data, const SceneInfo& info) : al::LiveActor("LiveActor"), mInfo(info) {
     mPoseKeeper = new al::ActorPoseKeeperTQGMSV();
 
     sead::Vector3f trans = {0,0,0};
@@ -39,8 +39,8 @@ LiveActor::LiveActor(const al::ByamlIter& data, const SceneInfo& info) : mInfo(i
         al::tryGetByamlString(&modelName, data, "UnitConfigName");
     initRaylibModel(modelName, data);
 
-    mName = new char[strlen(modelName)+1];
-    strcpy((char*)mName, modelName);
+    mActorName = new char[strlen(modelName)+1];
+    strcpy((char*)mActorName, modelName);
 }
 
 LiveActor::~LiveActor() {
@@ -55,7 +55,7 @@ LiveActor::~LiveActor() {
         RL_FREE(raylibModel.meshMaterial);
     }
     delete mPoseKeeper;
-    delete[] mName;
+    delete[] mActorName;
     if(mCollisionParts)
         delete mCollisionParts;
     if(kclData)
