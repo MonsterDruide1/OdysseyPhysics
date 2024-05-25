@@ -13,7 +13,10 @@ public:
     Player(const al::ByamlIter& data, const SceneInfo& info);
     ~Player() override;
 
+    void initAfterPlacement() override;
     void update() override;
+
+    void updateCollider();
 public:
     PlayerColliderHakoniwa* mColliderHakoniwa;
     PlayerConst* mPlayerConst;

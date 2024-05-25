@@ -48,7 +48,9 @@ void StageScene::init(const char* stageName, int scenario) {
 
     for(int i=0; i<objectlist.getSize(); i++) {
         al::ByamlIter objiter = objectlist.getIterByIndex(i);
-        addObject(new LiveActor(objiter, mInfo));
+        LiveActor* actor = new LiveActor(objiter, mInfo);
+        addObject(actor);
+        actor->initAfterPlacement();
     }
 
     al::ByamlIter playerlist = lists.getIterByKey("PlayerList");
@@ -57,6 +59,7 @@ void StageScene::init(const char* stageName, int scenario) {
         return;
     }
     mPlayer = new Player(playerlist.getIterByIndex(0), mInfo);
+    mPlayer->initAfterPlacement();
     mPlayer->raylibModel.materials[0].maps->color = RED;
 }
 

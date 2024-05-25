@@ -83,14 +83,6 @@ int main() {
                 IsKeyDown(KEY_S) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->z = 5.0f : 0;
                 IsKeyDown(KEY_D) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->x = 5.0f : 0;
 
-                if(IsKeyPressed(KEY_O)){
-                    printf("DOING TEST LEAP\n");
-                    sead::Vector3f vec = scene.mPlayer->mColliderHakoniwa->updateCollider({0, 0, 20});
-                    *scene.mPlayer->mPoseKeeper->getTransPtr() += vec;
-                    printf("vec: %.02f %.02f %.02f\n", vec.x, vec.y, vec.z);
-                    printf("DONE TEST LEAP\n");
-                }
-
                 scene.mPlayer->update();
             }
 
@@ -101,6 +93,7 @@ int main() {
 
     UnloadShader(game::checkerShader);
     UnloadMesh(game::cubeMesh);
+    /**/
 
     CloseWindow();
     

@@ -18,6 +18,7 @@ public:
     void initRaylibModel(const char* modelName, const al::ByamlIter& data);
     void initFallbackModel();
 
+    virtual void initAfterPlacement() {}
     virtual void update() {}
 
 public:

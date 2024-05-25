@@ -48,7 +48,7 @@ public:
     
     ~PlayerCollider();
 
-private:
+public:
     al::CollisionDirector *mCollisionDirector;
     const sead::Matrix34f *mMtxPtr;
     const sead::Vector3f *mTransPtr;
