@@ -1,27 +1,45 @@
 #pragma once
 
 #include "Library/Collision/CollisionDirector.h"
+#include "Player/PlayerInput.h"
+#include "Util/ActorDimensionKeeper.h"
+#include "Util/IUseDimension.h"
 #include "game/LiveActor.h"
 
 class PlayerConst;
+class PlayerStateJump;
+class PlayerStateWait;
+class PlayerStateFallHakoniwa;
 
 namespace game {
 class PlayerColliderHakoniwa;
 
-class Player : public LiveActor {
+class Player : public LiveActor, public IUseDimension {
 public:
     Player(const al::ByamlIter& data, const SceneInfo& info);
     ~Player() override;
 
+    ActorDimensionKeeper* getActorDimensionKeeper() const override {return mActorDimensionKeeper;}
+
     void initAfterPlacement() override;
     void update() override;
+    void updateCollider() override;
 
-    void updateCollider();
+
+    void exeWait();
+    void exeFall();
+    void exeJump();
 public:
+    ActorDimensionKeeper* mActorDimensionKeeper;
     PlayerColliderHakoniwa* mColliderHakoniwa;
     PlayerConst* mPlayerConst;
+    PlayerInput* mPlayerInput;
 
     al::CollisionDirector* mCollisionDirector;
+
+    PlayerStateJump* mStateJump;
+    PlayerStateWait* mStateWait;
+    PlayerStateFallHakoniwa* mStateFall;
 };
 
 }

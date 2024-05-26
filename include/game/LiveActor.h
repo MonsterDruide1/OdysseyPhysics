@@ -20,7 +20,9 @@ public:
     void initFallbackModel();
 
     virtual void initAfterPlacement() {}
-    virtual void update() {}
+    virtual void update() {
+        movement();
+    }
 
     static LiveActor* create(const al::ByamlIter& data, const SceneInfo& info);
 

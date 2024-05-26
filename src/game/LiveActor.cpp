@@ -1,6 +1,7 @@
 #include "game/LiveActor.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/KCollisionServer.h"
+#include "Library/LiveActor/LiveActorFlag.h"
 #include "Library/Matrix/MatrixUtil.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Yaml/ByamlUtil.h"
@@ -41,6 +42,8 @@ LiveActor::LiveActor(const al::ByamlIter& data, const SceneInfo& info) : al::Liv
 
     mActorName = new char[strlen(modelName)+1];
     strcpy((char*)mActorName, modelName);
+
+    mFlags->isDead = false;
 }
 
 LiveActor::~LiveActor() {

@@ -74,16 +74,7 @@ int main() {
                 scene.mPlayer->raylibModel.transform = raylibMtx(mtx);
                 DrawModel(scene.mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
 
-                scene.mPlayer->mPoseKeeper->getVelocityPtr()->x = 0.0f;
-                scene.mPlayer->mPoseKeeper->getVelocityPtr()->z = 0.0f;
-
-                IsKeyPressed(KEY_SPACE) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->y = 18.5f : 0;
-                IsKeyDown(KEY_W) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->z = -5.0f : 0;
-                IsKeyDown(KEY_A) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->x = -5.0f : 0;
-                IsKeyDown(KEY_S) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->z = 5.0f : 0;
-                IsKeyDown(KEY_D) ? scene.mPlayer->mPoseKeeper->getVelocityPtr()->x = 5.0f : 0;
-
-                scene.mPlayer->update();
+                scene.mPlayer->movement();
             }
 
             EndMode3D();
