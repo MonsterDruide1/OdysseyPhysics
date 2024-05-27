@@ -4,6 +4,7 @@
 #include "Library/Nerve/NerveSetupUtil.h"
 #include "Library/Nerve/NerveUtil.h"
 #include "Player/PlayerStateFallHakoniwa.h"
+#include "Player/PlayerTrigger.h"
 #include "game/PlayerColliderHakoniwa.h"
 
 #include "Stuff.h"
@@ -16,10 +17,12 @@ namespace {
 NERVE_IMPL(Player, Wait);
 NERVE_IMPL(Player, Jump);
 NERVE_IMPL(Player, Fall);
+NERVE_IMPL(Player, Run);
 
 NERVE_MAKE(Player, Wait);
 NERVE_MAKE(Player, Jump);
 NERVE_MAKE(Player, Fall);
+NERVE_MAKE(Player, Run);
 
 }  // namespace
 
@@ -28,13 +31,14 @@ Player::Player(const al::ByamlIter& data, const SceneInfo& info) : RaylibActor(d
     *mPoseKeeper->getVelocityPtr() = {0, -0.01f, 0};
     mActorDimensionKeeper = new ActorDimensionKeeper(this);
     mPlayerConst = new PlayerConst();
+    mTrigger = new PlayerTrigger();
     mCollisionDirector = new al::CollisionDirector(nullptr);
     mCollisionDirector->setPartsKeeper(info.mPartsKeeper);
     mColliderHakoniwa = new PlayerColliderHakoniwa(this, mPlayerConst, mCollisionDirector);
 
     mPlayerInput = new PlayerInput(this, mColliderHakoniwa, this);
     // FIXME replace nullptrs with actual objects
-    mStateFall = new PlayerStateFallHakoniwa(this, mPlayerConst, mColliderHakoniwa, mPlayerInput, nullptr, nullptr, this, nullptr);
+    mStateFall = new PlayerStateFallHakoniwa(this, mPlayerConst, mColliderHakoniwa, mPlayerInput, mTrigger, nullptr, this, nullptr);
     /*
     PlayerStateFallHakoniwa(al::LiveActor*, const PlayerConst*, const IUsePlayerCollision*,
                             const PlayerInput*, const PlayerTrigger*, const PlayerAreaChecker*,
@@ -45,6 +49,7 @@ Player::Player(const al::ByamlIter& data, const SceneInfo& info) : RaylibActor(d
     //al::initNerveState(this, mStateWait, &Wait, "待機");
     //al::initNerveState(this, mStateJump, &Jump, "ジャンプ");
     al::initNerveState(this, mStateFall, &Fall, "落下");
+    //al::initNerveState(this, mStateRun, &Run, "走り");
 }
 
 Player::~Player() {
@@ -101,10 +106,9 @@ void Player::exeFall() {
     // TODO try wall catch
     // TODO all sorts of judges
 
-    /*
-    if(rs::isLandGroundRunAngle(this, getCollider(), mPlayerConst)) {
+    if(rs::isLandGroundRunAngle(this, mColliderHakoniwa, mPlayerConst)) {
         if(mStateFall->flag2 && al::isFirstStep(this))
-            mTrigger->set(24);
+            mTrigger->set(PlayerTrigger::EActionTrigger_val24);
 
         setNerveOnGround();
 
@@ -113,7 +117,6 @@ void Player::exeFall() {
             CRASH
         }
     }
-    */
 
     // TODO more random judges
     if(mStateFall->flag1 || mStateFall->mInvalidateInputFallArea)
@@ -127,6 +130,49 @@ void Player::exeWait() {
 }
 void Player::exeJump() {
     printf("During jump\n");
+}
+void Player::exeRun() {
+    printf("During run\n");
+}
+
+void Player::setNerveOnGround() {
+    // watersurfacerun
+    // inwater
+    
+    // only if CounterForceRun->_0 < 1:
+    if(true) {
+        if(!rs::isOnGroundRunAngle(this, mColliderHakoniwa, mPlayerConst)) {
+            al::setNerve(this, &Fall);
+            return;
+        }
+    }
+    else if(!rs::isOnGround(this, mColliderHakoniwa)) {
+        al::setNerve(this, &Fall);
+        return;
+    }
+
+    // forceslopeslide
+    // forcerolling
+    // sandsink
+    // poleclimb
+    // grabceil
+    
+    // enablestandup:
+    if(true) {
+        // prejump => jump
+        // run => run
+        // no squat or forceland => wait
+        // not just land or long jump => squat
+
+        // TODO custom:
+        al::setNerve(this, &Wait);
+    }
+
+    // carrykeeper
+
+    rs::cutVerticalVelocityGroundNormal(this, mColliderHakoniwa);
+    // set to squat
+
 }
 
 }  // namespace game

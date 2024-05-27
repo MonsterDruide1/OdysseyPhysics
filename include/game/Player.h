@@ -2,6 +2,7 @@
 
 #include "Library/Collision/CollisionDirector.h"
 #include "Player/PlayerInput.h"
+#include "Player/PlayerTrigger.h"
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/IUseDimension.h"
 #include "game/RaylibActor.h"
@@ -25,15 +26,19 @@ public:
     void update() override;
     void updateCollider() override;
 
+    void setNerveOnGround();
+
 
     void exeWait();
     void exeFall();
     void exeJump();
+    void exeRun();
 public:
     ActorDimensionKeeper* mActorDimensionKeeper;
     PlayerColliderHakoniwa* mColliderHakoniwa;
     PlayerConst* mPlayerConst;
     PlayerInput* mPlayerInput;
+    PlayerTrigger* mTrigger;
 
     al::CollisionDirector* mCollisionDirector;
 
