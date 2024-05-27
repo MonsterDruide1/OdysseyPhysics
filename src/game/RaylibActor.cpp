@@ -1,4 +1,4 @@
-#include "game/LiveActor.h"
+#include "game/RaylibActor.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/LiveActor/LiveActorFlag.h"
@@ -20,7 +20,7 @@ namespace game {
 Shader checkerShader;
 Mesh cubeMesh;
 
-LiveActor::LiveActor(const al::ByamlIter& data, const SceneInfo& info) : al::LiveActor("LiveActor"), mInfo(info) {
+RaylibActor::RaylibActor(const al::ByamlIter& data, const SceneInfo& info) : al::LiveActor("LiveActor"), mInfo(info) {
     mPoseKeeper = new al::ActorPoseKeeperTQGMSV();
 
     sead::Vector3f trans = {0,0,0};
@@ -46,7 +46,7 @@ LiveActor::LiveActor(const al::ByamlIter& data, const SceneInfo& info) : al::Liv
     mFlags->isDead = false;
 }
 
-LiveActor::~LiveActor() {
+RaylibActor::~RaylibActor() {
     // do not unload model completely if it is the fallback model
     if(raylibModel.meshCount != 1 || raylibModel.meshes[0].vertices != cubeMesh.vertices)
         UnloadModel(raylibModel);
@@ -67,7 +67,7 @@ LiveActor::~LiveActor() {
         delete[] collisionByml;
 }
 
-void LiveActor::initRaylibModel(const char* modelName, const al::ByamlIter& data) {
+void RaylibActor::initRaylibModel(const char* modelName, const al::ByamlIter& data) {
     std::string szsPath = nlib::util::format("res/romfs/ObjectData/%s.szs", modelName);
 
     if (!std::filesystem::exists(szsPath)) {
@@ -164,7 +164,7 @@ void LiveActor::initRaylibModel(const char* modelName, const al::ByamlIter& data
     }
 }
 
-void LiveActor::initFallbackModel() {
+void RaylibActor::initFallbackModel() {
     raylibModel = LoadModelFromMesh(cubeMesh);
     raylibModel.materials[0].maps->color = BLUE;
 }

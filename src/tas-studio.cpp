@@ -1,4 +1,4 @@
-#include "game/LiveActor.h"
+#include "game/RaylibActor.h"
 #include "game/PlayerColliderHakoniwa.h"
 #include "game/StageScene.h"
 #include "math/seadMatrix.h"

@@ -11,10 +11,10 @@ namespace game {
 extern Shader checkerShader;
 extern Mesh cubeMesh;
 
-class LiveActor : public al::LiveActor {
+class RaylibActor : public al::LiveActor {
 public:
-    LiveActor(const al::ByamlIter& data, const SceneInfo& info);
-    virtual ~LiveActor();
+    RaylibActor(const al::ByamlIter& data, const SceneInfo& info);
+    virtual ~RaylibActor();
 
     void initRaylibModel(const char* modelName, const al::ByamlIter& data);
     void initFallbackModel();
@@ -24,7 +24,7 @@ public:
         movement();
     }
 
-    static LiveActor* create(const al::ByamlIter& data, const SceneInfo& info);
+    static RaylibActor* create(const al::ByamlIter& data, const SceneInfo& info);
 
 public:
     const SceneInfo& mInfo;

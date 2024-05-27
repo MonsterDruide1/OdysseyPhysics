@@ -23,7 +23,7 @@ NERVE_MAKE(Player, Fall);
 
 }  // namespace
 
-Player::Player(const al::ByamlIter& data, const SceneInfo& info) : LiveActor(data, info) {
+Player::Player(const al::ByamlIter& data, const SceneInfo& info) : RaylibActor(data, info) {
     *mPoseKeeper->getTransPtr() += {0, 100.0f, 0};
     *mPoseKeeper->getVelocityPtr() = {0, -0.01f, 0};
     mActorDimensionKeeper = new ActorDimensionKeeper(this);
@@ -71,7 +71,7 @@ void Player::initAfterPlacement() {
 }
 
 void Player::update() {
-    LiveActor::update();
+    RaylibActor::update();
     updateCollider();
 
     if(mColliderHakoniwa->mPlayerCollider->val1 >= 0.0f) {

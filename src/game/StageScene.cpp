@@ -9,7 +9,7 @@
 namespace game {
 
 StageScene::StageScene() {
-    mActors = new LiveActor*[mActorsMax];
+    mActors = new RaylibActor*[mActorsMax];
     mCamera = new Camera();
     mPartsKeeper = new CollisionPartsKeeper();
     mInfo = {mPartsKeeper};
@@ -48,7 +48,7 @@ void StageScene::init(const char* stageName, int scenario) {
 
     for(int i=0; i<objectlist.getSize(); i++) {
         al::ByamlIter objiter = objectlist.getIterByIndex(i);
-        LiveActor* actor = new LiveActor(objiter, mInfo);
+        RaylibActor* actor = new RaylibActor(objiter, mInfo);
         addObject(actor);
         actor->initAfterPlacement();
     }

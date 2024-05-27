@@ -4,7 +4,7 @@
 #include "Player/PlayerInput.h"
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/IUseDimension.h"
-#include "game/LiveActor.h"
+#include "game/RaylibActor.h"
 
 class PlayerConst;
 class PlayerStateJump;
@@ -14,7 +14,7 @@ class PlayerStateFallHakoniwa;
 namespace game {
 class PlayerColliderHakoniwa;
 
-class Player : public LiveActor, public IUseDimension {
+class Player : public RaylibActor, public IUseDimension {
 public:
     Player(const al::ByamlIter& data, const SceneInfo& info);
     ~Player() override;

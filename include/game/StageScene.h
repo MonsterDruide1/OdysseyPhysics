@@ -1,6 +1,6 @@
 #pragma once
 
-#include "game/LiveActor.h"
+#include "game/RaylibActor.h"
 #include "game/Player.h"
 #include "game/Camera.h"
 #include <cstdio>
@@ -14,7 +14,7 @@ public:
 
     void init(const char* stageName, int scenario);
 
-    void addObject(LiveActor* actor) {
+    void addObject(RaylibActor* actor) {
         if (mActorsNum >= mActorsMax) {
             printf("Too many actors\n");
             return;
@@ -23,7 +23,7 @@ public:
     }
 
 public:
-    LiveActor** mActors;
+    RaylibActor** mActors;
     int mActorsNum = 0;
     int mActorsMax = 5120;
     Player* mPlayer;
