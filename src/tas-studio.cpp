@@ -63,18 +63,18 @@ int main() {
                     continue;
 
                 sead::Matrix34f mtx;
-                actor->mPoseKeeper->calcBaseMtx(&mtx);
+                actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
                 actor->raylibModel.transform = raylibMtx(mtx);
                 DrawModel(actor->raylibModel, {0,0,0}, SCALE, WHITE);
             }
 
             {
                 sead::Matrix34f mtx;
-                scene.mPlayer->mPoseKeeper->calcBaseMtx(&mtx);
+                scene.mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
                 scene.mPlayer->raylibModel.transform = raylibMtx(mtx);
                 DrawModel(scene.mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
 
-                scene.mPlayer->movement();
+                scene.mPlayer->mActor->movement();
             }
 
             EndMode3D();

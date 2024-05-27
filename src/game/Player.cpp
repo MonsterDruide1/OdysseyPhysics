@@ -5,9 +5,11 @@
 #include "Library/Nerve/NerveUtil.h"
 #include "Player/PlayerStateFallHakoniwa.h"
 #include "Player/PlayerTrigger.h"
+#include "game/CollisionPartsKeeper.h"
 #include "game/PlayerColliderHakoniwa.h"
 
 #include "Stuff.h"
+#include "game/RaylibActor.h"
 
 
 namespace game {
@@ -26,14 +28,15 @@ NERVE_MAKE(Player, Run);
 
 }  // namespace
 
-Player::Player(const al::ByamlIter& data, const SceneInfo& info) : RaylibActor(data, info) {
+Player::Player(const al::ByamlIter& data, CollisionPartsKeeper* keeper) : al::LiveActor("Player") {
+    RaylibActor::apply(this, data);
     *mPoseKeeper->getTransPtr() += {0, 100.0f, 0};
     *mPoseKeeper->getVelocityPtr() = {0, -0.01f, 0};
     mActorDimensionKeeper = new ActorDimensionKeeper(this);
     mPlayerConst = new PlayerConst();
     mTrigger = new PlayerTrigger();
     mCollisionDirector = new al::CollisionDirector(nullptr);
-    mCollisionDirector->setPartsKeeper(info.mPartsKeeper);
+    mCollisionDirector->setPartsKeeper(keeper);
     mColliderHakoniwa = new PlayerColliderHakoniwa(this, mPlayerConst, mCollisionDirector);
 
     mPlayerInput = new PlayerInput(this, mColliderHakoniwa, this);
@@ -73,17 +76,6 @@ void Player::initAfterPlacement() {
 
     // FIXME remove this
     al::setNerve(this, &Fall);
-}
-
-void Player::update() {
-    RaylibActor::update();
-    updateCollider();
-
-    if(mColliderHakoniwa->mPlayerCollider->val1 >= 0.0f) {
-        mPoseKeeper->getVelocityPtr()->y = std::max(0.0f, mPoseKeeper->getVelocity().y);
-    }
-    *mPoseKeeper->getVelocityPtr() -= {0, 1.5f, 0};
-    mPoseKeeper->getVelocityPtr()->y = std::max(-30.0f, mPoseKeeper->getVelocity().y);
 }
 
 void Player::updateCollider() {

@@ -12,7 +12,6 @@ StageScene::StageScene() {
     mActors = new RaylibActor*[mActorsMax];
     mCamera = new Camera();
     mPartsKeeper = new CollisionPartsKeeper();
-    mInfo = {mPartsKeeper};
 }
 
 StageScene::~StageScene()
@@ -48,9 +47,13 @@ void StageScene::init(const char* stageName, int scenario) {
 
     for(int i=0; i<objectlist.getSize(); i++) {
         al::ByamlIter objiter = objectlist.getIterByIndex(i);
-        RaylibActor* actor = new RaylibActor(objiter, mInfo);
+        al::LiveActor* liveactor = new al::LiveActor("LiveActor");
+        RaylibActor::apply(liveactor, objiter);
+        RaylibActor* actor = new RaylibActor(liveactor);
+        actor->initCollision(objiter, mPartsKeeper);
+        actor->initRaylibModel();
         addObject(actor);
-        actor->initAfterPlacement();
+        //actor->initAfterPlacement();
     }
 
     al::ByamlIter playerlist = lists.getIterByKey("PlayerList");
@@ -58,7 +61,9 @@ void StageScene::init(const char* stageName, int scenario) {
         printf("PlayerList size is not 1\n");
         return;
     }
-    mPlayer = new Player(playerlist.getIterByIndex(0), mInfo);
+    Player* player = new Player(playerlist.getIterByIndex(0), mPartsKeeper); // RaylibActor::apply done in constructor
+    mPlayer = new RaylibActor(player);
+    mPlayer->initRaylibModel();
     mPlayer->initAfterPlacement();
     mPlayer->raylibModel.materials[0].maps->color = RED;
 }

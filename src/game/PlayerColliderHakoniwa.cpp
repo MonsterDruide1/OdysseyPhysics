@@ -5,7 +5,7 @@
 namespace game {
 void helperFunc(CollisionShapeKeeper* keeper, const sead::Vector3f& pos);
 
-PlayerColliderHakoniwa::PlayerColliderHakoniwa(RaylibActor* actor, const PlayerConst* c, al::CollisionDirector* collisionDirector) : mPlayer(actor), mPlayerConst(c) {
+PlayerColliderHakoniwa::PlayerColliderHakoniwa(al::LiveActor* actor, const PlayerConst* c, al::CollisionDirector* collisionDirector) : mPlayer(actor), mPlayerConst(c) {
     mPlayerCollider = new PlayerCollider(collisionDirector, actor->mPoseKeeper->getMtxPtr(), actor->mPoseKeeper->getTransPtr(), actor->mPoseKeeper->getGravityPtr(), false);
     mShapeKeeperNormal = new CollisionShapeKeeper(5, 64, 32);
 

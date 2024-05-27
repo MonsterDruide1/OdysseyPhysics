@@ -26,11 +26,9 @@ public:
     RaylibActor** mActors;
     int mActorsNum = 0;
     int mActorsMax = 5120;
-    Player* mPlayer;
+    RaylibActor* mPlayer;
     Camera* mCamera;
     CollisionPartsKeeper* mPartsKeeper;
-
-    SceneInfo mInfo;
 };
 
 }

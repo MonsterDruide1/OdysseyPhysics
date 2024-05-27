@@ -15,15 +15,14 @@ class PlayerStateFallHakoniwa;
 namespace game {
 class PlayerColliderHakoniwa;
 
-class Player : public RaylibActor, public IUseDimension {
+class Player : public al::LiveActor, public IUseDimension {
 public:
-    Player(const al::ByamlIter& data, const SceneInfo& info);
-    ~Player() override;
+    Player(const al::ByamlIter& data, CollisionPartsKeeper* keeper);
+    ~Player();
 
     ActorDimensionKeeper* getActorDimensionKeeper() const override {return mActorDimensionKeeper;}
 
     void initAfterPlacement() override;
-    void update() override;
     void updateCollider() override;
 
     void setNerveOnGround();

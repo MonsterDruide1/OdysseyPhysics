@@ -3,7 +3,7 @@
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/LiveActor.h"
 #include "Library/Yaml/ByamlIter.h"
-#include "game/SceneInfo.h"
+#include "game/CollisionPartsKeeper.h"
 #include "raylib.h"
 
 namespace game {
@@ -11,24 +11,26 @@ namespace game {
 extern Shader checkerShader;
 extern Mesh cubeMesh;
 
-class RaylibActor : public al::LiveActor {
+class RaylibActor {
 public:
-    RaylibActor(const al::ByamlIter& data, const SceneInfo& info);
+    RaylibActor(al::LiveActor*);
     virtual ~RaylibActor();
 
-    void initRaylibModel(const char* modelName, const al::ByamlIter& data);
+    void initCollision(const al::ByamlIter& data, CollisionPartsKeeper* keeper);
+    void initRaylibModel();
     void initFallbackModel();
 
-    virtual void initAfterPlacement() {}
+    virtual void initAfterPlacement() {
+        mActor->initAfterPlacement();
+    }
     virtual void update() {
-        movement();
+        mActor->movement();
     }
 
-    static RaylibActor* create(const al::ByamlIter& data, const SceneInfo& info);
+    static void apply(al::LiveActor*, const al::ByamlIter& data);
 
 public:
-    const SceneInfo& mInfo;
-    al::CollisionParts* mCollisionParts = nullptr;
+    al::LiveActor* mActor;
 
     u8* kclData = nullptr;
     u8* collisionByml = nullptr;

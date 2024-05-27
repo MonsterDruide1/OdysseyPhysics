@@ -10,7 +10,7 @@ namespace game {
 
 class PlayerColliderHakoniwa : public IUsePlayerCollision {
 public:
-    PlayerColliderHakoniwa(RaylibActor* actor, const PlayerConst* c, al::CollisionDirector* collisionDirector);
+    PlayerColliderHakoniwa(al::LiveActor* actor, const PlayerConst* c, al::CollisionDirector* collisionDirector);
     ~PlayerColliderHakoniwa();
 
     sead::Vector3f updateCollider(const sead::Vector3f&);
@@ -18,7 +18,7 @@ public:
     virtual ::PlayerCollider* getPlayerCollider() const { return (::PlayerCollider*)mPlayerCollider; }
 
 public:
-    RaylibActor* mPlayer;
+    al::LiveActor* mPlayer;
     const PlayerConst* mPlayerConst;
     PlayerCollider* mPlayerCollider;
     CollisionShapeKeeper* mShapeKeeperNormal;
