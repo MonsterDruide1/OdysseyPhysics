@@ -3,10 +3,11 @@
 
 #include "Library/Nerve/NerveSetupUtil.h"
 #include "Library/Nerve/NerveUtil.h"
+#include "Player/PlayerCollider.h"
 #include "Player/PlayerStateFallHakoniwa.h"
 #include "Player/PlayerTrigger.h"
-#include "game/CollisionPartsKeeper.h"
-#include "game/PlayerColliderHakoniwa.h"
+#include "CUSTOM/CollisionPartsKeeper.h"
+#include "CUSTOM/PlayerColliderHakoniwa.h"
 
 #include "Stuff.h"
 #include "game/RaylibActor.h"
@@ -37,7 +38,7 @@ Player::Player(const al::ByamlIter& data, CollisionPartsKeeper* keeper) : al::Li
     mTrigger = new PlayerTrigger();
     mCollisionDirector = new al::CollisionDirector(nullptr);
     mCollisionDirector->setPartsKeeper(keeper);
-    mColliderHakoniwa = new PlayerColliderHakoniwa(this, mPlayerConst, mCollisionDirector);
+    mColliderHakoniwa = new PlayerColliderHakoniwa(this, mPlayerConst);
 
     mPlayerInput = new PlayerInput(this, mColliderHakoniwa, this);
     // FIXME replace nullptrs with actual objects

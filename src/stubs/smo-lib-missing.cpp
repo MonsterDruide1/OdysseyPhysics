@@ -1,3 +1,4 @@
+#include <cstdio>
 #include "basis/seadRawPrint.h"
 #include "controller/nin/seadNinJoyNpadDevice.h"
 #include "framework/seadCalculateTask.h"
@@ -72,7 +73,7 @@ void sead::system::Print(const char *format, ...) {CRASH}
 
 sead::ExpHeap* sead::ExpHeap::tryCreate(void* address, size_t size, const sead::SafeString& name, bool) {CRASH}
 
-s32 sead::StringUtil::vsnprintf(char *s, size_t n, const char *format, va_list arg) {CRASH}
+s32 sead::StringUtil::vsnprintf(char *s, size_t n, const char *format, va_list arg) {return std::vsnprintf(s, n, format, arg);}
 s32 sead::StringUtil::vsnw16printf(char16 *s, size_t n, const char16 *format, va_list arg) {CRASH}
 
 void sead::CalculateTask::pauseCalc(bool) {CRASH}

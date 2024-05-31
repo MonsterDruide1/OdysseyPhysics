@@ -1,7 +1,9 @@
-#include "game/PlayerCollider.h"
+#include "Player/PlayerCollider.h"
 #include <typeinfo>
 #include "../stubs/missing.h"
 #include "Library/Collision/KTriangle.h"
+#include "Player/CollisionShapeKeeper.h"
+#include "Player/PlayerCollider.h"
 #include "Stuff.h"
 #include "math/seadMathCalcCommon.h"
 #include "math/seadMatrix.h"
@@ -10,8 +12,7 @@
 #include "Library/Math/MathUtil.h"
 #include "Library/Math/MathLengthUtil.h"
 #include "math/seadVectorFwd.h"
-
-namespace game {
+#include "CUSTOM/CollisionMultiShape.h"
 
 PlayerCollider::~PlayerCollider(){
   delete info1;
@@ -111,7 +112,7 @@ PlayerCollider::PlayerCollider(al::CollisionDirector *a2,sead::Matrix34f const*a
   a1->unk10.y = 1.0;
   a1->unk11 = 70.0;
 
-  a1->mCollisionMultiShape = new CollisionMultiShapeSimple(this, a6 ? 256 : 128);
+  a1->mCollisionMultiShape = new CollisionMultiShape(this, a6 ? 256 : 128);
   a1->someHitInfos = new al::HitInfo[64];
   a1->ptrArraysChangeMe[0].allocBuffer(64, nullptr);
   a1->ptrArraysChangeMe[1].allocBuffer(64, nullptr);
@@ -2300,6 +2301,4 @@ void PlayerCollider::calcBoundingCenter(sead::Vector3f *) const { CRASH }
 void PlayerCollider::validateCorrectMovePartsCheck() const { CRASH }
 al::CollisionDirector* PlayerCollider::getCollisionDirector() const { 
     return mCollisionDirector;
-}
-
 }

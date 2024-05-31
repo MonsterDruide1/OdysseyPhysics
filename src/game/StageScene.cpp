@@ -1,10 +1,15 @@
 #include "game/StageScene.h"
+#include "Library/LiveActor/ActorInitInfo.h"
+#include "Library/Placement/PlacementInfo.h"
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
+#include "Player/PlayerActorHakoniwa.h"
+#include "CUSTOM/PlayerColliderHakoniwa.h"
 #include "nlib/util.h"
 #include "oead/sarc.h"
 #include "oead/yaz0.h"
 #include <filesystem>
+#include "PlayerUtil.h"
 
 namespace game {
 
@@ -61,7 +66,19 @@ void StageScene::init(const char* stageName, int scenario) {
         printf("PlayerList size is not 1\n");
         return;
     }
-    Player* player = new Player(playerlist.getIterByIndex(0), mPartsKeeper); // RaylibActor::apply done in constructor
+    al::CollisionDirector* collDirector = new al::CollisionDirector(nullptr);
+    collDirector->setPartsKeeper(mPartsKeeper);
+    PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
+    al::PlacementInfo* placementInfo = new al::PlacementInfo();
+    placementInfo->set(playerlist.getIterByIndex(0), al::ByamlIter());
+    al::ActorInitInfo actorInfo = {};
+    actorInfo.initNew(placementInfo, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, collDirector, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+    al::ActorSceneInfo* sceneInfo = new al::ActorSceneInfo(); // allocate on heap to ensure persistence
+    memcpy(sceneInfo, &actorInfo.mActorSceneInfo, sizeof(al::ActorSceneInfo));
+    player->initSceneInfo(sceneInfo);
+    player->initPlayer(actorInfo, {});
+    RaylibActor::apply(player, playerlist.getIterByIndex(0));
+    player->mPlayerColliderHakoniwa = reinterpret_cast<::PlayerColliderHakoniwa*>(new game::PlayerColliderHakoniwa(player, player->mPlayerConst));
     mPlayer = new RaylibActor(player);
     mPlayer->initRaylibModel();
     mPlayer->initAfterPlacement();

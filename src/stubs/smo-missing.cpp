@@ -3,6 +3,7 @@
 #include "Library/Collision/Collider.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/CollisionUtil.h"
+#include "Library/Controller/InputFunction.h"
 #include "Library/Effect/EffectKeeper.h"
 #include "Library/HitSensor/HitSensorKeeper.h"
 #include "Library/HitSensor/SensorFunction.h"
@@ -99,3 +100,5 @@ void al::syncCollisionMtx(al::LiveActor*, sead::Matrix34<float> const*) {CRASH}
 void al::resetAllCollisionMtx(al::LiveActor*) {CRASH}
 
 void al::Collider::onInvalidate() {CRASH}
+
+void al::calcTouchScreenPos(sead::Vector2f *) {CRASH}

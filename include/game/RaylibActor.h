@@ -3,7 +3,7 @@
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/LiveActor.h"
 #include "Library/Yaml/ByamlIter.h"
-#include "game/CollisionPartsKeeper.h"
+#include "CUSTOM/CollisionPartsKeeper.h"
 #include "raylib.h"
 
 namespace game {

@@ -1,4 +1,4 @@
-#include "game/CollisionMultiShapeSimple.h"
+#include "CUSTOM/CollisionMultiShape.h"
 #include <typeinfo>
 #include "Library/Collision/CollisionCheckInfo.h"
 #include "Library/Collision/CollisionParts.h"
@@ -9,12 +9,12 @@
 #include "Player/CollisionShapeKeeper.h"
 #include "Library/Collision/CollisionUtil.h"
 #include "Util/CollisionShapeFunction.h"
-#include "game/CollisionPartsKeeper.h"
+#include "CUSTOM/CollisionPartsKeeper.h"
 #include "../stubs/missing.h"
 
 namespace game {
 
-bool CollisionMultiShapeSimple::check(CollisionShapeKeeper* keeper, const sead::Matrix34f* mtx,
+bool CollisionMultiShape::check(CollisionShapeKeeper* keeper, const sead::Matrix34f* mtx,
                                       float val, const sead::Vector3f& vec,
                                       const al::CollisionPartsFilterBase*) {
     mCollisionShapeKeeper = keeper;
@@ -24,7 +24,7 @@ bool CollisionMultiShapeSimple::check(CollisionShapeKeeper* keeper, const sead::
     al::SphereCheckInfo info = {mCheckPos, keeper->mBoundingRadius};
     mCheckPos.setMul(*mtx, keeper->mBoundingCenter);
 
-    sead::Delegate1<CollisionMultiShapeSimple, al::CollisionParts*> delegate(this, &CollisionMultiShapeSimple::callbackFromParts);
+    sead::Delegate1<CollisionMultiShape, al::CollisionParts*> delegate(this, &CollisionMultiShape::callbackFromParts);
     mPartsKeeper->searchWithSphere(info, delegate);
     printf("CollisionMultiShapeSimple::check((%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f), %.02f, (%.02f,%.02f,%.02f)) => %d\n",
            mtx->m[0][0], mtx->m[0][1], mtx->m[0][2], mtx->m[0][3],
@@ -34,7 +34,7 @@ bool CollisionMultiShapeSimple::check(CollisionShapeKeeper* keeper, const sead::
     return mCollisionShapeKeeper->mNumCollideResult > 0;
 }
 
-void sub_71003F78A8(al::KCollisionServer* server, const CollisionShapeInfoBase* shape, al::CollisionParts* parts, const sead::Vector3f& vec, sead::Delegate2<CollisionMultiShapeSimple, const al::KCPrismData*, const al::KCPrismHeader*>& delegate) {
+void sub_71003F78A8(al::KCollisionServer* server, const CollisionShapeInfoBase* shape, al::CollisionParts* parts, const sead::Vector3f& vec, sead::Delegate2<CollisionMultiShape, const al::KCPrismData*, const al::KCPrismHeader*>& delegate) {
     if(CollisionShapeFunction::isShapeArrow(shape)) {
         const CollisionShapeInfoArrow* arrow = CollisionShapeFunction::getShapeInfoArrow(shape);
         sead::Vector3f v28 = arrow->vec5 + vec;
@@ -52,7 +52,7 @@ void sub_71003F78A8(al::KCollisionServer* server, const CollisionShapeInfoBase* 
     }
 }
 
-void CollisionMultiShapeSimple::callbackFromParts(al::CollisionParts* parts) {
+void CollisionMultiShape::callbackFromParts(al::CollisionParts* parts) {
   CollisionShapeKeeper *mCollisionShapeKeeper; // x0
   CollisionShapeKeeper *v5; // x0
   int mPtrNum; // w27
@@ -167,7 +167,7 @@ void CollisionMultiShapeSimple::callbackFromParts(al::CollisionParts* parts) {
 LABEL_17:
       if ( (v13 & 1) == 0 )
       {
-        sead::Delegate2<CollisionMultiShapeSimple, const al::KCPrismData*, const al::KCPrismHeader*> delegate(this, &CollisionMultiShapeSimple::callbackFromServer);
+        sead::Delegate2<CollisionMultiShape, const al::KCPrismData*, const al::KCPrismHeader*> delegate(this, &CollisionMultiShape::callbackFromServer);
         sub_71003F78A8(
           parts->mKCollisionServer,
           v9,
@@ -200,7 +200,7 @@ LABEL_14:
   }
 }
 
-void CollisionMultiShapeSimple::callbackFromServer(al::KCPrismData const* data,al::KCPrismHeader const* header) {
+void CollisionMultiShape::callbackFromServer(al::KCPrismData const* data,al::KCPrismHeader const* header) {
     if(mCollisionShapeKeeper->isShapeArrow(mCurrentShapeIndex)) {
       const CollisionShapeInfoArrow* arrow = mCollisionShapeKeeper->getShapeInfoArrow(mCurrentShapeIndex);
       al::ArrowHitInfo info = {};
@@ -272,4 +272,4 @@ void CollisionMultiShapeSimple::callbackFromServer(al::KCPrismData const* data,a
     else { CRASH }
 }
 
-}  // namespace game
+}

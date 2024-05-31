@@ -1,12 +1,16 @@
-#include "game/PlayerColliderHakoniwa.h"
+#include "CUSTOM/PlayerColliderHakoniwa.h"
 #include "Library/Collision/CollisionDirector.h"
 #include "../stubs/missing.h"
+#include "Library/LiveActor/ActorPoseKeeper.h"
+#include "Library/LiveActor/LiveActor.h"
+#include "Player/CollisionShapeKeeper.h"
+#include "Player/PlayerCollider.h"
 
 namespace game {
 void helperFunc(CollisionShapeKeeper* keeper, const sead::Vector3f& pos);
 
-PlayerColliderHakoniwa::PlayerColliderHakoniwa(al::LiveActor* actor, const PlayerConst* c, al::CollisionDirector* collisionDirector) : mPlayer(actor), mPlayerConst(c) {
-    mPlayerCollider = new PlayerCollider(collisionDirector, actor->mPoseKeeper->getMtxPtr(), actor->mPoseKeeper->getTransPtr(), actor->mPoseKeeper->getGravityPtr(), false);
+PlayerColliderHakoniwa::PlayerColliderHakoniwa(al::LiveActor* actor, const PlayerConst* c) : mPlayer(actor), mPlayerConst(c) {
+    mPlayerCollider = new PlayerCollider(actor->getCollisionDirector(), actor->mPoseKeeper->getMtxPtr(), actor->mPoseKeeper->getTransPtr(), actor->mPoseKeeper->getGravityPtr(), false);
     mShapeKeeperNormal = new CollisionShapeKeeper(5, 64, 32);
 
     mShapeKeeperNormal->unk3 = 25.0f;
@@ -23,6 +27,7 @@ PlayerColliderHakoniwa::~PlayerColliderHakoniwa() {
     delete mPlayerCollider;
     delete mShapeKeeperNormal;
 }
+void PlayerColliderHakoniwa::init() {}
 
 sead::Vector3f PlayerColliderHakoniwa::updateCollider(const sead::Vector3f& pos) {
     return mPlayerCollider->collide(pos);
