@@ -16,6 +16,7 @@
 #include "Library/LiveActor/SubActorKeeper.h"
 #include "Library/Math/MathAngleUtil.h"
 #include "Library/Math/MathLengthUtil.h"
+#include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
 #include "Library/Model/ModelCtrl.h"
 #include "Library/Model/ModelKeeper.h"
@@ -29,6 +30,7 @@
 #include "Player/PlayerActorBase.h"
 #include "Player/PlayerCostumeInfo.h"
 #include "Player/PlayerFunction.h"
+#include "Player/PlayerInput.h"
 #include "PlayerUtil.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
@@ -146,7 +148,7 @@ PlayerJudgeSpeedCheckFall::PlayerJudgeSpeedCheckFall(al::LiveActor const*, IUseP
 PlayerJudgeStartRun::PlayerJudgeStartRun(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerCounterForceRun const*, IJudge const*) { WARN_UNIMPL; }
 PlayerStateWait::PlayerStateWait(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerModelChangerHakoniwa const*, PlayerJointControlKeeper const*, al::WaterSurfaceFinder const*, IUsePlayerHeightCheck const*, IJudge const*, PlayerAnimator*, PlayerTrigger*, PlayerCapManHeroEyesControl*, PlayerJointParamCenterDynamics*, PlayerJointParamGroundPose*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateSandSink::PlayerStateSandSink(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, IUsePlayerCollision*, PlayerAnimator*, IJudge*, PlayerJudgePreInputJump*) : al::NerveStateBase("") { WARN_UNIMPL; }
-ActorStateSandGeyser::ActorStateSandGeyser(al::LiveActor*) : al::NerveStateBase("") { WARN_UNIMPL; }
+ActorStateSandGeyser::ActorStateSandGeyser(al::LiveActor* act) : al::ActorStateBase("砂の間欠泉", act) { WARN_UNIMPL; }
 PlayerStateSpinCap::PlayerStateSpinCap(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerCounterForceRun const*, al::WaterSurfaceFinder const*, IUsePlayerCollision const*, PlayerTrigger*, PlayerSpinCapAttack*, PlayerAnimator*, PlayerJointParamCapThrow*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateSquat::PlayerStateSquat(al::LiveActor*, PlayerConst const*, PlayerAnimator*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerTrigger const*, IJudge*, IJudge*, IJudge*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateRunHakoniwa2D3D::PlayerStateRunHakoniwa2D3D(al::LiveActor*, PlayerConst const*, IUseDimension const*, PlayerInput const*, IUsePlayerCollision const*, al::WaterSurfaceFinder const*, PlayerCounterForceRun const*, PlayerCounterQuickTurnJump const*, PlayerTrigger*, PlayerAnimator*, PlayerEffect*, PlayerJointParamCenterDynamics*, bool) : al::NerveStateBase("") { WARN_UNIMPL; }
@@ -297,7 +299,39 @@ bool PlayerCarryKeeper::isThrowRelease() { WARN_UNIMPL;return false;}
 f32 PlayerActionFunction::calcJumpSpeed(float, float, float, float, float) { WARN_UNIMPL;return 0;}
 void PlayerJointControlKeeper::calcGroundPoseUp(sead::Vector3<float>*) const { WARN_UNIMPL; }
 void rs::noticePlayerJumpStart(PlayerTrigger*, al::LiveActor const*) { WARN_UNIMPL; }
-
+bool HackCap::isNoPutOnHide() { WARN_UNIMPL;return false; }
+void PlayerInput::update() { WARN_UNIMPL; }
+bool rs::isPlayerDamageStopDemo(al::LiveActor const*) { WARN_UNIMPL;return false; }
+void PlayerExternalVelocity::update() { WARN_UNIMPL; }
+bool PlayerEquipmentFunction::tryGetEquipmentForceDashInfo(int*, float*, PlayerEquipmentUser const*) { WARN_UNIMPL;return false; }
+void PlayerAnimator::updateAnimFrame() { WARN_UNIMPL; }
+void PlayerEyeSensorHitHolder::clear() { WARN_UNIMPL; }
+void PlayerHitPush::clearHitFlag() { WARN_UNIMPL; }
+bool PlayerStateHack::isEnableModelSyncShowHide() { WARN_UNIMPL;return false; }
+void PlayerModelChangerHakoniwa::syncHost(bool) { WARN_UNIMPL; }
+f32 PlayerAnimator::getModelAlpha() { WARN_UNIMPL;return 1.0f; }
+void PlayerRecoverySafetyPoint::updateRecoveryBubble() { WARN_UNIMPL; }
+void PlayerPushReceiver::clear() { WARN_UNIMPL; }
+void PlayerCapActionHistory::update() { WARN_UNIMPL; }
+void PlayerCounterAfterUpperPunch::update(PlayerTrigger const*) { WARN_UNIMPL; }
+void PlayerCounterForceRun::update() { WARN_UNIMPL; }
+void PlayerCounterIceWater::clearIceWaterCount() { WARN_UNIMPL; }
+void PlayerCounterIceWater::updateCount(bool, bool) { WARN_UNIMPL; }
+void PlayerCounterQuickTurnJump::update() { WARN_UNIMPL; }
+void PlayerRippleGenerator::reset() { WARN_UNIMPL; }
+void PlayerWallActionHistory::update(IUsePlayerCollision const*) { WARN_UNIMPL; }
+void PlayerContinuousJump::update(bool) { WARN_UNIMPL; }
+bool PlayerStateRolling::isRollingJump() { WARN_UNIMPL;return false; }
+void PlayerContinuousLongJump::update() { WARN_UNIMPL; }
+bool PlayerStateWait::tryClearIgnoreSwitchOnAreaAnim() { WARN_UNIMPL;return false; }
+bool PlayerFunction::isPlayerDeadStatus(al::LiveActor const*) { WARN_UNIMPL;return false; }
+bool rs::isKidsMode(al::LiveActor const*) { WARN_UNIMPL;return false; }
+bool al::isPlayingEntranceCamera(al::IUseCamera const*, int) { WARN_UNIMPL;return false; }
+void PlayerJudgeWallCatchInputDir::updateWallCatchEnviroment() { WARN_UNIMPL; }
+void PlayerSeCtrl::update() { WARN_UNIMPL; }
+void HackCap::updateSeparateMode(PlayerSeparateCapFlag const*) { WARN_UNIMPL; }
+void game::PlayerColliderHakoniwa::calcSeparateCapLocalOffset(sead::Vector3<float>*) { WARN_UNIMPL; }
+void al::lerpVec(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) { WARN_UNIMPL; }
 
 // might be fine to ignore, better replace with proper implementation though
 void al::tryReplaceString(sead::BufferedSafeStringBase<char>* result, char const* in, char const* search, char const* replace) {
