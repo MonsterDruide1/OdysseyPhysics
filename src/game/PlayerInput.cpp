@@ -21,5 +21,6 @@ sead::Vector2f PlayerInputFunction::getMoveInputStick(const al::LiveActor*, int,
 
 sead::Matrix34f* PlayerFunction::getPlayerViewMtx(const al::LiveActor* actor) {
     //TODO
+    WARN_UNIMPL;
     return const_cast<sead::Matrix34f*>(&sead::Matrix34f::ident);
 }

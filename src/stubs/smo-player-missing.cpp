@@ -331,7 +331,6 @@ void PlayerJudgeWallCatchInputDir::updateWallCatchEnviroment() { WARN_UNIMPL; }
 void PlayerSeCtrl::update() { WARN_UNIMPL; }
 void HackCap::updateSeparateMode(PlayerSeparateCapFlag const*) { WARN_UNIMPL; }
 void game::PlayerColliderHakoniwa::calcSeparateCapLocalOffset(sead::Vector3<float>*) { WARN_UNIMPL; }
-void al::lerpVec(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) { WARN_UNIMPL; }
 void PlayerBindKeeper::clearBindableSensor() { WARN_UNIMPL; }
 bool PlayerBindKeeper::sendStartMsg() { WARN_UNIMPL;return false; }
 bool rs::isPressedCollision(IUsePlayerCollision const*) { WARN_UNIMPL;return false; }
