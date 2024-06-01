@@ -31,6 +31,7 @@
 #include "Player/PlayerCostumeInfo.h"
 #include "Player/PlayerFunction.h"
 #include "Player/PlayerInput.h"
+#include "Player/PlayerTrigger.h"
 #include "PlayerUtil.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
@@ -296,7 +297,6 @@ void PlayerDamageKeeper::update(IPlayerModelChanger*, bool, bool) { WARN_UNIMPL;
 al::AreaObj* al::tryFindAreaObj(al::IUseAreaObj const*, char const*, sead::Vector3<float> const&) { WARN_UNIMPL;return nullptr;}
 al::AreaObjGroup* al::tryFindAreaObjGroup(al::IUseAreaObj const*, char const*) { WARN_UNIMPL;return nullptr;}
 bool PlayerCarryKeeper::isThrowRelease() { WARN_UNIMPL;return false;}
-f32 PlayerActionFunction::calcJumpSpeed(float, float, float, float, float) { WARN_UNIMPL;return 0;}
 void PlayerJointControlKeeper::calcGroundPoseUp(sead::Vector3<float>*) const { WARN_UNIMPL; }
 void rs::noticePlayerJumpStart(PlayerTrigger*, al::LiveActor const*) { WARN_UNIMPL; }
 bool HackCap::isNoPutOnHide() { WARN_UNIMPL;return false; }
@@ -332,6 +332,14 @@ void PlayerSeCtrl::update() { WARN_UNIMPL; }
 void HackCap::updateSeparateMode(PlayerSeparateCapFlag const*) { WARN_UNIMPL; }
 void game::PlayerColliderHakoniwa::calcSeparateCapLocalOffset(sead::Vector3<float>*) { WARN_UNIMPL; }
 void al::lerpVec(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) { WARN_UNIMPL; }
+void PlayerBindKeeper::clearBindableSensor() { WARN_UNIMPL; }
+bool PlayerBindKeeper::sendStartMsg() { WARN_UNIMPL;return false; }
+bool rs::isPressedCollision(IUsePlayerCollision const*) { WARN_UNIMPL;return false; }
+bool PlayerSandSinkAffect::isSinkDeathHeight() { WARN_UNIMPL;return false; }
+bool rs::isActiveDemo(al::LiveActor const*) { WARN_UNIMPL;return false; }
+bool HackCap::sendMsgStartHack(al::HitSensor*) { WARN_UNIMPL;return false; }
+bool PlayerTrigger::isOnAnyDamage() const { WARN_UNIMPL;return false; }
+bool rs::isTouchJumpCode(al::LiveActor const*, IUsePlayerCollision const*) { WARN_UNIMPL;return false; }
 
 // might be fine to ignore, better replace with proper implementation though
 void al::tryReplaceString(sead::BufferedSafeStringBase<char>* result, char const* in, char const* search, char const* replace) {
