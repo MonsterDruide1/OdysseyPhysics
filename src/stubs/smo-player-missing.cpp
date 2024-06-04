@@ -3,6 +3,7 @@
 #include "Library/Anim/AnimPlayerSkl.h"
 #include "Library/Area/AreaObjDirector.h"
 #include "Library/Base/String.h"
+#include "Library/Controller/JoyPadAccelPoseAnalyzer.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
 #include "Library/LiveActor/ActorActionFunction.h"
 #include "Library/LiveActor/ActorClippingFunction.h"
@@ -22,8 +23,10 @@
 #include "Library/Model/ModelKeeper.h"
 #include "Library/Nerve/NerveStateBase.h"
 #include "Library/Placement/PlacementFunction.h"
+#include "Library/Player/PlayerHolder.h"
 #include "Library/Scene/SceneUtil.h"
 #include "Library/Thread/FunctorV0M.h"
+#include "Library/stuff.h"
 #include "Player/HackCap.h"
 #include "Player/Player.h"
 #include "Player/PlayerActionFunction.h"
@@ -31,6 +34,7 @@
 #include "Player/PlayerCostumeInfo.h"
 #include "Player/PlayerFunction.h"
 #include "Player/PlayerInput.h"
+#include "Player/PlayerInputFunction.h"
 #include "Player/PlayerTrigger.h"
 #include "PlayerUtil.h"
 #include "Project/Action/ActionAnimCtrl.h"
@@ -39,6 +43,7 @@
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/Sensor.h"
 #include "CUSTOM/PlayerColliderHakoniwa.h"
+#include "Stuff.h"
 #include "missing.h"
 #include "playerUtil.h"
 
@@ -85,7 +90,6 @@ al::WaterSurfaceFinder::WaterSurfaceFinder(al::LiveActor const*) { WARN_UNIMPL; 
 WorldEndBorderKeeper::WorldEndBorderKeeper(al::LiveActor const*) { WARN_UNIMPL; }
 PlayerWallActionHistory::PlayerWallActionHistory() { WARN_UNIMPL; }
 PlayerCounterAfterUpperPunch::PlayerCounterAfterUpperPunch() { WARN_UNIMPL; }
-PlayerCounterForceRun::PlayerCounterForceRun() { WARN_UNIMPL; }
 PlayerCounterQuickTurnJump::PlayerCounterQuickTurnJump(PlayerConst const*, PlayerTrigger const*) { WARN_UNIMPL; }
 PlayerJumpMessageRequest::PlayerJumpMessageRequest() { WARN_UNIMPL; }
 PlayerSandSinkAffect::PlayerSandSinkAffect(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision*, PlayerEffect*) { WARN_UNIMPL; }
@@ -300,7 +304,6 @@ bool PlayerCarryKeeper::isThrowRelease() { WARN_UNIMPL;return false;}
 void PlayerJointControlKeeper::calcGroundPoseUp(sead::Vector3<float>*) const { WARN_UNIMPL; }
 void rs::noticePlayerJumpStart(PlayerTrigger*, al::LiveActor const*) { WARN_UNIMPL; }
 bool HackCap::isNoPutOnHide() { WARN_UNIMPL;return false; }
-void PlayerInput::update() { WARN_UNIMPL; }
 bool rs::isPlayerDamageStopDemo(al::LiveActor const*) { WARN_UNIMPL;return false; }
 void PlayerExternalVelocity::update() { WARN_UNIMPL; }
 bool PlayerEquipmentFunction::tryGetEquipmentForceDashInfo(int*, float*, PlayerEquipmentUser const*) { WARN_UNIMPL;return false; }
@@ -314,7 +317,6 @@ void PlayerRecoverySafetyPoint::updateRecoveryBubble() { WARN_UNIMPL; }
 void PlayerPushReceiver::clear() { WARN_UNIMPL; }
 void PlayerCapActionHistory::update() { WARN_UNIMPL; }
 void PlayerCounterAfterUpperPunch::update(PlayerTrigger const*) { WARN_UNIMPL; }
-void PlayerCounterForceRun::update() { WARN_UNIMPL; }
 void PlayerCounterIceWater::clearIceWaterCount() { WARN_UNIMPL; }
 void PlayerCounterIceWater::updateCount(bool, bool) { WARN_UNIMPL; }
 void PlayerCounterQuickTurnJump::update() { WARN_UNIMPL; }
@@ -339,6 +341,23 @@ bool rs::isActiveDemo(al::LiveActor const*) { WARN_UNIMPL;return false; }
 bool HackCap::sendMsgStartHack(al::HitSensor*) { WARN_UNIMPL;return false; }
 bool PlayerTrigger::isOnAnyDamage() const { WARN_UNIMPL;return false; }
 bool rs::isTouchJumpCode(al::LiveActor const*, IUsePlayerCollision const*) { WARN_UNIMPL;return false; }
+void PlayerInput::updateWallAlong() { WARN_UNIMPL; }
+bool rs::tryFindSnapMoveAreaDir(sead::Vector3<float>*, al::LiveActor const*, IUsePlayerCollision const*) { WARN_UNIMPL;return false; }
+void PlayerInput::updateInput3D() { WARN_UNIMPL; }
+void PlayerInput::updateInput2D() { WARN_UNIMPL; }
+void al::normalize(sead::Vector2<float>*, sead::Vector2<float> const&) { WARN_UNIMPL; }
+f32 al::calcAngleDegree(sead::Vector2<float> const&, sead::Vector2<float> const&) { WARN_UNIMPL;return 0.0f; }
+al::PadRumbleKeeper* al::getPlayerPadRumbleKeeper(al::LiveActor const*, int) { WARN_UNIMPL;int val; return (al::PadRumbleKeeper*)&val; }
+void al::JoyPadAccelPoseAnalyzer::update() { WARN_UNIMPL; }
+bool al::isInAreaObj(al::IUseAreaObj const*, char const*) { WARN_UNIMPL;return false; }
+bool PlayerInputFunction::isTriggerCameraReset(al::LiveActor const*, int) { WARN_UNIMPL;return false; }
+bool PlayerStateRunHakoniwa2D3D::isSpinClockwise() { WARN_UNIMPL;return false; }
+bool PlayerStateRunHakoniwa2D3D::isRunWaterSurface() { WARN_UNIMPL;return false; }
+bool PlayerStateRunHakoniwa2D3D::isGroundSpin() { WARN_UNIMPL;return false; }
+bool PlayerStateRunHakoniwa2D3D::isRunDashFast() { WARN_UNIMPL;return false; }
+bool PlayerStateRunHakoniwa2D3D::isBrake2D() { WARN_UNIMPL;return false; }
+bool PlayerStateRunHakoniwa2D3D::tryTurnJump(IJudge*, sead::Vector3<float>*) { WARN_UNIMPL;return false; }
+void rs::resetCollisionPose(const IUsePlayerCollision *, const sead::Quat<float> &) { WARN_UNIMPL; }
 
 // might be fine to ignore, better replace with proper implementation though
 void al::tryReplaceString(sead::BufferedSafeStringBase<char>* result, char const* in, char const* search, char const* replace) {
