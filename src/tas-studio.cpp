@@ -10,6 +10,7 @@
 #include "raymath.h"
 #include "rcamera.h"
 #include "stubs/missing.h"
+#include "stubs/seadInterface.h"
 #include "types.h"
 #include "ui/RaylibUtil.h"
 #include <filesystem>
@@ -28,59 +29,67 @@ int main() {
 
     game::checkerShader = LoadShader("res/shaders/normal.vs", "res/shaders/normal.fs");
     game::cubeMesh = GenMeshCube(50, 50, 50);
-    game::StageScene scene{};
-    //scene.init("SandWorldSlotStageMap", 0);
-    scene.init("SandWorldMeganeExStageMap", 0);
+    initializeSead();
+    {
+        // context of sead
 
-    Camera3D cam = {0};
-    cam.position = raylibVec(scene.mCamera->position() * SCALE);
-    cam.target = raylibVec(scene.mCamera->lookAtPos * SCALE);
-    printf("Camera up: %f %f %f\n", scene.mCamera->up().x, scene.mCamera->up().y, scene.mCamera->up().z);
-    cam.up = raylibVec(scene.mCamera->up());
-    cam.fovy = 45;
-    cam.projection = CAMERA_PERSPECTIVE;
+        
+        game::StageScene scene{};
+        //scene.init("SandWorldSlotStageMap", 0);
+        scene.init("SandWorldMeganeExStageMap", 0);
 
-    int cameraDirLoc = GetShaderLocation(game::checkerShader, "cameraDirection");
-    while (!WindowShouldClose()) {
+        Camera3D cam = {0};
+        cam.position = raylibVec(scene.mCamera->position() * SCALE);
+        cam.target = raylibVec(scene.mCamera->lookAtPos * SCALE);
+        printf("Camera up: %f %f %f\n", scene.mCamera->up().x, scene.mCamera->up().y, scene.mCamera->up().z);
+        cam.up = raylibVec(scene.mCamera->up());
+        cam.fovy = 45;
+        cam.projection = CAMERA_PERSPECTIVE;
 
-        printf("----------------------------\n");
+        int cameraDirLoc = GetShaderLocation(game::checkerShader, "cameraDirection");
+        while (!WindowShouldClose()) {
 
-        //UpdateCamera(&cam, CAMERA_FREE);
+            printf("----------------------------\n");
 
-        sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
-        cameraDir.normalize();
+            //UpdateCamera(&cam, CAMERA_FREE);
 
-        BeginDrawing();
-        {
-            ClearBackground(BLACK);
-            BeginMode3D(cam);
+            sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
+            cameraDir.normalize();
 
-            SetShaderValue(game::checkerShader, cameraDirLoc, &cameraDir, SHADER_UNIFORM_VEC3);
-
-            for (int i=0; i<scene.mActorsNum; i++) {
-                auto actor = scene.mActors[i];
-                if (!actor)
-                    continue;
-
-                sead::Matrix34f mtx;
-                actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
-                actor->raylibModel.transform = raylibMtx(mtx);
-                DrawModel(actor->raylibModel, {0,0,0}, SCALE, WHITE);
-            }
-
+            BeginDrawing();
             {
-                sead::Matrix34f mtx;
-                scene.mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
-                scene.mPlayer->raylibModel.transform = raylibMtx(mtx);
-                DrawModel(scene.mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
+                ClearBackground(BLACK);
+                BeginMode3D(cam);
 
-                scene.mPlayer->mActor->movement();
+                SetShaderValue(game::checkerShader, cameraDirLoc, &cameraDir, SHADER_UNIFORM_VEC3);
+
+                for (int i=0; i<scene.mActorsNum; i++) {
+                    auto actor = scene.mActors[i];
+                    if (!actor)
+                        continue;
+
+                    sead::Matrix34f mtx;
+                    actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
+                    actor->raylibModel.transform = raylibMtx(mtx);
+                    DrawModel(actor->raylibModel, {0,0,0}, SCALE, WHITE);
+                }
+
+                {
+                    sead::Matrix34f mtx;
+                    scene.mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
+                    scene.mPlayer->raylibModel.transform = raylibMtx(mtx);
+                    DrawModel(scene.mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
+
+                    scene.mPlayer->mActor->movement();
+                }
+
+                EndMode3D();
             }
-
-            EndMode3D();
+            EndDrawing();
         }
-        EndDrawing();
+
     }
+    unloadSead();
 
     UnloadShader(game::checkerShader);
     UnloadMesh(game::cubeMesh);

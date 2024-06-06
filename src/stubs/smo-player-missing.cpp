@@ -48,7 +48,6 @@
 #include "playerUtil.h"
 
 // definitely fine to ignore (logic-wise, not sure if nullptr-wise)
-PlayerModelHolder::PlayerModelHolder(int) {}
 bool rs::isClosetScenePlayer(PlayerInitInfo const&) { return false; }
 PlayerCostumeInfo* PlayerFunction::initMarioModelActor(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*, al::AudioKeeper*, bool) {
     PlayerCostumeInfo* info = new PlayerCostumeInfo();
@@ -87,7 +86,7 @@ PlayerDemoActionFlag::PlayerDemoActionFlag() { WARN_UNIMPL; }
 PlayerCapActionHistory::PlayerCapActionHistory(al::LiveActor const*, PlayerConst const*, PlayerTrigger const*, IUsePlayerCollision const*) { WARN_UNIMPL; }
 PlayerAreaChecker::PlayerAreaChecker(al::LiveActor const*, PlayerModelHolder const*) { WARN_UNIMPL; }
 al::WaterSurfaceFinder::WaterSurfaceFinder(al::LiveActor const*) { WARN_UNIMPL; }
-WorldEndBorderKeeper::WorldEndBorderKeeper(al::LiveActor const*) { WARN_UNIMPL; }
+WorldEndBorderKeeper::WorldEndBorderKeeper(al::LiveActor const*) : al::NerveExecutor("stub") { WARN_UNIMPL; }
 PlayerWallActionHistory::PlayerWallActionHistory() { WARN_UNIMPL; }
 PlayerCounterAfterUpperPunch::PlayerCounterAfterUpperPunch() { WARN_UNIMPL; }
 PlayerCounterQuickTurnJump::PlayerCounterQuickTurnJump(PlayerConst const*, PlayerTrigger const*) { WARN_UNIMPL; }
@@ -213,7 +212,6 @@ void PlayerStateWallCatch::setup(al::CollisionParts const*, sead::Vector3<float>
 bool PlayerActionDiveInWater::isDiveInWaterAnim() { WARN_UNIMPL; }
 bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) { WARN_UNIMPL; }
 bool rs::sendMsgNoticePlayerDamage(al::HitSensor*, al::HitSensor*) { WARN_UNIMPL; }
-bool al::isEqualString(sead::SafeStringBase<char> const&, sead::SafeStringBase<char> const&) { WARN_UNIMPL; }
 bool al::AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*, char const*, char const*) { WARN_UNIMPL; }
 bool al::AnimPlayerSkl::isSklAnimExist(char const*) { WARN_UNIMPL; }
 const char* al::AnimPlayerSkl::getPlayingSklAnimName(int) { WARN_UNIMPL; }
@@ -358,6 +356,20 @@ bool PlayerStateRunHakoniwa2D3D::isRunDashFast() { WARN_UNIMPL;return false; }
 bool PlayerStateRunHakoniwa2D3D::isBrake2D() { WARN_UNIMPL;return false; }
 bool PlayerStateRunHakoniwa2D3D::tryTurnJump(IJudge*, sead::Vector3<float>*) { WARN_UNIMPL;return false; }
 void rs::resetCollisionPose(const IUsePlayerCollision *, const sead::Quat<float> &) { WARN_UNIMPL; }
+
+void PlayerStateWallAir::calcSnapMoveCutDir(sead::Vector3<float>*) { WARN_UNIMPL; }
+void rs::calcSnapVelocitySnapMoveAreaWithCutDir(sead::Vector3<float>* result, al::LiveActor const*, IUsePlayerCollision const*, sead::Vector3<float> const& vel, float, sead::Vector3<float> const&) { WARN_UNIMPL;*result=vel; }
+void rs::calcSnapVelocitySnapMoveArea(sead::Vector3<float>* result, al::LiveActor const*, IUsePlayerCollision const*, sead::Vector3<float> const& vel, float) { WARN_UNIMPL;*result=vel; }
+void PlayerPushReceiver::calcPushedVelocityWithCollide(sead::Vector3<float>*, sead::Vector3<float> const&, IUsePlayerCollision const*, float) { WARN_UNIMPL; }
+void WorldEndBorderKeeper::update(sead::Vector3<float> const&, sead::Vector3<float> const&, bool) { WARN_UNIMPL; }
+bool PlayerPuppet::isNoCollide() { WARN_UNIMPL;return false; }
+void al::WaterSurfaceFinder::update(sead::Vector3<float> const&, sead::Vector3<float> const&, float) { WARN_UNIMPL; }
+void PlayerEffect::updateWaterSurfaceMtx(al::WaterSurfaceFinder const*) { WARN_UNIMPL; }
+bool PlayerStateWallCatch::isWallCatchForm() { WARN_UNIMPL;return false; }
+const sead::Vector3f& PlayerStateWallCatch::getCeilingCheckPos() { WARN_UNIMPL;return sead::Vector3f::zero; }
+bool PlayerCarryKeeper::isCarryUp() { WARN_UNIMPL;return false; }
+void game::PlayerColliderHakoniwa::updateFallDistanceCheck(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) { WARN_UNIMPL; }
+bool PlayerCarryKeeper::updateCollideLockUp(IUsePlayerCollision const*, PlayerPushReceiver const*) { WARN_UNIMPL;return false; }
 
 // might be fine to ignore, better replace with proper implementation though
 void al::tryReplaceString(sead::BufferedSafeStringBase<char>* result, char const* in, char const* search, char const* replace) {

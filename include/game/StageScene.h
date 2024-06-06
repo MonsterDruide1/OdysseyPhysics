@@ -23,6 +23,8 @@ public:
     }
 
 public:
+    sead::Heap* mHeap;
+
     RaylibActor** mActors;
     int mActorsNum = 0;
     int mActorsMax = 5120;

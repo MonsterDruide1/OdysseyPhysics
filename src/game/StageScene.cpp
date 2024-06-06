@@ -5,6 +5,8 @@
 #include "Library/Yaml/ByamlIter.h"
 #include "Player/PlayerActorHakoniwa.h"
 #include "CUSTOM/PlayerColliderHakoniwa.h"
+#include "heap/seadExpHeap.h"
+#include "heap/seadHeapMgr.h"
 #include "nlib/util.h"
 #include "oead/sarc.h"
 #include "oead/yaz0.h"
@@ -14,6 +16,10 @@
 namespace game {
 
 StageScene::StageScene() {
+    // should've been a FrameHeap, but that one is not implemented
+    mHeap = sead::ExpHeap::create(0x1EA00000, "SceneHeap", nullptr, 16, sead::Heap::cHeapDirection_Forward, false);
+    sead::ScopedCurrentHeapSetter scopedHeap(mHeap);
+
     mActors = new RaylibActor*[mActorsMax];
     mCamera = new Camera();
     mPartsKeeper = new CollisionPartsKeeper();
@@ -30,6 +36,8 @@ StageScene::~StageScene()
 }
 
 void StageScene::init(const char* stageName, int scenario) {
+    sead::ScopedCurrentHeapSetter scopedHeap(mHeap);
+
     std::string szsPath = nlib::util::format("res/romfs/StageData/%s.szs", stageName);
 
     if (!std::filesystem::exists(szsPath)) {
