@@ -103,12 +103,12 @@ PlayerCollider::PlayerCollider(al::CollisionDirector *a2,sead::Matrix34f const*a
   a1->anotherThreeFloats = 0LL;
   memset(&a1->mCollisionPartsFilter, 0, 0x44uLL);
   a1->sizeOfArrayBelowIs3 = 0;
-  a1->unk9.z = 0.0;
-  a1->unk9.x = 0.0;
-  a1->unk9.y = 0.0;
-  a1->unk10.z = 0.0;
-  a1->unk10.x = 0.0;
-  a1->unk10.y = 1.0;
+  a1->mCollidedGroundPos.z = 0.0;
+  a1->mCollidedGroundPos.x = 0.0;
+  a1->mCollidedGroundPos.y = 0.0;
+  a1->mCollidedGroundNormal.z = 0.0;
+  a1->mCollidedGroundNormal.x = 0.0;
+  a1->mCollidedGroundNormal.y = 1.0;
   a1->unk11 = 70.0;
 
   a1->mCollisionMultiShape = new CollisionMultiShape(this, a6 ? 256 : 128);
@@ -879,7 +879,7 @@ void PlayerCollider::calcResultVec(sead::Vector3f *a2,sead::Vector3f *a3,sead::V
 LABEL_51:
   v141 = 0;
   v140 = 0;
-  PlayerCollider::calcGroundArrowAverage(&v141, &this->unk9, &v140, &this->unk10, mCollisionShapeKeeper);
+  PlayerCollider::calcGroundArrowAverage(&v141, &this->mCollidedGroundPos, &v140, &this->mCollidedGroundNormal, mCollisionShapeKeeper);
   
   v139 = {0.0f, 0.0f, 0.0f};
   v138 = {0.0f, 0.0f, 0.0f};
@@ -902,10 +902,10 @@ LABEL_51:
   if ( this->val1 >= 0.0 )
   {
     if ( !v141 )
-      this->unk9 = this->info1->mCollisionHitPos;
+      this->mCollidedGroundPos = this->info1->mCollisionHitPos;
 
     if ( !v140 )
-      this->unk10 = this->info1->mTriangle.getFaceNormal();
+      this->mCollidedGroundNormal = this->info1->mTriangle.getFaceNormal();
   }
 
   z = v136.z;
@@ -1123,8 +1123,8 @@ LABEL_160:
 
   if ( this->val1 >= 0.0 && rs::isCollisionCodePress(this->info1) )
   {
-    v95v = this->unk9;
-    a2a = this->unk10;
+    v95v = this->mCollidedGroundPos;
+    a2a = this->mCollidedGroundNormal;
     v99 = 1;
     v98 = 1;
     goto LABEL_200;
@@ -1544,8 +1544,8 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint> *a2,sead::Vector3f *
         v77 = ShapeInfoArrow->vec4;
         al::tryNormalizeOrZero(&v77);
         v28 = fmaxf(v19->unk - ShapeInfoArrow->a5, 0.0);
-        v29v = this->unk10;
-        v32 = -(v77 * v28).dot(unk10);
+        v29v = this->mCollidedGroundNormal;
+        v32 = -(v77 * v28).dot(mCollidedGroundNormal);
         v33v = v29v * v32;
         v76 = v29v * v32;
         if ( alCollisionUtil::isCollisionMoving(v19) )
@@ -1682,7 +1682,7 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint> *a2,sead::Vector3f *
           a4->y = sead::Mathf::max(a4->y, v33v.y);
           a4->z = sead::Mathf::max(a4->z, v33v.z);
 
-          sub_71004338F0((u32*)a2, &v76, &this->unk10);
+          sub_71004338F0((u32*)a2, &v76, &this->mCollidedGroundNormal);
         }
 
         if ( this->val1 < v19->unk )
@@ -1906,9 +1906,9 @@ LABEL_117:
     v91 = *v35;
     v92 = *v36;
     if ( (*(u8 *)p_someBitField & 0x40) != 0
-      && (float)((float)((float)((float)(x - this->unk9.x) * this->unk10.x)
-                       + (float)((float)(v91 - this->unk9.y) * this->unk10.y))
-               + (float)((float)(v92 - this->unk9.z) * this->unk10.z)) < 2.5 )
+      && (float)((float)((float)((float)(x - this->mCollidedGroundPos.x) * this->mCollidedGroundNormal.x)
+                       + (float)((float)(v91 - this->mCollidedGroundPos.y) * this->mCollidedGroundNormal.y))
+               + (float)((float)(v92 - this->mCollidedGroundPos.z) * this->mCollidedGroundNormal.z)) < 2.5 )
     {
       return;
     }
@@ -1930,7 +1930,7 @@ LABEL_117:
     goto LABEL_36;
   }
 
-  v94 = al::isNearZeroOrGreater(this->mCollisionShapeKeeper->unk4 + v98.dot(v15->mCollisionHitPos - this->unk9), 0.001);
+  v94 = al::isNearZeroOrGreater(this->mCollisionShapeKeeper->unk4 + v98.dot(v15->mCollisionHitPos - this->mCollidedGroundPos), 0.001);
   v15->calcFixVectorNormal(&v96, &v95);
   p_z = &v15->unk3.z;
   p_y = &v15->unk3.y;

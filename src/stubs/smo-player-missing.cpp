@@ -69,6 +69,8 @@ void al::setModelAlphaMask(al::LiveActor*, float) {}
 bool al::isHideModel(al::LiveActor const*) { return false; }
 void al::hideModelIfShow(al::LiveActor*) {}
 void al::showModelIfHide(al::LiveActor*) {}
+bool rs::isPlayer2D(const al::LiveActor* actor) { return false; }
+
 
 bool PlayerModelChangerHakoniwa::isFireFlower() const { WARN_UNIMPL;return false; }
 bool PlayerModelChangerHakoniwa::isMini() const { WARN_UNIMPL;return false; }
