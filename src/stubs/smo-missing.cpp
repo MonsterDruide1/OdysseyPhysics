@@ -31,8 +31,6 @@
 #include "Library/Math/MathUtil.h"
 #include "Library/Shadow/DepthShadowMapCtrl.h"
 
-#include "missing.h"
-
 void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {CRASH}
 void al::CollisionParts::calcForceMovePower(sead::Vector3<float> *,sead::Vector3<float> const&)	const {CRASH}
 const al::LiveActor* al::CollisionParts::getConnectedHost() const {CRASH}

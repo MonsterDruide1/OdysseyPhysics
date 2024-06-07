@@ -13,8 +13,6 @@
 #include <cstring>
 #include <filesystem>
 
-#include "../stubs/missing.h"
-
 namespace game {
 
 Shader checkerShader;

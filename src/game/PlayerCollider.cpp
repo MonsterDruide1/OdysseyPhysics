@@ -1,6 +1,5 @@
 #include "Player/PlayerCollider.h"
 #include <typeinfo>
-#include "../stubs/missing.h"
 #include "Library/Collision/KTriangle.h"
 #include "Player/CollisionShapeKeeper.h"
 #include "Player/PlayerCollider.h"

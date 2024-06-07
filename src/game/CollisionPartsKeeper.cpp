@@ -1,5 +1,4 @@
 #include "CUSTOM/CollisionPartsKeeper.h"
-#include "../stubs/missing.h"
 #include "Library/Collision/CollisionCheckInfo.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/CollisionUtil.h"
