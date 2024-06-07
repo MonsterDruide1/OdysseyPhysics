@@ -10,7 +10,7 @@
 #include "raymath.h"
 #include "rcamera.h"
 #include "stubs/missing.h"
-#include "stubs/seadInterface.h"
+#include "seadInterface.h"
 #include "types.h"
 #include "ui/RaylibUtil.h"
 #include <filesystem>

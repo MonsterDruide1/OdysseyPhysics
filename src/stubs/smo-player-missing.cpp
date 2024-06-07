@@ -55,7 +55,7 @@ PlayerCostumeInfo* PlayerFunction::initMarioModelActor(al::LiveActor*, al::Actor
     return info;
 }
 bool PlayerFunction::isInvisibleCap(PlayerCostumeInfo const*) { return false; }
-void PlayerFunction::initMarioModelActor2D(al::LiveActor*, al::ActorInitInfo const&, char const*, bool) { WARN_UNIMPL; }
+void PlayerFunction::initMarioModelActor2D(al::LiveActor*, al::ActorInitInfo const&, char const*, bool) {}
 bool rs::isNeedCreateNoseNeedle(PlayerInitInfo const&) { return false; }
 PlayerConst* PlayerFunction::createMarioConst(char const*) { return new PlayerConst(); }
 al::LiveActor* PlayerModelHolder::findModelActor(char const*) { return nullptr; }
@@ -64,14 +64,60 @@ PlayerModelChangerHakoniwa::PlayerModelChangerHakoniwa(al::LiveActor const*, Pla
 al::ActorDitherAnimator* PlayerFunction::createPlayerDitherAnimator(al::LiveActor*, float) { return nullptr; }
 PlayerAnimator::PlayerAnimator(PlayerModelHolder const*, al::ActorDitherAnimator*) {}
 PlayerEffect::PlayerEffect(al::LiveActor*, PlayerModelHolder const*, sead::Matrix34<float> const*) {}
+bool rs::isGuardNosePainCap(al::LiveActor const*) { return false; }
+void al::setModelAlphaMask(al::LiveActor*, float) {}
+bool al::isHideModel(al::LiveActor const*) { return false; }
+void al::hideModelIfShow(al::LiveActor*) {}
+void al::showModelIfHide(al::LiveActor*) {}
+
+bool al::AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*, char const*, char const*) {}
+bool al::AnimPlayerSkl::isSklAnimExist(char const*) {}
+const char* al::AnimPlayerSkl::getPlayingSklAnimName(int) {}
+void al::AnimPlayerSkl::reset() {}
+bool al::AnimPlayerSkl::isSklAnimEnd(int) {}
+bool al::AnimPlayerSkl::isSklAnimOneTime(char const*) {}
+bool al::AnimPlayerSkl::isSklAnimOneTime(int) {}
+bool al::AnimPlayerSkl::isSklAnimPlaying(int) {}
+f32 al::AnimPlayerSkl::getSklAnimFrame(int) {}
+f32 al::AnimPlayerSkl::getSklAnimFrameRate(int) {}
+f32 al::AnimPlayerSkl::getSklAnimFrameMax(int) {}
+f32 al::AnimPlayerSkl::getSklAnimFrameMax(char const*) {}
+void al::AnimPlayerSkl::setSklAnimFrame(int, float) {}
+void al::AnimPlayerSkl::setSklAnimFrameRate(int, float) {}
+s32 al::AnimPlayerSkl::getSklAnimBlendNum() {}
+f32 al::AnimPlayerSkl::getSklAnimBlendWeight(int) {}
+bool al::AnimPlayerSkl::calcSklAnim() {}
+bool al::ActionAnimCtrl::isExistAction(char const*) {}
+void al::AnimPlayerSimple::startAnim(char const*) {}
+void al::AnimPlayerSimple::setAnimFrame(float) {}
+void al::AnimPlayerSimple::setAnimFrameRate(float) {}
+bool al::AnimPlayerSimple::isAnimExist(char const*) {}
+const char* al::AnimPlayerSimple::getPlayingAnimName() {}
+void al::AnimPlayerSimple::clearAnim() {}
+bool al::AnimPlayerSimple::isAnimEnd() {}
+bool al::AnimPlayerSimple::isAnimOneTime(char const*) {}
+bool al::AnimPlayerSimple::isAnimOneTime() {}
+bool al::AnimPlayerSimple::isAnimPlaying() {}
+f32 al::AnimPlayerSimple::getAnimFrame() {}
+f32 al::AnimPlayerSimple::getAnimFrameRate() {}
+f32 al::AnimPlayerSimple::getAnimFrameMax() {}
+f32 al::AnimPlayerSimple::getAnimFrameMax(char const*) {}
+void al::AnimPlayerSkl::startPartialAnim(char const*, int, int, al::SklAnimRetargettingInfo const*) {}
+void al::AnimPlayerSkl::prepareAnimInterpDirect(int) {}
+void al::AnimPlayerSkl::clearPartialAnim(int) {}
+bool al::AnimPlayerSkl::isPartialAnimEnd(int) {}
+bool al::AnimPlayerSkl::isPartialAnimOneTime(int) {}
+bool al::AnimPlayerSkl::isPartialAnimAttached(int) {}
+const char* al::AnimPlayerSkl::getPlayingPartialSklAnimName(int) {}
+f32 al::AnimPlayerSkl::getPartialAnimFrame(int) {}
+void al::AnimPlayerSkl::setPartialAnimFrame(int, float) {}
+f32 al::AnimPlayerSkl::getPartialAnimFrameRate(int) {}
+void al::AnimPlayerSkl::setPartialAnimFrameRate(int, float) {}
+void al::ModelKeeper::calc(sead::Matrix34<float> const&, sead::Vector3<float> const&) {}
+void al::AnimPlayerSkl::setSklAnimBlendWeight(int, float) {}
 
 
 // unknown
-bool rs::isGuardNosePainCap(al::LiveActor const*) { WARN_UNIMPL; }
-void al::setModelAlphaMask(al::LiveActor*, float) { WARN_UNIMPL; }
-bool al::isHideModel(al::LiveActor const*) { WARN_UNIMPL;return false; }
-void al::hideModelIfShow(al::LiveActor*) { WARN_UNIMPL; }
-void al::showModelIfHide(al::LiveActor*) { WARN_UNIMPL; }
 al::LiveActor* al::getSubActor(al::LiveActor const*, char const*) { WARN_UNIMPL;return nullptr; }
 sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const*, char const*) { WARN_UNIMPL;return nullptr; }
 void al::onSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) { WARN_UNIMPL; }
@@ -212,51 +258,7 @@ void PlayerStateWallCatch::setup(al::CollisionParts const*, sead::Vector3<float>
 bool PlayerActionDiveInWater::isDiveInWaterAnim() { WARN_UNIMPL; }
 bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) { WARN_UNIMPL; }
 bool rs::sendMsgNoticePlayerDamage(al::HitSensor*, al::HitSensor*) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*, char const*, char const*) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::isSklAnimExist(char const*) { WARN_UNIMPL; }
-const char* al::AnimPlayerSkl::getPlayingSklAnimName(int) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::reset() { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::isSklAnimEnd(int) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::isSklAnimOneTime(char const*) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::isSklAnimOneTime(int) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::isSklAnimPlaying(int) { WARN_UNIMPL; }
-f32 al::AnimPlayerSkl::getSklAnimFrame(int) { WARN_UNIMPL; }
-f32 al::AnimPlayerSkl::getSklAnimFrameRate(int) { WARN_UNIMPL; }
-f32 al::AnimPlayerSkl::getSklAnimFrameMax(int) { WARN_UNIMPL; }
-f32 al::AnimPlayerSkl::getSklAnimFrameMax(char const*) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::setSklAnimFrame(int, float) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::setSklAnimFrameRate(int, float) { WARN_UNIMPL; }
-s32 al::AnimPlayerSkl::getSklAnimBlendNum() { WARN_UNIMPL; }
-f32 al::AnimPlayerSkl::getSklAnimBlendWeight(int) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::calcSklAnim() { WARN_UNIMPL; }
-bool al::ActionAnimCtrl::isExistAction(char const*) { WARN_UNIMPL; }
-void al::AnimPlayerSimple::startAnim(char const*) { WARN_UNIMPL; }
-void al::AnimPlayerSimple::setAnimFrame(float) { WARN_UNIMPL; }
-void al::AnimPlayerSimple::setAnimFrameRate(float) { WARN_UNIMPL; }
-bool al::AnimPlayerSimple::isAnimExist(char const*) { WARN_UNIMPL; }
-const char* al::AnimPlayerSimple::getPlayingAnimName() { WARN_UNIMPL; }
-void al::AnimPlayerSimple::clearAnim() { WARN_UNIMPL; }
-bool al::AnimPlayerSimple::isAnimEnd() { WARN_UNIMPL; }
-bool al::AnimPlayerSimple::isAnimOneTime(char const*) { WARN_UNIMPL; }
-bool al::AnimPlayerSimple::isAnimOneTime() { WARN_UNIMPL; }
-bool al::AnimPlayerSimple::isAnimPlaying() { WARN_UNIMPL; }
-f32 al::AnimPlayerSimple::getAnimFrame() { WARN_UNIMPL; }
-f32 al::AnimPlayerSimple::getAnimFrameRate() { WARN_UNIMPL; }
-f32 al::AnimPlayerSimple::getAnimFrameMax() { WARN_UNIMPL; }
-f32 al::AnimPlayerSimple::getAnimFrameMax(char const*) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::startPartialAnim(char const*, int, int, al::SklAnimRetargettingInfo const*) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::prepareAnimInterpDirect(int) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::clearPartialAnim(int) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::isPartialAnimEnd(int) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::isPartialAnimOneTime(int) { WARN_UNIMPL; }
-bool al::AnimPlayerSkl::isPartialAnimAttached(int) { WARN_UNIMPL; }
-const char* al::AnimPlayerSkl::getPlayingPartialSklAnimName(int) { WARN_UNIMPL; }
-f32 al::AnimPlayerSkl::getPartialAnimFrame(int) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::setPartialAnimFrame(int, float) { WARN_UNIMPL; }
-f32 al::AnimPlayerSkl::getPartialAnimFrameRate(int) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::setPartialAnimFrameRate(int, float) { WARN_UNIMPL; }
-void al::ModelKeeper::calc(sead::Matrix34<float> const&, sead::Vector3<float> const&) { WARN_UNIMPL; }
-void al::AnimPlayerSkl::setSklAnimBlendWeight(int, float) { WARN_UNIMPL; }
+
 void al::ModelCtrl::recreateDisplayList() { WARN_UNIMPL; }
 void al::ModelKeeper::createMatAnimForProgram(int) { WARN_UNIMPL; }
 void alActorSystemFunction::updateExecutorDraw(al::LiveActor*) { WARN_UNIMPL; }
@@ -356,6 +358,7 @@ bool PlayerStateRunHakoniwa2D3D::isRunDashFast() { WARN_UNIMPL;return false; }
 bool PlayerStateRunHakoniwa2D3D::isBrake2D() { WARN_UNIMPL;return false; }
 bool PlayerStateRunHakoniwa2D3D::tryTurnJump(IJudge*, sead::Vector3<float>*) { WARN_UNIMPL;return false; }
 void rs::resetCollisionPose(const IUsePlayerCollision *, const sead::Quat<float> &) { WARN_UNIMPL; }
+bool PlayerStateHipDrop::isLandTrigger() const { WARN_UNIMPL;return false; }
 
 void PlayerStateWallAir::calcSnapMoveCutDir(sead::Vector3<float>*) { WARN_UNIMPL; }
 void rs::calcSnapVelocitySnapMoveAreaWithCutDir(sead::Vector3<float>* result, al::LiveActor const*, IUsePlayerCollision const*, sead::Vector3<float> const& vel, float, sead::Vector3<float> const&) { WARN_UNIMPL;*result=vel; }
