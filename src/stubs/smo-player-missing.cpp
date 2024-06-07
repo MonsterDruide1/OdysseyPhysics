@@ -2,7 +2,7 @@
 
 #include "Library/Anim/AnimPlayerSkl.h"
 #include "Library/Area/AreaObjDirector.h"
-#include "Library/Base/String.h"
+#include "Library/Base/StringUtil.h"
 #include "Library/Controller/JoyPadAccelPoseAnalyzer.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
 #include "Library/LiveActor/ActorActionFunction.h"

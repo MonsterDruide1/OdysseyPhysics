@@ -16,7 +16,7 @@
 #include <filesystem>
 #include <vector>
 
-#include "Library/Base/String.h"
+#include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraPoserFunction.h"
 
 #define SCALE 0.005f

@@ -66,8 +66,8 @@ void helperFunc(CollisionShapeKeeper* keeper, const sead::Vector3f& pos) {
   v26 = 1.0 * -40.0;
   for(int v7=0; v7!=3; v7++)
   {
-    v8 = sead::Mathf::cos((float)((float)((float)(int)v7 * 120.0) * 0.017453) * 0.5);
-    v9 = sead::Mathf::sin((float)((float)((float)(int)v7 * 120.0) * 0.017453) * 0.5);
+    v8 = sead::Mathf::cos(sead::Mathf::deg2rad(v7 * 120.0) * 0.5);
+    v9 = sead::Mathf::sin(sead::Mathf::deg2rad(v7 * 120.0) * 0.5);
     v10 = legNames[v7];
     v11 = v9 * 1.0;
     v12 = v9 * 0.0;
