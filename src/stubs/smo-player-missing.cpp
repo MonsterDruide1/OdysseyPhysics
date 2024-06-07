@@ -42,6 +42,7 @@
 #include "Project/Anim/AnimPlayerSimple.h"
 #include "System/GameDataFunction.h"
 #include "Util/ActorDimensionKeeper.h"
+#include "Util/PlayerCollisionUtil.h"
 #include "Util/Sensor.h"
 #include "CUSTOM/PlayerColliderHakoniwa.h"
 #include "Stuff.h"
@@ -58,7 +59,6 @@ bool PlayerFunction::isInvisibleCap(PlayerCostumeInfo const*) { return false; }
 void PlayerFunction::initMarioModelActor2D(al::LiveActor*, al::ActorInitInfo const&, char const*, bool) {}
 bool rs::isNeedCreateNoseNeedle(PlayerInitInfo const&) { return false; }
 PlayerConst* PlayerFunction::createMarioConst(char const*) { return new PlayerConst(); }
-al::LiveActor* PlayerModelHolder::findModelActor(char const*) { return nullptr; }
 PlayerJointControlKeeper::PlayerJointControlKeeper(al::LiveActor*, PlayerConst const*, bool, bool, bool) {}
 PlayerModelChangerHakoniwa::PlayerModelChangerHakoniwa(al::LiveActor const*, PlayerModelHolder*, PlayerPainPartsKeeper*, PlayerCostumeInfo*, IUseDimension const*) {}
 al::ActorDitherAnimator* PlayerFunction::createPlayerDitherAnimator(al::LiveActor*, float) { return nullptr; }
@@ -69,6 +69,19 @@ void al::setModelAlphaMask(al::LiveActor*, float) {}
 bool al::isHideModel(al::LiveActor const*) { return false; }
 void al::hideModelIfShow(al::LiveActor*) {}
 void al::showModelIfHide(al::LiveActor*) {}
+
+bool PlayerModelChangerHakoniwa::isFireFlower() const { WARN_UNIMPL;return false; }
+bool PlayerModelChangerHakoniwa::isMini() const { WARN_UNIMPL;return false; }
+bool PlayerModelChangerHakoniwa::isChange() const { WARN_UNIMPL;return false; }
+bool PlayerModelChangerHakoniwa::is2DModel() const { WARN_UNIMPL;return false; }
+bool PlayerModelChangerHakoniwa::isHiddenModel() const { WARN_UNIMPL;return false; }
+bool PlayerModelChangerHakoniwa::isHiddenShadowMask() const { WARN_UNIMPL;return false; }
+void PlayerModelChangerHakoniwa::hideModel() { WARN_UNIMPL; }
+void PlayerModelChangerHakoniwa::hideSilhouette() { WARN_UNIMPL; }
+void PlayerModelChangerHakoniwa::hideShadowMask() { WARN_UNIMPL; }
+void PlayerModelChangerHakoniwa::showModel() { WARN_UNIMPL; }
+void PlayerModelChangerHakoniwa::showSilhouette() { WARN_UNIMPL; }
+void PlayerModelChangerHakoniwa::showShadowMask() { WARN_UNIMPL; }
 
 bool al::AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*, char const*, char const*) {}
 bool al::AnimPlayerSkl::isSklAnimExist(char const*) {}
@@ -137,7 +150,6 @@ WorldEndBorderKeeper::WorldEndBorderKeeper(al::LiveActor const*) : al::NerveExec
 PlayerWallActionHistory::PlayerWallActionHistory() { WARN_UNIMPL; }
 PlayerCounterAfterUpperPunch::PlayerCounterAfterUpperPunch() { WARN_UNIMPL; }
 PlayerCounterQuickTurnJump::PlayerCounterQuickTurnJump(PlayerConst const*, PlayerTrigger const*) { WARN_UNIMPL; }
-PlayerJumpMessageRequest::PlayerJumpMessageRequest() { WARN_UNIMPL; }
 PlayerSandSinkAffect::PlayerSandSinkAffect(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision*, PlayerEffect*) { WARN_UNIMPL; }
 PlayerEyeSensorHitHolder::PlayerEyeSensorHitHolder(int) { WARN_UNIMPL; }
 void PlayerEyeSensorHitHolder::createTargetMarkerBuffer(int) { WARN_UNIMPL; }
@@ -178,7 +190,6 @@ PlayerJudgePreInputHackAction::PlayerJudgePreInputHackAction(PlayerConst const*,
 HackCapJudgePreInputHoveringJump::HackCapJudgePreInputHoveringJump(al::LiveActor const*, IUsePlayerCollision const*, HackCap const*, PlayerInput const*) { WARN_UNIMPL; }
 PlayerJudgeSandSink::PlayerJudgeSandSink(IUsePlayerCollision const*, PlayerSandSinkAffect const*) { WARN_UNIMPL; }
 PlayerJudgeSlopeSlide::PlayerJudgeSlopeSlide(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
-PlayerJudgeStartHipDrop::PlayerJudgeStartHipDrop(PlayerConst const*, PlayerInput const*, IUsePlayerHeightCheck const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
 PlayerJudgeStartRise::PlayerJudgeStartRise(al::LiveActor const*, PlayerAreaChecker const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
 PlayerJudgeStartRolling::PlayerJudgeStartRolling(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*) { WARN_UNIMPL; }
 PlayerJudgeStartSquat::PlayerJudgeStartSquat(PlayerInput const*, PlayerCounterForceRun const*, PlayerCarryKeeper const*) { WARN_UNIMPL; }
@@ -195,7 +206,6 @@ PlayerActionDiveInWater::PlayerActionDiveInWater(PlayerAnimator*, IPlayerModelCh
 PlayerJudgeForceLand::PlayerJudgeForceLand(IJudge const*, PlayerTrigger const*) { WARN_UNIMPL; }
 PlayerJudgeOutInWater::PlayerJudgeOutInWater(al::LiveActor const*, IJudge const*, IJudge const*) { WARN_UNIMPL; }
 PlayerJudgeStartWaterSurfaceRun::PlayerJudgeStartWaterSurfaceRun(al::LiveActor const*, al::WaterSurfaceFinder const*, PlayerCounterForceRun const*) { WARN_UNIMPL; }
-PlayerJudgeSpeedCheckFall::PlayerJudgeSpeedCheckFall(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*, IJudge const*) { WARN_UNIMPL; }
 PlayerJudgeStartRun::PlayerJudgeStartRun(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerCounterForceRun const*, IJudge const*) { WARN_UNIMPL; }
 PlayerStateWait::PlayerStateWait(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerModelChangerHakoniwa const*, PlayerJointControlKeeper const*, al::WaterSurfaceFinder const*, IUsePlayerHeightCheck const*, IJudge const*, PlayerAnimator*, PlayerTrigger*, PlayerCapManHeroEyesControl*, PlayerJointParamCenterDynamics*, PlayerJointParamGroundPose*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateSandSink::PlayerStateSandSink(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, IUsePlayerCollision*, PlayerAnimator*, IJudge*, PlayerJudgePreInputJump*) : al::NerveStateBase("") { WARN_UNIMPL; }
@@ -259,6 +269,8 @@ void PlayerStateWallCatch::setup(al::CollisionParts const*, sead::Vector3<float>
 bool PlayerActionDiveInWater::isDiveInWaterAnim() { WARN_UNIMPL; }
 bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) { WARN_UNIMPL; }
 bool rs::sendMsgNoticePlayerDamage(al::HitSensor*, al::HitSensor*) { WARN_UNIMPL; }
+f32 rs::getGroundHeight(const IUsePlayerHeightCheck*) { WARN_UNIMPL;return 0; }
+bool rs::isCollidedGroundRunAngle(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) { WARN_UNIMPL;return false; }
 
 void al::ModelCtrl::recreateDisplayList() { WARN_UNIMPL; }
 void al::ModelKeeper::createMatAnimForProgram(int) { WARN_UNIMPL; }
