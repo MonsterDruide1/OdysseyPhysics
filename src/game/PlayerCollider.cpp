@@ -189,7 +189,47 @@ PlayerCollider::PlayerCollider(al::CollisionDirector *a2,sead::Matrix34f const*a
   mMtx = *mMtxPtr;
   a1->mTimeInAir = 2;
 }
-void PlayerCollider::onInvalidate(){ CRASH }
+void PlayerCollider::onInvalidate(){
+  float *someThreeFloats; // x9
+  float *v2; // x9
+  float *v3; // x9
+  CollisionShapeKeeper *mCollisionShapeKeeper; // x8
+  float v5; // s0
+  const sead::Matrix34f *mMtxPtr; // x8
+  long double result; // q0
+
+  someThreeFloats = this->someThreeFloats;
+  this->val3 = -99999.0;
+  this->unk3.x = 0.0;
+  this->unk3.y = 0.0;
+  this->unk3.z = 0.0;
+  this->val1 = -99999.0;
+  this->val2 = -99999.0;
+  *someThreeFloats = -99999.0;
+  if ( this->sizeOfArrayBelowIs3 <= 1u )
+    v2 = this->someThreeFloats;
+  else
+    v2 = this->someThreeFloats + 1;
+
+  *v2 = -99999.0;
+  if ( this->sizeOfArrayBelowIs3 <= 2u )
+    v3 = this->someThreeFloats;
+  else
+    v3 = this->someThreeFloats + 2;
+
+  *v3 = -99999.0;
+  this->mTrans = *this->mTransPtr;
+  mCollisionShapeKeeper = this->mCollisionShapeKeeper;
+  if ( mCollisionShapeKeeper )
+    v5 = mCollisionShapeKeeper->mBoundingRadius * this->mCollisionShapeScale;
+  else
+    v5 = 0.0;
+
+  mMtxPtr = this->mMtxPtr;
+  this->mSize = v5;
+  this->mMtx = *mMtxPtr;
+  this->mTimeInAir = 2;
+}
 void PlayerCollider::setCollisionShapeKeeper(CollisionShapeKeeper * a2){
   CollisionShapeKeeper *mCollisionShapeKeeper; // x8
 

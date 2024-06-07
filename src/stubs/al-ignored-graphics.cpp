@@ -21,6 +21,7 @@ void offSyncHideSubActor(al::LiveActor*, al::LiveActor const*) {}
 void onSyncAppearSubActor(al::LiveActor*, al::LiveActor const*) {}
 void invalidateClipping(al::LiveActor*) {}
 const al::LayoutInitInfo* getLayoutInitInfo(al::ActorInitInfo const&) { return nullptr; }
+void setMaterialProgrammable(al::LiveActor*) {}
 
 
 FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*, al::FootPrintServer*) {}

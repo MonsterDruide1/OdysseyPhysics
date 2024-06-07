@@ -8,7 +8,6 @@ PlayerJudgeEnableStandUp::PlayerJudgeEnableStandUp(IUsePlayerCollision const*, I
 PlayerJudgeForceSlopeSlide::PlayerJudgeForceSlopeSlide(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*) { WARN_UNIMPL; }
 PlayerJudgeForceRolling::PlayerJudgeForceRolling(al::LiveActor const*, IUsePlayerCollision const*) { WARN_UNIMPL; }
 PlayerJudgeGrabCeil::PlayerJudgeGrabCeil(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*) { WARN_UNIMPL; }
-PlayerJudgeInWater::PlayerJudgeInWater(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, PlayerAreaChecker const*, al::WaterSurfaceFinder const*, IUsePlayerHeightCheck const*, PlayerCounterForceRun const*, bool, bool, bool) { WARN_UNIMPL; }
 PlayerJudgeLongFall::PlayerJudgeLongFall(al::LiveActor const*, PlayerConst const*, IUsePlayerFallDistanceCheck const*, PlayerHackKeeper const*, PlayerBindKeeper const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
 PlayerJudgePoleClimb::PlayerJudgePoleClimb(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*, PlayerInput const*, PlayerTrigger const*) { WARN_UNIMPL; }
 PlayerJudgePreInputCapThrow::PlayerJudgePreInputCapThrow(PlayerConst const*, PlayerInput const*, PlayerCarryKeeper const*, HackCap const*) { WARN_UNIMPL; }
@@ -43,8 +42,6 @@ PlayerJudgeSleep::PlayerJudgeSleep(PlayerStateWait const*) { WARN_UNIMPL; }
 PlayerJudgeEnableGuideArrow::PlayerJudgeEnableGuideArrow(PlayerPuppet const*) { WARN_UNIMPL; }
 PlayerJudgeEnablePeachAmiibo::PlayerJudgeEnablePeachAmiibo(PlayerStateDamageFire const*) { WARN_UNIMPL; }
 PlayerJudgeForceLand::PlayerJudgeForceLand(IJudge const*, PlayerTrigger const*) { WARN_UNIMPL; }
-PlayerJudgeOutInWater::PlayerJudgeOutInWater(al::LiveActor const*, IJudge const*, IJudge const*) { WARN_UNIMPL; }
-PlayerJudgeStartWaterSurfaceRun::PlayerJudgeStartWaterSurfaceRun(al::LiveActor const*, al::WaterSurfaceFinder const*, PlayerCounterForceRun const*) { WARN_UNIMPL; }
 PlayerJudgeStartRun::PlayerJudgeStartRun(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerCounterForceRun const*, IJudge const*) { WARN_UNIMPL; }
 PlayerJudgeCapCatch::PlayerJudgeCapCatch(al::LiveActor const*, PlayerCounterAfterCapCatch const*) { WARN_UNIMPL; }
 

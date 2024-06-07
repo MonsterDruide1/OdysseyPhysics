@@ -1,6 +1,7 @@
 
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
+#include "Util/ActorDimensionKeeper.h"
 
 PlayerConst* PlayerFunction::createMarioConst(char const*) { return new PlayerConst(); }
 
@@ -13,6 +14,8 @@ bool isPlayer2D(const al::LiveActor* actor) { return false; }
 bool isKidsMode(al::LiveActor const*) { return false; }
 
 }
+
+bool ActorDimensionKeeper::update() { return false; }
 
 void GameDataFunction::disableCapByPlacement(al::LiveActor const*) {}
 
