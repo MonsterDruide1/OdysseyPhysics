@@ -35,8 +35,6 @@ void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {CRASH}
 void al::CollisionParts::calcForceMovePower(sead::Vector3<float> *,sead::Vector3<float> const&)	const {CRASH}
 const al::LiveActor* al::CollisionParts::getConnectedHost() const {CRASH}
 
-CollisionShapeInfoDisk::CollisionShapeInfoDisk(char const*, float, sead::Vector3<float> const&, sead::Vector3<float> const&, float) : CollisionShapeInfoBase(CollisionShapeId::Disk, nullptr) {CRASH}
-
 void al::DepthShadowMapCtrl::show() {CRASH}
 void al::DepthShadowMapCtrl::hide() {CRASH}
 void al::DepthShadowMapCtrl::update() {CRASH}

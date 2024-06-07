@@ -27,6 +27,7 @@
 #include "Library/Scene/SceneUtil.h"
 #include "Library/Thread/FunctorV0M.h"
 #include "Library/stuff.h"
+#include "Player/CollisionShapeInfo.h"
 #include "Player/HackCap.h"
 #include "Player/Player.h"
 #include "Player/PlayerActionFunction.h"
@@ -117,6 +118,7 @@ void al::AnimPlayerSkl::setSklAnimBlendWeight(int, float) {}
 
 
 // unknown
+CollisionShapeInfoDisk::CollisionShapeInfoDisk(char const*, float, sead::Vector3<float> const&, sead::Vector3<float> const&, float) : CollisionShapeInfoBase(CollisionShapeId::Disk, nullptr) {CRASH}
 al::LiveActor* al::getSubActor(al::LiveActor const*, char const*) { WARN_UNIMPL;return nullptr; }
 sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const*, char const*) { WARN_UNIMPL;return nullptr; }
 void al::onSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) { WARN_UNIMPL; }
