@@ -170,10 +170,10 @@ bool isPadRepeat(s32 port, s32 button) {
     return getController(port)->isTrigWithRepeat(button);
 }
 bool isPadRepeatA(s32 port) {
-    return isPadRepeat(port, 1);
+    return IsKeyPressedRepeat(CONTROLLER_A);
 }
 bool isPadRepeatB(s32 port) {
-    return isPadRepeat(port, 1 << 1);
+    return IsKeyPressedRepeat(CONTROLLER_B);
 }
 bool isPadRepeatX(s32 port) {
     return isPadRepeat(port, 1 << 3);
@@ -264,10 +264,10 @@ bool isPadHold(s32 port, s32 button) {
     return getController(port)->isHold(button);
 }
 bool isPadHoldA(s32 port) {
-    return isPadHold(port, 1);
+    return IsKeyPressed(CONTROLLER_A);
 }
 bool isPadHoldB(s32 port) {
-    return isPadHold(port, 1 << 1);
+    return IsKeyPressed(CONTROLLER_B);
 }
 bool isPadHoldX(s32 port) {
     return isPadHold(port, 1 << 3);

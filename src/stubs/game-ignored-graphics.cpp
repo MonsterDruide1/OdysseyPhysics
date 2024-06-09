@@ -11,6 +11,7 @@ namespace rs {
 
 bool isGuardNosePainCap(al::LiveActor const*) { return false; }
 bool isNeedCreateNoseNeedle(PlayerInitInfo const&) { return false; }
+void startHitReactionLandJumpIfLanding(al::LiveActor const*, IUsePlayerCollision const*, bool) {}
 
 }
 

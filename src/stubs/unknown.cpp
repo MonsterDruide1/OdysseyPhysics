@@ -26,6 +26,7 @@
 #include "Library/Player/PlayerHolder.h"
 #include "Library/Scene/SceneUtil.h"
 #include "Library/Thread/FunctorV0M.h"
+#include "Library/Yaml/ByamlUtil.h"
 #include "Library/stuff.h"
 #include "Player/CollisionShapeInfo.h"
 #include "Player/HackCap.h"
@@ -46,6 +47,7 @@
 #include "Util/Sensor.h"
 #include "CUSTOM/PlayerColliderHakoniwa.h"
 #include "Stuff.h"
+#include "game/RaylibActor.h"
 #include "playerUtil.h"
 
 namespace al {
@@ -68,8 +70,17 @@ void al::tryReplaceString(sead::BufferedSafeStringBase<char>* result, char const
 al::HitSensor* al::HitSensorKeeper::getSensor(char const*) const { WARN_UNIMPL; return nullptr; }
 const char* rs::getInitPlayerModelName(PlayerInitInfo const&) { WARN_UNIMPL; return "Mario"; }
 const char* rs::getInitCapTypeName(PlayerInitInfo const&) { WARN_UNIMPL; return "Mario"; }
-void al::initActorWithArchiveName(al::LiveActor* actor, al::ActorInitInfo const&, sead::SafeStringBase<char> const&, char const*) {
-    actor->mPoseKeeper = new al::ActorPoseKeeperTQGMSV();
+void al::initActorWithArchiveName(al::LiveActor* actor, al::ActorInitInfo const& info, sead::SafeStringBase<char> const&, char const*) {
+    game::RaylibActor::apply(actor, info.getPlacementInfo().getPlacementIter());
     WARN_UNIMPL;
 }
 void al::initChildActorWithArchiveNameNoPlacementInfo(al::LiveActor*, al::ActorInitInfo const&, sead::SafeStringBase<char> const&, char const*) { WARN_UNIMPL; }
+
+void al::getTrans(sead::Vector3f* vec, const al::ActorInitInfo& info) {
+    al::tryGetByamlV3f(vec, info.getPlacementInfo().getPlacementIter(), "Translate");
+}
+void al::getQuat(sead::Quatf* q, const al::ActorInitInfo& info) {
+    sead::Vector3f rot;
+    al::tryGetByamlV3f(&rot, info.getPlacementInfo().getPlacementIter(), "Rotate");
+    q->calcRPY(rot);
+}

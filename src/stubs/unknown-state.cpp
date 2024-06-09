@@ -52,3 +52,8 @@ void PlayerStateWait::initSceneStartAnim() { WARN_UNIMPL; }
 bool PlayerStateWait::isLandStain() { WARN_UNIMPL;return false; }
 bool PlayerStateWait::isEnableCancelAction() { WARN_UNIMPL;return true; }
 bool PlayerStateWait::isEnableCancelHipDropJump() { WARN_UNIMPL;return false; }
+
+bool PlayerStateHipDrop::isEnableLandCancel() const {WARN_UNIMPL;return true;}
+bool PlayerStateHipDrop::isEnableMove() const {WARN_UNIMPL;return true;}
+bool PlayerStateHipDrop::isEnableHeadSliding() const {WARN_UNIMPL;return true;}
+bool PlayerStateHipDrop::isEnableInWater() const {WARN_UNIMPL;return true;}
