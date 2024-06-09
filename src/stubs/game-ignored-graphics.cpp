@@ -62,3 +62,5 @@ GaugeAir::GaugeAir(char const*, al::LayoutInitInfo const&) {}
 
 WaterSurfaceShadow::WaterSurfaceShadow(al::ActorInitInfo const&, char const*) {}
 void WaterSurfaceShadow::setScale(float) {}
+
+PlayerCapManHeroEyesControl::PlayerCapManHeroEyesControl(char const*, al::LiveActor*, al::LiveActor*) {}

@@ -7,12 +7,17 @@
 #include "Library/Effect/EffectKeeper.h"
 #include "Library/HitSensor/HitSensorKeeper.h"
 #include "Library/HitSensor/SensorFunction.h"
+#include "Library/LiveActor/ActorActionFunction.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
 #include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorModelFunction.h"
+#include "Library/LiveActor/ActorSensorMsgFunction.h"
 #include "Library/LiveActor/LiveActorUtil.h"
+#include "Library/Placement/PlacementFunction.h"
+#include "Library/Scene/ISceneObj.h"
+#include "Library/Scene/SceneUtil.h"
 #include "Library/Screen/ScreenPointKeeper.h"
 #include "Library/Model/ModelKeeper.h"
 #include "Library/Se/SeKeeper.h"
@@ -95,6 +100,14 @@ bool al::isCollidedGround(al::LiveActor const*) {CRASH}
 void al::syncCollisionMtx(al::LiveActor*, sead::Matrix34<float> const*) {CRASH}
 void al::resetAllCollisionMtx(al::LiveActor*) {CRASH}
 
+void al::setScale(al::LiveActor*, sead::Vector3<float> const&) {CRASH}
+sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const*, char const*) {CRASH}
+
 void al::Collider::onInvalidate() {CRASH}
 
 void al::calcTouchScreenPos(sead::Vector2f *) {CRASH}
+
+bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) {CRASH}
+void al::registerSubActor(al::LiveActor*, al::LiveActor*) {CRASH}
+void al::getLinksInfoByIndex(al::PlacementInfo*, al::PlacementInfo const&, char const*, int) {CRASH}
+void al::startHitReaction(al::LiveActor const*, char const*) {CRASH}

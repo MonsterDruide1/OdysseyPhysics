@@ -23,6 +23,10 @@ void invalidateClipping(al::LiveActor*) {}
 const al::LayoutInitInfo* getLayoutInitInfo(al::ActorInitInfo const&) { return nullptr; }
 void setMaterialProgrammable(al::LiveActor*) {}
 
+void onSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) { WARN_UNIMPL; }
+void onSyncHideSubActor(al::LiveActor*, al::LiveActor const*) { WARN_UNIMPL; }
+void onSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) { WARN_UNIMPL; }
+
 
 FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*, al::FootPrintServer*) {}
 

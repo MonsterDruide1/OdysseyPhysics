@@ -8,6 +8,10 @@ namespace rs {
 // if mario gets squished under specific objects (only twice in the whole game) => instant death
 bool isPressedCollision(IUsePlayerCollision const*) { return false; }
 
+bool sendMsgNoticePlayerDamage(al::HitSensor*, al::HitSensor*) {}
+
+bool isPlayerDamageStopDemo(al::LiveActor const*) { return false; }
+
 }
 
 bool PlayerFunction::isPlayerDeadStatus(al::LiveActor const*) { return false; }

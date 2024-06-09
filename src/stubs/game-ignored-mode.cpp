@@ -12,8 +12,11 @@ namespace rs {
 bool isClosetScenePlayer(PlayerInitInfo const&) { return false; }
 bool isPlayer2D(const al::LiveActor* actor) { return false; }
 bool isKidsMode(al::LiveActor const*) { return false; }
+bool isActiveDemo(al::LiveActor const*) { return false; }
 
 }
+
+PlayerDemoActionFlag::PlayerDemoActionFlag() {}
 
 bool ActorDimensionKeeper::update() { return false; }
 
@@ -25,3 +28,8 @@ bool PlayerHackKeeper::executeForceHackStageStart(al::HitSensor*, IUsePlayerHack
 
 PlayerRecoverySafetyPoint::PlayerRecoverySafetyPoint(al::LiveActor const*, HackCap const*, al::ActorInitInfo const&, IUseDimension const*, al::CollisionPartsFilterBase*, al::HitSensor*) {}
 void PlayerRecoverySafetyPoint::updateRecoveryBubble() {}
+
+bool PlayerEquipmentFunction::tryGetEquipmentForceDashInfo(int*, float*, PlayerEquipmentUser const*) { return false; }
+
+PlayerPuppet::PlayerPuppet(al::LiveActor*, HackCap*, PlayerAnimator*, IUsePlayerCollision*, ActorDimensionKeeper*, IPlayerModelChanger*, WorldEndBorderKeeper*, PlayerCounterForceRun*, PlayerDamageKeeper*, PlayerEffect*, PlayerInput const*, PlayerConst const*) {}
+bool PlayerPuppet::isNoCollide() { return false; }
