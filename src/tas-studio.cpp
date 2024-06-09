@@ -1,3 +1,5 @@
+#include "Library/Nerve/NerveKeeper.h"
+#include "Library/Nerve/NerveStateCtrl.h"
 #include "game/RaylibActor.h"
 #include "CUSTOM/PlayerColliderHakoniwa.h"
 #include "game/StageScene.h"
@@ -83,6 +85,9 @@ int main() {
                 }
 
                 EndMode3D();
+
+                DrawText(scene.mPlayer->mActor->mNerveKeeper->getStateCtrl()->findStateInfo(scene.mPlayer->mActor->mNerveKeeper->getCurrentNerve())->name,
+                    0, 0, 40,  {255, 0, 0, 255});
             }
             EndDrawing();
         }
