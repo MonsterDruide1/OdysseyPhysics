@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math/seadVector.h>
+#include "math/seadMatrix.h"
 
 namespace game {
 
@@ -16,6 +17,11 @@ public:
 
     sead::Vector3f up() {
         return {0, 1, 0};
+    }
+
+    const sead::Matrix34f* getViewMtxPtr() {
+        WARN_UNIMPL;
+        return &sead::Matrix34f::ident;
     }
 
 public:

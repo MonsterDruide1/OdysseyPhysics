@@ -1,5 +1,6 @@
 #include "game/StageScene.h"
 #include "Library/LiveActor/ActorInitInfo.h"
+#include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
@@ -84,9 +85,13 @@ void StageScene::init(const char* stageName, int scenario) {
     al::ActorSceneInfo* sceneInfo = new al::ActorSceneInfo(); // allocate on heap to ensure persistence
     memcpy(sceneInfo, &actorInfo.mActorSceneInfo, sizeof(al::ActorSceneInfo));
     player->initSceneInfo(sceneInfo);
-    player->initPlayer(actorInfo, {});
-    RaylibActor::apply(player, playerlist.getIterByIndex(0));
-    player->mPlayerColliderHakoniwa = reinterpret_cast<::PlayerColliderHakoniwa*>(new game::PlayerColliderHakoniwa(player, player->mPlayerConst));
+    sead::Vector3f playerTrans;
+    al::getTrans(&playerTrans, actorInfo);
+    sead::Quatf playerQuat;
+    al::getQuat(&playerQuat, actorInfo);
+    PlayerInitInfo initInfo = {nullptr, mCamera->getViewMtxPtr(), 0, "", "", playerTrans, playerQuat, 0};
+    player->initPlayer(actorInfo, initInfo);
+    //RaylibActor::apply(player, playerlist.getIterByIndex(0));
     mPlayer = new RaylibActor(player);
     mPlayer->initRaylibModel();
     mPlayer->initAfterPlacement();

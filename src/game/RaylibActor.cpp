@@ -21,7 +21,8 @@ Mesh cubeMesh;
 RaylibActor::RaylibActor(al::LiveActor* actor) : mActor(actor) {}
 
 void RaylibActor::apply(al::LiveActor* actor, const al::ByamlIter &data) {
-    actor->mPoseKeeper = new al::ActorPoseKeeperTQGMSV();
+    if(!actor->mPoseKeeper)
+        actor->mPoseKeeper = new al::ActorPoseKeeperTQGMSV();
 
     sead::Vector3f trans = {0,0,0};
     al::tryGetByamlV3f(&trans, data, "Translate");
