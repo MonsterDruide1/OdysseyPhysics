@@ -48,6 +48,9 @@ PlayerAnimator::PlayerAnimator(PlayerModelHolder const*, al::ActorDitherAnimator
 void PlayerAnimator::updateAnimFrame() {}
 f32 PlayerAnimator::getModelAlpha() { return 1.0f; }
 bool PlayerAnimator::isAnim(sead::SafeStringBase<char> const&) const { return false; }
+void PlayerAnimator::startAnim(sead::SafeStringBase<char> const&) {}
+
+PlayerAnimControlRun::PlayerAnimControlRun(PlayerAnimator*, PlayerConst const*, IJudge const*, PlayerEffect*, bool) {}
 
 PlayerEyeSensorHitHolder::PlayerEyeSensorHitHolder(int) {}
 void PlayerEyeSensorHitHolder::createTargetMarkerBuffer(int) {}

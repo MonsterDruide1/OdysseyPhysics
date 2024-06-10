@@ -1,5 +1,6 @@
 
 #include "PlayerUtil.h"
+#include "Util/PlayerCollisionUtil.h"
 
 namespace rs {
 
@@ -7,6 +8,9 @@ namespace rs {
 bool isTouchJumpCode(al::LiveActor const*, IUsePlayerCollision const*) { return false; }
 
 void addPlayerJumpCount(const al::LiveActor*) {}
+
+bool isAutoRunOnGroundSkateCode(const al::LiveActor *, const IUsePlayerCollision *, float) { return false; }
+bool isOnGroundSkateCode(al::LiveActor const*, IUsePlayerCollision const*) { return false; }
 
 }
 

@@ -47,6 +47,7 @@
 #include "Util/Sensor.h"
 #include "CUSTOM/PlayerColliderHakoniwa.h"
 #include "Stuff.h"
+#include "basis/seadTypes.h"
 #include "game/RaylibActor.h"
 #include "playerUtil.h"
 
@@ -58,6 +59,11 @@ al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
     CRASH
 }
 
+}
+
+bool PlayerInput::isSpinClockwise() const {
+    WARN_UNIMPL;
+    return false;
 }
 
 PlayerCounterAfterUpperPunch::PlayerCounterAfterUpperPunch() { WARN_UNIMPL; }

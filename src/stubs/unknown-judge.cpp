@@ -42,8 +42,10 @@ PlayerJudgeSleep::PlayerJudgeSleep(PlayerStateWait const*) { WARN_UNIMPL; }
 PlayerJudgeEnableGuideArrow::PlayerJudgeEnableGuideArrow(PlayerPuppet const*) { WARN_UNIMPL; }
 PlayerJudgeEnablePeachAmiibo::PlayerJudgeEnablePeachAmiibo(PlayerStateDamageFire const*) { WARN_UNIMPL; }
 PlayerJudgeForceLand::PlayerJudgeForceLand(IJudge const*, PlayerTrigger const*) { WARN_UNIMPL; }
-PlayerJudgeStartRun::PlayerJudgeStartRun(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerCounterForceRun const*, IJudge const*) { WARN_UNIMPL; }
 PlayerJudgeCapCatch::PlayerJudgeCapCatch(al::LiveActor const*, PlayerCounterAfterCapCatch const*) { WARN_UNIMPL; }
+PlayerJudgeStartGroundSpin::PlayerJudgeStartGroundSpin(al::LiveActor const*, IUsePlayerCollision const*, PlayerInput const*) { WARN_UNIMPL; }
+PlayerJudgeWaterSurfaceRun::PlayerJudgeWaterSurfaceRun(al::LiveActor const*, PlayerConst const*, al::WaterSurfaceFinder const*, PlayerCounterForceRun const*) { WARN_UNIMPL; }
+PlayerJudgeWallPush::PlayerJudgeWallPush(al::LiveActor const*, IUsePlayerCollision const*, PlayerInput const*) { WARN_UNIMPL; }
 
 HackCapJudgePreInputHoveringJump::HackCapJudgePreInputHoveringJump(al::LiveActor const*, IUsePlayerCollision const*, HackCap const*, PlayerInput const*) { WARN_UNIMPL; }
 HackCapJudgeHoldHoveringJump::HackCapJudgeHoldHoveringJump(al::LiveActor const*, PlayerColliderHakoniwa const*, HackCap const*, PlayerInput const*, PlayerConst const*) { WARN_UNIMPL; }

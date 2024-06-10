@@ -1,5 +1,6 @@
 
 #include "Player/PlayerFunction.h"
+#include "Player/PlayerInput.h"
 #include "Player/PlayerInputFunction.h"
 #include "raylib.h"
 
@@ -23,4 +24,10 @@ sead::Matrix34f* PlayerFunction::getPlayerViewMtx(const al::LiveActor* actor) {
     //TODO
     WARN_UNIMPL;
     return const_cast<sead::Matrix34f*>(&sead::Matrix34f::ident);
+}
+
+bool PlayerInput::isHoldSquat() const {
+    if(mIsDisableInput) return false;
+    // stuff about 2d, ignored here
+    return PlayerInputFunction::isHoldSubAction(mLiveActor, PlayerFunction::getPlayerInputPort(mLiveActor));
 }

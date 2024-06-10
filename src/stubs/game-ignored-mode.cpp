@@ -33,3 +33,5 @@ bool PlayerEquipmentFunction::tryGetEquipmentForceDashInfo(int*, float*, PlayerE
 
 PlayerPuppet::PlayerPuppet(al::LiveActor*, HackCap*, PlayerAnimator*, IUsePlayerCollision*, ActorDimensionKeeper*, IPlayerModelChanger*, WorldEndBorderKeeper*, PlayerCounterForceRun*, PlayerDamageKeeper*, PlayerEffect*, PlayerInput const*, PlayerConst const*) {}
 bool PlayerPuppet::isNoCollide() { return false; }
+
+PlayerStateRun2D::PlayerStateRun2D(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerAnimator*) : al::NerveStateBase("") {}

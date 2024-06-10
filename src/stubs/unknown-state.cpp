@@ -24,17 +24,10 @@ PlayerStateSandSink::PlayerStateSandSink(al::LiveActor*, PlayerConst const*, Pla
 ActorStateSandGeyser::ActorStateSandGeyser(al::LiveActor* act) : al::ActorStateBase("砂の間欠泉", act) { WARN_UNIMPL; }
 PlayerStateSpinCap::PlayerStateSpinCap(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerCounterForceRun const*, al::WaterSurfaceFinder const*, IUsePlayerCollision const*, PlayerTrigger*, PlayerSpinCapAttack*, PlayerAnimator*, PlayerJointParamCapThrow*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateSquat::PlayerStateSquat(al::LiveActor*, PlayerConst const*, PlayerAnimator*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerTrigger const*, IJudge*, IJudge*, IJudge*) : al::NerveStateBase("") { WARN_UNIMPL; }
-PlayerStateRunHakoniwa2D3D::PlayerStateRunHakoniwa2D3D(al::LiveActor*, PlayerConst const*, IUseDimension const*, PlayerInput const*, IUsePlayerCollision const*, al::WaterSurfaceFinder const*, PlayerCounterForceRun const*, PlayerCounterQuickTurnJump const*, PlayerTrigger*, PlayerAnimator*, PlayerEffect*, PlayerJointParamCenterDynamics*, bool) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateSlope::PlayerStateSlope(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerAnimator*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateRolling::PlayerStateRolling(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerTrigger*, PlayerAnimator*, PlayerEffect*, PlayerJudgeStartRolling*, IJudge*, PlayerJudgePreInputJump*, PlayerJudgePreInputCapThrow*, IJudge*, PlayerContinuousLongJump*, PlayerSeCtrl*) : al::NerveStateBase("") { WARN_UNIMPL; }
 
 bool PlayerStateHipDrop::isLandTrigger() const { WARN_UNIMPL;return false; }
-bool PlayerStateRunHakoniwa2D3D::isSpinClockwise() { WARN_UNIMPL;return false; }
-bool PlayerStateRunHakoniwa2D3D::isRunWaterSurface() { WARN_UNIMPL;return false; }
-bool PlayerStateRunHakoniwa2D3D::isGroundSpin() { WARN_UNIMPL;return false; }
-bool PlayerStateRunHakoniwa2D3D::isRunDashFast() { WARN_UNIMPL;return false; }
-bool PlayerStateRunHakoniwa2D3D::isBrake2D() { WARN_UNIMPL;return false; }
-bool PlayerStateRunHakoniwa2D3D::tryTurnJump(IJudge*, sead::Vector3<float>*) { WARN_UNIMPL;return false; }
 bool PlayerStateRolling::isRollingJump() { WARN_UNIMPL;return false; }
 void PlayerStatePoleClimb::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, char const*) { WARN_UNIMPL; }
 void PlayerStateGrabCeil::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) { WARN_UNIMPL; }
