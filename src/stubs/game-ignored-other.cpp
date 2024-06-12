@@ -11,6 +11,8 @@ void addPlayerJumpCount(const al::LiveActor*) {}
 
 bool isAutoRunOnGroundSkateCode(const al::LiveActor *, const IUsePlayerCollision *, float) { return false; }
 bool isOnGroundSkateCode(al::LiveActor const*, IUsePlayerCollision const*) { return false; }
+bool isOnGroundForceSlideCode(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) { return false; }
+bool isOnGroundForceRollingCode(al::LiveActor const*, IUsePlayerCollision const*) { return false; }
 
 }
 

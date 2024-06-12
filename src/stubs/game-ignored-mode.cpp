@@ -2,6 +2,7 @@
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
 #include "Util/ActorDimensionKeeper.h"
+#include "Util/Hack.h"
 
 PlayerConst* PlayerFunction::createMarioConst(char const*) { return new PlayerConst(); }
 
@@ -13,6 +14,8 @@ bool isClosetScenePlayer(PlayerInitInfo const&) { return false; }
 bool isPlayer2D(const al::LiveActor* actor) { return false; }
 bool isKidsMode(al::LiveActor const*) { return false; }
 bool isActiveDemo(al::LiveActor const*) { return false; }
+bool calcHackerMoveDir(sead::Vector3f *, const IUsePlayerHack *, const sead::Vector3f &) { return false; }
+bool isPlayerHack(al::LiveActor const*) { return false; }
 
 }
 

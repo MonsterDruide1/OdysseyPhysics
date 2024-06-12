@@ -5,8 +5,6 @@ PlayerJudgeCapCatchPop::PlayerJudgeCapCatchPop(al::LiveActor const*, PlayerInput
 PlayerJudgeDeadWipeStart::PlayerJudgeDeadWipeStart(al::LiveActor const*, PlayerConst const*) { WARN_UNIMPL; }
 PlayerJudgeDirectRolling::PlayerJudgeDirectRolling(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerCounterForceRun const*) { WARN_UNIMPL; }
 PlayerJudgeEnableStandUp::PlayerJudgeEnableStandUp(IUsePlayerCollision const*, IUsePlayerCeilingCheck const*) { WARN_UNIMPL; }
-PlayerJudgeForceSlopeSlide::PlayerJudgeForceSlopeSlide(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*) { WARN_UNIMPL; }
-PlayerJudgeForceRolling::PlayerJudgeForceRolling(al::LiveActor const*, IUsePlayerCollision const*) { WARN_UNIMPL; }
 PlayerJudgeGrabCeil::PlayerJudgeGrabCeil(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*) { WARN_UNIMPL; }
 PlayerJudgeLongFall::PlayerJudgeLongFall(al::LiveActor const*, PlayerConst const*, IUsePlayerFallDistanceCheck const*, PlayerHackKeeper const*, PlayerBindKeeper const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
 PlayerJudgePoleClimb::PlayerJudgePoleClimb(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*, PlayerInput const*, PlayerTrigger const*) { WARN_UNIMPL; }
@@ -29,7 +27,6 @@ PlayerJudgeDiveInWater::PlayerJudgeDiveInWater(al::LiveActor const*, PlayerConst
 PlayerJudgeRecoveryLifeFast::PlayerJudgeRecoveryLifeFast(al::LiveActor const*, PlayerDamageKeeper const*, PlayerBindKeeper const*, IUsePlayerCollision const*, PlayerInput const*, PlayerHackKeeper const*, PlayerStateWait const*, PlayerStateSwim const*, IJudge const*) { WARN_UNIMPL; }
 PlayerJudgeCameraInWater::PlayerJudgeCameraInWater(al::LiveActor const*, IJudge const*, al::WaterSurfaceFinder const*) { WARN_UNIMPL; }
 PlayerJudgeActiveCameraSubjective::PlayerJudgeActiveCameraSubjective(PlayerStateCameraSubjective const*) { WARN_UNIMPL; }
-PlayerJudgeTalkGround::PlayerJudgeTalkGround(al::LiveActor const*, IPlayerModelChanger const*, PlayerHackKeeper const*, PlayerCarryKeeper const*, IUsePlayerCollision const*, PlayerInput const*, PlayerConst const*, PlayerStateWait const*) { WARN_UNIMPL; }
 PlayerJudgeTalkSwim::PlayerJudgeTalkSwim(PlayerHackKeeper const*, PlayerCarryKeeper const*, PlayerStateSwim const*) { WARN_UNIMPL; }
 PlayerJudgeDead::PlayerJudgeDead(al::LiveActor const*) { WARN_UNIMPL; }
 PlayerJudgeDrawForward::PlayerJudgeDrawForward(al::LiveActor const*, PlayerJudgeDeadWipeStart const*) { WARN_UNIMPL; }

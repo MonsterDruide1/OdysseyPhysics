@@ -7,5 +7,6 @@ bool PlayerCarryKeeper::isCarryUp() { return false; }
 bool PlayerCarryKeeper::updateCollideLockUp(IUsePlayerCollision const*, PlayerPushReceiver const*) { return false; }
 bool PlayerCarryKeeper::isCarry() { return false; }
 void PlayerCarryKeeper::startCancelAndRelease() {}
+bool PlayerCarryKeeper::isThrowHold() const { return false; }
 
 void PlayerActorHakoniwa::updateCarry() {}

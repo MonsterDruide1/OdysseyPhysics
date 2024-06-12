@@ -37,6 +37,7 @@
 #include "Player/PlayerFunction.h"
 #include "Player/PlayerInput.h"
 #include "Player/PlayerInputFunction.h"
+#include "Player/PlayerStateRunHakoniwa2D3D.h"
 #include "Player/PlayerTrigger.h"
 #include "PlayerUtil.h"
 #include "Project/Action/ActionAnimCtrl.h"
@@ -89,4 +90,10 @@ void al::getQuat(sead::Quatf* q, const al::ActorInitInfo& info) {
     sead::Vector3f rot;
     al::tryGetByamlV3f(&rot, info.getPlacementInfo().getPlacementIter(), "Rotate");
     q->calcRPY(rot);
+}
+
+
+// might be required to make jumptype=3 happen
+bool PlayerStateRunHakoniwa2D3D::isRunDashFast() const {
+    return false;
 }
