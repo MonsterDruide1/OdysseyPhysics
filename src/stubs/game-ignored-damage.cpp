@@ -22,3 +22,8 @@ PlayerDamageKeeper::PlayerDamageKeeper(al::LiveActor*, PlayerEffect*) {}
 void PlayerDamageKeeper::update(IPlayerModelChanger*, bool, bool) {}
 
 void PlayerActorHakoniwa::checkDamageFromCollision() {}
+
+PlayerJudgeRecoveryLifeFast::PlayerJudgeRecoveryLifeFast(al::LiveActor const*,PlayerDamageKeeper const*,PlayerBindKeeper const*,IUsePlayerCollision const*,PlayerInput const*,PlayerHackKeeper const*,PlayerStateWait const*,PlayerStateSwim const*,IJudge const*) {} 
+void PlayerJudgeRecoveryLifeFast::reset() {}
+void PlayerJudgeRecoveryLifeFast::update() {}
+bool PlayerJudgeRecoveryLifeFast::judge() const {return false;}

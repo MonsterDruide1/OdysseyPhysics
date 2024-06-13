@@ -1,3 +1,4 @@
+#include "Player/PlayerConst.h"
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
 
@@ -20,3 +21,8 @@ void CapFunction::putOnCapPlayer(HackCap*, PlayerAnimator*) { WARN_UNIMPL; }
 bool GameDataFunction::isEnableCap(GameDataHolderAccessor) { WARN_UNIMPL;return true; }
 
 void game::PlayerColliderHakoniwa::calcSeparateCapLocalOffset(sead::Vector3<float>*) { WARN_UNIMPL; }
+
+PlayerJudgePreInputCapThrow::PlayerJudgePreInputCapThrow(PlayerConst const*,PlayerInput const*,PlayerCarryKeeper const*,HackCap const*) {WARN_UNIMPL;}
+void PlayerJudgePreInputCapThrow::reset() {WARN_UNIMPL;}
+void PlayerJudgePreInputCapThrow::update() {WARN_UNIMPL;}
+bool PlayerJudgePreInputCapThrow::judge() const {WARN_UNIMPL;return false;}

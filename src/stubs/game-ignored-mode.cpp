@@ -38,3 +38,13 @@ PlayerPuppet::PlayerPuppet(al::LiveActor*, HackCap*, PlayerAnimator*, IUsePlayer
 bool PlayerPuppet::isNoCollide() { return false; }
 
 PlayerStateRun2D::PlayerStateRun2D(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerAnimator*) : al::NerveStateBase("") {}
+
+PlayerJudgeSafetyPointRecovery::PlayerJudgeSafetyPointRecovery(IJudge *,PlayerStateAbyss const*) {}
+void PlayerJudgeSafetyPointRecovery::reset() {}
+void PlayerJudgeSafetyPointRecovery::update() {}
+bool PlayerJudgeSafetyPointRecovery::judge() const {return false;}
+
+PlayerJudgePreInputHackAction::PlayerJudgePreInputHackAction(PlayerConst const*,PlayerInput const*) {}
+void PlayerJudgePreInputHackAction::reset() {}
+void PlayerJudgePreInputHackAction::update() {}
+bool PlayerJudgePreInputHackAction::judge() const {return false;}
