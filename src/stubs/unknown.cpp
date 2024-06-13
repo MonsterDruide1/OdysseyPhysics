@@ -97,3 +97,11 @@ void al::getQuat(sead::Quatf* q, const al::ActorInitInfo& info) {
 bool PlayerStateRunHakoniwa2D3D::isRunDashFast() const {
     return false;
 }
+
+al::MtxConnector* al::createCollisionPartsConnector(al::LiveActor const*, sead::Quat<float> const&) {
+    WARN_UNIMPL;
+    return nullptr;
+}
+void al::disconnectMtxConnector(al::MtxConnector*) {
+    WARN_UNIMPL;
+}

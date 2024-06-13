@@ -3,6 +3,7 @@
 
 PlayerActionDiveInWater::PlayerActionDiveInWater(PlayerAnimator*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerJudgeDiveInWater const*) {}
 bool PlayerActionDiveInWater::isDiveInWaterAnim() {}
+void PlayerActionDiveInWater::tryChangeDiveInWaterAnim() {}
 
 PlayerCounterIceWater::PlayerCounterIceWater(al::LiveActor*, al::ActorInitInfo const&, PlayerConst const*, IUsePlayerCollision const*, IJudge*) {}
 void PlayerCounterIceWater::clearIceWaterCount() {}

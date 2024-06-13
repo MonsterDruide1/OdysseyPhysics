@@ -68,3 +68,7 @@ WaterSurfaceShadow::WaterSurfaceShadow(al::ActorInitInfo const&, char const*) {}
 void WaterSurfaceShadow::setScale(float) {}
 
 PlayerCapManHeroEyesControl::PlayerCapManHeroEyesControl(char const*, al::LiveActor*, al::LiveActor*) {}
+
+bool PlayerStateWait::tryUpdateAreaAnim() {return false;}
+bool PlayerStateWait::tryChangeRequestAnim() {return false;}
+bool PlayerStateWait::tryChangeAreaAnim() {return false;}

@@ -20,7 +20,6 @@ PlayerStateHack::PlayerStateHack(al::LiveActor*, PlayerHackKeeper*, IPlayerModel
 PlayerStateEndHack::PlayerStateEndHack(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerTrigger*, PlayerAnimator*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateCameraSubjective::PlayerStateCameraSubjective(al::LiveActor*, al::CameraTicket*, IPlayerModelChanger*, PlayerCarryKeeper*, PlayerAnimator*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateAbyss::PlayerStateAbyss(al::LiveActor*, PlayerConst const*, PlayerRecoverySafetyPoint*, PlayerColliderHakoniwa*, PlayerAnimator*, al::LiveActor*) : al::NerveStateBase("") { WARN_UNIMPL; }
-PlayerStateWait::PlayerStateWait(al::LiveActor* player, PlayerConst const*, IUsePlayerCollision const*, PlayerModelChangerHakoniwa const*, PlayerJointControlKeeper const*, al::WaterSurfaceFinder const*, IUsePlayerHeightCheck const*, IJudge const*, PlayerAnimator*, PlayerTrigger*, PlayerCapManHeroEyesControl*, PlayerJointParamCenterDynamics*, PlayerJointParamGroundPose*) : al::ActorStateBase("", player) { WARN_UNIMPL; }
 PlayerStateSandSink::PlayerStateSandSink(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, IUsePlayerCollision*, PlayerAnimator*, IJudge*, PlayerJudgePreInputJump*) : al::NerveStateBase("") { WARN_UNIMPL; }
 ActorStateSandGeyser::ActorStateSandGeyser(al::LiveActor* act) : al::ActorStateBase("砂の間欠泉", act) { WARN_UNIMPL; }
 PlayerStateSpinCap::PlayerStateSpinCap(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerCounterForceRun const*, al::WaterSurfaceFinder const*, IUsePlayerCollision const*, PlayerTrigger*, PlayerSpinCapAttack*, PlayerAnimator*, PlayerJointParamCapThrow*) : al::NerveStateBase("") { WARN_UNIMPL; }
@@ -39,13 +38,6 @@ void PlayerStateWallAir::calcSnapMoveCutDir(sead::Vector3<float>*) { WARN_UNIMPL
 bool PlayerStateWallCatch::isWallCatchForm() { WARN_UNIMPL;return false; }
 void PlayerStateWallCatch::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) { WARN_UNIMPL; }
 const sead::Vector3f& PlayerStateWallCatch::getCeilingCheckPos() { WARN_UNIMPL;return sead::Vector3f::zero; }
-
-bool PlayerStateWait::tryClearIgnoreSwitchOnAreaAnim() { WARN_UNIMPL;return false; }
-bool PlayerStateWait::tryConnectWait() { WARN_UNIMPL;return false; }
-void PlayerStateWait::initSceneStartAnim() { WARN_UNIMPL; }
-bool PlayerStateWait::isLandStain() { WARN_UNIMPL;return false; }
-bool PlayerStateWait::isEnableCancelAction() const { WARN_UNIMPL;return true; }
-bool PlayerStateWait::isEnableCancelHipDropJump() { WARN_UNIMPL;return false; }
 
 bool PlayerStateHipDrop::isEnableLandCancel() const {WARN_UNIMPL;return true;}
 bool PlayerStateHipDrop::isEnableMove() const {WARN_UNIMPL;return true;}
