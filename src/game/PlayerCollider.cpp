@@ -250,7 +250,9 @@ void PlayerCollider::setCollisionShapeKeeper(CollisionShapeKeeper * a2){
 void PlayerCollider::calcBoundingRadius(float *) const { CRASH }
 void PlayerCollider::setCollisionShapeScale(float){ CRASH }
 void PlayerCollider::onCutCollideAffectDir(sead::Vector3f const&){ CRASH }
-void PlayerCollider::offCutCollideAffectDir(){ CRASH }
+void PlayerCollider::offCutCollideAffectDir(){
+  mCutCollideAffectDir = {0.0f, 0.0f, 0.0f};
+}
 void PlayerCollider::clear(){ CRASH }
 void PlayerCollider::calcCheckPos(sead::Vector3f *) const { CRASH }
 void PlayerCollider::resetPose(sead::Quatf const&){ CRASH }
@@ -2333,11 +2335,17 @@ LABEL_18:
 }
 bool PlayerCollider::isNeedWallBorderCheck(al::HitInfo const&) const { CRASH return false; }
 void PlayerCollider::setWallBorderCheckTypeNone(){ CRASH }
-void PlayerCollider::setWallBorderCheckTypeNoFace(){ CRASH }
+void PlayerCollider::setWallBorderCheckTypeNoFace(){
+  mWallBorderCheckType = 1;
+}
 void PlayerCollider::setWallBorderCheckTypeAll(){ CRASH }
-void PlayerCollider::setCollisionPartsFilter(al::CollisionPartsFilterBase const*){ CRASH }
+void PlayerCollider::setCollisionPartsFilter(al::CollisionPartsFilterBase const* partsFilter){
+  mCollisionPartsFilter = partsFilter;
+}
 void PlayerCollider::calcBoundingCenter(sead::Vector3f *) const { CRASH }
-void PlayerCollider::validateCorrectMovePartsCheck() const { CRASH }
+void PlayerCollider::validateCorrectMovePartsCheck() const {
+  mCollisionMultiShape->validateCorrectMovePartsCheck();
+}
 al::CollisionDirector* PlayerCollider::getCollisionDirector() const { 
     return mCollisionDirector;
 }

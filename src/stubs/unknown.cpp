@@ -33,6 +33,7 @@
 #include "Player/Player.h"
 #include "Player/PlayerActionFunction.h"
 #include "Player/PlayerActorBase.h"
+#include "Player/PlayerCeilingCheck.h"
 #include "Player/PlayerCostumeInfo.h"
 #include "Player/PlayerFunction.h"
 #include "Player/PlayerInput.h"
@@ -46,7 +47,7 @@
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "Util/Sensor.h"
-#include "CUSTOM/PlayerColliderHakoniwa.h"
+#include "Player/PlayerColliderHakoniwa.h"
 #include "Stuff.h"
 #include "basis/seadTypes.h"
 #include "game/RaylibActor.h"
@@ -66,6 +67,11 @@ bool PlayerInput::isSpinClockwise() const {
     WARN_UNIMPL;
     return false;
 }
+
+PlayerCeilingCheck::PlayerCeilingCheck(al::CollisionDirector*) { WARN_UNIMPL; }
+void PlayerCeilingCheck::update(sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float) { WARN_UNIMPL; }
+void PlayerCeilingCheck::setupCeilingCheckNormal() { WARN_UNIMPL; }
+void PlayerCeilingCheck::setCollisionPartsFilter(al::CollisionPartsFilterBase const*) { WARN_UNIMPL; }
 
 PlayerCounterAfterUpperPunch::PlayerCounterAfterUpperPunch() { WARN_UNIMPL; }
 void PlayerCounterAfterUpperPunch::update(PlayerTrigger const*) { WARN_UNIMPL; }

@@ -111,3 +111,5 @@ bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) {CRASH}
 void al::registerSubActor(al::LiveActor*, al::LiveActor*) {CRASH}
 void al::getLinksInfoByIndex(al::PlacementInfo*, al::PlacementInfo const&, char const*, int) {CRASH}
 void al::startHitReaction(al::LiveActor const*, char const*) {CRASH}
+
+sead::Matrix34f* al::ModelKeeper::getBaseMtx() {CRASH}

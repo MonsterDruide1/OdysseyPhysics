@@ -5,7 +5,7 @@
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
 #include "Player/PlayerActorHakoniwa.h"
-#include "CUSTOM/PlayerColliderHakoniwa.h"
+#include "Player/PlayerColliderHakoniwa.h"
 #include "heap/seadExpHeap.h"
 #include "heap/seadHeapMgr.h"
 #include "nlib/util.h"

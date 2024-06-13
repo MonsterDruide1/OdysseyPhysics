@@ -7,7 +7,7 @@
 #include "Player/PlayerStateFallHakoniwa.h"
 #include "Player/PlayerTrigger.h"
 #include "CUSTOM/CollisionPartsKeeper.h"
-#include "CUSTOM/PlayerColliderHakoniwa.h"
+#include "Player/PlayerColliderHakoniwa.h"
 
 #include "Stuff.h"
 #include "game/RaylibActor.h"

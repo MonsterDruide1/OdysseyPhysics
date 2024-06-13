@@ -1,7 +1,7 @@
 #include "Library/Nerve/NerveKeeper.h"
 #include "Library/Nerve/NerveStateCtrl.h"
 #include "game/RaylibActor.h"
-#include "CUSTOM/PlayerColliderHakoniwa.h"
+#include "Player/PlayerColliderHakoniwa.h"
 #include "game/StageScene.h"
 #include "math/seadMatrix.h"
 #include "nlib/types.h"

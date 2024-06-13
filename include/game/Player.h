@@ -11,9 +11,9 @@ class PlayerConst;
 class PlayerStateJump;
 class PlayerStateWait;
 class PlayerStateFallHakoniwa;
+class PlayerColliderHakoniwa;
 
 namespace game {
-class PlayerColliderHakoniwa;
 
 class Player : public al::LiveActor, public IUseDimension {
 public:
