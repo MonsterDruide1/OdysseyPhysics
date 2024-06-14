@@ -4,6 +4,7 @@ configure:
 .PHONY: build
 build:
 	ninja -C build
+	ninja -C build
 
 clean:
 	rm -rf build
