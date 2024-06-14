@@ -6,7 +6,6 @@ PlayerStateWallAir::PlayerStateWallAir(al::LiveActor*, PlayerConst const*, Playe
 PlayerStateWallCatch::PlayerStateWallCatch(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision*, IUsePlayerCeilingCheck const*, PlayerModelHolder const*, PlayerAreaChecker const*, PlayerAnimator*, PlayerTrigger*, PlayerJudgePreInputJump*, PlayerJointParamGrab*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateGrabCeil::PlayerStateGrabCeil(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerModelHolder const*, PlayerTrigger*, IUsePlayerCollision*, PlayerAnimator*, PlayerJudgePreInputJump*, al::HitSensor*, PlayerJointParamGrab*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStatePoleClimb::PlayerStatePoleClimb(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, PlayerModelHolder*, IUsePlayerCollision*, PlayerAnimator*, PlayerWallActionHistory*, PlayerJointParamHandLegAngle*, PlayerJudgePreInputJump*, PlayerActionDiveInWater*) : al::NerveStateBase("") { WARN_UNIMPL; }
-PlayerStateHipDrop::PlayerStateHipDrop(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerAnimator*, PlayerTrigger*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateHeadSliding::PlayerStateHeadSliding(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerActionDiveInWater const*, PlayerAnimator*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateLongJump::PlayerStateLongJump(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerTrigger*, PlayerAnimator*, PlayerContinuousLongJump*, PlayerActionDiveInWater*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateRise::PlayerStateRise(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerAnimator*) : al::NerveStateBase("") { WARN_UNIMPL; }
@@ -27,7 +26,6 @@ PlayerStateSquat::PlayerStateSquat(al::LiveActor*, PlayerConst const*, PlayerAni
 PlayerStateSlope::PlayerStateSlope(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerAnimator*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateRolling::PlayerStateRolling(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerTrigger*, PlayerAnimator*, PlayerEffect*, PlayerJudgeStartRolling*, IJudge*, PlayerJudgePreInputJump*, PlayerJudgePreInputCapThrow*, IJudge*, PlayerContinuousLongJump*, PlayerSeCtrl*) : al::NerveStateBase("") { WARN_UNIMPL; }
 
-bool PlayerStateHipDrop::isLandTrigger() const { WARN_UNIMPL;return false; }
 bool PlayerStateRolling::isRollingJump() { WARN_UNIMPL;return false; }
 void PlayerStatePoleClimb::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, char const*) { WARN_UNIMPL; }
 void PlayerStateGrabCeil::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) { WARN_UNIMPL; }
@@ -38,8 +36,3 @@ void PlayerStateWallAir::calcSnapMoveCutDir(sead::Vector3<float>*) { WARN_UNIMPL
 bool PlayerStateWallCatch::isWallCatchForm() { WARN_UNIMPL;return false; }
 void PlayerStateWallCatch::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) { WARN_UNIMPL; }
 const sead::Vector3f& PlayerStateWallCatch::getCeilingCheckPos() { WARN_UNIMPL;return sead::Vector3f::zero; }
-
-bool PlayerStateHipDrop::isEnableLandCancel() const {WARN_UNIMPL;return true;}
-bool PlayerStateHipDrop::isEnableMove() const {WARN_UNIMPL;return true;}
-bool PlayerStateHipDrop::isEnableHeadSliding() const {WARN_UNIMPL;return true;}
-bool PlayerStateHipDrop::isEnableInWater() const {WARN_UNIMPL;return true;}

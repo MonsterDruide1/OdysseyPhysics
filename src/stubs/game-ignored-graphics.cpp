@@ -12,6 +12,7 @@ namespace rs {
 bool isGuardNosePainCap(al::LiveActor const*) { return false; }
 bool isNeedCreateNoseNeedle(PlayerInitInfo const&) { return false; }
 void startHitReactionLandJumpIfLanding(al::LiveActor const*, IUsePlayerCollision const*, bool) {}
+void startHitReactionHipDropLand(al::LiveActor *,bool) {}
 
 }
 
@@ -43,12 +44,6 @@ void PlayerModelChangerHakoniwa::showModel() {}
 void PlayerModelChangerHakoniwa::showSilhouette() {}
 void PlayerModelChangerHakoniwa::showShadowMask() {}
 void PlayerModelChangerHakoniwa::resetPosition() {}
-
-PlayerAnimator::PlayerAnimator(PlayerModelHolder const*, al::ActorDitherAnimator*) {}
-void PlayerAnimator::updateAnimFrame() {}
-f32 PlayerAnimator::getModelAlpha() { return 1.0f; }
-bool PlayerAnimator::isAnim(sead::SafeStringBase<char> const&) const { return false; }
-void PlayerAnimator::startAnim(sead::SafeStringBase<char> const&) {}
 
 PlayerAnimControlRun::PlayerAnimControlRun(PlayerAnimator*, PlayerConst const*, IJudge const*, PlayerEffect*, bool) {}
 

@@ -24,3 +24,5 @@ PlayerJudgePreInputCapThrow::PlayerJudgePreInputCapThrow(PlayerConst const*,Play
 void PlayerJudgePreInputCapThrow::reset() {WARN_UNIMPL;}
 void PlayerJudgePreInputCapThrow::update() {WARN_UNIMPL;}
 bool PlayerJudgePreInputCapThrow::judge() const {WARN_UNIMPL;return false;}
+
+bool PlayerActorHakoniwa::tryActionSeparateCapThrow() { WARN_UNIMPL;return false; }

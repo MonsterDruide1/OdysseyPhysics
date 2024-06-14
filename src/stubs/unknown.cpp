@@ -90,12 +90,12 @@ void al::initActorWithArchiveName(al::LiveActor* actor, al::ActorInitInfo const&
 void al::initChildActorWithArchiveNameNoPlacementInfo(al::LiveActor*, al::ActorInitInfo const&, sead::SafeStringBase<char> const&, char const*) { WARN_UNIMPL; }
 
 void al::getTrans(sead::Vector3f* vec, const al::ActorInitInfo& info) {
-    al::tryGetByamlV3f(vec, info.getPlacementInfo().getPlacementIter(), "Translate");
+    if(!al::tryGetByamlV3f(vec, info.getPlacementInfo().getPlacementIter(), "Translate")) CRASH
 }
 void al::getQuat(sead::Quatf* q, const al::ActorInitInfo& info) {
     sead::Vector3f rot;
-    al::tryGetByamlV3f(&rot, info.getPlacementInfo().getPlacementIter(), "Rotate");
-    q->calcRPY(rot);
+    if(!al::tryGetByamlV3f(&rot, info.getPlacementInfo().getPlacementIter(), "Rotate")) CRASH
+    q->setRPY(sead::Mathf::deg2rad(rot.x), sead::Mathf::deg2rad(rot.y), sead::Mathf::deg2rad(rot.z));
 }
 
 
