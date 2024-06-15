@@ -138,6 +138,7 @@ void RaylibActor::initRaylibModel() {
     raylibModel.materials = (Material*) RL_CALLOC(raylibModel.materialCount, sizeof(Material));
     raylibModel.materials[0] = LoadMaterialDefault();
     raylibModel.materials[0].shader = checkerShader;
+    raylibModel.materials[0].maps[MATERIAL_MAP_DIFFUSE].color = Color{(u8)GetRandomValue(150, 255),(u8)GetRandomValue(150, 255),(u8)GetRandomValue(150, 255), 255};
 
     raylibModel.meshCount = coll.getNumInnerKcl();
     raylibModel.meshes = (Mesh*) RL_CALLOC(raylibModel.meshCount, sizeof(Mesh));
