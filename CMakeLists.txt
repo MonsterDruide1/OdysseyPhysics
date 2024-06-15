@@ -46,7 +46,7 @@ ExternalProject_Add(odyssey
 )
 add_definitions(-D NNSDK)
 include_directories(lib/smo/src)
-include_directories(lib/smo/lib/al/include)
+include_directories(lib/smo/lib/al)
 #include_directories(lib/smo/lib/aarch64)
 include_directories(lib/smo/lib/agl/include)
 include_directories(lib/smo/lib/eui/include)
