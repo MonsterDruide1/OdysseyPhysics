@@ -276,10 +276,10 @@ bool isPadHoldY(s32 port) {
     return isPadHold(port, 1 << 4);
 }
 bool isPadHoldZL(s32 port) {
-    return isPadHold(port, 1 << 2);
+    return IsKeyPressed(CONTROLLER_ZL);
 }
 bool isPadHoldZR(s32 port) {
-    return isPadHold(port, 1 << 5);
+    return IsKeyPressed(CONTROLLER_ZR);
 }
 bool isPadHoldL(s32 port) {
     return isPadHold(port, 1 << 13);
