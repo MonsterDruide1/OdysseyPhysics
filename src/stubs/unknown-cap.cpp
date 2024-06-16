@@ -1,4 +1,5 @@
 #include "Player/PlayerConst.h"
+#include "Player/PlayerInput.h"
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
 
@@ -13,6 +14,9 @@ bool HackCap::isNoPutOnHide() { WARN_UNIMPL;return false; }
 bool HackCap::isEnableSpinAttack() { WARN_UNIMPL;return false; }
 bool HackCap::requestReturn(bool*) { WARN_UNIMPL;return false; }
 bool HackCap::isRequestableReturn() { WARN_UNIMPL;return false; }
+void HackCap::startCatch(char const*, bool, sead::Vector3<float> const&) { WARN_UNIMPL; }
+
+bool PlayerInput::isHoldCapSeparateJump() const { WARN_UNIMPL;return false; }
 
 PlayerSeparateCapFlag::PlayerSeparateCapFlag() { WARN_UNIMPL; }
 
