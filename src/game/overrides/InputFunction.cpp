@@ -52,100 +52,100 @@ bool isPadTrigger(s32 port, s32 button) {
 }
 
 bool isPadTriggerA(s32 port) {
-    return IsKeyDown(CONTROLLER_A);
+    return IsKeyPressed(CONTROLLER_A);
 }
 bool isPadTriggerB(s32 port) {
-    return IsKeyDown(CONTROLLER_B);
+    return IsKeyPressed(CONTROLLER_B);
 }
 bool isPadTriggerX(s32 port) {
-    return IsKeyDown(CONTROLLER_X);
+    return IsKeyPressed(CONTROLLER_X);
 }
 bool isPadTriggerY(s32 port) {
-    return IsKeyDown(CONTROLLER_Y);
+    return IsKeyPressed(CONTROLLER_Y);
 }
 bool isPadTriggerZL(s32 port) {
-    return IsKeyDown(CONTROLLER_ZL);
+    return IsKeyPressed(CONTROLLER_ZL);
 }
 bool isPadTriggerZR(s32 port) {
-    return IsKeyDown(CONTROLLER_ZR);
+    return IsKeyPressed(CONTROLLER_ZR);
 }
 bool isPadTriggerL(s32 port) {
-    return IsKeyDown(CONTROLLER_L);
+    return IsKeyPressed(CONTROLLER_L);
 }
 bool isPadTriggerR(s32 port) {
-    return IsKeyDown(CONTROLLER_R);
+    return IsKeyPressed(CONTROLLER_R);
 }
 bool isPadTrigger1(s32 port) {
-    return IsKeyDown(CONTROLLER_1);
+    return IsKeyPressed(CONTROLLER_1);
 }
 bool isPadTrigger2(s32 port) {
-    return IsKeyDown(CONTROLLER_2);
+    return IsKeyPressed(CONTROLLER_2);
 }
 bool isPadTriggerUp(s32 port) {
-    return IsKeyDown(CONTROLLER_UP);
+    return IsKeyPressed(CONTROLLER_UP);
 }
 bool isPadTriggerDown(s32 port) {
-    return IsKeyDown(CONTROLLER_DOWN);
+    return IsKeyPressed(CONTROLLER_DOWN);
 }
 bool isPadTriggerLeft(s32 port) {
-    return IsKeyDown(CONTROLLER_LEFT);
+    return IsKeyPressed(CONTROLLER_LEFT);
 }
 bool isPadTriggerRight(s32 port) {
-    return IsKeyDown(CONTROLLER_RIGHT);
+    return IsKeyPressed(CONTROLLER_RIGHT);
 }
 bool isPadTriggerLeftUp(s32 port) {
-    return IsKeyDown(CONTROLLER_LEFT) && IsKeyDown(CONTROLLER_UP);
+    return IsKeyPressed(CONTROLLER_LEFT) && IsKeyPressed(CONTROLLER_UP);
 }
 bool isPadTriggerLeftDown(s32 port) {
-    return IsKeyDown(CONTROLLER_LEFT) && IsKeyDown(CONTROLLER_DOWN);
+    return IsKeyPressed(CONTROLLER_LEFT) && IsKeyPressed(CONTROLLER_DOWN);
 }
 bool isPadTriggerRightUp(s32 port) {
-    return IsKeyDown(CONTROLLER_RIGHT) && IsKeyDown(CONTROLLER_UP);
+    return IsKeyPressed(CONTROLLER_RIGHT) && IsKeyPressed(CONTROLLER_UP);
 }
 bool isPadTriggerRightDown(s32 port) {
-    return IsKeyDown(CONTROLLER_RIGHT) && IsKeyDown(CONTROLLER_DOWN);
+    return IsKeyPressed(CONTROLLER_RIGHT) && IsKeyPressed(CONTROLLER_DOWN);
 }
 bool isPadTriggerHome(s32 port) {
-    return IsKeyDown(CONTROLLER_HOME);
+    return IsKeyPressed(CONTROLLER_HOME);
 }
 bool isPadTriggerStart(s32 port) {
-    return IsKeyDown(CONTROLLER_START);
+    return IsKeyPressed(CONTROLLER_START);
 }
 bool isPadTriggerSelect(s32 port) {
-    return IsKeyDown(CONTROLLER_SELECT);
+    return IsKeyPressed(CONTROLLER_SELECT);
 }
 bool isPadTriggerPlus(s32 port) {
-    return IsKeyDown(CONTROLLER_PLUS);
+    return IsKeyPressed(CONTROLLER_PLUS);
 }
 bool isPadTriggerMinus(s32 port) {
-    return IsKeyDown(CONTROLLER_MINUS);
+    return IsKeyPressed(CONTROLLER_MINUS);
 }
 bool isPadTriggerTouch() {
     CRASH
 }
 bool isPadTriggerUpLeftStick(s32 port) {
-    return IsKeyDown(CONTROLLER_LSTICK_UP) && IsKeyDown(CONTROLLER_LSTICK_LEFT);
+    return IsKeyPressed(CONTROLLER_LSTICK_UP) && IsKeyPressed(CONTROLLER_LSTICK_LEFT);
 }
 bool isPadTriggerDownLeftStick(s32 port) {
-    return IsKeyDown(CONTROLLER_LSTICK_DOWN) && IsKeyDown(CONTROLLER_LSTICK_LEFT);
+    return IsKeyPressed(CONTROLLER_LSTICK_DOWN) && IsKeyPressed(CONTROLLER_LSTICK_LEFT);
 }
 bool isPadTriggerLeftLeftStick(s32 port) {
-    return IsKeyDown(CONTROLLER_LSTICK_LEFT);
+    return IsKeyPressed(CONTROLLER_LSTICK_LEFT);
 }
 bool isPadTriggerRightLeftStick(s32 port) {
-    return IsKeyDown(CONTROLLER_LSTICK_RIGHT);
+    return IsKeyPressed(CONTROLLER_LSTICK_RIGHT);
 }
 bool isPadTriggerUpRightStick(s32 port) {
-    return IsKeyDown(CONTROLLER_RSTICK_UP);
+    return IsKeyPressed(CONTROLLER_RSTICK_UP);
 }
 bool isPadTriggerDownRightStick(s32 port) {
-    return IsKeyDown(CONTROLLER_RSTICK_DOWN);
+    return IsKeyPressed(CONTROLLER_RSTICK_DOWN);
 }
 bool isPadTriggerLeftRightStick(s32 port) {
-    return IsKeyDown(CONTROLLER_RSTICK_LEFT);
+    return IsKeyPressed(CONTROLLER_RSTICK_LEFT);
 }
 bool isPadTriggerRightRightStick(s32 port) {
-    return IsKeyDown(CONTROLLER_RSTICK_RIGHT);
+    return IsKeyPressed(CONTROLLER_RSTICK_RIGHT);
 }
 bool isPadTriggerAnyABXY(s32 port) {
     return isPadTriggerA(port) || isPadTriggerB(port) || isPadTriggerX(port) || isPadTriggerY(port);
@@ -276,10 +276,10 @@ bool isPadHoldY(s32 port) {
     return isPadHold(port, 1 << 4);
 }
 bool isPadHoldZL(s32 port) {
-    return IsKeyPressed(CONTROLLER_ZL);
+    return IsKeyDown(CONTROLLER_ZL);
 }
 bool isPadHoldZR(s32 port) {
-    return IsKeyPressed(CONTROLLER_ZR);
+    return IsKeyDown(CONTROLLER_ZR);
 }
 bool isPadHoldL(s32 port) {
     return isPadHold(port, 1 << 13);

@@ -1,4 +1,5 @@
 
+#include "Library/stuff.h"
 #include "PlayerUtil.h"
 #include "Util/PlayerCollisionUtil.h"
 
@@ -18,3 +19,6 @@ bool isOnGroundForceRollingCode(al::LiveActor const*, IUsePlayerCollision const*
 
 PlayerSandSinkAffect::PlayerSandSinkAffect(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision*, PlayerEffect*) {}
 bool PlayerSandSinkAffect::isSinkDeathHeight() { return false; }
+
+void alPadRumbleFunction::startPadRumbleLoopNo3D(al::LiveActor const*, char const*, sead::Vector3<float> const*, int) {}
+void alPadRumbleFunction::stopPadRumbleLoop(al::LiveActor const*, char const*, sead::Vector3<float> const*, int) {}
