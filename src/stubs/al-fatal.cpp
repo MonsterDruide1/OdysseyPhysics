@@ -97,7 +97,6 @@ bool al::tryGetActorInitFileName(sead::BufferedSafeStringBase<char>*, al::LiveAc
 
 void al::tryInitFixedModelGpuBuffer(al::LiveActor*) {CRASH}
 bool al::isCollidedGround(al::LiveActor const*) {CRASH}
-void al::syncCollisionMtx(al::LiveActor*, sead::Matrix34<float> const*) {CRASH}
 void al::resetAllCollisionMtx(al::LiveActor*) {CRASH}
 
 void al::setScale(al::LiveActor*, sead::Vector3<float> const&) {CRASH}
@@ -113,3 +112,5 @@ void al::getLinksInfoByIndex(al::PlacementInfo*, al::PlacementInfo const&, char 
 void al::startHitReaction(al::LiveActor const*, char const*) {CRASH}
 
 sead::Matrix34f* al::ModelKeeper::getBaseMtx() {CRASH}
+
+sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {CRASH}

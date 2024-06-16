@@ -2,7 +2,6 @@
 
 PlayerJudgeAirForceCount::PlayerJudgeAirForceCount(al::LiveActor const*, PlayerExternalVelocity const*, IUsePlayerCollision const*) { WARN_UNIMPL; }
 PlayerJudgeCapCatchPop::PlayerJudgeCapCatchPop(al::LiveActor const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCapActionHistory const*, PlayerCounterAfterCapCatch const*) { WARN_UNIMPL; }
-PlayerJudgeDeadWipeStart::PlayerJudgeDeadWipeStart(al::LiveActor const*, PlayerConst const*) { WARN_UNIMPL; }
 PlayerJudgeDirectRolling::PlayerJudgeDirectRolling(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerCounterForceRun const*) { WARN_UNIMPL; }
 PlayerJudgeGrabCeil::PlayerJudgeGrabCeil(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*) { WARN_UNIMPL; }
 PlayerJudgeLongFall::PlayerJudgeLongFall(al::LiveActor const*, PlayerConst const*, IUsePlayerFallDistanceCheck const*, PlayerHackKeeper const*, PlayerBindKeeper const*, IPlayerModelChanger const*) { WARN_UNIMPL; }

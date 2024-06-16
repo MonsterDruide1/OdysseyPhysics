@@ -52,6 +52,8 @@ int main() {
 
             printf("----------------------------\n");
 
+            scene.update();
+
             //UpdateCamera(&cam, CAMERA_FREE);
 
             sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
@@ -80,8 +82,6 @@ int main() {
                     scene.mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
                     scene.mPlayer->raylibModel.transform = raylibMtx(mtx);
                     DrawModel(scene.mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
-
-                    scene.mPlayer->mActor->movement();
                 }
 
                 EndMode3D();
