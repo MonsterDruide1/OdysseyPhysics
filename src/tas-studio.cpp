@@ -3,6 +3,8 @@
 #include "game/RaylibActor.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "game/StageScene.h"
+#include "game/StageSceneManager.h"
+#include "heap/ClonableExpHeap.h"
 #include "math/seadMatrix.h"
 #include "nlib/types.h"
 #include "nlib/util.h"
@@ -35,24 +37,33 @@ int main() {
         // context of sead
 
         
-        game::StageScene scene{};
+        game::StageSceneManager sceneManager{};
+        game::StageScene* scene = sceneManager.getScene();
         //scene.init("SandWorldSlotStageMap", 0);
-        scene.init("SandWorldMeganeExStageMap", 0);
+        sceneManager.init("SandWorldMeganeExStageMap", 0);
 
         Camera3D cam = {0};
-        cam.position = raylibVec(scene.mCamera->position() * SCALE);
-        cam.target = raylibVec(scene.mCamera->lookAtPos * SCALE);
-        printf("Camera up: %f %f %f\n", scene.mCamera->up().x, scene.mCamera->up().y, scene.mCamera->up().z);
-        cam.up = raylibVec(scene.mCamera->up());
+        cam.position = raylibVec(scene->mCamera->position() * SCALE);
+        cam.target = raylibVec(scene->mCamera->lookAtPos * SCALE);
+        cam.up = raylibVec(scene->mCamera->up());
         cam.fovy = 45;
         cam.projection = CAMERA_PERSPECTIVE;
+
+        sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
 
         int cameraDirLoc = GetShaderLocation(game::checkerShader, "cameraDirection");
         while (!WindowShouldClose()) {
 
             printf("----------------------------\n");
 
-            scene.update();
+            if(IsKeyPressed(KEY_P)) {
+                sead::ClonableExpHeap* currentHeap = sceneManager.mHeap;
+                sceneManager.mHeap = prevHeap;
+                prevHeap = currentHeap;
+            }
+            scene = sceneManager.getScene();
+
+            scene->update();
 
             //UpdateCamera(&cam, CAMERA_FREE);
 
@@ -66,8 +77,8 @@ int main() {
 
                 SetShaderValue(game::checkerShader, cameraDirLoc, &cameraDir, SHADER_UNIFORM_VEC3);
 
-                for (int i=0; i<scene.mActorsNum; i++) {
-                    auto actor = scene.mActors[i];
+                for (int i=0; i<scene->mActorsNum; i++) {
+                    auto actor = scene->mActors[i];
                     if (!actor)
                         continue;
 
@@ -79,14 +90,14 @@ int main() {
 
                 {
                     sead::Matrix34f mtx;
-                    scene.mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
-                    scene.mPlayer->raylibModel.transform = raylibMtx(mtx);
-                    DrawModel(scene.mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
+                    scene->mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
+                    scene->mPlayer->raylibModel.transform = raylibMtx(mtx);
+                    DrawModel(scene->mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
                 }
 
                 EndMode3D();
 
-                DrawText(scene.mPlayer->mActor->mNerveKeeper->getStateCtrl()->findStateInfo(scene.mPlayer->mActor->mNerveKeeper->getCurrentNerve())->name,
+                DrawText(scene->mPlayer->mActor->mNerveKeeper->getStateCtrl()->findStateInfo(scene->mPlayer->mActor->mNerveKeeper->getCurrentNerve())->name,
                     0, 0, 40,  {255, 0, 0, 255});
             }
             EndDrawing();
