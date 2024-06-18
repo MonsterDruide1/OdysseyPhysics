@@ -1,5 +1,9 @@
 #include "Library/Nerve/NerveKeeper.h"
 #include "Library/Nerve/NerveStateCtrl.h"
+#include "Player/CollisionShapeInfo.h"
+#include "Player/CollisionShapeKeeper.h"
+#include "Player/PlayerActorHakoniwa.h"
+#include "Player/PlayerCollider.h"
 #include "game/RaylibActor.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "game/StageScene.h"
@@ -13,6 +17,7 @@
 #include "raylib.h"
 #include "raymath.h"
 #include "rcamera.h"
+#include "rlgl.h"
 #include "seadInterface.h"
 #include "types.h"
 #include "ui/RaylibUtil.h"
@@ -90,8 +95,33 @@ int main() {
                 {
                     sead::Matrix34f mtx;
                     scene->mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
-                    scene->mPlayer->raylibModel.transform = raylibMtx(mtx);
-                    DrawModel(scene->mPlayer->raylibModel, {0,0,0}, SCALE, WHITE);
+                    CollisionShapeKeeper* collisionShapeKeeper = ((PlayerActorHakoniwa*)scene->mPlayer->mActor)->getPlayerCollision()->getPlayerCollider()->mCollisionShapeKeeper;
+                    for(int i=0; i<collisionShapeKeeper->mCollisionShape.size(); i++) {
+                        auto shape = collisionShapeKeeper->mCollisionShape[i];
+                        if(shape->getId() == CollisionShapeId::Arrow) {
+                            auto arrow = (CollisionShapeInfoArrow*)shape;
+                            sead::Vector3f startOrig = arrow->a3;
+                            sead::Vector3f endOrig = arrow->a4;
+                            sead::Vector3f start,end;
+                            start.setMul(mtx, startOrig);
+                            end.setMul(mtx, endOrig);
+                            start *= SCALE;
+                            end *= SCALE;
+                            rlPushMatrix();
+                                DrawLine3D(raylibVec(start), raylibVec(end), RED);
+                            rlPopMatrix();
+                        }
+                        else if(shape->getId() == CollisionShapeId::Sphere) {
+                            auto sphere = (CollisionShapeInfoSphere*)shape;
+                            sead::Vector3f center = sphere->mBoundingCenter * SCALE;
+                            sphereModel.transform = raylibMtx(mtx);
+                            DrawModel(sphereModel, raylibVec(center), SCALE, RED);
+                        }
+                        else {
+                            printf("Unknown shape type: %d\n", (int)shape->getId());
+                            CRASH
+                        }
+                    }
                 }
 
                 EndMode3D();

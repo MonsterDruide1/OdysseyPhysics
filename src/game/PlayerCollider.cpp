@@ -249,7 +249,9 @@ void PlayerCollider::setCollisionShapeKeeper(CollisionShapeKeeper * a2){
 }
 void PlayerCollider::calcBoundingRadius(float *) const { CRASH }
 void PlayerCollider::setCollisionShapeScale(float){ CRASH }
-void PlayerCollider::onCutCollideAffectDir(sead::Vector3f const&){ CRASH }
+void PlayerCollider::onCutCollideAffectDir(sead::Vector3f const& dir){
+  mCutCollideAffectDir = dir;
+}
 void PlayerCollider::offCutCollideAffectDir(){
   mCutCollideAffectDir = {0.0f, 0.0f, 0.0f};
 }
@@ -543,22 +545,20 @@ LABEL_29:
 
   if ( a1->mIsDuringRecovery )
   {
-    CRASH
-    /*v43 = (sead::Matrix34f *)a1->mMtxPtr;
+    v43 = (sead::Matrix34f *)a1->mMtxPtr;
     mTransPtr = a1->mTransPtr;
     v45 = mTransPtr->x;
     a1->mTrans.x = mTransPtr->x;
     v46 = v45;
     v47 = mTransPtr->y;
     a1->mTrans.y = v47;
-    *(float *)&mTransPtr = mTransPtr->z;
-    LODWORD(a1->mTrans.z) = (_DWORD)mTransPtr;
+    a1->mTrans.z = mTransPtr->z;
     a1->mTrans.x = v46 + velocity.x;
     a1->mTrans.y = v47 + velocity.y;
-    a1->mTrans.z = *(float *)&mTransPtr + velocity.z;
+    a1->mTrans.z = mTransPtr->z + velocity.z;
     a1->mSize = newSize;
     a1->mMtx = *v43;
-    v60 = velocity;*/
+    v60 = velocity;
   }
   else
   {
@@ -2338,7 +2338,9 @@ void PlayerCollider::setWallBorderCheckTypeNone(){ CRASH }
 void PlayerCollider::setWallBorderCheckTypeNoFace(){
   mWallBorderCheckType = 1;
 }
-void PlayerCollider::setWallBorderCheckTypeAll(){ CRASH }
+void PlayerCollider::setWallBorderCheckTypeAll(){
+  mWallBorderCheckType = 2;
+}
 void PlayerCollider::setCollisionPartsFilter(al::CollisionPartsFilterBase const* partsFilter){
   mCollisionPartsFilter = partsFilter;
 }
