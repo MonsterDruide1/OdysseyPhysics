@@ -2,41 +2,54 @@
 
 #include <math/seadVector.h>
 #include "math/seadMatrix.h"
+#include "math/seadVectorFwd.h"
 
 namespace game {
 
 class Camera {
 public:
+    void setup(float angleH, float angleV, float distance, sead::Vector3f lookAtPos) {
+        sead::Vector3f pos = {
+            lookAtPos.x + distance * cosf(angleH * M_PI / 180) * cosf(angleV * M_PI / 180),
+            lookAtPos.y + distance * sinf(angleV * M_PI / 180),
+            lookAtPos.z + distance * sinf(angleH * M_PI / 180) * cosf(angleV * M_PI / 180)
+        };
+        sead::Vector3f rot = {
+            sead::Mathf::deg2rad(0.0f+angleV),
+            sead::Mathf::deg2rad(-90.0f - angleH),
+            0
+        };
+        mMtx.makeRT(rot, pos);
+        mDistance = distance;
+    }
+
     sead::Vector3f position() {
         sead::Vector3f pos;
-        pos.x = lookAtPos.x + distance * cosf(angleH * M_PI / 180) * cosf(angleV * M_PI / 180);
-        pos.y = lookAtPos.y + distance * sinf(angleV * M_PI / 180);
-        pos.z = lookAtPos.z + distance * sinf(angleH * M_PI / 180) * cosf(angleV * M_PI / 180);
+        mMtx.getTranslation(pos);
         return pos;
     }
 
     sead::Vector3f up() {
-        return {0, 1, 0};
+        sead::Vector3f up = {0, 1, 0};
+        up.rotate(mMtx);
+        up.normalize();
+        return up;
+    }
+
+    sead::Vector3f front() {
+        sead::Vector3f front = {0, 0, 1};
+        front.rotate(mMtx);
+        front.normalize();
+        return front;
     }
 
     const sead::Matrix34f* getViewMtxPtr() {
-        WARN_UNIMPL;
-        return &sead::Matrix34f::ident;
+        return &mMtx;
     }
 
 public:
-    float angleH = 90;
-    float angleV = 60;
-    float distance = 3000;
-    sead::Vector3f lookAtPos = {-250, 300, 1500};  // room 1
-    //sead::Vector3f lookAtPos = {-3050, 300, 1500};  // room 2
-    //sead::Vector3f lookAtPos = {-5850, 300, 1500};  // room 3
-
-    /*float angleH = 90;
-    float angleV = 30;
-    float distance = 1800;
-    sead::Vector3f lookAtPos = {0, 250, -150};*/
-
+    sead::Matrix34f mMtx;
+    f32 mDistance;
 };
 
 }

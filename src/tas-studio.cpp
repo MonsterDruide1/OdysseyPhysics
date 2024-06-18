@@ -46,9 +46,17 @@ int main() {
         //scene.init("SandWorldSlotStageMap", 0);
         sceneManager.init("SandWorldMeganeExStageMap", 0);
 
+        float angleH = 90;
+        float angleV = 60;
+        float distance = 3000;
+        sead::Vector3f lookAtPos1 = {-250, 300, 1500};  // room 1
+        sead::Vector3f lookAtPos2 = {-3050, 300, 1500};  // room 2
+        sead::Vector3f lookAtPos3 = {-5850, 300, 1500};  // room 3
+        scene->mCamera->setup(angleH, angleV, distance, lookAtPos1);
+
         Camera3D cam = {0};
         cam.position = raylibVec(scene->mCamera->position() * SCALE);
-        cam.target = raylibVec(scene->mCamera->lookAtPos * SCALE);
+        cam.target = raylibVec((scene->mCamera->position() + scene->mCamera->front() * scene->mCamera->mDistance) * SCALE);
         cam.up = raylibVec(scene->mCamera->up());
         cam.fovy = 45;
         cam.projection = CAMERA_PERSPECTIVE;
@@ -70,6 +78,22 @@ int main() {
             scene->update();
 
             //UpdateCamera(&cam, CAMERA_FREE);
+            sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+            float dist1 = sead::Vector3f(playerPos - lookAtPos1).squaredLength();
+            float dist2 = sead::Vector3f(playerPos - lookAtPos2).squaredLength();
+            float dist3 = sead::Vector3f(playerPos - lookAtPos3).squaredLength();
+            if(dist1 < dist2 && dist1 < dist3) {
+                scene->mCamera->setup(angleH, angleV, distance, lookAtPos1);
+            }
+            else if(dist2 < dist1 && dist2 < dist3) {
+                scene->mCamera->setup(angleH, angleV, distance, lookAtPos2);
+            }
+            else {
+                scene->mCamera->setup(angleH, angleV, distance, lookAtPos3);
+            }
+            cam.position = raylibVec(scene->mCamera->position() * SCALE);
+            cam.target = raylibVec((scene->mCamera->position() + scene->mCamera->front() * scene->mCamera->mDistance) * SCALE);
+            cam.up = raylibVec(scene->mCamera->up());
 
             sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
             cameraDir.normalize();
