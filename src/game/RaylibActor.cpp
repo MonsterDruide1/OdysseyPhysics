@@ -9,14 +9,12 @@
 #include "oead/sarc.h"
 #include "oead/yaz0.h"
 #include "raylib.h"
+#include "ui/RaylibUtil.h"
 #include <cstdio>
 #include <cstring>
 #include <filesystem>
 
 namespace game {
-
-Shader checkerShader;
-Mesh cubeMesh;
 
 RaylibActor::RaylibActor(al::LiveActor* actor) : mActor(actor) {}
 

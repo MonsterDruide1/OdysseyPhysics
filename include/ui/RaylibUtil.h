@@ -3,6 +3,15 @@
 #include "math/seadQuat.h"
 #include <raylib.h>
 
+extern Mesh cubeMesh;
+extern Model cubeModel;
+extern Mesh sphereMesh;
+extern Model sphereModel;
+extern Shader checkerShader;
+
+void setupRaylibUtil();
+void unloadRaylibUtil();
+
 inline Quaternion raylibQuat(sead::Quatf quat) {
     return {quat.x, quat.y, quat.z, quat.w};
 }

@@ -30,8 +30,7 @@ int main() {
     SetTargetFPS(60);
     //DisableCursor();
 
-    game::checkerShader = LoadShader("res/shaders/normal.vs", "res/shaders/normal.fs");
-    game::cubeMesh = GenMeshCube(50, 50, 50);
+    setupRaylibUtil();
     initializeSead();
     {
         // context of sead
@@ -51,7 +50,7 @@ int main() {
 
         sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
 
-        int cameraDirLoc = GetShaderLocation(game::checkerShader, "cameraDirection");
+        int cameraDirLoc = GetShaderLocation(checkerShader, "cameraDirection");
         while (!WindowShouldClose()) {
 
             printf("----------------------------\n");
@@ -75,7 +74,7 @@ int main() {
                 ClearBackground(BLACK);
                 BeginMode3D(cam);
 
-                SetShaderValue(game::checkerShader, cameraDirLoc, &cameraDir, SHADER_UNIFORM_VEC3);
+                SetShaderValue(checkerShader, cameraDirLoc, &cameraDir, SHADER_UNIFORM_VEC3);
 
                 for (int i=0; i<scene->mActorsNum; i++) {
                     auto actor = scene->mActors[i];
@@ -105,10 +104,7 @@ int main() {
 
     }
     unloadSead();
-
-    UnloadShader(game::checkerShader);
-    UnloadMesh(game::cubeMesh);
-    /**/
+    unloadRaylibUtil();
 
     CloseWindow();
     

@@ -8,9 +8,6 @@
 
 namespace game {
 
-extern Shader checkerShader;
-extern Mesh cubeMesh;
-
 class RaylibActor {
 public:
     RaylibActor(al::LiveActor*);
