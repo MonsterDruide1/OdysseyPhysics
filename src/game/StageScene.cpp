@@ -78,10 +78,10 @@ void StageScene::init(const char* stageName, int scenario) {
     al::CollisionDirector* collDirector = new al::CollisionDirector(nullptr);
     collDirector->setPartsKeeper(mPartsKeeper);
     PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
-    al::PlacementInfo* placementInfo = new al::PlacementInfo();
-    placementInfo->set(playerlist.getIterByIndex(0), al::ByamlIter());
+    al::PlacementInfo placementInfo = {};
+    placementInfo.set(playerlist.getIterByIndex(0), al::ByamlIter());
     al::ActorInitInfo actorInfo = {};
-    actorInfo.initNew(placementInfo, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, collDirector, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+    actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, collDirector, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     al::ActorSceneInfo* sceneInfo = new al::ActorSceneInfo(); // allocate on heap to ensure persistence
     memcpy(sceneInfo, &actorInfo.mActorSceneInfo, sizeof(al::ActorSceneInfo));
     player->initSceneInfo(sceneInfo);
