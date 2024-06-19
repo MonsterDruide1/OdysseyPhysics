@@ -7,7 +7,6 @@ PlayerJudgeGrabCeil::PlayerJudgeGrabCeil(al::LiveActor const*, PlayerConst const
 PlayerJudgeLongFall::PlayerJudgeLongFall(al::LiveActor const*, PlayerConst const*, IUsePlayerFallDistanceCheck const*, PlayerHackKeeper const*, PlayerBindKeeper const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
 PlayerJudgeSandSink::PlayerJudgeSandSink(IUsePlayerCollision const*, PlayerSandSinkAffect const*) { WARN_UNIMPL; }
 PlayerJudgeSlopeSlide::PlayerJudgeSlopeSlide(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
-PlayerJudgeStartRolling::PlayerJudgeStartRolling(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*) { WARN_UNIMPL; }
 PlayerJudgeWallCatch::PlayerJudgeWallCatch(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*, PlayerInput const*, PlayerTrigger const*, PlayerCounterForceRun const*) { WARN_UNIMPL; }
 PlayerJudgeWallCatchInputDir::PlayerJudgeWallCatchInputDir(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*, PlayerCounterForceRun const*, IUsePlayerHeightCheck const*) { WARN_UNIMPL; }
 PlayerJudgeWallHitDown::PlayerJudgeWallHitDown(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*, PlayerTrigger const*) { WARN_UNIMPL; }
@@ -42,4 +41,3 @@ HackCapJudgePreInputSeparateJump::HackCapJudgePreInputSeparateJump(PlayerInput c
 
 void PlayerJudgeWallCatchInputDir::validateFallJudge() { WARN_UNIMPL; }
 void PlayerJudgeWallCatchInputDir::updateWallCatchEnviroment() { WARN_UNIMPL; }
-bool PlayerJudgeStartRolling::judgeCancelHipDrop() { WARN_UNIMPL;return false; }
