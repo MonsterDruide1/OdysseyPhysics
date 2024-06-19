@@ -18,6 +18,7 @@ bool isActiveDemo(al::LiveActor const*) { return false; }
 bool calcHackerMoveDir(sead::Vector3f *, const IUsePlayerHack *, const sead::Vector3f &) { return false; }
 bool isPlayerHack(al::LiveActor const*) { return false; }
 al::CollisionPartsFilterBase* createCollisionPartsFilter2DOnly() { return nullptr; }
+bool isModeE3Rom() { return false; }
 
 }
 
