@@ -50,3 +50,5 @@ PlayerJudgePreInputHackAction::PlayerJudgePreInputHackAction(PlayerConst const*,
 void PlayerJudgePreInputHackAction::reset() {}
 void PlayerJudgePreInputHackAction::update() {}
 bool PlayerJudgePreInputHackAction::judge() const {return false;}
+
+bool HackCap::sendMsgStartHack(al::HitSensor*) { return false; }

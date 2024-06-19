@@ -22,3 +22,8 @@ bool PlayerSandSinkAffect::isSinkDeathHeight() { return false; }
 
 void alPadRumbleFunction::startPadRumbleLoopNo3D(al::LiveActor const*, char const*, sead::Vector3<float> const*, int) {}
 void alPadRumbleFunction::stopPadRumbleLoop(al::LiveActor const*, char const*, sead::Vector3<float> const*, int) {}
+
+PlayerJudgePoleClimb::PlayerJudgePoleClimb(al::LiveActor const*,PlayerConst const*,IUsePlayerCollision const*,IPlayerModelChanger const*,PlayerCarryKeeper const*,PlayerExternalVelocity const*,PlayerInput const*,PlayerTrigger const*) {}
+void PlayerJudgePoleClimb::update() {}
+void PlayerJudgePoleClimb::reset() {}
+bool PlayerJudgePoleClimb::judge() const { return false; }
