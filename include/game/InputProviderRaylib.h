@@ -45,8 +45,8 @@ public:
         return buttons;
     }
 
-    sead::Vector3f getStickLeft() override {
-        sead::Vector3f stick;
+    sead::Vector2f getStickLeft() override {
+        sead::Vector2f stick;
         if (IsKeyDown(KEY_W)) stick.y = 1;
         if (IsKeyDown(KEY_S)) stick.y = -1;
         if (IsKeyDown(KEY_A)) stick.x = -1;
@@ -54,8 +54,8 @@ public:
         return stick;
     }
 
-    sead::Vector3f getStickRight() override {
-        sead::Vector3f stick;
+    sead::Vector2f getStickRight() override {
+        sead::Vector2f stick;
         if (IsKeyDown(KEY_I)) stick.y = 1;
         if (IsKeyDown(KEY_K)) stick.y = -1;
         if (IsKeyDown(KEY_J)) stick.x = -1;

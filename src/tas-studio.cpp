@@ -6,6 +6,7 @@
 #include "Player/PlayerCollider.h"
 #include "game/Input.h"
 #include "game/InputProviderRaylib.h"
+#include "game/InputProviderTAS.h"
 #include "game/RaylibActor.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "game/StageScene.h"
@@ -42,7 +43,7 @@ int main() {
     {
         // context of sead
 
-        Input::instance()->setInputProvider(new InputProviderRaylib());
+        Input::instance()->setInputProvider(new InputProviderTAS("res/test.txt"));
         
         game::StageSceneManager sceneManager{};
         game::StageScene* scene = sceneManager.getScene();

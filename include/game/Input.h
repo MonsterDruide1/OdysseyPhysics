@@ -37,9 +37,10 @@ enum ControllerButton : u32 {
 
 class InputProvider {
 public:
+    virtual void update() {}
     virtual sead::BitFlag32 getButtons() = 0;
-    virtual sead::Vector3f getStickLeft() = 0;
-    virtual sead::Vector3f getStickRight() = 0;
+    virtual sead::Vector2f getStickLeft() = 0;
+    virtual sead::Vector2f getStickRight() = 0;
 };
 
 class Input {
@@ -55,10 +56,11 @@ public:
         mPrevButtons = mButtons;
         if (!mProvider) {
             ((sead::BitFlag32*)&mButtons)->makeAllZero();
-            mStickLeft = sead::Vector3f::zero;
-            mStickRight = sead::Vector3f::zero;
+            mStickLeft = sead::Vector2f::zero;
+            mStickRight = sead::Vector2f::zero;
             return;
         }
+        mProvider->update();
         mButtons = mProvider->getButtons();
         mStickLeft = mProvider->getStickLeft();
         mStickRight = mProvider->getStickRight();
@@ -85,10 +87,13 @@ public:
         return isHold(button);  // what's the difference?
     }
 
+    sead::Vector2f getStickLeft() { return mStickLeft; }
+    sead::Vector2f getStickRight() { return mStickRight; }
+
 private:
     sead::BitFlag32 mButtons = {};
-    sead::Vector3f mStickLeft = sead::Vector3f::zero;
-    sead::Vector3f mStickRight = sead::Vector3f::zero;
+    sead::Vector2f mStickLeft = sead::Vector2f::zero;
+    sead::Vector2f mStickRight = sead::Vector2f::zero;
 
     sead::BitFlag32 mPrevButtons = {};
     InputProvider* mProvider = nullptr;
