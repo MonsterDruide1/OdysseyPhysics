@@ -42,10 +42,6 @@ public:
         if (IsKeyDown(CONTROLLER_RIGHT)) buttons.setBit(ControllerButton_Right);
         if (IsKeyDown(CONTROLLER_PLUS)) buttons.setBit(ControllerButton_Plus);
         if (IsKeyDown(CONTROLLER_MINUS)) buttons.setBit(ControllerButton_Minus);
-
-        if(IsKeyDown(KEY_KP_0)) {
-            printf("AA");
-        }
         return buttons;
     }
 
@@ -55,6 +51,7 @@ public:
         if (IsKeyDown(KEY_S)) stick.y = -1;
         if (IsKeyDown(KEY_A)) stick.x = -1;
         if (IsKeyDown(KEY_D)) stick.x = 1;
+        if(stick.squaredLength() > 1) stick.normalize();
         return stick;
     }
 
@@ -64,6 +61,7 @@ public:
         if (IsKeyDown(KEY_K)) stick.y = -1;
         if (IsKeyDown(KEY_J)) stick.x = -1;
         if (IsKeyDown(KEY_L)) stick.x = 1;
+        if(stick.squaredLength() > 1) stick.normalize();
         return stick;
     }
 };
