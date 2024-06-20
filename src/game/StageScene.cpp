@@ -1,4 +1,5 @@
 #include "game/StageScene.h"
+#include "Library/Collision/CollisionDirector.h"
 #include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"

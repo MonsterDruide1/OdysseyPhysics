@@ -1,7 +1,6 @@
 #pragma once
 
 #include "game/RaylibActor.h"
-#include "game/Player.h"
 #include "game/Camera.h"
 #include <cstdio>
 

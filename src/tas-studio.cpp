@@ -9,7 +9,6 @@
 #include "game/InputProviderTAS.h"
 #include "game/RaylibActor.h"
 #include "Player/PlayerColliderHakoniwa.h"
-#include "game/StageScene.h"
 #include "game/StageSceneManager.h"
 #include "heap/ClonableExpHeap.h"
 #include "math/seadMatrix.h"
