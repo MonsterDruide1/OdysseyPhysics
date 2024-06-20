@@ -4,6 +4,8 @@
 #include "Player/CollisionShapeKeeper.h"
 #include "Player/PlayerActorHakoniwa.h"
 #include "Player/PlayerCollider.h"
+#include "game/Input.h"
+#include "game/InputProviderRaylib.h"
 #include "game/RaylibActor.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "game/StageScene.h"
@@ -40,6 +42,7 @@ int main() {
     {
         // context of sead
 
+        Input::instance()->setInputProvider(new InputProviderRaylib());
         
         game::StageSceneManager sceneManager{};
         game::StageScene* scene = sceneManager.getScene();
@@ -75,6 +78,7 @@ int main() {
             }
             scene = sceneManager.getScene();
 
+            Input::instance()->update();
             scene->update();
 
             //UpdateCamera(&cam, CAMERA_FREE);

@@ -1,36 +1,7 @@
 #include "Library/Controller/InputFunction.h"
-#include "raylib.h"
+#include "game/Input.h"
 
 namespace al {
-
-#define CONTROLLER_A KEY_C
-#define CONTROLLER_B KEY_X
-#define CONTROLLER_X KEY_V
-#define CONTROLLER_Y KEY_Y
-#define CONTROLLER_ZL KEY_R
-#define CONTROLLER_ZR KEY_T
-#define CONTROLLER_L KEY_Q
-#define CONTROLLER_R KEY_E
-#define CONTROLLER_UP KEY_UP
-#define CONTROLLER_DOWN KEY_DOWN
-#define CONTROLLER_LEFT KEY_LEFT
-#define CONTROLLER_RIGHT KEY_RIGHT
-#define CONTROLLER_1 KEY_F
-#define CONTROLLER_2 KEY_G
-#define CONTROLLER_HOME -1
-#define CONTROLLER_START -1
-#define CONTROLLER_SELECT -1
-#define CONTROLLER_PLUS KEY_M
-#define CONTROLLER_MINUS KEY_N
-#define CONTROLLER_LSTICK_UP KEY_W
-#define CONTROLLER_LSTICK_DOWN KEY_S
-#define CONTROLLER_LSTICK_LEFT KEY_A
-#define CONTROLLER_LSTICK_RIGHT KEY_D
-#define CONTROLLER_RSTICK_UP KEY_I
-#define CONTROLLER_RSTICK_DOWN KEY_K
-#define CONTROLLER_RSTICK_LEFT KEY_J
-#define CONTROLLER_RSTICK_RIGHT KEY_L
-
 
 sead::ControllerBase* getController_(s32 port) {
     CRASH
@@ -40,124 +11,124 @@ sead::ControllerBase* getController_(s32 port) {
 
 sead::ControllerBase* getController(s32 port) {
     CRASH
-    if (port == -1) {
+    if (port == -1)
         port = getMainControllerPort();
-    }
 
     return getController_(port);
 }
 
 bool isPadTrigger(s32 port, s32 button) {
-    return getController(port)->isTrig(button);
+    return Input::instance()->isTrigger(button);
+    //return getController(port)->isTrig(button);
 }
 
 bool isPadTriggerA(s32 port) {
-    return IsKeyPressed(CONTROLLER_A);
+    return isPadTrigger(port, 1);
 }
 bool isPadTriggerB(s32 port) {
-    return IsKeyPressed(CONTROLLER_B);
+    return isPadTrigger(port, 1 << 1);
 }
 bool isPadTriggerX(s32 port) {
-    return IsKeyPressed(CONTROLLER_X);
+    return isPadTrigger(port, 1 << 3);
 }
 bool isPadTriggerY(s32 port) {
-    return IsKeyPressed(CONTROLLER_Y);
+    return isPadTrigger(port, 1 << 4);
 }
 bool isPadTriggerZL(s32 port) {
-    return IsKeyPressed(CONTROLLER_ZL);
+    return isPadTrigger(port, 1 << 2);
 }
 bool isPadTriggerZR(s32 port) {
-    return IsKeyPressed(CONTROLLER_ZR);
+    return isPadTrigger(port, 1 << 5);
 }
 bool isPadTriggerL(s32 port) {
-    return IsKeyPressed(CONTROLLER_L);
+    return isPadTrigger(port, 1 << 13);
 }
 bool isPadTriggerR(s32 port) {
-    return IsKeyPressed(CONTROLLER_R);
+    return isPadTrigger(port, 1 << 14);
 }
 bool isPadTrigger1(s32 port) {
-    return IsKeyPressed(CONTROLLER_1);
+    return isPadTrigger(port, 1 << 7);
 }
 bool isPadTrigger2(s32 port) {
-    return IsKeyPressed(CONTROLLER_2);
+    return isPadTrigger(port, 1 << 6);
 }
 bool isPadTriggerUp(s32 port) {
-    return IsKeyPressed(CONTROLLER_UP);
+    return isPadTrigger(port, 1 << 16);
 }
 bool isPadTriggerDown(s32 port) {
-    return IsKeyPressed(CONTROLLER_DOWN);
+    return isPadTrigger(port, 1 << 17);
 }
 bool isPadTriggerLeft(s32 port) {
-    return IsKeyPressed(CONTROLLER_LEFT);
+    return isPadTrigger(port, 1 << 18);
 }
 bool isPadTriggerRight(s32 port) {
-    return IsKeyPressed(CONTROLLER_RIGHT);
+    return isPadTrigger(port, 1 << 19);
 }
 bool isPadTriggerLeftUp(s32 port) {
-    return IsKeyPressed(CONTROLLER_LEFT) && IsKeyPressed(CONTROLLER_UP);
+    return isPadHoldLeftUp(port) && (getController(port)->isTrig(0x50000));
 }
 bool isPadTriggerLeftDown(s32 port) {
-    return IsKeyPressed(CONTROLLER_LEFT) && IsKeyPressed(CONTROLLER_DOWN);
+    return isPadHoldLeftDown(port) && (getController(port)->isTrig(0x60000));
 }
 bool isPadTriggerRightUp(s32 port) {
-    return IsKeyPressed(CONTROLLER_RIGHT) && IsKeyPressed(CONTROLLER_UP);
+    return isPadHoldRightUp(port) && (getController(port)->isTrig(0x90000));
 }
 bool isPadTriggerRightDown(s32 port) {
-    return IsKeyPressed(CONTROLLER_RIGHT) && IsKeyPressed(CONTROLLER_DOWN);
+    return isPadHoldRightDown(port) && (getController(port)->isTrig(0xA0000));
 }
 bool isPadTriggerHome(s32 port) {
-    return IsKeyPressed(CONTROLLER_HOME);
+    return isPadTrigger(port, 1 << 8);
 }
 bool isPadTriggerStart(s32 port) {
-    return IsKeyPressed(CONTROLLER_START);
+    return isPadTrigger(port, 1 << 11);
 }
 bool isPadTriggerSelect(s32 port) {
-    return IsKeyPressed(CONTROLLER_SELECT);
+    return isPadTrigger(port, 1 << 12);
 }
 bool isPadTriggerPlus(s32 port) {
-    return IsKeyPressed(CONTROLLER_PLUS);
+    return isPadTrigger(port, 1 << 10);
 }
 bool isPadTriggerMinus(s32 port) {
-    return IsKeyPressed(CONTROLLER_MINUS);
+    return isPadTrigger(port, 1 << 9);
 }
 bool isPadTriggerTouch() {
-    CRASH
+    return isPadTrigger(getTouchPanelPort(), 1 << 15);
 }
 bool isPadTriggerUpLeftStick(s32 port) {
-    return IsKeyPressed(CONTROLLER_LSTICK_UP) && IsKeyPressed(CONTROLLER_LSTICK_LEFT);
+    return isPadTrigger(port, 1 << 20);
 }
 bool isPadTriggerDownLeftStick(s32 port) {
-    return IsKeyPressed(CONTROLLER_LSTICK_DOWN) && IsKeyPressed(CONTROLLER_LSTICK_LEFT);
+    return isPadTrigger(port, 1 << 21);
 }
 bool isPadTriggerLeftLeftStick(s32 port) {
-    return IsKeyPressed(CONTROLLER_LSTICK_LEFT);
+    return isPadTrigger(port, 1 << 22);
 }
 bool isPadTriggerRightLeftStick(s32 port) {
-    return IsKeyPressed(CONTROLLER_LSTICK_RIGHT);
+    return isPadTrigger(port, 1 << 23);
 }
 bool isPadTriggerUpRightStick(s32 port) {
-    return IsKeyPressed(CONTROLLER_RSTICK_UP);
+    return isPadTrigger(port, 1 << 24);
 }
 bool isPadTriggerDownRightStick(s32 port) {
-    return IsKeyPressed(CONTROLLER_RSTICK_DOWN);
+    return isPadTrigger(port, 1 << 25);
 }
 bool isPadTriggerLeftRightStick(s32 port) {
-    return IsKeyPressed(CONTROLLER_RSTICK_LEFT);
+    return isPadTrigger(port, 1 << 26);
 }
 bool isPadTriggerRightRightStick(s32 port) {
-    return IsKeyPressed(CONTROLLER_RSTICK_RIGHT);
+    return isPadTrigger(port, 1 << 27);
 }
 bool isPadTriggerAnyABXY(s32 port) {
     return isPadTriggerA(port) || isPadTriggerB(port) || isPadTriggerX(port) || isPadTriggerY(port);
 }
 bool isPadTriggerAny(s32 port) {
-    CRASH
+    return isPadTrigger(port, 0xFFF7FFF);
 }
 bool isPadTriggerLeftStick(s32 port) {
-    CRASH
+    return isPadTrigger(port, 0xF00000);
 }
 bool isPadTriggerRightStick(s32 port) {
-    CRASH
+    return isPadTrigger(port, 0xF000000);
 }
 bool isPadTriggerPressLeftStick(s32 port) {
     return isPadTrigger1(port);
@@ -167,13 +138,14 @@ bool isPadTriggerPressRightStick(s32 port) {
 }
 
 bool isPadRepeat(s32 port, s32 button) {
-    return getController(port)->isTrigWithRepeat(button);
+    return Input::instance()->isRepeat(button);
+    //return getController(port)->isTrigWithRepeat(button);
 }
 bool isPadRepeatA(s32 port) {
-    return IsKeyPressedRepeat(CONTROLLER_A);
+    return isPadRepeat(port, 1);
 }
 bool isPadRepeatB(s32 port) {
-    return IsKeyPressedRepeat(CONTROLLER_B);
+    return isPadRepeat(port, 1 << 1);
 }
 bool isPadRepeatX(s32 port) {
     return isPadRepeat(port, 1 << 3);
@@ -261,13 +233,14 @@ bool isPadHoldPressRightStick(s32 port) {
     return isPadHold2(port);
 }
 bool isPadHold(s32 port, s32 button) {
-    return getController(port)->isHold(button);
+    return Input::instance()->isHold(button);
+    //return getController(port)->isHold(button);
 }
 bool isPadHoldA(s32 port) {
-    return IsKeyPressed(CONTROLLER_A);
+    return isPadHold(port, 1);
 }
 bool isPadHoldB(s32 port) {
-    return IsKeyPressed(CONTROLLER_B);
+    return isPadHold(port, 1 << 1);
 }
 bool isPadHoldX(s32 port) {
     return isPadHold(port, 1 << 3);
@@ -276,10 +249,10 @@ bool isPadHoldY(s32 port) {
     return isPadHold(port, 1 << 4);
 }
 bool isPadHoldZL(s32 port) {
-    return IsKeyDown(CONTROLLER_ZL);
+    return isPadHold(port, 1 << 2);
 }
 bool isPadHoldZR(s32 port) {
-    return IsKeyDown(CONTROLLER_ZR);
+    return isPadHold(port, 1 << 5);
 }
 bool isPadHoldL(s32 port) {
     return isPadHold(port, 1 << 13);
@@ -373,7 +346,8 @@ bool isPadHoldRightStick(s32 port) {
 }
 
 bool isPadRelease(s32 port, s32 button) {
-    return getController(port)->isRelease(button);
+    return Input::instance()->isRelease(button);
+    //return getController(port)->isRelease(button);
 }
 bool isPadReleaseA(s32 port) {
     return isPadRelease(port, 1);
