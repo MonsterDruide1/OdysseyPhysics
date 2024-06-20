@@ -34,6 +34,11 @@ enum ControllerButton : u32 {
     ControllerButton_RightStickRight
 };
 
+struct FrameInput {
+    sead::BitFlag32 buttons;
+    sead::Vector2f stickLeft;
+    sead::Vector2f stickRight;
+};
 
 class InputProvider {
 public:
@@ -43,15 +48,11 @@ public:
     virtual sead::Vector2f getStickRight() = 0;
 };
 
+// 10 minutes of 60fps
+#define MAX_RECORDED_INPUTS 60*60*10
+
 class Input {
 public:
-    static Input* instance() {
-        static Input sInstance;
-        return &sInstance;
-    }
-
-    void setInputProvider(InputProvider* provider) { mProvider = provider; }
-
     void update() {
         mPrevButtons = mButtons;
         if (!mProvider) {
@@ -64,6 +65,12 @@ public:
         mButtons = mProvider->getButtons();
         mStickLeft = mProvider->getStickLeft();
         mStickRight = mProvider->getStickRight();
+
+        if(mInputCount >= MAX_RECORDED_INPUTS) return;
+        mInputs[mInputCount].buttons = mButtons;
+        mInputs[mInputCount].stickLeft = mStickLeft;
+        mInputs[mInputCount].stickRight = mStickRight;
+        mInputCount++;
     }
 
     bool isPress(int button) { return ((sead::BitFlag32*)&mButtons)->isOn(button); }
@@ -90,11 +97,31 @@ public:
     sead::Vector2f getStickLeft() { return mStickLeft; }
     sead::Vector2f getStickRight() { return mStickRight; }
 
+    void setInputProvider(InputProvider* provider) { mProvider = provider; }
+
+    void dumpToTASFile(const char* filename);
+
+    static Input* instance() {
+        return sInstance;
+    }
+    static void createInstance() {
+        sInstance = new Input();
+    }
+
 private:
+    Input() {
+        mInputs = new FrameInput[MAX_RECORDED_INPUTS];
+    }
+
+    static Input* sInstance;
+
     sead::BitFlag32 mButtons = {};
     sead::Vector2f mStickLeft = sead::Vector2f::zero;
     sead::Vector2f mStickRight = sead::Vector2f::zero;
 
     sead::BitFlag32 mPrevButtons = {};
     InputProvider* mProvider = nullptr;
+
+    FrameInput* mInputs = nullptr;
+    int mInputCount = 0;
 };

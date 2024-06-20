@@ -27,7 +27,7 @@
 class InputProviderRaylib : public InputProvider {
 public:
     sead::BitFlag32 getButtons() override {
-        sead::BitFlag32 buttons;
+        sead::BitFlag32 buttons = 0;
         if (IsKeyDown(CONTROLLER_A)) buttons.setBit(ControllerButton_A);
         if (IsKeyDown(CONTROLLER_B)) buttons.setBit(ControllerButton_B);
         if (IsKeyDown(CONTROLLER_X)) buttons.setBit(ControllerButton_X);
@@ -42,11 +42,15 @@ public:
         if (IsKeyDown(CONTROLLER_RIGHT)) buttons.setBit(ControllerButton_Right);
         if (IsKeyDown(CONTROLLER_PLUS)) buttons.setBit(ControllerButton_Plus);
         if (IsKeyDown(CONTROLLER_MINUS)) buttons.setBit(ControllerButton_Minus);
+
+        if(IsKeyDown(KEY_KP_0)) {
+            printf("AA");
+        }
         return buttons;
     }
 
     sead::Vector2f getStickLeft() override {
-        sead::Vector2f stick;
+        sead::Vector2f stick = sead::Vector2f::zero;
         if (IsKeyDown(KEY_W)) stick.y = 1;
         if (IsKeyDown(KEY_S)) stick.y = -1;
         if (IsKeyDown(KEY_A)) stick.x = -1;
@@ -55,7 +59,7 @@ public:
     }
 
     sead::Vector2f getStickRight() override {
-        sead::Vector2f stick;
+        sead::Vector2f stick = sead::Vector2f::zero;
         if (IsKeyDown(KEY_I)) stick.y = 1;
         if (IsKeyDown(KEY_K)) stick.y = -1;
         if (IsKeyDown(KEY_J)) stick.x = -1;

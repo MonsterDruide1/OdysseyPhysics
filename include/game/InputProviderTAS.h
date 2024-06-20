@@ -5,11 +5,7 @@
 #include "game/Input.h"
 #include "prim/seadBitFlag.h"
 
-struct TASFrame {
-    sead::BitFlag32 buttons;
-    sead::Vector2f stickLeft;
-    sead::Vector2f stickRight;
-};
+using TASFrame = FrameInput;
 
 class InputProviderTAS : public InputProvider {
 public:

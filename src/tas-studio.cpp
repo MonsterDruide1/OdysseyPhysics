@@ -43,12 +43,12 @@ int main() {
     {
         // context of sead
 
-        Input::instance()->setInputProvider(new InputProviderTAS("res/test.txt"));
-        
         game::StageSceneManager sceneManager{};
         game::StageScene* scene = sceneManager.getScene();
         //scene.init("SandWorldSlotStageMap", 0);
         sceneManager.init("SandWorldMeganeExStageMap", 0);
+
+        Input::instance()->setInputProvider(new InputProviderRaylib());
 
         float angleH = 90;
         float angleV = 60;
@@ -76,6 +76,9 @@ int main() {
                 sead::ClonableExpHeap* currentHeap = sceneManager.mHeap;
                 sceneManager.mHeap = prevHeap;
                 prevHeap = currentHeap;
+            }
+            if(IsKeyPressed(KEY_ZERO)) {
+                Input::instance()->dumpToTASFile("res/out.txt");
             }
             scene = sceneManager.getScene();
 

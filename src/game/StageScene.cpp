@@ -6,6 +6,7 @@
 #include "Library/Yaml/ByamlIter.h"
 #include "Player/PlayerActorHakoniwa.h"
 #include "Player/PlayerColliderHakoniwa.h"
+#include "game/Input.h"
 #include "heap/seadHeapMgr.h"
 #include "nlib/util.h"
 #include "oead/sarc.h"
@@ -16,7 +17,7 @@
 namespace game {
 
 StageScene::StageScene() {
-
+    Input::createInstance();  // create here to allocate on heap of Scene
     mActors = new RaylibActor*[mActorsMax];
     mCamera = new Camera();
     mPartsKeeper = new CollisionPartsKeeper();
