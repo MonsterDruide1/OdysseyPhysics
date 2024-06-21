@@ -54,6 +54,7 @@ void PlayerEyeSensorHitHolder::clear() {}
 void PlayerRippleGenerator::reset() {}
 
 PlayerWetControl::PlayerWetControl(al::LiveActor const*, al::LiveActor*, PlayerAreaChecker const*) {}
+void PlayerWetControl::recordPuddleRolling() {}
 
 PlayerStainControl::PlayerStainControl(al::LiveActor const*, al::LiveActor*, PlayerModelChangerHakoniwa const*, HackCap const*, PlayerEffect*) {}
 
