@@ -12,21 +12,17 @@ void HackCap::updateSeparateMode(PlayerSeparateCapFlag const*) { WARN_UNIMPL; }
 bool HackCap::isNoPutOnHide() { WARN_UNIMPL;return false; }
 bool HackCap::isEnableSpinAttack() { WARN_UNIMPL;return false; }
 bool HackCap::requestReturn(bool*) { WARN_UNIMPL;return false; }
-bool HackCap::isRequestableReturn() { WARN_UNIMPL;return false; }
+bool HackCap::isRequestableReturn() const { WARN_UNIMPL;return false; }
+bool HackCap::isEnablePreInput() const { WARN_UNIMPL;return false; }
 void HackCap::startCatch(char const*, bool, sead::Vector3<float> const&) { WARN_UNIMPL; }
 void HackCap::prepareCooperateThrow() { WARN_UNIMPL; }
+bool HackCap::isEnableThrowSeparate() const { WARN_UNIMPL; return true; }
+void HackCap::startThrowSeparatePlayJump(sead::Vector3<float> const&, sead::Vector3<float> const&, float) { WARN_UNIMPL; }
+void HackCap::startThrowSeparatePlay(sead::Vector3<float> const&, sead::Vector3<float> const&, float, bool) { WARN_UNIMPL; }
+f32 HackCap::calcSeparateHideSpeedH(sead::Vector3<float> const&) { WARN_UNIMPL;return 0.0f; }
 
 bool PlayerInput::isHoldCapSeparateJump() const { WARN_UNIMPL;return false; }
 
 PlayerSeparateCapFlag::PlayerSeparateCapFlag() { WARN_UNIMPL; }
 
 void CapFunction::putOnCapPlayer(HackCap*, PlayerAnimator*) { WARN_UNIMPL; }
-
-bool GameDataFunction::isEnableCap(GameDataHolderAccessor) { WARN_UNIMPL;return true; }
-
-PlayerJudgePreInputCapThrow::PlayerJudgePreInputCapThrow(PlayerConst const*,PlayerInput const*,PlayerCarryKeeper const*,HackCap const*) {WARN_UNIMPL;}
-void PlayerJudgePreInputCapThrow::reset() {WARN_UNIMPL;}
-void PlayerJudgePreInputCapThrow::update() {WARN_UNIMPL;}
-bool PlayerJudgePreInputCapThrow::judge() const {WARN_UNIMPL;return false;}
-
-bool PlayerActorHakoniwa::tryActionSeparateCapThrow() { WARN_UNIMPL;return false; }

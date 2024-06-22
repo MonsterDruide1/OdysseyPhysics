@@ -29,6 +29,7 @@ bool ActorDimensionKeeper::update() { return false; }
 
 void GameDataFunction::disableCapByPlacement(al::LiveActor const*) {}
 bool GameDataFunction::isMeetCap(GameDataHolderAccessor) { return true; }
+bool GameDataFunction::isEnableCap(GameDataHolderAccessor) { return true; }
 
 PlayerHackKeeper::PlayerHackKeeper(al::LiveActor*, HackCap*, PlayerRecoverySafetyPoint*, PlayerInput const*, sead::Matrix34<float> const*, PlayerDamageKeeper const*, IPlayerModelChanger const*, IUsePlayerHeightCheck const*) {}
 void PlayerHackKeeper::createHackModel(al::ActorInitInfo const&) {}
