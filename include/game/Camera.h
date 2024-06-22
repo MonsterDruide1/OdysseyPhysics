@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math/seadVector.h>
+#include "gfx/seadCamera.h"
 #include "math/seadMatrix.h"
 #include "math/seadVectorFwd.h"
 
@@ -14,42 +15,28 @@ public:
             lookAtPos.y + distance * sinf(angleV * M_PI / 180),
             lookAtPos.z + distance * sinf(angleH * M_PI / 180) * cosf(angleV * M_PI / 180)
         };
-        sead::Vector3f rot = {
-            sead::Mathf::deg2rad(0.0f+angleV),
-            sead::Mathf::deg2rad(-90.0f - angleH),
-            0
-        };
-        mMtx.makeRT(rot, pos);
-        mDistance = distance;
+        mCamera = sead::LookAtCamera(pos, lookAtPos, {0, 1, 0});
+        mCamera.doUpdateMatrix(&mCamera.getMatrix());
     }
 
     sead::Vector3f position() {
-        sead::Vector3f pos;
-        mMtx.getTranslation(pos);
-        return pos;
+        return mCamera.getPos();
     }
 
     sead::Vector3f up() {
-        sead::Vector3f up = {0, 1, 0};
-        up.rotate(mMtx);
-        up.normalize();
-        return up;
+        return mCamera.getUp();
     }
 
-    sead::Vector3f front() {
-        sead::Vector3f front = {0, 0, 1};
-        front.rotate(mMtx);
-        front.normalize();
-        return front;
+    sead::Vector3f at() {
+        return mCamera.getAt();
     }
 
     const sead::Matrix34f* getViewMtxPtr() {
-        return &mMtx;
+        return &mCamera.getMatrix();
     }
 
 public:
-    sead::Matrix34f mMtx;
-    f32 mDistance;
+    sead::LookAtCamera mCamera;
 };
 
 }

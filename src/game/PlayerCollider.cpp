@@ -1770,15 +1770,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
   int mWallBorderCheckType; // w8
   const sead::Vector3f *p_mWorldShapeInfo; // x28
   float unk2; // s9
-  const float *p_x; // x27
-  float z; // s2
-  float v30; // s1
-  float v31; // s5
   int *p_someBitField; // x28
-  const float *p_y; // x8
-  const float *p_z; // x9
-  const float *v35; // x10
-  const float *v36; // x11
   char v37; // w26
   float v38; // s3
   float v39; // s3
@@ -1809,35 +1801,25 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
   float v72; // s2
   float v73; // s0
   float v74; // s0
-  float v75; // s9
-  float v76; // s10
   float v77; // s0
-  float v78; // s1
   al::HitInfo *info1; // x8
   PlayerCollider *v80; // x0
   const al::HitInfo *v81; // x1
   int v82; // w2
-  float v83; // s9
   float v84; // s0
-  float v85; // s8
   al::HitInfo *info2; // x8
   al::HitInfo *info3; // x8
-  float v88; // s1
-  float v89; // s0
-  float x; // s5
-  float v91; // s4
-  float v92; // s3
   float v93; // s0
   bool v94; // [xsp+Ch] [xbp-E4h]
   sead::Vector3f v95; // [xsp+30h] [xbp-C0h] BYREF
   sead::Vector3f v96; // [xsp+40h] [xbp-B0h] BYREF
   sead::Vector3f v97; // [xsp+50h] [xbp-A0h] BYREF
-  sead::Vector3f v98; // [xsp+60h] [xbp-90h] BYREF
+  sead::Vector3f gravity; // [xsp+60h] [xbp-90h] BYREF
   float v99; // [xsp+6Ch] [xbp-84h] BYREF
   sead::Vector3f v100; // [xsp+70h] [xbp-80h] BYREF
 
   sphereHitInfo = &a7->getSphereHitInfo();
-  v98 = *this->mGravityPtr;
+  gravity = *this->mGravityPtr;
   v15 = sphereHitInfo;
   p_mCollisionHitPos = &sphereHitInfo->mCollisionHitPos;
   v97 = sphereHitInfo->mTriangle.getNormal(0);
@@ -1845,7 +1827,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
   v95 = {0.0f, 0.0f, 0.0f};
   unk11 = this->unk11;
   if ( al::isNearZero(v97, 0.001)
-    || ((v18 = v97.dot(v98),
+    || ((v18 = v97.dot(gravity),
          v19 = cosf(sead::Mathf::deg2rad(unk11)),
          v18 <= 0.0)
       ? (v20 = -v18)
@@ -1856,7 +1838,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
     v22 = this->unk11;
     if ( !al::isNearZero(v97, 0.001) )
     {
-      if ( sead::Mathf::abs(v97.dot(v98)) < cosf(sead::Mathf::deg2rad(v22)) )
+      if ( sead::Mathf::abs(v97.dot(gravity)) < sead::Mathf::cos(sead::Mathf::deg2rad(v22)) )
       {
         mWallBorderCheckType = this->mWallBorderCheckType;
         if ( (mWallBorderCheckType == 2 || mWallBorderCheckType == 1 && !v15->isCollisionAtFace())
@@ -1870,7 +1852,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2,sead::Vector3f 
           v15->calcFixVector(&v96, &v95);
           if ( !v15->isCollisionAtFace() )
           {
-            al::verticalizeVec(&v96, v98, v96);
+            al::verticalizeVec(&v96, gravity, v96);
             al::tryNormalizeOrZero(&v95, v96);
           }
 
@@ -1911,23 +1893,12 @@ LABEL_34:
   {
     v15->calcFixVectorNormal(&v96, &v95);
     p_someBitField = (int*)&this->someBitField;
-    p_x = &v15->unk3.x;
-    p_y = &v15->unk3.y;
-    p_z = &v15->unk3.z;
-    v35 = &v15->mCollisionHitPos.y;
-    v36 = &v15->mCollisionHitPos.z;
     goto LABEL_117;
   }
 
   p_mWorldShapeInfo = &a7->getShapeInfoSphere()->mWorldShapeInfo;
   unk2 = a7->getShapeInfoSphere()->unk2;
-  p_x = &v15->unk3.x;
-  z = v15->unk3.z;
-  v30 = v15->mCollisionHitPos.y - v15->unk3.y;
-  v31 = v15->mCollisionHitPos.z;
-  v100.x = v15->mCollisionHitPos.x - v15->unk3.x;
-  v100.y = v30;
-  v100.z = v31 - z;
+  v100 = v15->mCollisionHitPos - v15->unk3;
   al::verticalizeVec(&v100, *p_mWorldShapeInfo, v100);
   if ( v100.length() < unk2 )
     goto LABEL_34;
@@ -1936,34 +1907,20 @@ LABEL_34:
   if ( (this->someBitField & 0x40) == 0 )
   {
     v15->calcFixVectorNormal(&v96, &v95);
-    p_z = &v15->unk3.z;
-    p_y = &v15->unk3.y;
-    v36 = &v15->mCollisionHitPos.z;
-    v35 = &v15->mCollisionHitPos.y;
 
 LABEL_117:
-    v88 = *p_y;
-    v89 = *p_z;
-    x = p_mCollisionHitPos->x;
-    v91 = *v35;
-    v92 = *v36;
-    if ( (*(u8 *)p_someBitField & 0x40) != 0
-      && (float)((float)((float)((float)(x - this->mCollidedGroundPos.x) * this->mCollidedGroundNormal.x)
-                       + (float)((float)(v91 - this->mCollidedGroundPos.y) * this->mCollidedGroundNormal.y))
-               + (float)((float)(v92 - this->mCollidedGroundPos.z) * this->mCollidedGroundNormal.z)) < 2.5 )
+    if ( (*(u8 *)p_someBitField & 0x40) != 0 && (v15->mCollisionHitPos - this->mCollidedGroundPos).dot(mCollidedGroundNormal) < 2.5 )
     {
       return;
     }
 
-    v100.x = *p_x - x;
-    v100.y = v88 - v91;
-    v100.z = v89 - v92;
+    v100 = v15->unk3 - *p_mCollisionHitPos;
     if ( !al::tryNormalizeOrZero(&v100) )
       return;
 
     v93 = v96.dot(v100);
     v96 = v100 * v93;
-    al::verticalizeVec(&v96, v98, v96);
+    al::verticalizeVec(&v96, gravity, v96);
     if ( !al::tryNormalizeOrZero(&v95, v96) )
       return;
 
@@ -1972,12 +1929,8 @@ LABEL_117:
     goto LABEL_36;
   }
 
-  v94 = al::isNearZeroOrGreater(this->mCollisionShapeKeeper->unk4 + v98.dot(v15->mCollisionHitPos - this->mCollidedGroundPos), 0.001);
+  v94 = al::isNearZeroOrGreater(this->mCollisionShapeKeeper->unk4 + gravity.dot(v15->mCollisionHitPos - this->mCollidedGroundPos), 0.001);
   v15->calcFixVectorNormal(&v96, &v95);
-  p_z = &v15->unk3.z;
-  p_y = &v15->unk3.y;
-  v36 = &v15->mCollisionHitPos.z;
-  v35 = &v15->mCollisionHitPos.y;
   if ( !v94 )
     goto LABEL_117;
 
@@ -2120,21 +2073,10 @@ LABEL_36:
 
   if ( (v37 & 1) == 0 )
   {
-    v75 = this->unk11;
-    if ( al::isNearZero(v97, 0.001)
-      || ((v76 = v97.dot(v98),
-           v77 = cosf(sead::Mathf::deg2rad(v75)),
-           v76 <= 0.0)
-        ? (v78 = -v76)
-        : (v78 = v76),
-          v76 >= 0.0 || v78 < v77) )
+    if ( al::isNearZero(v97, 0.001) || v97.dot(gravity) >= 0.0 || sead::Mathf::abs(v97.dot(gravity)) < sead::Mathf::cos(sead::Mathf::deg2rad(this->unk11)) )
     {
-      v83 = this->unk11;
       if ( al::isNearZero(v97, 0.001)
-        || ((v84 = v97.dot(v98), v84 <= 0.0)
-          ? (v85 = -v84)
-          : (v85 = v97.dot(v98)),
-            v85 >= cosf(sead::Mathf::deg2rad(v83))) )
+        || (sead::Mathf::abs(v97.dot(gravity)) >= sead::Mathf::cos(sead::Mathf::deg2rad(this->unk11))) )
       {
         if ( this->val3 < v15->unk )
         {

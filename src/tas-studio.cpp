@@ -59,7 +59,7 @@ int main() {
 
         Camera3D cam = {0};
         cam.position = raylibVec(scene->mCamera->position() * SCALE);
-        cam.target = raylibVec((scene->mCamera->position() + scene->mCamera->front() * scene->mCamera->mDistance) * SCALE);
+        cam.target = raylibVec(scene->mCamera->at() * SCALE);
         cam.up = raylibVec(scene->mCamera->up());
         cam.fovy = 45;
         cam.projection = CAMERA_PERSPECTIVE;
@@ -99,7 +99,7 @@ int main() {
                 scene->mCamera->setup(angleH, angleV, distance, lookAtPos3);
             }
             cam.position = raylibVec(scene->mCamera->position() * SCALE);
-            cam.target = raylibVec((scene->mCamera->position() + scene->mCamera->front() * scene->mCamera->mDistance) * SCALE);
+            cam.target = raylibVec(scene->mCamera->at() * SCALE);
             cam.up = raylibVec(scene->mCamera->up());
 
             sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));

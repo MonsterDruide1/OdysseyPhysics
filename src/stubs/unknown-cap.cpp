@@ -14,6 +14,7 @@ bool HackCap::isEnableSpinAttack() { WARN_UNIMPL;return false; }
 bool HackCap::requestReturn(bool*) { WARN_UNIMPL;return false; }
 bool HackCap::isRequestableReturn() { WARN_UNIMPL;return false; }
 void HackCap::startCatch(char const*, bool, sead::Vector3<float> const&) { WARN_UNIMPL; }
+void HackCap::prepareCooperateThrow() { WARN_UNIMPL; }
 
 bool PlayerInput::isHoldCapSeparateJump() const { WARN_UNIMPL;return false; }
 

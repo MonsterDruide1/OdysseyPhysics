@@ -28,6 +28,7 @@ PlayerDemoActionFlag::PlayerDemoActionFlag() {}
 bool ActorDimensionKeeper::update() { return false; }
 
 void GameDataFunction::disableCapByPlacement(al::LiveActor const*) {}
+bool GameDataFunction::isMeetCap(GameDataHolderAccessor) { return true; }
 
 PlayerHackKeeper::PlayerHackKeeper(al::LiveActor*, HackCap*, PlayerRecoverySafetyPoint*, PlayerInput const*, sead::Matrix34<float> const*, PlayerDamageKeeper const*, IPlayerModelChanger const*, IUsePlayerHeightCheck const*) {}
 void PlayerHackKeeper::createHackModel(al::ActorInitInfo const&) {}
@@ -37,6 +38,7 @@ PlayerRecoverySafetyPoint::PlayerRecoverySafetyPoint(al::LiveActor const*, HackC
 void PlayerRecoverySafetyPoint::updateRecoveryBubble() {}
 
 bool PlayerEquipmentFunction::tryGetEquipmentForceDashInfo(int*, float*, PlayerEquipmentUser const*) { return false; }
+bool PlayerEquipmentFunction::isEquipmentNoCapThrow(PlayerEquipmentUser const*) { return false; }
 
 PlayerPuppet::PlayerPuppet(al::LiveActor*, HackCap*, PlayerAnimator*, IUsePlayerCollision*, ActorDimensionKeeper*, IPlayerModelChanger*, WorldEndBorderKeeper*, PlayerCounterForceRun*, PlayerDamageKeeper*, PlayerEffect*, PlayerInput const*, PlayerConst const*) {}
 bool PlayerPuppet::isNoCollide() { return false; }

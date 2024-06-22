@@ -1,4 +1,5 @@
 
+#include "Player/PlayerActorBase.h"
 #include "Player/PlayerFunction.h"
 #include "Player/PlayerInput.h"
 #include "Player/PlayerInputFunction.h"
@@ -12,10 +13,8 @@ sead::Vector2f PlayerInputFunction::getMoveInputStick(const al::LiveActor*, int,
     return Input::instance()->getStickLeft();
 }
 
-sead::Matrix34f* PlayerFunction::getPlayerViewMtx(const al::LiveActor* actor) {
-    //TODO
-    WARN_UNIMPL;
-    return const_cast<sead::Matrix34f*>(&sead::Matrix34f::ident);
+const sead::Matrix34f* PlayerFunction::getPlayerViewMtx(const al::LiveActor* actor) {
+    return ((PlayerActorBase*)actor)->getViewMtx();
 }
 
 bool PlayerInput::isHoldSquat() const {
