@@ -20,11 +20,7 @@ PlayerStateAbyss::PlayerStateAbyss(al::LiveActor*, PlayerConst const*, PlayerRec
 PlayerStateSandSink::PlayerStateSandSink(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, IUsePlayerCollision*, PlayerAnimator*, IJudge*, PlayerJudgePreInputJump*) : al::NerveStateBase("") { WARN_UNIMPL; }
 ActorStateSandGeyser::ActorStateSandGeyser(al::LiveActor* act) : al::ActorStateBase("砂の間欠泉", act) { WARN_UNIMPL; }
 PlayerStateSpinCap::PlayerStateSpinCap(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerCounterForceRun const*, al::WaterSurfaceFinder const*, IUsePlayerCollision const*, PlayerTrigger*, PlayerSpinCapAttack*, PlayerAnimator*, PlayerJointParamCapThrow*) : al::NerveStateBase("") { WARN_UNIMPL; }
-PlayerStateRolling::PlayerStateRolling(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, PlayerTrigger*, PlayerAnimator*, PlayerEffect*, PlayerJudgeStartRolling*, IJudge*, PlayerJudgePreInputJump*, PlayerJudgePreInputCapThrow*, IJudge*, PlayerContinuousLongJump*, PlayerSeCtrl*) : al::NerveStateBase("") { WARN_UNIMPL; }
 
-bool PlayerStateRolling::isRollingJump() { WARN_UNIMPL;return false; }
-bool PlayerStateRolling::isEndStandUp() { WARN_UNIMPL;return false; }
-bool PlayerStateRolling::isEndSquat() { WARN_UNIMPL;return false; }
 void PlayerStatePoleClimb::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, char const*) { WARN_UNIMPL; }
 void PlayerStateGrabCeil::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) { WARN_UNIMPL; }
 bool PlayerStateGrabCeil::isEnableNextGrabCeil() { WARN_UNIMPL; }

@@ -12,6 +12,7 @@ namespace rs {
 bool isGuardNosePainCap(al::LiveActor const*) { return false; }
 bool isNeedCreateNoseNeedle(PlayerInitInfo const&) { return false; }
 void startHitReactionLandJumpIfLanding(al::LiveActor const*, IUsePlayerCollision const*, bool) {}
+void startHitReactionLandIfLanding(al::LiveActor const*, IUsePlayerCollision const*, bool) {}
 void startHitReactionHipDropLand(al::LiveActor *,bool) {}
 
 }
@@ -27,6 +28,8 @@ al::ActorDitherAnimator* PlayerFunction::createPlayerDitherAnimator(al::LiveActo
 
 PlayerEffect::PlayerEffect(al::LiveActor*, PlayerModelHolder const*, sead::Matrix34<float> const*) {}
 void PlayerEffect::updateWaterSurfaceMtx(al::WaterSurfaceFinder const*) {}
+void PlayerEffect::tryEmitRollingEffect() {}
+void PlayerEffect::tryDeleteRollingEffect() {}
 
 PlayerModelChangerHakoniwa::PlayerModelChangerHakoniwa(al::LiveActor const*, PlayerModelHolder*, PlayerPainPartsKeeper*, PlayerCostumeInfo*, IUseDimension const*) {}
 void PlayerModelChangerHakoniwa::syncHost(bool) {}

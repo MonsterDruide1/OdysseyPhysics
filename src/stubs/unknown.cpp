@@ -109,3 +109,12 @@ al::MtxConnector* al::createCollisionPartsConnector(al::LiveActor const*, sead::
 void al::disconnectMtxConnector(al::MtxConnector*) {
     WARN_UNIMPL;
 }
+
+f32 al::getSensorRadius(al::HitSensor const*) {
+    WARN_UNIMPL;
+    return 0.0f;
+}
+
+void al::calcVecBetweenSensors(sead::Vector3f *out, const HitSensor *a, const HitSensor *b) {
+    WARN_UNIMPL;
+}
