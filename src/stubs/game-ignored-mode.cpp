@@ -20,6 +20,7 @@ bool isPlayerHack(al::LiveActor const*) { return false; }
 al::CollisionPartsFilterBase* createCollisionPartsFilter2DOnly() { return nullptr; }
 bool isModeE3Rom() { return false; }
 bool isModeE3MovieRom() { return false; }
+void addPlayerThrowCapCount(const al::LiveActor*) {}
 
 }
 

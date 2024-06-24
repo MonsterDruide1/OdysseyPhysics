@@ -37,7 +37,6 @@ PlayerJudgeWallPush::PlayerJudgeWallPush(al::LiveActor const*, IUsePlayerCollisi
 HackCapJudgePreInputHoveringJump::HackCapJudgePreInputHoveringJump(al::LiveActor const*, IUsePlayerCollision const*, HackCap const*, PlayerInput const*) { WARN_UNIMPL; }
 HackCapJudgeHoldHoveringJump::HackCapJudgeHoldHoveringJump(al::LiveActor const*, PlayerColliderHakoniwa const*, HackCap const*, PlayerInput const*, PlayerConst const*) { WARN_UNIMPL; }
 HackCapJudgePreInputSeparateThrow::HackCapJudgePreInputSeparateThrow(PlayerInput const*, PlayerSeparateCapFlag const*) { WARN_UNIMPL; }
-HackCapJudgePreInputSeparateJump::HackCapJudgePreInputSeparateJump(PlayerInput const*, PlayerSeparateCapFlag const*) { WARN_UNIMPL; }
 
 void PlayerJudgeWallCatchInputDir::validateFallJudge() { WARN_UNIMPL; }
 void PlayerJudgeWallCatchInputDir::updateWallCatchEnviroment() { WARN_UNIMPL; }

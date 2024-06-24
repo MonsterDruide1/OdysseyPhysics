@@ -10,7 +10,7 @@ void PlayerCapActionHistory::update() { WARN_UNIMPL; }
 HackCap::HackCap(al::LiveActor const*, char const*, PlayerInput const*, PlayerAreaChecker const*, PlayerWallActionHistory const*, PlayerCapActionHistory const*, PlayerEyeSensorHitHolder const*, PlayerSeparateCapFlag const*, IUsePlayerCollision const*, IUsePlayerHeightCheck const*, PlayerWetControl const*, PlayerJointControlKeeper const*, HackCapJudgePreInputSeparateThrow*, HackCapJudgePreInputSeparateJump*) : al::LiveActor("") { WARN_UNIMPL; }
 void HackCap::updateSeparateMode(PlayerSeparateCapFlag const*) { WARN_UNIMPL; }
 bool HackCap::isNoPutOnHide() { WARN_UNIMPL;return false; }
-bool HackCap::isEnableSpinAttack() { WARN_UNIMPL;return false; }
+bool HackCap::isEnableSpinAttack() { WARN_UNIMPL;return true; }
 bool HackCap::requestReturn(bool*) { WARN_UNIMPL;return false; }
 bool HackCap::isRequestableReturn() const { WARN_UNIMPL;return false; }
 bool HackCap::isEnablePreInput() const { WARN_UNIMPL;return false; }
