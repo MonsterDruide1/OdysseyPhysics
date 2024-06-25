@@ -33,6 +33,5 @@
 
 # Custom
 build/*
-.vscode/*
 .cache/*
 .direnv/*

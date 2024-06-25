@@ -1,0 +1,8 @@
+{
+    "version": "2.0.0",
+    "tasks": [{
+        "label": "buildme",
+        "command": "make build",
+        "type": "shell"
+    }]
+}

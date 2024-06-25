@@ -1,0 +1,7 @@
+{
+    "C_Cpp.intelliSenseEngine": "disabled",
+    "files.associations": {
+        "__nullptr": "cpp",
+        "__config": "cpp"
+    }
+}
