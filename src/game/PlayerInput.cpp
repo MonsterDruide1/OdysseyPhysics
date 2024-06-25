@@ -1,4 +1,5 @@
 
+#include "Library/Controller/SpinInputAnalyzer.h"
 #include "Library/Math/MathAngleUtil.h"
 #include "Player/PlayerActorBase.h"
 #include "Player/PlayerFunction.h"
@@ -26,4 +27,8 @@ bool PlayerInput::isHoldSquat() const {
 
 bool PlayerInput::isThrowTypeLeftRight(const sead::Vector2f& vec) const {
     return !al::isNearZero(vec, 0.001f);
+}
+
+bool PlayerInput::isSpinInput() const {
+    return mSpinInputAnalyzer->mSpinDirection != 0;
 }

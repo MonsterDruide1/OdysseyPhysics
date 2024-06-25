@@ -13,6 +13,7 @@ PlayerExternalVelocity::PlayerExternalVelocity(al::LiveActor const*, IUsePlayerC
 void PlayerExternalVelocity::requestApplyLastGroundInertia() {}
 void PlayerExternalVelocity::cancelAndFeedbackLastGroundInertia(al::LiveActor*, float, bool) {}
 void PlayerExternalVelocity::update() {}
+bool PlayerExternalVelocity::isExistForce() const { return false; }
 
 PlayerBindKeeper::PlayerBindKeeper(al::HitSensor*, IUsePlayerPuppet*) {}
 void PlayerBindKeeper::clearBindableSensor() {}

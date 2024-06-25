@@ -3,10 +3,6 @@
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
 
-PlayerCapActionHistory::PlayerCapActionHistory(al::LiveActor const*, PlayerConst const*, PlayerTrigger const*, IUsePlayerCollision const*) { WARN_UNIMPL; }
-void PlayerCapActionHistory::clearLandLimitStandAngle() { WARN_UNIMPL; }
-void PlayerCapActionHistory::update() { WARN_UNIMPL; }
-
 HackCap::HackCap(al::LiveActor const*, char const*, PlayerInput const*, PlayerAreaChecker const*, PlayerWallActionHistory const*, PlayerCapActionHistory const*, PlayerEyeSensorHitHolder const*, PlayerSeparateCapFlag const*, IUsePlayerCollision const*, IUsePlayerHeightCheck const*, PlayerWetControl const*, PlayerJointControlKeeper const*, HackCapJudgePreInputSeparateThrow*, HackCapJudgePreInputSeparateJump*) : al::LiveActor("") { WARN_UNIMPL; }
 void HackCap::updateSeparateMode(PlayerSeparateCapFlag const*) { WARN_UNIMPL; }
 bool HackCap::isNoPutOnHide() { WARN_UNIMPL;return false; }
