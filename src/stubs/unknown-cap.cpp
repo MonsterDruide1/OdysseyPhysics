@@ -20,6 +20,11 @@ bool HackCap::isEnableThrowSeparate() const { WARN_UNIMPL; return true; }
 void HackCap::startThrowSeparatePlayJump(sead::Vector3<float> const&, sead::Vector3<float> const&, float) { WARN_UNIMPL; }
 void HackCap::startThrowSeparatePlay(sead::Vector3<float> const&, sead::Vector3<float> const&, float, bool) { WARN_UNIMPL; }
 f32 HackCap::calcSeparateHideSpeedH(sead::Vector3<float> const&) { WARN_UNIMPL;return 0.0f; }
+void HackCap::startSpinAttack(const sead::SafeString&) { WARN_UNIMPL; }
+bool HackCap::cancelCapState() { WARN_UNIMPL; return false; }
+bool HackCap::isSpinAttack() { WARN_UNIMPL; return false; }
+void HackCap::startThrow(bool,sead::Vector3<float> const&,sead::Vector3<float> const&,float,sead::Vector2<float> const&,sead::Vector2<float> const&,sead::Vector3<float> const&,bool,sead::Vector3<float> const&,HackCap::SwingHandType,bool,float,int) { WARN_UNIMPL; }
+void HackCap::attackSpin(al::HitSensor *,al::HitSensor *,float) { WARN_UNIMPL; }
 
 bool PlayerInput::isHoldCapSeparateJump() const { WARN_UNIMPL;return false; }
 

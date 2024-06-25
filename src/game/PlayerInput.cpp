@@ -1,4 +1,5 @@
 
+#include "Library/Math/MathAngleUtil.h"
 #include "Player/PlayerActorBase.h"
 #include "Player/PlayerFunction.h"
 #include "Player/PlayerInput.h"
@@ -21,4 +22,8 @@ bool PlayerInput::isHoldSquat() const {
     if(mIsDisableInput) return false;
     // stuff about 2d, ignored here
     return PlayerInputFunction::isHoldSubAction(mLiveActor, PlayerFunction::getPlayerInputPort(mLiveActor));
+}
+
+bool PlayerInput::isThrowTypeLeftRight(const sead::Vector2f& vec) const {
+    return !al::isNearZero(vec, 0.001f);
 }
