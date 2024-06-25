@@ -150,15 +150,20 @@ void RaylibActor::initRaylibModel() {
         mesh.triangleCount = coll.getTriangleNum(header);
         mesh.vertexCount = mesh.triangleCount * 3;
         mesh.vertices = (float*) MemAlloc(mesh.vertexCount * 3 * sizeof(float));
+        mesh.normals = (float*) MemAlloc(mesh.vertexCount * 3 * sizeof(float));
 
         for(int j = 0; j < mesh.triangleCount; j++) {
             const al::KCPrismData& prism = coll.getPrismData(j, header);
             for(int k = 0; k < 3; k++) {
                 sead::Vector3f pos;
                 coll.calcPosLocal(&pos, &prism, k, header);
+                sead::Vector3f norm = coll.getFaceNormal(&prism, header);
                 mesh.vertices[j*9+k*3+0] = pos.x;
                 mesh.vertices[j*9+k*3+1] = pos.y;
                 mesh.vertices[j*9+k*3+2] = pos.z;
+                mesh.normals[j*9+k*3+0] = norm.x;
+                mesh.normals[j*9+k*3+1] = norm.y;
+                mesh.normals[j*9+k*3+2] = norm.z;
             }
         }
 
