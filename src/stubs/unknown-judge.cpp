@@ -11,7 +11,6 @@ PlayerJudgeWallCatchInputDir::PlayerJudgeWallCatchInputDir(al::LiveActor const*,
 PlayerJudgeWallHitDown::PlayerJudgeWallHitDown(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*, PlayerTrigger const*) { WARN_UNIMPL; }
 PlayerJudgeWallHitDownForceRun::PlayerJudgeWallHitDownForceRun(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*, PlayerCounterForceRun const*, PlayerTrigger const*) { WARN_UNIMPL; }
 PlayerJudgeWallHitDownRolling::PlayerJudgeWallHitDownRolling(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*, PlayerTrigger const*) { WARN_UNIMPL; }
-PlayerJudgeWallKeep::PlayerJudgeWallKeep(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, IUsePlayerHeightCheck const*, PlayerCounterAfterUpperPunch const*, PlayerWallActionHistory const*, PlayerCarryKeeper const*, PlayerTrigger const*, PlayerCounterForceRun const*) { WARN_UNIMPL; }
 PlayerJudgeCameraSubjective::PlayerJudgeCameraSubjective(al::LiveActor const*, IUsePlayerCollision const*, PlayerInput const*) { WARN_UNIMPL; }
 PlayerJudgeDiveInWater::PlayerJudgeDiveInWater(al::LiveActor const*, PlayerConst const*, IUsePlayerHeightCheck const*, IUsePlayerFallDistanceCheck const*) { WARN_UNIMPL; }
 PlayerJudgeCameraInWater::PlayerJudgeCameraInWater(al::LiveActor const*, IJudge const*, al::WaterSurfaceFinder const*) { WARN_UNIMPL; }

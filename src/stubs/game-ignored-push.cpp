@@ -1,3 +1,5 @@
+#include "Library/Collision/CollisionParts.h"
+#include "Library/Collision/CollisionUtil.h"
 #include "PlayerUtil.h"
 
 PlayerPushReceiver::PlayerPushReceiver(al::LiveActor*) {}
@@ -18,3 +20,10 @@ bool PlayerExternalVelocity::isExistForce() const { return false; }
 PlayerBindKeeper::PlayerBindKeeper(al::HitSensor*, IUsePlayerPuppet*) {}
 void PlayerBindKeeper::clearBindableSensor() {}
 bool PlayerBindKeeper::sendStartMsg() { return false; }
+
+void al::CollisionParts::calcForceMovePower(sead::Vector3<float> * a1,sead::Vector3<float> const&) const {
+    *a1 = {0.0f, 0.0f, 0.0f};
+}
+bool alCollisionUtil::isCollisionMoving(const al::HitInfo* info) {
+  return false;
+}
