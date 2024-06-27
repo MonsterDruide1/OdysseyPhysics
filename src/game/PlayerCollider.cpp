@@ -247,8 +247,20 @@ void PlayerCollider::setCollisionShapeKeeper(CollisionShapeKeeper * a2){
     this->mCollisionShapeKeeper = a2;
   }
 }
-void PlayerCollider::calcBoundingRadius(float *) const { CRASH }
-void PlayerCollider::setCollisionShapeScale(float){ CRASH }
+void PlayerCollider::calcBoundingRadius(float * radius) const {
+  *radius = mCollisionShapeKeeper->mBoundingRadius * mCollisionShapeScale;
+}
+void PlayerCollider::setCollisionShapeScale(float scale){
+  if(mCollisionShapeKeeper) {
+    f32 unk = mCollisionShapeKeeper->mBoundingRadius * mCollisionShapeScale;
+    if(mSize < unk)
+      unk = mSize;
+    mSize = unk;
+    mCollisionShapeScale = scale;
+  } else {
+    mCollisionShapeScale = scale;
+  }
+}
 void PlayerCollider::onCutCollideAffectDir(sead::Vector3f const& dir){
   mCutCollideAffectDir = dir;
 }
@@ -269,15 +281,8 @@ sead::Vector3f PlayerCollider::collide(sead::Vector3f const& velocity){
   float mCheckStepRange; // s11
   float newSize; // s8
   bool skipFirstStep; // w7
-  float z; // s4
   float checkStepRange; // s1
-  float v15; // s2
-  float v16; // s3
-  float v17; // s5
   sead::Matrix34f *mMtxPtr; // x8
-  float y; // s11
-  float x; // s12
-  float v21; // s10
   float val1; // s0
   int mTimeInAir; // w8
   sead::Vector3f *CollisionMovingReaction; // x21
@@ -301,9 +306,6 @@ sead::Vector3f PlayerCollider::collide(sead::Vector3f const& velocity){
   al::HitInfo *v42; // x0
   sead::Matrix34f *v43; // x8
   const sead::Vector3f *mTransPtr; // x9
-  float v45; // w10
-  float v46; // s0
-  float v47; // w10
   float v48; // s2
   float v49; // s0
   float v50; // s1
@@ -395,13 +397,9 @@ sead::Vector3f PlayerCollider::collide(sead::Vector3f const& velocity){
 
   *v9 = -99999.0;
   mCheckStepRange = a1->mCollisionShapeKeeper->mCheckStepRange;
-  finalTrans.x = destTrans.x + movePower.x;
-  finalTrans.y = destTrans.y + movePower.y;
-  finalTrans.z = destTrans.z + movePower.z;
+  finalTrans = destTrans + movePower;
   newSize = mBoundingRadius * mCollisionShapeScale;
-  finalDiff.x = (float)(destTrans.x + movePower.x) - curTrans.x;
-  finalDiff.y = (float)(destTrans.y + movePower.y) - curTrans.y;
-  finalDiff.z = (float)(destTrans.z + movePower.z) - curTrans.z;
+  finalDiff = (destTrans + movePower) - curTrans;
   if ( al::isNearZero(finalDiff, 0.001) && al::isNearZero(a1->mSize - newSize, 0.001) )
   {
     skipFirstStep = 0;
@@ -421,12 +419,8 @@ sead::Vector3f PlayerCollider::collide(sead::Vector3f const& velocity){
     skipFirstStep = 1;
   }
 
-  z = velocity.z;
   checkStepRange = fminf(a1->mCollisionShapeKeeper->mCheckStepRange, 35.0);
-  v15 = curTrans.y + velocity.y;
-  transPlusVelocity.x = curTrans.x + velocity.x;
-  transPlusVelocity.y = v15;
-  transPlusVelocity.z = curTrans.z + z;
+  transPlusVelocity = curTrans + velocity;
   PlayerCollider::moveCollide(
     &curTrans,
     &mSize,
@@ -437,16 +431,10 @@ sead::Vector3f PlayerCollider::collide(sead::Vector3f const& velocity){
     velocity,
     checkStepRange,
     skipFirstStep);
-  v16 = destTrans.y + (float)(curTrans.y - destTrans.y);
-  v17 = destTrans.z + (float)(curTrans.z - destTrans.z);
   v60 = curTrans - destTrans;
   mMtxPtr = (sead::Matrix34f *)a1->mMtxPtr;
-  x = a1->mTrans.x;
-  y = a1->mTrans.y;
-  v21 = a1->mTrans.z;
-  a1->mTrans.x = destTrans.x + (float)(curTrans.x - destTrans.x);
-  a1->mTrans.y = v16;
-  a1->mTrans.z = v17;
+  sead::Vector3f a1trans = a1->mTrans;
+  a1->mTrans = destTrans + (curTrans - destTrans);
   a1->mSize = newSize;
   a1->mMtx = *mMtxPtr;
   val1 = a1->val1;
@@ -547,14 +535,11 @@ LABEL_29:
   {
     v43 = (sead::Matrix34f *)a1->mMtxPtr;
     mTransPtr = a1->mTransPtr;
-    v45 = mTransPtr->x;
     a1->mTrans.x = mTransPtr->x;
-    v46 = v45;
-    v47 = mTransPtr->y;
-    a1->mTrans.y = v47;
+    a1->mTrans.y = mTransPtr->y;
     a1->mTrans.z = mTransPtr->z;
-    a1->mTrans.x = v46 + velocity.x;
-    a1->mTrans.y = v47 + velocity.y;
+    a1->mTrans.x = mTransPtr->x + velocity.x;
+    a1->mTrans.y = mTransPtr->y + velocity.y;
     a1->mTrans.z = mTransPtr->z + velocity.z;
     a1->mSize = newSize;
     a1->mMtx = *v43;
@@ -583,9 +568,9 @@ LABEL_29:
       a1->mTrans.z = destTrans.z + v48;
     }
 
-    a1->unk3.x = (float)(curTrans.x - x) - (float)((float)((float)(v51 - x) + movePower.x) + velocity.x);
-    a1->unk3.y = (float)(curTrans.y - y) - (float)((float)((float)(v52 - y) + movePower.y) + velocity.y);
-    a1->unk3.z = (float)(curTrans.z - v21) - (float)((float)((float)(v53 - v21) + movePower.z) + velocity.z);
+    a1->unk3.x = (float)(curTrans.x - a1trans.x) - (float)((float)((float)(v51 - a1trans.x) + movePower.x) + velocity.x);
+    a1->unk3.y = (float)(curTrans.y - a1trans.y) - (float)((float)((float)(v52 - a1trans.y) + movePower.y) + velocity.y);
+    a1->unk3.z = (float)(curTrans.z - a1trans.z) - (float)((float)((float)(v53 - a1trans.z) + movePower.z) + velocity.z);
   }
 
   result = v60;

@@ -2,7 +2,6 @@
 #include "PlayerUtil.h"
 
 PlayerStateCapCatchPop::PlayerStateCapCatchPop(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerAnimator*, HackCap*) : al::NerveStateBase("") { WARN_UNIMPL; }
-PlayerStateWallAir::PlayerStateWallAir(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, IUsePlayerCollision*, IJudge*, PlayerJudgePreInputJump*, PlayerAnimator*, PlayerWallActionHistory*, PlayerActionDiveInWater*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateWallCatch::PlayerStateWallCatch(al::LiveActor*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision*, IUsePlayerCeilingCheck const*, PlayerModelHolder const*, PlayerAreaChecker const*, PlayerAnimator*, PlayerTrigger*, PlayerJudgePreInputJump*, PlayerJointParamGrab*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStateGrabCeil::PlayerStateGrabCeil(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerModelHolder const*, PlayerTrigger*, IUsePlayerCollision*, PlayerAnimator*, PlayerJudgePreInputJump*, al::HitSensor*, PlayerJointParamGrab*) : al::NerveStateBase("") { WARN_UNIMPL; }
 PlayerStatePoleClimb::PlayerStatePoleClimb(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, PlayerModelHolder*, IUsePlayerCollision*, PlayerAnimator*, PlayerWallActionHistory*, PlayerJointParamHandLegAngle*, PlayerJudgePreInputJump*, PlayerActionDiveInWater*) : al::NerveStateBase("") { WARN_UNIMPL; }
@@ -25,7 +24,6 @@ void PlayerStateGrabCeil::setup(al::CollisionParts const*, sead::Vector3<float> 
 bool PlayerStateGrabCeil::isEnableNextGrabCeil() { WARN_UNIMPL; }
 
 bool PlayerStateHack::isEnableModelSyncShowHide() { WARN_UNIMPL;return false; }
-void PlayerStateWallAir::calcSnapMoveCutDir(sead::Vector3<float>*) { WARN_UNIMPL; }
 bool PlayerStateWallCatch::isWallCatchForm() { WARN_UNIMPL;return false; }
 void PlayerStateWallCatch::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) { WARN_UNIMPL; }
 const sead::Vector3f& PlayerStateWallCatch::getCeilingCheckPos() { WARN_UNIMPL;return sead::Vector3f::zero; }

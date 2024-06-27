@@ -48,6 +48,7 @@ int main() {
         sceneManager.init("SandWorldMeganeExStageMap", 0);
 
         Input::instance()->setInputProvider(new InputProviderRaylib());
+        //Input::instance()->setInputProvider(new InputProviderTAS("res/out.txt"));
 
         float angleH = 90;
         float angleV = 60;
