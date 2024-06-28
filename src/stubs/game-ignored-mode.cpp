@@ -59,3 +59,28 @@ void PlayerJudgePreInputHackAction::update() {}
 bool PlayerJudgePreInputHackAction::judge() const {return false;}
 
 bool HackCap::sendMsgStartHack(al::HitSensor*) { return false; }
+
+PlayerJudgeEnableGuideArrow::PlayerJudgeEnableGuideArrow(PlayerPuppet const*) {}
+void PlayerJudgeEnableGuideArrow::reset() {}
+void PlayerJudgeEnableGuideArrow::update() {}
+bool PlayerJudgeEnableGuideArrow::judge() const {return false;}
+
+PlayerJudgeEnablePeachAmiibo::PlayerJudgeEnablePeachAmiibo(PlayerStateDamageFire const*) {}
+void PlayerJudgeEnablePeachAmiibo::reset() {}
+void PlayerJudgeEnablePeachAmiibo::update() {}
+bool PlayerJudgeEnablePeachAmiibo::judge() const {return false;}
+
+PlayerJudgeCameraSubjective::PlayerJudgeCameraSubjective(al::LiveActor const*, IUsePlayerCollision const*, PlayerInput const*) {}
+void PlayerJudgeCameraSubjective::reset() {}
+void PlayerJudgeCameraSubjective::update() {}
+bool PlayerJudgeCameraSubjective::judge() const {return false;}
+
+PlayerJudgeActiveCameraSubjective::PlayerJudgeActiveCameraSubjective(PlayerStateCameraSubjective const*) {}
+void PlayerJudgeActiveCameraSubjective::reset() {}
+void PlayerJudgeActiveCameraSubjective::update() {}
+bool PlayerJudgeActiveCameraSubjective::judge() const {return false;}
+
+PlayerJudgeFailureCameraSubjective::PlayerJudgeFailureCameraSubjective(PlayerInput const*, IJudge const*) {}
+void PlayerJudgeFailureCameraSubjective::reset() {}
+void PlayerJudgeFailureCameraSubjective::update() {}
+bool PlayerJudgeFailureCameraSubjective::judge() const {return false;}

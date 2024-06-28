@@ -25,3 +25,23 @@ void PlayerJudgeInWater::reset() {}
 bool PlayerJudgeInWater::judge() const { return false; }
 
 PlayerRippleGenerator::PlayerRippleGenerator(al::LiveActor const*, al::LiveActor const*, PlayerModelHolder const*) {}
+
+PlayerJudgeDiveInWater::PlayerJudgeDiveInWater(al::LiveActor const*, PlayerConst const*, IUsePlayerHeightCheck const*, IUsePlayerFallDistanceCheck const*) {}
+void PlayerJudgeDiveInWater::update() {}
+void PlayerJudgeDiveInWater::reset() {}
+bool PlayerJudgeDiveInWater::judge() const { return false; }
+
+PlayerJudgeCameraInWater::PlayerJudgeCameraInWater(al::LiveActor const*, IJudge const*, al::WaterSurfaceFinder const*) {}
+void PlayerJudgeCameraInWater::update() {}
+void PlayerJudgeCameraInWater::reset() {}
+bool PlayerJudgeCameraInWater::judge() const { return false; }
+
+PlayerJudgeTalkSwim::PlayerJudgeTalkSwim(PlayerHackKeeper const*, PlayerCarryKeeper const*, PlayerStateSwim const*) {}
+void PlayerJudgeTalkSwim::update() {}
+void PlayerJudgeTalkSwim::reset() {}
+bool PlayerJudgeTalkSwim::judge() const { return false; }
+
+PlayerJudgeWaterSurfaceRun::PlayerJudgeWaterSurfaceRun(al::LiveActor const*, PlayerConst const*, al::WaterSurfaceFinder const*, PlayerCounterForceRun const*) {}
+void PlayerJudgeWaterSurfaceRun::update() {}
+void PlayerJudgeWaterSurfaceRun::reset() {}
+bool PlayerJudgeWaterSurfaceRun::judge() const { return false; }

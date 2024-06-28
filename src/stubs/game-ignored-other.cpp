@@ -20,6 +20,11 @@ bool isOnGroundForceRollingCode(al::LiveActor const*, IUsePlayerCollision const*
 PlayerSandSinkAffect::PlayerSandSinkAffect(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision*, PlayerEffect*) {}
 bool PlayerSandSinkAffect::isSinkDeathHeight() { return false; }
 
+PlayerJudgeSandSink::PlayerJudgeSandSink(IUsePlayerCollision const*, PlayerSandSinkAffect const*) {}
+void PlayerJudgeSandSink::update() {}
+void PlayerJudgeSandSink::reset() {}
+bool PlayerJudgeSandSink::judge() const { return false; }
+
 void alPadRumbleFunction::startPadRumbleLoopNo3D(al::LiveActor const*, char const*, sead::Vector3<float> const*, int) {}
 void alPadRumbleFunction::stopPadRumbleLoop(al::LiveActor const*, char const*, sead::Vector3<float> const*, int) {}
 
@@ -27,3 +32,8 @@ PlayerJudgePoleClimb::PlayerJudgePoleClimb(al::LiveActor const*,PlayerConst cons
 void PlayerJudgePoleClimb::update() {}
 void PlayerJudgePoleClimb::reset() {}
 bool PlayerJudgePoleClimb::judge() const { return false; }
+
+PlayerJudgeStatusPoleClimb::PlayerJudgeStatusPoleClimb(IJudge const*, PlayerStatePoleClimb const*) {}
+void PlayerJudgeStatusPoleClimb::update() {}
+void PlayerJudgeStatusPoleClimb::reset() {}
+bool PlayerJudgeStatusPoleClimb::judge() const { return false; }

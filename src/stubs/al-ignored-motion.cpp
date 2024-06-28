@@ -11,5 +11,6 @@ void JoyPadAccelPoseAnalyzer::setSwingBorder(f32 val1, f32 val2) {
     mSwingBorder = {val1, val2};
 }
 const sead::Vector2f& al::JoyPadAccelPoseAnalyzer::getSwingDirDoubleHandSameDir() const {return sead::Vector2f::zero;}
+void JoyPadAccelPoseAnalyzer::update() {}
 
 }

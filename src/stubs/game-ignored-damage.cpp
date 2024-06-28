@@ -27,3 +27,8 @@ PlayerJudgeRecoveryLifeFast::PlayerJudgeRecoveryLifeFast(al::LiveActor const*,Pl
 void PlayerJudgeRecoveryLifeFast::reset() {}
 void PlayerJudgeRecoveryLifeFast::update() {}
 bool PlayerJudgeRecoveryLifeFast::judge() const {return false;}
+
+PlayerJudgeDead::PlayerJudgeDead(al::LiveActor const*) {}
+void PlayerJudgeDead::reset() {}
+void PlayerJudgeDead::update() {}
+bool PlayerJudgeDead::judge() const {return false;}

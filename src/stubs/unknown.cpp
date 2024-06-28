@@ -63,11 +63,6 @@ al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
 
 }
 
-bool PlayerInput::isSpinClockwise() const {
-    WARN_UNIMPL;
-    return false;
-}
-
 PlayerCeilingCheck::PlayerCeilingCheck(al::CollisionDirector*) { WARN_UNIMPL; }
 void PlayerCeilingCheck::update(sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float) { WARN_UNIMPL; }
 void PlayerCeilingCheck::setupCeilingCheckNormal() { WARN_UNIMPL; }
@@ -96,9 +91,8 @@ void al::getQuat(sead::Quatf* q, const al::ActorInitInfo& info) {
     q->setRPY(sead::Mathf::deg2rad(rot.x), sead::Mathf::deg2rad(rot.y), sead::Mathf::deg2rad(rot.z));
 }
 
-
-// might be required to make jumptype=3 happen
-bool PlayerStateRunHakoniwa2D3D::isRunDashFast() const {
+bool PlayerAnimControlRun::isAnimDashFast() const {
+    WARN_UNIMPL;
     return false;
 }
 
