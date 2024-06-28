@@ -3,6 +3,7 @@
 #include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
+#include "Library/Player/PlayerHolder.h"
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
 #include "Player/PlayerActorHakoniwa.h"
@@ -76,8 +77,10 @@ void StageScene::init(const char* stageName, int scenario) {
     PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
     al::PlacementInfo placementInfo = {};
     placementInfo.set(playerlist.getIterByIndex(0), al::ByamlIter());
+    al::PlayerHolder* playerHolder = new al::PlayerHolder(1);
+    playerHolder->registerPlayer(player, nullptr);
     al::ActorInitInfo actorInfo = {};
-    actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, collDirector, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
+    actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, collDirector, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, playerHolder, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     al::ActorSceneInfo* sceneInfo = new al::ActorSceneInfo(); // allocate on heap to ensure persistence
     memcpy(sceneInfo, &actorInfo.mActorSceneInfo, sizeof(al::ActorSceneInfo));
     player->initSceneInfo(sceneInfo);

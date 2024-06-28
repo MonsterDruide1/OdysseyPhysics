@@ -36,6 +36,7 @@ bool GameDataFunction::isPlayerLifeZero(GameDataHolderAccessor) { return false; 
 PlayerHackKeeper::PlayerHackKeeper(al::LiveActor*, HackCap*, PlayerRecoverySafetyPoint*, PlayerInput const*, sead::Matrix34<float> const*, PlayerDamageKeeper const*, IPlayerModelChanger const*, IUsePlayerHeightCheck const*) {}
 void PlayerHackKeeper::createHackModel(al::ActorInitInfo const&) {}
 bool PlayerHackKeeper::executeForceHackStageStart(al::HitSensor*, IUsePlayerHack*) { return false; }
+const char* PlayerHackKeeper::getCurrentHackName() const { return nullptr; }
 
 PlayerRecoverySafetyPoint::PlayerRecoverySafetyPoint(al::LiveActor const*, HackCap const*, al::ActorInitInfo const&, IUseDimension const*, al::CollisionPartsFilterBase*, al::HitSensor*) {}
 void PlayerRecoverySafetyPoint::updateRecoveryBubble() {}
