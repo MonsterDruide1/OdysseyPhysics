@@ -13,6 +13,7 @@ namespace rs {
 
 bool isClosetScenePlayer(PlayerInitInfo const&) { return false; }
 bool isPlayer2D(const al::LiveActor* actor) { return false; }
+bool isPlayer3D(const al::LiveActor* actor) { return true; }
 bool isKidsMode(al::LiveActor const*) { return false; }
 bool isActiveDemo(al::LiveActor const*) { return false; }
 bool calcHackerMoveDir(sead::Vector3f *, const IUsePlayerHack *, const sead::Vector3f &) { return false; }

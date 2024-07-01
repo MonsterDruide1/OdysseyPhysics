@@ -1,5 +1,6 @@
 #include "Library/Action/ActorActionKeeper.h"
 #include "Library/Base/StringUtil.h"
+#include "Library/Camera/CameraUtil.h"
 #include "Library/Collision/Collider.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/CollisionUtil.h"
@@ -112,3 +113,5 @@ void al::getLinksInfoByIndex(al::PlacementInfo*, al::PlacementInfo const&, char 
 sead::Matrix34f* al::ModelKeeper::getBaseMtx() {CRASH}
 
 sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {CRASH}
+
+sead::Vector3f* al::getCameraPos(const IUseCamera*, s32) {CRASH}

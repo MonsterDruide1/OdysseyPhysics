@@ -2,6 +2,10 @@
 
 // removed soon
 PlayerJudgeGrabCeil::PlayerJudgeGrabCeil(al::LiveActor const*, PlayerConst const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*) { WARN_UNIMPL; }
+void PlayerJudgeGrabCeil::reset() {}
+void PlayerJudgeGrabCeil::update() {}
+bool PlayerJudgeGrabCeil::judge() const { return false; }
+
 
 PlayerJudgeAirForceCount::PlayerJudgeAirForceCount(al::LiveActor const*, PlayerExternalVelocity const*, IUsePlayerCollision const*) { WARN_UNIMPL; }
 PlayerJudgeCapCatchPop::PlayerJudgeCapCatchPop(al::LiveActor const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCapActionHistory const*, PlayerCounterAfterCapCatch const*) { WARN_UNIMPL; }
@@ -9,9 +13,6 @@ PlayerJudgeDirectRolling::PlayerJudgeDirectRolling(al::LiveActor const*, PlayerC
 PlayerJudgeLongFall::PlayerJudgeLongFall(al::LiveActor const*, PlayerConst const*, IUsePlayerFallDistanceCheck const*, PlayerHackKeeper const*, PlayerBindKeeper const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
 PlayerJudgeSlopeSlide::PlayerJudgeSlopeSlide(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*) { WARN_UNIMPL; }
 PlayerJudgeWallCatchInputDir::PlayerJudgeWallCatchInputDir(al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*, PlayerCounterForceRun const*, IUsePlayerHeightCheck const*) { WARN_UNIMPL; }
-PlayerJudgeWallHitDown::PlayerJudgeWallHitDown(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*, PlayerTrigger const*) { WARN_UNIMPL; }
-PlayerJudgeWallHitDownForceRun::PlayerJudgeWallHitDownForceRun(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*, PlayerCounterForceRun const*, PlayerTrigger const*) { WARN_UNIMPL; }
-PlayerJudgeWallHitDownRolling::PlayerJudgeWallHitDownRolling(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*, PlayerTrigger const*) { WARN_UNIMPL; }
 PlayerJudgePlaySwitchOnAreaWaitAnim::PlayerJudgePlaySwitchOnAreaWaitAnim(PlayerStateWait const*) { WARN_UNIMPL; }
 PlayerJudgeSleep::PlayerJudgeSleep(PlayerStateWait const*) { WARN_UNIMPL; }
 PlayerJudgeCapCatch::PlayerJudgeCapCatch(al::LiveActor const*, PlayerCounterAfterCapCatch const*) { WARN_UNIMPL; }

@@ -1,10 +1,12 @@
 #include "Library/Area/AreaObjDirector.h"
 #include "Library/stuff.h"
+#include "Player/PlayerJudgeInvalidateInputFall.h"
 #include "PlayerUtil.h"
 #include "playerUtil.h"
 #include "Stuff.h"
 
 PlayerAreaChecker::PlayerAreaChecker(al::LiveActor const*, PlayerModelHolder const*) {}
+al::AreaObj* PlayerAreaChecker::tryFindInvalidateInputFall(const sead::Vector3f&) const { return nullptr; }
 
 al::AreaObj* al::tryFindAreaObj(al::IUseAreaObj const*, char const*, sead::Vector3<float> const&) { return nullptr; }
 al::AreaObjGroup* al::tryFindAreaObjGroup(al::IUseAreaObj const*, char const*) { return nullptr; }
