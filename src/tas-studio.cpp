@@ -1,3 +1,4 @@
+#include "CUSTOM/PlayerAnimator.h"
 #include "Library/Nerve/NerveKeeper.h"
 #include "Library/Nerve/NerveStateCtrl.h"
 #include "Player/CollisionShapeInfo.h"
@@ -160,6 +161,12 @@ int main() {
 
                 DrawText(scene->mPlayer->mActor->mNerveKeeper->getStateCtrl()->findStateInfo(scene->mPlayer->mActor->mNerveKeeper->getCurrentNerve())->name,
                     0, 0, 40,  {255, 0, 0, 255});
+                
+                /*PlayerAnimator* animator = ((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerAnimator;
+                char buffer[128] = {};
+                snprintf(buffer, 128, "%s (%.0f/%.0f)", animator->currentAnim, animator->currentFrame, animator->maxFrame);
+                DrawText(buffer,
+                    0, 50, 40,  {255, 0, 0, 255});*/
             }
             EndDrawing();
         }
