@@ -45,3 +45,6 @@ PlayerJudgeWaterSurfaceRun::PlayerJudgeWaterSurfaceRun(al::LiveActor const*, Pla
 void PlayerJudgeWaterSurfaceRun::update() {}
 void PlayerJudgeWaterSurfaceRun::reset() {}
 bool PlayerJudgeWaterSurfaceRun::judge() const { return false; }
+
+PlayerStateSwim::PlayerStateSwim(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerTrigger const*, PlayerCarryKeeper const*, PlayerModelHolder const*, PlayerExternalVelocity const*, PlayerAnimator*, PlayerSpinCapAttack*, al::WaterSurfaceFinder const*, PlayerEffect*, PlayerJointParamSwim*) : al::NerveStateBase("") {}
+PlayerStateDamageSwim::PlayerStateDamageSwim(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerTrigger const*, PlayerAnimator*, al::WaterSurfaceFinder const*, PlayerEffect*, IJudge*, IJudge*) : al::NerveStateBase("") {}

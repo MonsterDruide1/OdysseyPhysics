@@ -6,7 +6,7 @@
 namespace game {
 
 CollisionPartsKeeper::CollisionPartsKeeper() {
-    mPartsList.allocBuffer(256, nullptr);
+    mPartsList.allocBuffer(1024, nullptr);
 }
 CollisionPartsKeeper::~CollisionPartsKeeper() {
     mPartsList.freeBuffer();

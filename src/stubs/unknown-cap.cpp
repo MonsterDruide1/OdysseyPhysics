@@ -27,3 +27,30 @@ bool PlayerInput::isHoldCapSeparateJump() const { WARN_UNIMPL;return false; }
 PlayerSeparateCapFlag::PlayerSeparateCapFlag() { WARN_UNIMPL; }
 
 void CapFunction::putOnCapPlayer(HackCap*, PlayerAnimator*) { WARN_UNIMPL; }
+
+PlayerJudgeCapCatch::PlayerJudgeCapCatch(al::LiveActor const*, PlayerCounterAfterCapCatch const*) {WARN_UNIMPL; }
+void PlayerJudgeCapCatch::reset() {WARN_UNIMPL;}
+void PlayerJudgeCapCatch::update() {WARN_UNIMPL;}
+bool PlayerJudgeCapCatch::judge() const {WARN_UNIMPL;return false;}
+
+PlayerJudgeCapCatchPop::PlayerJudgeCapCatchPop(al::LiveActor const*, PlayerInput const*, IUsePlayerCollision const*, IPlayerModelChanger const*, PlayerCapActionHistory const*, PlayerCounterAfterCapCatch const*) {WARN_UNIMPL; }
+void PlayerJudgeCapCatchPop::reset() {WARN_UNIMPL;}
+void PlayerJudgeCapCatchPop::update() {WARN_UNIMPL;}
+bool PlayerJudgeCapCatchPop::judge() const {WARN_UNIMPL;return false;}
+
+HackCapJudgePreInputHoveringJump::HackCapJudgePreInputHoveringJump(al::LiveActor const*, IUsePlayerCollision const*, HackCap const*, PlayerInput const*) {WARN_UNIMPL; }
+void HackCapJudgePreInputHoveringJump::reset() {WARN_UNIMPL;}
+void HackCapJudgePreInputHoveringJump::update() {WARN_UNIMPL;}
+bool HackCapJudgePreInputHoveringJump::judge() const {WARN_UNIMPL;return false;}
+
+HackCapJudgeHoldHoveringJump::HackCapJudgeHoldHoveringJump(al::LiveActor const*, PlayerColliderHakoniwa const*, HackCap const*, PlayerInput const*, PlayerConst const*) {WARN_UNIMPL; }
+void HackCapJudgeHoldHoveringJump::reset() {WARN_UNIMPL;}
+void HackCapJudgeHoldHoveringJump::update() {WARN_UNIMPL;}
+bool HackCapJudgeHoldHoveringJump::judge() const {WARN_UNIMPL;return false;}
+
+HackCapJudgePreInputSeparateThrow::HackCapJudgePreInputSeparateThrow(PlayerInput const*, PlayerSeparateCapFlag const*) {WARN_UNIMPL; }
+void HackCapJudgePreInputSeparateThrow::reset() {WARN_UNIMPL;}
+void HackCapJudgePreInputSeparateThrow::update() {WARN_UNIMPL;}
+bool HackCapJudgePreInputSeparateThrow::judge() const {WARN_UNIMPL;return false;}
+
+PlayerStateCapCatchPop::PlayerStateCapCatchPop(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerAnimator*, HackCap*) : al::NerveStateBase("") { WARN_UNIMPL; }

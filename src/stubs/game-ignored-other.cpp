@@ -37,3 +37,12 @@ PlayerJudgeStatusPoleClimb::PlayerJudgeStatusPoleClimb(IJudge const*, PlayerStat
 void PlayerJudgeStatusPoleClimb::update() {}
 void PlayerJudgeStatusPoleClimb::reset() {}
 bool PlayerJudgeStatusPoleClimb::judge() const { return false; }
+
+PlayerStateGrabCeil::PlayerStateGrabCeil(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerModelHolder const*, PlayerTrigger*, IUsePlayerCollision*, PlayerAnimator*, PlayerJudgePreInputJump*, al::HitSensor*, PlayerJointParamGrab*) : al::NerveStateBase("") {}
+PlayerStatePoleClimb::PlayerStatePoleClimb(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, PlayerModelHolder*, IUsePlayerCollision*, PlayerAnimator*, PlayerWallActionHistory*, PlayerJointParamHandLegAngle*, PlayerJudgePreInputJump*, PlayerActionDiveInWater*) : al::NerveStateBase("") {}
+PlayerStateSandSink::PlayerStateSandSink(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerTrigger const*, IUsePlayerCollision*, PlayerAnimator*, IJudge*, PlayerJudgePreInputJump*) : al::NerveStateBase("") {}
+ActorStateSandGeyser::ActorStateSandGeyser(al::LiveActor* act) : al::ActorStateBase("砂の間欠泉", act) {}
+
+void PlayerStatePoleClimb::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, char const*) {}
+void PlayerStateGrabCeil::setup(al::CollisionParts const*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {}
+bool PlayerStateGrabCeil::isEnableNextGrabCeil() { return false; }

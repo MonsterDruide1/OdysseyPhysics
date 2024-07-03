@@ -32,3 +32,7 @@ PlayerJudgeDead::PlayerJudgeDead(al::LiveActor const*) {}
 void PlayerJudgeDead::reset() {}
 void PlayerJudgeDead::update() {}
 bool PlayerJudgeDead::judge() const {return false;}
+
+PlayerStateDamageFire::PlayerStateDamageFire(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerAnimator*, IJudge*) : al::NerveStateBase("") {}
+PlayerStatePress::PlayerStatePress(al::LiveActor*, IUsePlayerCollision const*, PlayerAnimator*) : al::NerveStateBase("") {}
+PlayerStateAbyss::PlayerStateAbyss(al::LiveActor*, PlayerConst const*, PlayerRecoverySafetyPoint*, PlayerColliderHakoniwa*, PlayerAnimator*, al::LiveActor*) : al::NerveStateBase("") {}

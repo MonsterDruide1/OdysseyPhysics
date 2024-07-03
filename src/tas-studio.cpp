@@ -45,7 +45,7 @@ int main() {
 
         game::StageSceneManager sceneManager{};
         game::StageScene* scene = sceneManager.getScene();
-        //scene.init("SandWorldSlotStageMap", 0);
+        //sceneManager.init("CapWorldHomeStageMap", 0);
         sceneManager.init("SandWorldMeganeExStageMap", 0);
 
         Input::instance()->setInputProvider(new InputProviderRaylib());

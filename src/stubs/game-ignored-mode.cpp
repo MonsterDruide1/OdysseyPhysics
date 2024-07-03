@@ -86,3 +86,14 @@ PlayerJudgeFailureCameraSubjective::PlayerJudgeFailureCameraSubjective(PlayerInp
 void PlayerJudgeFailureCameraSubjective::reset() {}
 void PlayerJudgeFailureCameraSubjective::update() {}
 bool PlayerJudgeFailureCameraSubjective::judge() const {return false;}
+
+PlayerStateBind::PlayerStateBind(al::LiveActor*, PlayerConst const*, PlayerInput const*, PlayerPuppet const*, IUsePlayerCollision const*, PlayerTrigger*) : al::NerveStateBase("") {}
+PlayerStateHack::PlayerStateHack(al::LiveActor*, PlayerHackKeeper*, IPlayerModelChanger*, PlayerAnimator*, HackCap*) : al::NerveStateBase("") {}
+PlayerStateEndHack::PlayerStateEndHack(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerTrigger*, PlayerAnimator*) : al::NerveStateBase("") {}
+PlayerStateCameraSubjective::PlayerStateCameraSubjective(al::LiveActor*, al::CameraTicket*, IPlayerModelChanger*, PlayerCarryKeeper*, PlayerAnimator*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*) : al::NerveStateBase("") {}
+bool PlayerStateHack::isEnableModelSyncShowHide() { return false; }
+
+PlayerJudgeSleep::PlayerJudgeSleep(PlayerStateWait const*) {}
+void PlayerJudgeSleep::reset() {}
+void PlayerJudgeSleep::update() {}
+bool PlayerJudgeSleep::judge() const {return false;}

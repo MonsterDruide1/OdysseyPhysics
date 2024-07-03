@@ -21,3 +21,10 @@ PlayerJudgeStartRise::PlayerJudgeStartRise(al::LiveActor const*,PlayerAreaChecke
 void PlayerJudgeStartRise::reset() {}
 void PlayerJudgeStartRise::update() {}
 bool PlayerJudgeStartRise::judge() const {return false;}
+
+PlayerJudgePlaySwitchOnAreaWaitAnim::PlayerJudgePlaySwitchOnAreaWaitAnim(PlayerStateWait const*) {}
+void PlayerJudgePlaySwitchOnAreaWaitAnim::reset() {}
+void PlayerJudgePlaySwitchOnAreaWaitAnim::update() {}
+bool PlayerJudgePlaySwitchOnAreaWaitAnim::judge() const {return false;}
+
+PlayerStateRise::PlayerStateRise(al::LiveActor*, PlayerConst const*, IUsePlayerCollision const*, PlayerInput const*, PlayerAnimator*) : al::NerveStateBase("") {}
