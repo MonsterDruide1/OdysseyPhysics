@@ -13,3 +13,5 @@ bool PlayerCarryKeeper::isThrowHold() const { return false; }
 bool PlayerCarryKeeper::isThrow() const { return false; }
 
 void PlayerActorHakoniwa::updateCarry() {}
+
+bool rs::isPlayerCarrySomething(al::LiveActor const*) { return false; }

@@ -30,6 +30,7 @@ PlayerEffect::PlayerEffect(al::LiveActor*, PlayerModelHolder const*, sead::Matri
 void PlayerEffect::updateWaterSurfaceMtx(al::WaterSurfaceFinder const*) {}
 void PlayerEffect::tryEmitRollingEffect() {}
 void PlayerEffect::tryDeleteRollingEffect() {}
+void PlayerEffect::clearRunEffect() {}
 
 PlayerModelChangerHakoniwa::PlayerModelChangerHakoniwa(al::LiveActor const*, PlayerModelHolder*, PlayerPainPartsKeeper*, PlayerCostumeInfo*, IUseDimension const*) {}
 void PlayerModelChangerHakoniwa::syncHost(bool) {}
