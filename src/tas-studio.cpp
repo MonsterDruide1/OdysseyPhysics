@@ -42,6 +42,7 @@ int main() {
     initializeSead();
     {
         // context of sead
+        bool freecam = false;
 
         game::StageSceneManager sceneManager{};
         game::StageScene* scene = sceneManager.getScene();
@@ -81,28 +82,34 @@ int main() {
             if(IsKeyPressed(KEY_ZERO)) {
                 Input::instance()->dumpToTASFile("res/out.txt");
             }
+            if(IsKeyPressed(KEY_O)) {
+                freecam = !freecam;
+            }
             scene = sceneManager.getScene();
 
             Input::instance()->update();
             scene->update();
 
-            //UpdateCamera(&cam, CAMERA_FREE);
-            sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
-            float dist1 = sead::Vector3f(playerPos - lookAtPos1).squaredLength();
-            float dist2 = sead::Vector3f(playerPos - lookAtPos2).squaredLength();
-            float dist3 = sead::Vector3f(playerPos - lookAtPos3).squaredLength();
-            if(dist1 < dist2 && dist1 < dist3) {
-                scene->mCamera->setup(angleH, angleV, distance, lookAtPos1);
+            if(freecam) {
+                UpdateCamera(&cam, CAMERA_FREE);
+            } else {
+                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+                float dist1 = sead::Vector3f(playerPos - lookAtPos1).squaredLength();
+                float dist2 = sead::Vector3f(playerPos - lookAtPos2).squaredLength();
+                float dist3 = sead::Vector3f(playerPos - lookAtPos3).squaredLength();
+                if(dist1 < dist2 && dist1 < dist3) {
+                    scene->mCamera->setup(angleH, angleV, distance, lookAtPos1);
+                }
+                else if(dist2 < dist1 && dist2 < dist3) {
+                    scene->mCamera->setup(angleH, angleV, distance, lookAtPos2);
+                }
+                else {
+                    scene->mCamera->setup(angleH, angleV, distance, lookAtPos3);
+                }
+                cam.position = raylibVec(scene->mCamera->position() * SCALE);
+                cam.target = raylibVec(scene->mCamera->at() * SCALE);
+                cam.up = raylibVec(scene->mCamera->up());
             }
-            else if(dist2 < dist1 && dist2 < dist3) {
-                scene->mCamera->setup(angleH, angleV, distance, lookAtPos2);
-            }
-            else {
-                scene->mCamera->setup(angleH, angleV, distance, lookAtPos3);
-            }
-            cam.position = raylibVec(scene->mCamera->position() * SCALE);
-            cam.target = raylibVec(scene->mCamera->at() * SCALE);
-            cam.up = raylibVec(scene->mCamera->up());
 
             sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
             cameraDir.normalize();
