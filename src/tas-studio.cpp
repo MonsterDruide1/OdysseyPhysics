@@ -30,6 +30,12 @@
 #include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraPoserFunction.h"
 
+enum class MyCameraMode {
+    Free,
+    Follow,
+    Fixed
+};
+
 #define SCALE 0.005f
 
 int main() {
@@ -42,7 +48,7 @@ int main() {
     initializeSead();
     {
         // context of sead
-        bool freecam = false;
+        MyCameraMode camMode = MyCameraMode::Fixed;
 
         game::StageSceneManager sceneManager{};
         game::StageScene* scene = sceneManager.getScene();
@@ -83,16 +89,16 @@ int main() {
                 Input::instance()->dumpToTASFile("res/out.txt");
             }
             if(IsKeyPressed(KEY_O)) {
-                freecam = !freecam;
+                camMode = (MyCameraMode)(((int)camMode + 1) % 3);
             }
             scene = sceneManager.getScene();
 
             Input::instance()->update();
             scene->update();
 
-            if(freecam) {
+            if(camMode == MyCameraMode::Free) {
                 UpdateCamera(&cam, CAMERA_FREE);
-            } else {
+            } else if(camMode == MyCameraMode::Fixed) {
                 sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
                 float dist1 = sead::Vector3f(playerPos - lookAtPos1).squaredLength();
                 float dist2 = sead::Vector3f(playerPos - lookAtPos2).squaredLength();
@@ -106,6 +112,12 @@ int main() {
                 else {
                     scene->mCamera->setup(angleH, angleV, distance, lookAtPos3);
                 }
+                cam.position = raylibVec(scene->mCamera->position() * SCALE);
+                cam.target = raylibVec(scene->mCamera->at() * SCALE);
+                cam.up = raylibVec(scene->mCamera->up());
+            } else if(camMode == MyCameraMode::Follow) {
+                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+                scene->mCamera->setup(angleH, angleV, distance, playerPos);
                 cam.position = raylibVec(scene->mCamera->position() * SCALE);
                 cam.target = raylibVec(scene->mCamera->at() * SCALE);
                 cam.up = raylibVec(scene->mCamera->up());
