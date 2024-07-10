@@ -11,6 +11,8 @@ class InputProviderTAS : public InputProvider {
 public:
     InputProviderTAS(const char* path) {
         std::ifstream file(path);
+        if(!file.is_open())
+            return;
 
         // lines formatted like this: "30 KEY_A;KEY_B;KEY_Y 18000;-3000 1234;8753"
         // purpose: "FRAME_ID BUTTONS STICK_LEFT STICK_RIGHT"
