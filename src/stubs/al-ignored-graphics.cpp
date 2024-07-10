@@ -12,15 +12,21 @@
 namespace al {
 
 void setModelAlphaMask(LiveActor*, float) {}
-bool isHideModel(LiveActor const*) { return false; }
+bool isHideModel(LiveActor const*) {
+    return false;
+}
 void hideModelIfShow(LiveActor*) {}
 void showModelIfHide(LiveActor*) {}
-u8* getModelResourceYaml(al::LiveActor const*, char const*, char const*) {return nullptr;}
+u8* getModelResourceYaml(al::LiveActor const*, char const*, char const*) {
+    return nullptr;
+}
 void offSyncAppearSubActor(al::LiveActor*, al::LiveActor const*) {}
 void offSyncHideSubActor(al::LiveActor*, al::LiveActor const*) {}
 void onSyncAppearSubActor(al::LiveActor*, al::LiveActor const*) {}
 void invalidateClipping(al::LiveActor*) {}
-const al::LayoutInitInfo* getLayoutInitInfo(al::ActorInitInfo const&) { return nullptr; }
+const al::LayoutInitInfo* getLayoutInitInfo(al::ActorInitInfo const&) {
+    return nullptr;
+}
 void setMaterialProgrammable(al::LiveActor*) {}
 
 void onSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) {}
@@ -29,14 +35,16 @@ void onSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) {}
 
 void startHitReaction(al::LiveActor const*, char const*) {}
 
-FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*, al::FootPrintServer*) {}
+FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
+                                 al::FootPrintServer*) {}
 
 void ModelCtrl::recreateDisplayList() {}
 
 void ModelKeeper::createMatAnimForProgram(int) {}
 void ModelKeeper::calc(sead::Matrix34<float> const&, sead::Vector3<float> const&) {}
 
-bool AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*, char const*, char const*) {}
+bool AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*,
+                                 char const*, char const*) {}
 bool AnimPlayerSkl::isSklAnimExist(char const*) {}
 const char* AnimPlayerSkl::getPlayingSklAnimName(int) {}
 void AnimPlayerSkl::reset() {}
@@ -81,6 +89,6 @@ f32 AnimPlayerSkl::getPartialAnimFrameRate(int) {}
 void AnimPlayerSkl::setPartialAnimFrameRate(int, float) {}
 void AnimPlayerSkl::setSklAnimBlendWeight(int, float) {}
 
-}
+}  // namespace al
 
 void alActorSystemFunction::updateExecutorDraw(al::LiveActor*) {}

@@ -1,9 +1,9 @@
 #pragma once
 
+#include "CUSTOM/CollisionPartsKeeper.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/LiveActor.h"
 #include "Library/Yaml/ByamlIter.h"
-#include "CUSTOM/CollisionPartsKeeper.h"
 #include "raylib.h"
 
 namespace game {
@@ -17,12 +17,8 @@ public:
     void initRaylibModel();
     void initFallbackModel();
 
-    virtual void initAfterPlacement() {
-        mActor->initAfterPlacement();
-    }
-    virtual void update() {
-        mActor->movement();
-    }
+    virtual void initAfterPlacement() { mActor->initAfterPlacement(); }
+    virtual void update() { mActor->movement(); }
 
     static void apply(al::LiveActor*, const al::ByamlIter& data);
 
@@ -35,4 +31,4 @@ public:
     ::Model raylibModel;
 };
 
-}
+}  // namespace game

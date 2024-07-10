@@ -16,13 +16,10 @@ public:
         getScene()->init(stageName, scenario);
     }
 
-    StageScene* getScene() {
-        return (StageScene*)(mHeap->mUseList.front()->memory());
-    }
+    StageScene* getScene() { return (StageScene*)(mHeap->mUseList.front()->memory()); }
 
 public:
     sead::ClonableExpHeap* mHeap;
 };
 
-
-}
+}  // namespace game

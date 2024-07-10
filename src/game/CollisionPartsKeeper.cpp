@@ -31,26 +31,33 @@ void CollisionPartsKeeper::resetToCollisionPartsList(al::CollisionParts*) {
 bool CollisionPartsKeeper::checkStrikePoint(al::HitInfo*, const al::CollisionCheckInfoBase&) const {
     CRASH
 }
-bool CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer*, const al::SphereCheckInfo&, bool, const sead::Vector3f&) const {
+bool CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer*, const al::SphereCheckInfo&,
+                                             bool, const sead::Vector3f&) const {
     CRASH
 }
-bool CollisionPartsKeeper::checkStrikeArrow(al::ArrowHitResultBuffer* results, const al::ArrowCheckInfo& info) const {
+bool CollisionPartsKeeper::checkStrikeArrow(al::ArrowHitResultBuffer* results,
+                                            const al::ArrowCheckInfo& info) const {
     int numCollisions = 0;
-    for(int i=0; i<mPartsList.size(); i++) {
-        numCollisions += mPartsList[i]->checkStrikeArrow(results, info.mPos, info.unk1, info.mTriFilterBase);
-        if (results->isFull()) break;
+    for (int i = 0; i < mPartsList.size(); i++) {
+        numCollisions +=
+            mPartsList[i]->checkStrikeArrow(results, info.mPos, info.unk1, info.mTriFilterBase);
+        if (results->isFull())
+            break;
     }
     return numCollisions;
 }
-bool CollisionPartsKeeper::checkStrikeSphereForPlayer(al::SphereHitResultBuffer*, const al::SphereCheckInfo&) const {
+bool CollisionPartsKeeper::checkStrikeSphereForPlayer(al::SphereHitResultBuffer*,
+                                                      const al::SphereCheckInfo&) const {
     CRASH
 }
-bool CollisionPartsKeeper::checkStrikeDisk(al::DiskHitResultBuffer*, const al::DiskCheckInfo&) const {
+bool CollisionPartsKeeper::checkStrikeDisk(al::DiskHitResultBuffer*,
+                                           const al::DiskCheckInfo&) const {
     CRASH
 }
-void CollisionPartsKeeper::searchWithSphere(const al::SphereCheckInfo& info, sead::IDelegate1<al::CollisionParts*>& delegate) const {
-    for(int i=0; i<mPartsList.size(); i++) {
-        if(!alCollisionUtil::isFarAway(*mPartsList[i], info.mPos, info.mRadius))
+void CollisionPartsKeeper::searchWithSphere(const al::SphereCheckInfo& info,
+                                            sead::IDelegate1<al::CollisionParts*>& delegate) const {
+    for (int i = 0; i < mPartsList.size(); i++) {
+        if (!alCollisionUtil::isFarAway(*mPartsList[i], info.mPos, info.mRadius))
             delegate(mPartsList[i]);
     }
 }
@@ -58,4 +65,4 @@ void CollisionPartsKeeper::movement() {
     CRASH
 }
 
-}
+}  // namespace game

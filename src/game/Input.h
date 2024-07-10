@@ -49,7 +49,7 @@ public:
 };
 
 // 10 minutes of 60fps
-#define MAX_RECORDED_INPUTS 60*60*10
+#define MAX_RECORDED_INPUTS 60 * 60 * 10
 
 class Input {
 public:
@@ -66,7 +66,8 @@ public:
         mStickLeft = mProvider->getStickLeft();
         mStickRight = mProvider->getStickRight();
 
-        if(mInputCount >= MAX_RECORDED_INPUTS) return;
+        if (mInputCount >= MAX_RECORDED_INPUTS)
+            return;
         mInputs[mInputCount].buttons = mButtons;
         mInputs[mInputCount].stickLeft = mStickLeft;
         mInputs[mInputCount].stickRight = mStickRight;
@@ -101,17 +102,11 @@ public:
 
     void dumpToTASFile(const char* filename);
 
-    static Input* instance() {
-        return sInstance;
-    }
-    static void createInstance() {
-        sInstance = new Input();
-    }
+    static Input* instance() { return sInstance; }
+    static void createInstance() { sInstance = new Input(); }
 
 private:
-    Input() {
-        mInputs = new FrameInput[MAX_RECORDED_INPUTS];
-    }
+    Input() { mInputs = new FrameInput[MAX_RECORDED_INPUTS]; }
 
     static Input* sInstance;
 

@@ -19,7 +19,7 @@ sead::ControllerBase* getController(s32 port) {
 
 bool isPadTrigger(s32 port, s32 button) {
     return Input::instance()->isTrigger(button);
-    //return getController(port)->isTrig(button);
+    // return getController(port)->isTrig(button);
 }
 
 bool isPadTriggerA(s32 port) {
@@ -139,7 +139,7 @@ bool isPadTriggerPressRightStick(s32 port) {
 
 bool isPadRepeat(s32 port, s32 button) {
     return Input::instance()->isRepeat(button);
-    //return getController(port)->isTrigWithRepeat(button);
+    // return getController(port)->isTrigWithRepeat(button);
 }
 bool isPadRepeatA(s32 port) {
     return isPadRepeat(port, 1);
@@ -234,7 +234,7 @@ bool isPadHoldPressRightStick(s32 port) {
 }
 bool isPadHold(s32 port, s32 button) {
     return Input::instance()->isHold(button);
-    //return getController(port)->isHold(button);
+    // return getController(port)->isHold(button);
 }
 bool isPadHoldA(s32 port) {
     return isPadHold(port, 1);
@@ -347,7 +347,7 @@ bool isPadHoldRightStick(s32 port) {
 
 bool isPadRelease(s32 port, s32 button) {
     return Input::instance()->isRelease(button);
-    //return getController(port)->isRelease(button);
+    // return getController(port)->isRelease(button);
 }
 bool isPadReleaseA(s32 port) {
     return isPadRelease(port, 1);

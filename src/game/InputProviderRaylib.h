@@ -28,40 +28,64 @@ class InputProviderRaylib : public InputProvider {
 public:
     sead::BitFlag32 getButtons() override {
         sead::BitFlag32 buttons = 0;
-        if (IsKeyDown(CONTROLLER_A)) buttons.setBit(ControllerButton_A);
-        if (IsKeyDown(CONTROLLER_B)) buttons.setBit(ControllerButton_B);
-        if (IsKeyDown(CONTROLLER_X)) buttons.setBit(ControllerButton_X);
-        if (IsKeyDown(CONTROLLER_Y)) buttons.setBit(ControllerButton_Y);
-        if (IsKeyDown(CONTROLLER_ZL)) buttons.setBit(ControllerButton_C);
-        if (IsKeyDown(CONTROLLER_ZR)) buttons.setBit(ControllerButton_Z);
-        if (IsKeyDown(CONTROLLER_L)) buttons.setBit(ControllerButton_L);
-        if (IsKeyDown(CONTROLLER_R)) buttons.setBit(ControllerButton_R);
-        if (IsKeyDown(CONTROLLER_UP)) buttons.setBit(ControllerButton_Up);
-        if (IsKeyDown(CONTROLLER_DOWN)) buttons.setBit(ControllerButton_Down);
-        if (IsKeyDown(CONTROLLER_LEFT)) buttons.setBit(ControllerButton_Left);
-        if (IsKeyDown(CONTROLLER_RIGHT)) buttons.setBit(ControllerButton_Right);
-        if (IsKeyDown(CONTROLLER_PLUS)) buttons.setBit(ControllerButton_Plus);
-        if (IsKeyDown(CONTROLLER_MINUS)) buttons.setBit(ControllerButton_Minus);
+        if (IsKeyDown(CONTROLLER_A))
+            buttons.setBit(ControllerButton_A);
+        if (IsKeyDown(CONTROLLER_B))
+            buttons.setBit(ControllerButton_B);
+        if (IsKeyDown(CONTROLLER_X))
+            buttons.setBit(ControllerButton_X);
+        if (IsKeyDown(CONTROLLER_Y))
+            buttons.setBit(ControllerButton_Y);
+        if (IsKeyDown(CONTROLLER_ZL))
+            buttons.setBit(ControllerButton_C);
+        if (IsKeyDown(CONTROLLER_ZR))
+            buttons.setBit(ControllerButton_Z);
+        if (IsKeyDown(CONTROLLER_L))
+            buttons.setBit(ControllerButton_L);
+        if (IsKeyDown(CONTROLLER_R))
+            buttons.setBit(ControllerButton_R);
+        if (IsKeyDown(CONTROLLER_UP))
+            buttons.setBit(ControllerButton_Up);
+        if (IsKeyDown(CONTROLLER_DOWN))
+            buttons.setBit(ControllerButton_Down);
+        if (IsKeyDown(CONTROLLER_LEFT))
+            buttons.setBit(ControllerButton_Left);
+        if (IsKeyDown(CONTROLLER_RIGHT))
+            buttons.setBit(ControllerButton_Right);
+        if (IsKeyDown(CONTROLLER_PLUS))
+            buttons.setBit(ControllerButton_Plus);
+        if (IsKeyDown(CONTROLLER_MINUS))
+            buttons.setBit(ControllerButton_Minus);
         return buttons;
     }
 
     sead::Vector2f getStickLeft() override {
         sead::Vector2f stick = sead::Vector2f::zero;
-        if (IsKeyDown(KEY_W)) stick.y = 1;
-        if (IsKeyDown(KEY_S)) stick.y = -1;
-        if (IsKeyDown(KEY_A)) stick.x = -1;
-        if (IsKeyDown(KEY_D)) stick.x = 1;
-        if(stick.squaredLength() > 1) stick.normalize();
+        if (IsKeyDown(KEY_W))
+            stick.y = 1;
+        if (IsKeyDown(KEY_S))
+            stick.y = -1;
+        if (IsKeyDown(KEY_A))
+            stick.x = -1;
+        if (IsKeyDown(KEY_D))
+            stick.x = 1;
+        if (stick.squaredLength() > 1)
+            stick.normalize();
         return stick;
     }
 
     sead::Vector2f getStickRight() override {
         sead::Vector2f stick = sead::Vector2f::zero;
-        if (IsKeyDown(KEY_I)) stick.y = 1;
-        if (IsKeyDown(KEY_K)) stick.y = -1;
-        if (IsKeyDown(KEY_J)) stick.x = -1;
-        if (IsKeyDown(KEY_L)) stick.x = 1;
-        if(stick.squaredLength() > 1) stick.normalize();
+        if (IsKeyDown(KEY_I))
+            stick.y = 1;
+        if (IsKeyDown(KEY_K))
+            stick.y = -1;
+        if (IsKeyDown(KEY_J))
+            stick.x = -1;
+        if (IsKeyDown(KEY_L))
+            stick.x = 1;
+        if (stick.squaredLength() > 1)
+            stick.normalize();
         return stick;
     }
 };

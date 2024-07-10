@@ -23,90 +23,51 @@ template <class T>
 struct Vector2 {
     T x, y;
 
-    inline bool operator==(const Vector2& a) const
-    {
-        return x == a.x && y == a.y;
-    }
-    inline Vector2 operator+(const Vector2& a) const
-    {
-        return { x + a.x, y + a.x };
-    }
-    inline Vector2 operator-(const Vector2& a) const
-    {
-        return { x - a.x, y - a.x };
-    }
-    inline Vector2 operator*(const Vector2& a) const
-    {
-        return { x * a.x, y * a.y };
-    }
-    inline Vector2 operator/(const Vector2& a) const
-    {
-        return { x / a.x, y / a.y };
-    }
-    inline Vector2 operator+(float f) const
-    {
-        return { x + f, y + f };
-    }
-    inline Vector2 operator-(float f) const
-    {
-        return { x - f, y - f };
-    }
-    inline Vector2 operator*(float f) const
-    {
-        return { x * f, y * f };
-    }
-    inline Vector2 operator/(float f) const
-    {
-        return { x / f, y / f };
-    }
-    inline void operator+=(const Vector2& a)
-    {
+    inline bool operator==(const Vector2& a) const { return x == a.x && y == a.y; }
+    inline Vector2 operator+(const Vector2& a) const { return {x + a.x, y + a.x}; }
+    inline Vector2 operator-(const Vector2& a) const { return {x - a.x, y - a.x}; }
+    inline Vector2 operator*(const Vector2& a) const { return {x * a.x, y * a.y}; }
+    inline Vector2 operator/(const Vector2& a) const { return {x / a.x, y / a.y}; }
+    inline Vector2 operator+(float f) const { return {x + f, y + f}; }
+    inline Vector2 operator-(float f) const { return {x - f, y - f}; }
+    inline Vector2 operator*(float f) const { return {x * f, y * f}; }
+    inline Vector2 operator/(float f) const { return {x / f, y / f}; }
+    inline void operator+=(const Vector2& a) {
         x += a.x;
         y += a.y;
     }
-    inline void operator-=(const Vector2& a)
-    {
+    inline void operator-=(const Vector2& a) {
         x -= a.x;
         y -= a.y;
     }
-    inline void operator*=(const Vector2& a)
-    {
+    inline void operator*=(const Vector2& a) {
         x *= a.x;
         y *= a.y;
     }
-    inline void operator/=(const Vector2& a)
-    {
+    inline void operator/=(const Vector2& a) {
         x /= a.x;
         y /= a.y;
     }
-    inline void operator+=(float a)
-    {
+    inline void operator+=(float a) {
         x += a;
         y += a;
     }
-    inline void operator-=(float a)
-    {
+    inline void operator-=(float a) {
         x -= a;
         y -= a;
     }
-    inline void operator*=(float a)
-    {
+    inline void operator*=(float a) {
         x *= a;
         y *= a;
     }
-    inline void operator/=(float a)
-    {
+    inline void operator/=(float a) {
         x /= a;
         y /= a;
     }
 
-    inline T squaredLength()
-    {
-        return x * x + y * y;
-    }
+    inline T squaredLength() { return x * x + y * y; }
     inline T length() { return std::sqrt(squaredLength()); }
-    inline Vector2 normalize()
-    {
+    inline Vector2 normalize() {
         Vector2 normalized = *this;
         const T len = normalized.length();
         if (len > 0) {
@@ -117,8 +78,7 @@ struct Vector2 {
         return normalized;
     }
 
-    std::string toString()
-    {
+    std::string toString() {
         std::string val = std::to_string(x);
         val.append(" ");
         val.append(std::to_string(y));
@@ -130,106 +90,64 @@ template <class T>
 struct Vector3 {
     T x, y, z;
 
-    inline bool operator==(const Vector3& a) const
-    {
-        return x == a.x && y == a.y && z == a.z;
-    }
-    inline Vector3 operator+(const Vector3& a) const
-    {
-        return { x + a.x, y + a.y, z + a.z };
-    }
-    inline Vector3 operator-(const Vector3& a) const
-    {
-        return { x - a.x, y - a.y, z - a.z };
-    }
-    inline Vector3 operator*(const Vector3& a) const
-    {
-        return { x * a.x, y * a.y, z * a.z };
-    }
-    inline Vector3 operator/(const Vector3& a) const
-    {
-        return { x / a.x, y / a.y, z / a.z };
-    }
-    inline Vector3 operator+(float f) const
-    {
-        return { x + f, y + f, z + f };
-    }
-    inline Vector3 operator-(float f) const
-    {
-        return { x - f, y - f, z - f };
-    }
-    inline Vector3 operator*(float f) const
-    {
-        return { x * f, y * f, z * f };
-    }
-    inline Vector3 operator/(float f) const
-    {
-        return { x / f, y / f, z / f };
-    }
-    inline void operator+=(const Vector3& a)
-    {
+    inline bool operator==(const Vector3& a) const { return x == a.x && y == a.y && z == a.z; }
+    inline Vector3 operator+(const Vector3& a) const { return {x + a.x, y + a.y, z + a.z}; }
+    inline Vector3 operator-(const Vector3& a) const { return {x - a.x, y - a.y, z - a.z}; }
+    inline Vector3 operator*(const Vector3& a) const { return {x * a.x, y * a.y, z * a.z}; }
+    inline Vector3 operator/(const Vector3& a) const { return {x / a.x, y / a.y, z / a.z}; }
+    inline Vector3 operator+(float f) const { return {x + f, y + f, z + f}; }
+    inline Vector3 operator-(float f) const { return {x - f, y - f, z - f}; }
+    inline Vector3 operator*(float f) const { return {x * f, y * f, z * f}; }
+    inline Vector3 operator/(float f) const { return {x / f, y / f, z / f}; }
+    inline void operator+=(const Vector3& a) {
         x += a.x;
         y += a.y;
         z += a.z;
     }
-    inline void operator-=(const Vector3& a)
-    {
+    inline void operator-=(const Vector3& a) {
         x -= a.x;
         y -= a.y;
         z -= a.z;
     }
-    inline void operator*=(const Vector3& a)
-    {
+    inline void operator*=(const Vector3& a) {
         x *= a.x;
         y *= a.y;
         z *= a.z;
     }
-    inline void operator/=(const Vector3& a)
-    {
+    inline void operator/=(const Vector3& a) {
         x /= a.x;
         y /= a.y;
         z /= a.z;
     }
-    inline void operator+=(float a)
-    {
+    inline void operator+=(float a) {
         x += a;
         y += a;
         z += a;
     }
-    inline void operator-=(float a)
-    {
+    inline void operator-=(float a) {
         x += a;
         y += a;
         z += a;
     }
-    inline void operator*=(float a)
-    {
+    inline void operator*=(float a) {
         x *= a;
         y *= a;
         z *= a;
     }
-    inline void operator/=(float a)
-    {
+    inline void operator/=(float a) {
         x /= a;
         y /= a;
         z /= a;
     }
 
-    inline Vector3 cross(const Vector3& from) const
-    {
-        return { (y * from.z) - (z * from.y), (z * from.x) - (x * from.z), (x * from.y) - (y * from.x) };
+    inline Vector3 cross(const Vector3& from) const {
+        return {(y * from.z) - (z * from.y), (z * from.x) - (x * from.z),
+                (x * from.y) - (y * from.x)};
     }
-    inline T dot(const Vector3& other) const
-    {
-        return x * other.x + y * other.y + z * other.z;
-    }
-    inline T squaredLength() const
-    {
-        return x * x + y * y + z * z;
-    }
+    inline T dot(const Vector3& other) const { return x * other.x + y * other.y + z * other.z; }
+    inline T squaredLength() const { return x * x + y * y + z * z; }
     inline T length() { return std::sqrt(squaredLength()); }
-    inline Vector3 normalize() const
-    {
+    inline Vector3 normalize() const {
         Vector3 normalized = *this;
         const T len = normalized.length();
         if (len > 0) {
@@ -241,8 +159,7 @@ struct Vector3 {
         return normalized;
     }
 
-    std::string toString()
-    {
+    std::string toString() {
         std::string val = std::to_string(x);
         val.append(" ");
         val.append(std::to_string(y));
@@ -255,8 +172,7 @@ struct Vector3 {
 template <class T>
 struct Quat {
     T x, y, z, w;
-    inline bool operator==(const Quat& a) const
-    {
+    inline bool operator==(const Quat& a) const {
         return x == a.x && y == a.y && z == a.z && w == a.w;
     }
 };
@@ -269,4 +185,4 @@ typedef Vector3<int> Vector3i;
 
 typedef Quat<float> Quatf;
 
-}
+}  // namespace fl
