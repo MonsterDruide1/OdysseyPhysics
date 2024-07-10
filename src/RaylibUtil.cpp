@@ -1,4 +1,4 @@
-#include "ui/RaylibUtil.h"
+#include "RaylibUtil.h"
 
 Mesh cubeMesh;
 Model cubeModel;

@@ -17,7 +17,7 @@ add_subdirectory(lib/nlib)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-include_directories(include)
+include_directories(src)
 include_directories(lib/raylib/src)
 include_directories(lib/nlib/include)
 include_directories(lib/nlib/lib/oead/src/include)

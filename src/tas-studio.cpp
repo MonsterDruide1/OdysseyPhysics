@@ -23,18 +23,39 @@
 #include "rlgl.h"
 #include "seadInterface.h"
 #include "types.h"
-#include "ui/RaylibUtil.h"
+#include "RaylibUtil.h"
 #include <filesystem>
 #include <vector>
 
 #include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraPoserFunction.h"
 
+#include <sys/stat.h>
+#include <fcntl.h>
+
 enum class MyCameraMode {
     Free,
     Follow,
     Fixed
 };
+
+int supress_stdout() {
+  fflush(stdout);
+
+  int ret = dup(1);
+  int nullfd = open("/dev/null", O_WRONLY);
+  // check nullfd for error omitted
+  dup2(nullfd, 1);
+  close(nullfd);
+
+  return ret;
+}
+
+void resume_stdout(int fd) {
+  fflush(stdout);
+  dup2(fd, 1);
+  close(fd);
+}
 
 #define SCALE 0.005f
 
@@ -55,8 +76,8 @@ int main() {
         //sceneManager.init("CapWorldHomeStageMap", 0);
         sceneManager.init("SandWorldMeganeExStageMap", 0);
 
-        Input::instance()->setInputProvider(new InputProviderRaylib());
-        //Input::instance()->setInputProvider(new InputProviderTAS("res/out.txt"));
+        //Input::instance()->setInputProvider(new InputProviderRaylib());
+        Input::instance()->setInputProvider(new InputProviderTAS("res/b.txt"));
 
         float angleH = 90;
         float angleV = 60;
@@ -73,12 +94,25 @@ int main() {
         cam.fovy = 45;
         cam.projection = CAMERA_PERSPECTIVE;
 
+        /*int test_frames = 60000;
+        int fd = supress_stdout();
+        double time_start = GetTime();
+        for(int i=0; i<test_frames; i++) {
+            scene->update();
+        }
+        double time_end = GetTime();
+        resume_stdout(fd);
+        printf("Time taken for %d frames: %f => %f FPS\n", test_frames, time_end - time_start, test_frames / (time_end - time_start));
+        return 1;*/
+
         sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
 
         int cameraDirLoc = GetShaderLocation(checkerShader, "cameraDirection");
         while (!WindowShouldClose()) {
 
             printf("----------------------------\n");
+            sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+            printf("Position: (%f, %f, %f)\n", playerPos.x, playerPos.y, playerPos.z);
 
             if(IsKeyPressed(KEY_P)) {
                 sead::ClonableExpHeap* currentHeap = sceneManager.mHeap;

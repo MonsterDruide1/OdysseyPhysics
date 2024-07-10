@@ -114,4 +114,4 @@ sead::Matrix34f* al::ModelKeeper::getBaseMtx() {CRASH}
 
 sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {CRASH}
 
-sead::Vector3f* al::getCameraPos(const IUseCamera*, s32) {CRASH}
+const sead::Vector3f& al::getCameraPos(const IUseCamera*, s32) {CRASH}

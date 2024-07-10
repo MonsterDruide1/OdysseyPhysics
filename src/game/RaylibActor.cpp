@@ -9,7 +9,7 @@
 #include "oead/sarc.h"
 #include "oead/yaz0.h"
 #include "raylib.h"
-#include "ui/RaylibUtil.h"
+#include "RaylibUtil.h"
 #include <cstdio>
 #include <cstring>
 #include <filesystem>
