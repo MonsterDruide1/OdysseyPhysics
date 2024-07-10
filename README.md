@@ -2,6 +2,10 @@
 
 ## Building
 
+`git submodule update --init --recursive`
+
+`lib/smo/tools/setup.py --project-only`
+
 `cmake -B build -G Ninja && ninja -C build`
 
 ## Credits
