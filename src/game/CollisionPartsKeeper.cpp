@@ -38,8 +38,8 @@ bool CollisionPartsKeeper::checkStrikePoint(al::HitInfo*, const al::CollisionChe
     CRASH
 }
 
-bool CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer*, const al::SphereCheckInfo&,
-                                             bool, const sead::Vector3f&) const {
+bool CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer* results, const al::SphereCheckInfo& info,
+                                             bool a4, const sead::Vector3f& a5) const {
     CRASH
 }
 

@@ -68,27 +68,6 @@ al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
 
 }  // namespace al
 
-PlayerCeilingCheck::PlayerCeilingCheck(al::CollisionDirector*) {
-    WARN_UNIMPL;
-}
-
-void PlayerCeilingCheck::update(sead::Vector3<float> const&, sead::Vector3<float> const&, float,
-                                float, float, float) {
-    WARN_UNIMPL;
-}
-
-void PlayerCeilingCheck::setupCeilingCheckNormal() {
-    WARN_UNIMPL;
-}
-
-void PlayerCeilingCheck::setupCeilingCheckGrab() {
-    WARN_UNIMPL;
-}
-
-void PlayerCeilingCheck::setCollisionPartsFilter(al::CollisionPartsFilterBase const*) {
-    WARN_UNIMPL;
-}
-
 // might be fine to ignore, better replace with proper implementation though
 void al::tryReplaceString(sead::BufferedSafeStringBase<char>* result, char const* in,
                           char const* search, char const* replace) {
