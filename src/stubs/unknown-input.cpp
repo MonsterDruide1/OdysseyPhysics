@@ -8,6 +8,7 @@ al::PadRumbleKeeper* al::getPlayerPadRumbleKeeper(al::LiveActor const*, int) {
     int val;
     return (al::PadRumbleKeeper*)&val;
 }
+
 bool PlayerInputFunction::isTriggerCameraReset(al::LiveActor const*, int) {
     WARN_UNIMPL;
     return false;

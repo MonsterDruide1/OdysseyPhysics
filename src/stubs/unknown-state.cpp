@@ -14,10 +14,12 @@ bool PlayerStateWallCatch::isWallCatchForm() {
     WARN_UNIMPL;
     return false;
 }
+
 void PlayerStateWallCatch::setup(al::CollisionParts const*, sead::Vector3<float> const&,
                                  sead::Vector3<float> const&, sead::Vector3<float> const&) {
     WARN_UNIMPL;
 }
+
 const sead::Vector3f& PlayerStateWallCatch::getCeilingCheckPos() {
     WARN_UNIMPL;
     return sead::Vector3f::zero;

@@ -114,12 +114,10 @@ int main() {
                 sceneManager.mHeap = prevHeap;
                 prevHeap = currentHeap;
             }
-            if (IsKeyPressed(KEY_ZERO)) {
+            if (IsKeyPressed(KEY_ZERO))
                 Input::instance()->dumpToTASFile("res/out.txt");
-            }
-            if (IsKeyPressed(KEY_O)) {
+            if (IsKeyPressed(KEY_O))
                 camMode = (MyCameraMode)(((int)camMode + 1) % 3);
-            }
             scene = sceneManager.getScene();
 
             Input::instance()->update();
@@ -132,13 +130,12 @@ int main() {
                 float dist1 = sead::Vector3f(playerPos - lookAtPos1).squaredLength();
                 float dist2 = sead::Vector3f(playerPos - lookAtPos2).squaredLength();
                 float dist3 = sead::Vector3f(playerPos - lookAtPos3).squaredLength();
-                if (dist1 < dist2 && dist1 < dist3) {
+                if (dist1 < dist2 && dist1 < dist3)
                     scene->mCamera->setup(angleH, angleV, distance, lookAtPos1);
-                } else if (dist2 < dist1 && dist2 < dist3) {
+                else if (dist2 < dist1 && dist2 < dist3)
                     scene->mCamera->setup(angleH, angleV, distance, lookAtPos2);
-                } else {
+                else
                     scene->mCamera->setup(angleH, angleV, distance, lookAtPos3);
-                }
                 cam.position = raylibVec(scene->mCamera->position() * SCALE);
                 cam.target = raylibVec(scene->mCamera->at() * SCALE);
                 cam.up = raylibVec(scene->mCamera->up());

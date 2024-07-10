@@ -13,6 +13,7 @@ bool PlayerActorBase::checkDeathArea() {
 bool rs::isPlayerOnGround(al::LiveActor const* actor) {
     CRASH
 }
+
 void rs::reflectCeilingUpperPunch(al::LiveActor*, IUsePlayerCollision const*, PlayerInput const*,
                                   PlayerConst const*, PlayerTrigger const*, bool) {
     CRASH

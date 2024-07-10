@@ -13,10 +13,12 @@ void sead::system::HaltWithDetail(const char* file, int line, const char* messag
     printf("\n");
     DEREF_NULL;
 }
+
 void sead::system::HaltWithDetailNoFormat(const char* file, int line, const char* message) {
     printf("HaltWithDetailNoFormat: %s:%d: %s\n", file, line, message);
     DEREF_NULL;
 }
+
 void sead::system::Warning(const char* file, int line, const char* message, ...) {
     printf("Warning: %s:%d: ", file, line);
     va_list args;
@@ -25,6 +27,7 @@ void sead::system::Warning(const char* file, int line, const char* message, ...)
     va_end(args);
     printf("\n");
 }
+
 void sead::system::Print(const char* format, ...) {
     va_list args;
     va_start(args, format);

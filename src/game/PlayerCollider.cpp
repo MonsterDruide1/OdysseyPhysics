@@ -24,9 +24,8 @@ PlayerCollider::~PlayerCollider() {
     // assume only three elements from ctor in array
     if (anotherPtrArray.size() != 3)
         CRASH
-    for (int i = 0; i < anotherPtrArray.size(); i++) {
+    for (int i = 0; i < anotherPtrArray.size(); i++)
         delete anotherPtrArray[i];
-    }
 
     ptrArraysChangeMe[0].freeBuffer();
     ptrArraysChangeMe[1].freeBuffer();
@@ -190,6 +189,7 @@ PlayerCollider::PlayerCollider(al::CollisionDirector* a2, sead::Matrix34f const*
     mMtx = *mMtxPtr;
     a1->mTimeInAir = 2;
 }
+
 void PlayerCollider::onInvalidate() {
     float* someThreeFloats;                       // x9
     float* v2;                                    // x9
@@ -231,6 +231,7 @@ void PlayerCollider::onInvalidate() {
     this->mMtx = *mMtxPtr;
     this->mTimeInAir = 2;
 }
+
 void PlayerCollider::setCollisionShapeKeeper(CollisionShapeKeeper* a2) {
     CollisionShapeKeeper* mCollisionShapeKeeper;  // x8
 
@@ -245,9 +246,11 @@ void PlayerCollider::setCollisionShapeKeeper(CollisionShapeKeeper* a2) {
         this->mCollisionShapeKeeper = a2;
     }
 }
+
 void PlayerCollider::calcBoundingRadius(float* radius) const {
     *radius = mCollisionShapeKeeper->mBoundingRadius * mCollisionShapeScale;
 }
+
 void PlayerCollider::setCollisionShapeScale(float scale) {
     if (mCollisionShapeKeeper) {
         f32 unk = mCollisionShapeKeeper->mBoundingRadius * mCollisionShapeScale;
@@ -259,18 +262,23 @@ void PlayerCollider::setCollisionShapeScale(float scale) {
         mCollisionShapeScale = scale;
     }
 }
+
 void PlayerCollider::onCutCollideAffectDir(sead::Vector3f const& dir) {
     mCutCollideAffectDir = dir;
 }
+
 void PlayerCollider::offCutCollideAffectDir() {
     mCutCollideAffectDir = {0.0f, 0.0f, 0.0f};
 }
+
 void PlayerCollider::clear() {
     CRASH
 }
+
 void PlayerCollider::calcCheckPos(sead::Vector3f*) const {
     CRASH
 }
+
 void PlayerCollider::resetPose(sead::Quatf const&){
     CRASH} sead::Vector3f PlayerCollider::collide(sead::Vector3f const& velocity) {
     PlayerCollider* a1 = this;
@@ -548,9 +556,11 @@ LABEL_29:
            result.y, result.z);
     return result;
 }
+
 bool PlayerCollider::calcMovePowerByContact(sead::Vector3f*, sead::Vector3f const&) {
     CRASH return false;
 }
+
 void PlayerCollider::moveCollide(sead::Vector3f* trans, float* size, sead::Quatf* quat,
                                  sead::Vector3f const& newTrans, float newSize,
                                  sead::Quatf const& newQuat, sead::Vector3f const& velocity,
@@ -607,19 +617,16 @@ void PlayerCollider::moveCollide(sead::Vector3f* trans, float* size, sead::Quatf
                 a4a = *trans - a1a - a2a + x2_0;
                 if (mIsInFastMoveCollisionArea) {
                     if ((someBitField & 0x100) != 0 && a4a.x < 0.0 && x2_0.x < 0.0 ||
-                        (someBitField & 0x80) != 0 && a4a.x > 0.0 && x2_0.x > 0.0) {
+                        (someBitField & 0x80) != 0 && a4a.x > 0.0 && x2_0.x > 0.0)
                         a4a.x = 0.0;
-                    }
 
                     if ((someBitField & 0x400) != 0 && a4a.y < 0.0 && x2_0.y < 0.0 ||
-                        (someBitField & 0x200) != 0 && a4a.y > 0.0 && x2_0.y > 0.0) {
+                        (someBitField & 0x200) != 0 && a4a.y > 0.0 && x2_0.y > 0.0)
                         a4a.y = 0.0;
-                    }
 
                     if ((someBitField & 0x1000) != 0 && a4a.z < 0.0 && x2_0.z < 0.0 ||
-                        (someBitField & 0x800) != 0 && a4a.z > 0.0 && x2_0.z > 0.0) {
+                        (someBitField & 0x800) != 0 && a4a.z > 0.0 && x2_0.z > 0.0)
                         a4a.z = 0.0;
-                    }
                 }
 
                 if ((PlayerCollider::findCollidePos(&interp) & 1) != 0) {
@@ -651,6 +658,7 @@ void PlayerCollider::moveCollide(sead::Vector3f* trans, float* size, sead::Quatf
            newTrans.y, newTrans.z, newSize, newQuat.x, newQuat.y, newQuat.z, newQuat.w, velocity.x,
            velocity.y, velocity.z, checkStepRange, skipFirstStep ? "true" : "false");
 }
+
 bool PlayerCollider::findCollidePos(al::SpherePoseInterpolator* interp) {
     while (interp->mPrevStep != 1.0 || interp->mCurrentStep != 1.0) {
         sead::Vector3f trans = {0.0f, 0.0f, 0.0f};
@@ -661,15 +669,15 @@ bool PlayerCollider::findCollidePos(al::SpherePoseInterpolator* interp) {
         f32 scale = interp->calcRadiusBaseScale(size) * this->mCollisionShapeScale;
         mCollidePosMtx.makeQT(quat, trans);
         if (mCollisionMultiShape->check(mCollisionShapeKeeper, &mCollidePosMtx, scale,
-                                        remainMoveVec, nullptr)) {
+                                        remainMoveVec, nullptr))
             return true;
-        }
 
         interp->nextStep();
     }
 
     return false;
 }
+
 void PlayerCollider::calcResultVec(sead::Vector3f* a2, sead::Vector3f* a3,
                                    sead::Vector3f const& a4) {
     int mNumCollideResult;                           // w19
@@ -808,16 +816,14 @@ void PlayerCollider::calcResultVec(sead::Vector3f* a2, sead::Vector3f* a3,
             v24 = &v23->getFaceNormal();
             if (al::isNearZero(*v24, 0.001) ||
                 (v25 = v24->dot(v142),
-                 v25 < 0.0 && (sead::Mathf::abs(v25) < cosf(sead::Mathf::deg2rad(v22))))) {
+                 v25 < 0.0 && (sead::Mathf::abs(v25) < cosf(sead::Mathf::deg2rad(v22)))))
                 if (al::isNearZero(*v24, 0.001) ||
-                    (sead::Mathf::abs(v24->dot(v142)) >= cosf(sead::Mathf::deg2rad(v22)))) {
+                    (sead::Mathf::abs(v24->dot(v142)) >= cosf(sead::Mathf::deg2rad(v22))))
                     *p_someBitField = *p_someBitField | 4;
-                } else {
+                else
                     *p_someBitField = *p_someBitField | 2;
-                }
-            } else {
+            else
                 *p_someBitField = *p_someBitField | 1;
-            }
         } else if (collidedShapeResult->isDisk()) {
             DiskHitInfo = &collidedShapeResult->getDiskHitInfo();
             unk11 = this->unk11;
@@ -831,17 +837,14 @@ void PlayerCollider::calcResultVec(sead::Vector3f* a2, sead::Vector3f* a3,
                  v35 < 0.0 ? (v38 = sead::Mathf::abs(FaceNormal->dot(v142)) <
                                     cosf(sead::Mathf::deg2rad(unk11))) :
                              (v38 = 1),
-                 v38)) {
+                 v38))
                 if (al::isNearZero(*FaceNormal, 0.001) ||
-                    (sead::Mathf::abs(FaceNormal->dot(v142)) >=
-                     cosf(sead::Mathf::deg2rad(unk11)))) {
+                    (sead::Mathf::abs(FaceNormal->dot(v142)) >= cosf(sead::Mathf::deg2rad(unk11))))
                     *p_someBitField = *p_someBitField | 0x20;
-                } else {
+                else
                     *p_someBitField = *p_someBitField | 0x10;
-                }
-            } else {
+            else
                 *p_someBitField = *p_someBitField | 8;
-            }
         }
     }
 
@@ -1394,6 +1397,7 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
            *a2 ? "true" : "false", a3->x, a3->y, a3->z, *a4 ? "true" : "false", a5->x, a5->y,
            a5->z);
 }
+
 void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint>* a2, sead::Vector3f* a3,
                                         sead::Vector3f* a4, sead::Vector3f* a5, sead::Vector3f* a6,
                                         CollidedShapeResult const* result) {
@@ -1628,6 +1632,7 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint>* a2, sead::Vector3f*
         }
     }
 }
+
 void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f* a3,
                                          sead::Vector3f* a4, sead::Vector3f* a5, sead::Vector3f* a6,
                                          CollidedShapeResult const* a7) {
@@ -1710,9 +1715,8 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
                 mWallBorderCheckType = this->mWallBorderCheckType;
                 if ((mWallBorderCheckType == 2 ||
                      mWallBorderCheckType == 1 && !v15->isCollisionAtFace()) &&
-                    rs::calcExistCollisionBorder(this, *p_mCollisionHitPos, v97)) {
+                    rs::calcExistCollisionBorder(this, *p_mCollisionHitPos, v97))
                     return;
-                }
 
                 if ((this->someBitField & 2) == 0) {
                     v15->calcFixVector(&v96, &v95);
@@ -1771,9 +1775,8 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
 
     LABEL_117:
         if ((*(u8*)p_someBitField & 0x40) != 0 &&
-            (v15->mCollisionHitPos - this->mCollidedGroundPos).dot(mCollidedGroundNormal) < 2.5) {
+            (v15->mCollisionHitPos - this->mCollidedGroundPos).dot(mCollidedGroundNormal) < 2.5)
             return;
-        }
 
         v100 = v15->unk3 - *p_mCollisionHitPos;
         if (!al::tryNormalizeOrZero(&v100))
@@ -2023,11 +2026,13 @@ LABEL_36:
         PlayerCollider::collectHitInfoArray(*v81, v82);
     }
 }
+
 void PlayerCollider::calcResultVecDisk(sead::BitFlag<uint>*, sead::Vector3f*, sead::Vector3f*,
                                        sead::Vector3f*, sead::Vector3f*,
                                        CollidedShapeResult const*) {
     CRASH
 }
+
 void PlayerCollider::collectHitInfoArray(al::HitInfo const& a2, int a3) {
     sead::PtrArray<const al::HitInfo>* ptrArraysChangeMe;  // x21
     u64 v6;                                                // x10
@@ -2115,27 +2120,35 @@ LABEL_18:
         ++this->numHitInfosAbove;
     }
 }
+
 bool PlayerCollider::isNeedWallBorderCheck(al::HitInfo const&) const {
     CRASH return false;
 }
+
 void PlayerCollider::setWallBorderCheckTypeNone() {
     CRASH
 }
+
 void PlayerCollider::setWallBorderCheckTypeNoFace() {
     mWallBorderCheckType = 1;
 }
+
 void PlayerCollider::setWallBorderCheckTypeAll() {
     mWallBorderCheckType = 2;
 }
+
 void PlayerCollider::setCollisionPartsFilter(al::CollisionPartsFilterBase const* partsFilter) {
     mCollisionPartsFilter = partsFilter;
 }
+
 void PlayerCollider::calcBoundingCenter(sead::Vector3f*) const {
     CRASH
 }
+
 void PlayerCollider::validateCorrectMovePartsCheck() const {
     mCollisionMultiShape->validateCorrectMovePartsCheck();
 }
+
 al::CollisionDirector* PlayerCollider::getCollisionDirector() const {
     return mCollisionDirector;
 }

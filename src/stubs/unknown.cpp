@@ -71,16 +71,20 @@ al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
 PlayerCeilingCheck::PlayerCeilingCheck(al::CollisionDirector*) {
     WARN_UNIMPL;
 }
+
 void PlayerCeilingCheck::update(sead::Vector3<float> const&, sead::Vector3<float> const&, float,
                                 float, float, float) {
     WARN_UNIMPL;
 }
+
 void PlayerCeilingCheck::setupCeilingCheckNormal() {
     WARN_UNIMPL;
 }
+
 void PlayerCeilingCheck::setupCeilingCheckGrab() {
     WARN_UNIMPL;
 }
+
 void PlayerCeilingCheck::setCollisionPartsFilter(al::CollisionPartsFilterBase const*) {
     WARN_UNIMPL;
 }
@@ -90,23 +94,28 @@ void al::tryReplaceString(sead::BufferedSafeStringBase<char>* result, char const
                           char const* search, char const* replace) {
     result->setReplaceString(in, search, replace);
 }
+
 al::HitSensor* al::HitSensorKeeper::getSensor(char const*) const {
     WARN_UNIMPL;
     return nullptr;
 }
+
 const char* rs::getInitPlayerModelName(PlayerInitInfo const&) {
     WARN_UNIMPL;
     return "Mario";
 }
+
 const char* rs::getInitCapTypeName(PlayerInitInfo const&) {
     WARN_UNIMPL;
     return "Mario";
 }
+
 void al::initActorWithArchiveName(al::LiveActor* actor, al::ActorInitInfo const& info,
                                   sead::SafeStringBase<char> const&, char const*) {
     game::RaylibActor::apply(actor, info.getPlacementInfo().getPlacementIter());
     WARN_UNIMPL;
 }
+
 void al::initChildActorWithArchiveNameNoPlacementInfo(al::LiveActor*, al::ActorInitInfo const&,
                                                       sead::SafeStringBase<char> const&,
                                                       char const*) {
@@ -117,6 +126,7 @@ void al::getTrans(sead::Vector3f* vec, const al::ActorInitInfo& info) {
     if (!al::tryGetByamlV3f(vec, info.getPlacementInfo().getPlacementIter(), "Translate"))
         CRASH
 }
+
 void al::getQuat(sead::Quatf* q, const al::ActorInitInfo& info) {
     sead::Vector3f rot;
     if (!al::tryGetByamlV3f(&rot, info.getPlacementInfo().getPlacementIter(), "Rotate"))
@@ -135,6 +145,7 @@ al::MtxConnector* al::createCollisionPartsConnector(al::LiveActor const*,
     WARN_UNIMPL;
     return nullptr;
 }
+
 void al::disconnectMtxConnector(al::MtxConnector*) {
     WARN_UNIMPL;
 }

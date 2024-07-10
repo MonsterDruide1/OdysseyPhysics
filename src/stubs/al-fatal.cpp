@@ -40,6 +40,7 @@
 void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {
     CRASH
 }
+
 const al::LiveActor* al::CollisionParts::getConnectedHost() const {
     CRASH
 }
@@ -47,12 +48,15 @@ const al::LiveActor* al::CollisionParts::getConnectedHost() const {
 void al::DepthShadowMapCtrl::show() {
     CRASH
 }
+
 void al::DepthShadowMapCtrl::hide() {
     CRASH
 }
+
 void al::DepthShadowMapCtrl::update() {
     CRASH
 }
+
 void al::DepthShadowMapCtrl::initAfterPlacement(al::GraphicsSystemInfo*) {
     CRASH
 }
@@ -60,9 +64,11 @@ void al::DepthShadowMapCtrl::initAfterPlacement(al::GraphicsSystemInfo*) {
 void al::ShadowMaskCtrl::show() {
     CRASH
 }
+
 void al::ShadowMaskCtrl::hide() {
     CRASH
 }
+
 void al::ShadowMaskCtrl::initAfterPlacement() {
     CRASH
 }
@@ -78,27 +84,35 @@ void al::tryInitFixedModelGpuBuffer(const LiveActor*) {
 void al::ModelKeeper::update() {
     CRASH
 }
+
 void al::ModelKeeper::updateLast() {
     CRASH
 }
+
 void al::EffectKeeper::update() {
     CRASH
 }
+
 void al::HitSensorKeeper::update() {
     CRASH
 }
+
 void al::ActorActionKeeper::updatePost() {
     CRASH
 }
+
 void al::ScreenPointKeeper::update() {
     CRASH
 }
+
 void alScreenPointFunction::updateScreenPointAll(al::LiveActor*) {
     CRASH
 }
+
 void alSensorFunction::updateHitSensorsAll(al::LiveActor*) {
     CRASH
 }
+
 void alSensorFunction::clearHitSensors(al::LiveActor*) {
     CRASH
 }
@@ -106,12 +120,15 @@ void alSensorFunction::clearHitSensors(al::LiveActor*) {
 void al::ActionFlagCtrl::initPost() {
     CRASH
 }
+
 void al::ActionFlagCtrl::startCtrlSensor() {
     CRASH
 }
+
 void al::ActionFlagCtrl::startCtrlFlag() {
     CRASH
 }
+
 void al::ActionFlagCtrl::updateCtrlSensor(float, float, float, bool) {
     CRASH
 }
@@ -119,18 +136,23 @@ void al::ActionFlagCtrl::updateCtrlSensor(float, float, float, bool) {
 void al::ActionSeCtrl::startAction(char const*) {
     CRASH
 }
+
 void al::ActionBgmCtrl::startAction(char const*) {
     CRASH
 }
+
 void al::ActionPadAndCameraCtrl::startAction(char const*) {
     CRASH
 }
+
 void al::ActionScreenEffectCtrl::startAction(char const*) {
     CRASH
 }
+
 bool al::ActionAnimCtrl::start(char const*) {
     CRASH
 }
+
 void al::ActionEffectCtrl::startAction(char const*){CRASH}
 
 al::ActionEffectCtrl* al::ActionEffectCtrl::tryCreate(al::IUseEffectKeeper*){
@@ -149,15 +171,19 @@ al::ActionEffectCtrl* al::ActionEffectCtrl::tryCreate(al::IUseEffectKeeper*){
 void al::SeKeeper::resetPosition() {
     CRASH
 }
+
 void al::HitSensorKeeper::attackSensor() {
     CRASH
 }
+
 void al::updateMaterialCodePuddle(al::LiveActor*) {
     CRASH
 }
+
 void al::setMaterialCode(al::LiveActor*, char const*) {
     CRASH
 }
+
 const char* al::getCollidedFloorMaterialCodeName(al::LiveActor const*) {
     CRASH
 }
@@ -165,15 +191,19 @@ const char* al::getCollidedFloorMaterialCodeName(al::LiveActor const*) {
 bool al::isExistModelResourceYaml(al::LiveActor const*, char const*, char const*) {
     CRASH
 }
+
 void al::createFileNameBySuffix(sead::BufferedSafeStringBase<char>*, char const*, char const*) {
     CRASH
 }
+
 bool al::isExistModelResource(al::LiveActor const*) {
     CRASH
 }
+
 const char* al::createStringIfInStack(char const*) {
     CRASH
 }
+
 bool al::tryGetActorInitFileName(sead::BufferedSafeStringBase<char>*, al::LiveActor const*,
                                  char const*, char const*) {
     CRASH
@@ -182,9 +212,11 @@ bool al::tryGetActorInitFileName(sead::BufferedSafeStringBase<char>*, al::LiveAc
 void al::tryInitFixedModelGpuBuffer(al::LiveActor*) {
     CRASH
 }
+
 bool al::isCollidedGround(al::LiveActor const*) {
     CRASH
 }
+
 void al::resetAllCollisionMtx(al::LiveActor*) {
     CRASH
 }
@@ -205,9 +237,11 @@ void al::calcTouchScreenPos(sead::Vector2f*) {
 bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) {
     CRASH
 }
+
 void al::registerSubActor(al::LiveActor*, al::LiveActor*) {
     CRASH
 }
+
 void al::getLinksInfoByIndex(al::PlacementInfo*, al::PlacementInfo const&, char const*, int){CRASH}
 
 sead::Matrix34f* al::ModelKeeper::getBaseMtx(){CRASH}

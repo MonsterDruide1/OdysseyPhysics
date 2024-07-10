@@ -11,6 +11,7 @@
 u32 PlayerFunction::getPlayerInputPort(const al::LiveActor*) {
     return -1;
 }
+
 sead::Vector2f PlayerInputFunction::getMoveInputStick(const al::LiveActor*, int, int) {
     return Input::instance()->getStickLeft();
 }

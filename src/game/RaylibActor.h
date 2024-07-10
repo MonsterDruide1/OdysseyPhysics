@@ -18,6 +18,7 @@ public:
     void initFallbackModel();
 
     virtual void initAfterPlacement() { mActor->initAfterPlacement(); }
+
     virtual void update() { mActor->movement(); }
 
     static void apply(al::LiveActor*, const al::ByamlIter& data);

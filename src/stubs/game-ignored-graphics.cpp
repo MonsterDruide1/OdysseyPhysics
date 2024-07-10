@@ -14,11 +14,15 @@ namespace rs {
 bool isGuardNosePainCap(al::LiveActor const*) {
     return false;
 }
+
 bool isNeedCreateNoseNeedle(PlayerInitInfo const&) {
     return false;
 }
+
 void startHitReactionLandJumpIfLanding(al::LiveActor const*, IUsePlayerCollision const*, bool) {}
+
 void startHitReactionLandIfLanding(al::LiveActor const*, IUsePlayerCollision const*, bool) {}
+
 void startHitReactionHipDropLand(al::LiveActor*, bool) {}
 
 }  // namespace rs
@@ -26,12 +30,15 @@ void startHitReactionHipDropLand(al::LiveActor*, bool) {}
 bool PlayerFunction::isInvisibleCap(PlayerCostumeInfo const*) {
     return false;
 }
+
 void PlayerFunction::initMarioModelActor2D(al::LiveActor*, al::ActorInitInfo const&, char const*,
                                            bool) {}
 
 PlayerJointControlKeeper::PlayerJointControlKeeper(al::LiveActor*, PlayerConst const*, bool, bool,
                                                    bool) {}
+
 void PlayerJointControlKeeper::resetPartsDynamics() {}
+
 void PlayerJointControlKeeper::calcGroundPoseUp(sead::Vector3<float>*) const {
     WARN_UNIMPL;
 }
@@ -42,53 +49,75 @@ al::ActorDitherAnimator* PlayerFunction::createPlayerDitherAnimator(al::LiveActo
 
 PlayerEffect::PlayerEffect(al::LiveActor*, PlayerModelHolder const*, sead::Matrix34<float> const*) {
 }
+
 void PlayerEffect::updateWaterSurfaceMtx(al::WaterSurfaceFinder const*) {}
+
 void PlayerEffect::tryEmitRollingEffect() {}
+
 void PlayerEffect::tryDeleteRollingEffect() {}
+
 void PlayerEffect::clearRunEffect() {}
 
 PlayerModelChangerHakoniwa::PlayerModelChangerHakoniwa(al::LiveActor const*, PlayerModelHolder*,
                                                        PlayerPainPartsKeeper*, PlayerCostumeInfo*,
                                                        IUseDimension const*) {}
+
 void PlayerModelChangerHakoniwa::syncHost(bool) {}
+
 void PlayerModelChangerHakoniwa::initStartModel() {}
+
 bool PlayerModelChangerHakoniwa::isFireFlower() const {
     return false;
 }
+
 bool PlayerModelChangerHakoniwa::isMini() const {
     return false;
 }
+
 bool PlayerModelChangerHakoniwa::isChange() const {
     return false;
 }
+
 bool PlayerModelChangerHakoniwa::is2DModel() const {
     return false;
 }
+
 bool PlayerModelChangerHakoniwa::isHiddenModel() const {
     return false;
 }
+
 bool PlayerModelChangerHakoniwa::isHiddenShadowMask() const {
     return false;
 }
+
 void PlayerModelChangerHakoniwa::hideModel() {}
+
 void PlayerModelChangerHakoniwa::hideSilhouette() {}
+
 void PlayerModelChangerHakoniwa::hideShadowMask() {}
+
 void PlayerModelChangerHakoniwa::showModel() {}
+
 void PlayerModelChangerHakoniwa::showSilhouette() {}
+
 void PlayerModelChangerHakoniwa::showShadowMask() {}
+
 void PlayerModelChangerHakoniwa::resetPosition() {}
 
 PlayerAnimControlRun::PlayerAnimControlRun(PlayerAnimator*, PlayerConst const*, IJudge const*,
                                            PlayerEffect*, bool) {}
 
 PlayerEyeSensorHitHolder::PlayerEyeSensorHitHolder(int) {}
+
 void PlayerEyeSensorHitHolder::createTargetMarkerBuffer(int) {}
+
 void PlayerEyeSensorHitHolder::clear() {}
 
 void PlayerRippleGenerator::reset() {}
 
 PlayerWetControl::PlayerWetControl(al::LiveActor const*, al::LiveActor*, PlayerAreaChecker const*) {
 }
+
 void PlayerWetControl::recordPuddleRolling() {}
 
 PlayerStainControl::PlayerStainControl(al::LiveActor const*, al::LiveActor*,
@@ -98,6 +127,7 @@ PlayerStainControl::PlayerStainControl(al::LiveActor const*, al::LiveActor*,
 GaugeAir::GaugeAir(char const*, al::LayoutInitInfo const&) {}
 
 WaterSurfaceShadow::WaterSurfaceShadow(al::ActorInitInfo const&, char const*) {}
+
 void WaterSurfaceShadow::setScale(float) {}
 
 PlayerCapManHeroEyesControl::PlayerCapManHeroEyesControl(char const*, al::LiveActor*,
@@ -106,9 +136,11 @@ PlayerCapManHeroEyesControl::PlayerCapManHeroEyesControl(char const*, al::LiveAc
 bool PlayerStateWait::tryUpdateAreaAnim() {
     return false;
 }
+
 bool PlayerStateWait::tryChangeRequestAnim() {
     return false;
 }
+
 bool PlayerStateWait::tryChangeAreaAnim() {
     return false;
 }

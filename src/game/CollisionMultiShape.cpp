@@ -124,9 +124,8 @@ void CollisionMultiShape::callbackFromParts(al::CollisionParts* parts) {
             ShapeInfoBase = v5->getShapeInfoBase(v7);
             v9 = ShapeInfoBase;
             v10 = false;
-            if (CollisionShapeFunction::isShapeArrow(ShapeInfoBase)) {
+            if (CollisionShapeFunction::isShapeArrow(ShapeInfoBase))
                 break;
-            }
 
             if (CollisionShapeFunction::isShapeDisk(v9)) {
                 CRASH
@@ -171,9 +170,8 @@ void CollisionMultiShape::callbackFromParts(al::CollisionParts* parts) {
                 sub_71003F78A8(parts->mKCollisionServer, v9, parts, sead::Vector3f::zero, delegate);
             }
 
-            if (++v7 == mPtrNum) {
+            if (++v7 == mPtrNum)
                 return;
-            }
 
             v5 = this->mCollisionShapeKeeper;
         }

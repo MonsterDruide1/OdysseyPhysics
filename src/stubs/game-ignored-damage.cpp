@@ -27,6 +27,7 @@ bool PlayerTrigger::isOnAnyDamage() const {
 }
 
 PlayerDamageKeeper::PlayerDamageKeeper(al::LiveActor*, PlayerEffect*) {}
+
 void PlayerDamageKeeper::update(IPlayerModelChanger*, bool, bool) {}
 
 void PlayerActorHakoniwa::checkDamageFromCollision() {}
@@ -35,15 +36,21 @@ PlayerJudgeRecoveryLifeFast::PlayerJudgeRecoveryLifeFast(
     al::LiveActor const*, PlayerDamageKeeper const*, PlayerBindKeeper const*,
     IUsePlayerCollision const*, PlayerInput const*, PlayerHackKeeper const*, PlayerStateWait const*,
     PlayerStateSwim const*, IJudge const*) {}
+
 void PlayerJudgeRecoveryLifeFast::reset() {}
+
 void PlayerJudgeRecoveryLifeFast::update() {}
+
 bool PlayerJudgeRecoveryLifeFast::judge() const {
     return false;
 }
 
 PlayerJudgeDead::PlayerJudgeDead(al::LiveActor const*) {}
+
 void PlayerJudgeDead::reset() {}
+
 void PlayerJudgeDead::update() {}
+
 bool PlayerJudgeDead::judge() const {
     return false;
 }
@@ -52,8 +59,10 @@ PlayerStateDamageFire::PlayerStateDamageFire(al::LiveActor*, PlayerConst const*,
                                              IUsePlayerCollision const*, PlayerInput const*,
                                              PlayerAnimator*, IJudge*)
     : al::NerveStateBase("") {}
+
 PlayerStatePress::PlayerStatePress(al::LiveActor*, IUsePlayerCollision const*, PlayerAnimator*)
     : al::NerveStateBase("") {}
+
 PlayerStateAbyss::PlayerStateAbyss(al::LiveActor*, PlayerConst const*, PlayerRecoverySafetyPoint*,
                                    PlayerColliderHakoniwa*, PlayerAnimator*, al::LiveActor*)
     : al::NerveStateBase("") {}

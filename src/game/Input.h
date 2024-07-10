@@ -43,6 +43,7 @@ struct FrameInput {
 class InputProvider {
 public:
     virtual void update() {}
+
     virtual sead::BitFlag32 getButtons() = 0;
     virtual sead::Vector2f getStickLeft() = 0;
     virtual sead::Vector2f getStickRight() = 0;
@@ -96,6 +97,7 @@ public:
     }
 
     sead::Vector2f getStickLeft() { return mStickLeft; }
+
     sead::Vector2f getStickRight() { return mStickRight; }
 
     void setInputProvider(InputProvider* provider) { mProvider = provider; }
@@ -103,6 +105,7 @@ public:
     void dumpToTASFile(const char* filename);
 
     static Input* instance() { return sInstance; }
+
     static void createInstance() { sInstance = new Input(); }
 
 private:
