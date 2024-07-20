@@ -88,8 +88,7 @@ public:
     }
 
     bool isHold(int button) {
-        return ((sead::BitFlag32*)&mButtons)->isOn(button) &&
-               ((sead::BitFlag32*)&mPrevButtons)->isOn(button);
+        return ((sead::BitFlag32*)&mButtons)->isOn(button);
     }
 
     bool isRepeat(int button) {
