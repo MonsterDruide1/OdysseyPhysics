@@ -1,11 +1,5 @@
 #include "PlayerUtil.h"
 
-PlayerJudgeAirForceCount::PlayerJudgeAirForceCount(al::LiveActor const*,
-                                                   PlayerExternalVelocity const*,
-                                                   IUsePlayerCollision const*) {
-    WARN_UNIMPL;
-}
-
 PlayerJudgeLongFall::PlayerJudgeLongFall(al::LiveActor const*, PlayerConst const*,
                                          IUsePlayerFallDistanceCheck const*,
                                          PlayerHackKeeper const*, PlayerBindKeeper const*,
