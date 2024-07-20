@@ -14,6 +14,7 @@ public:
         if(!file.is_open())
             return;
 
+        TASFrame emptyFrame = {0, {0.0f, 0.0f}, {0.0f, 0.0f}};
         // lines formatted like this: "30 KEY_A;KEY_B;KEY_Y 18000;-3000 1234;8753"
         // purpose: "FRAME_ID BUTTONS STICK_LEFT STICK_RIGHT"
         while (!file.eof()) {
@@ -72,6 +73,8 @@ public:
             frame.stickRight = sead::Vector2f(stickRightX / 32767.0f, stickRightY / 32767.0f);
 
             auto node = new sead::TListNode<TASFrame>(frame);
+            while(mFrames.size() < frameId)
+                mFrames.pushBack(new sead::TListNode<TASFrame>(emptyFrame));
             mFrames.pushBack(node);
         }
     }

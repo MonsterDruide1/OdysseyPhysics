@@ -107,7 +107,9 @@ int main() {
         while (!WindowShouldClose()) {
             printf("----------------------------\n");
             sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+            sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
             printf("Position: (%f, %f, %f)\n", playerPos.x, playerPos.y, playerPos.z);
+            printf("Velocity: (%f, %f, %f)\n", playerVel.x, playerVel.y, playerVel.z);
 
             if (IsKeyPressed(KEY_P)) {
                 sead::ClonableExpHeap* currentHeap = sceneManager.mHeap;
