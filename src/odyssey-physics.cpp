@@ -75,9 +75,9 @@ int main() {
         // Input::instance()->setInputProvider(new InputProviderRaylib());
         Input::instance()->setInputProvider(new InputProviderTAS("res/b.txt"));
 
-        float angleH = 90;
+        float angleH = 0;
         float angleV = 60;
-        float distance = 3000;
+        float distance = 3000.000244140625;
         sead::Vector3f lookAtPos1 = {-250, 300, 1500};   // room 1
         sead::Vector3f lookAtPos2 = {-3050, 300, 1500};  // room 2
         sead::Vector3f lookAtPos3 = {-5850, 300, 1500};  // room 3

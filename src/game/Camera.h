@@ -1,6 +1,7 @@
 #pragma once
 
 #include <math/seadVector.h>
+#include "Library/Math/MathAngleUtil.h"
 #include "gfx/seadCamera.h"
 #include "math/seadMatrix.h"
 #include "math/seadVectorFwd.h"
@@ -9,11 +10,21 @@ namespace game {
 
 class Camera {
 public:
+    f32 calcZoneRotAngleH(f32 val) {
+        f32 v2 = sead::Mathf::deg2rad(val);
+        f32 v4 = sead::Mathf::sin(v2);
+        f32 v5 = sead::Mathf::cos(v2);
+        return sead::Mathf::rad2deg(sead::Mathf::atan2(v4, v5));
+    }
     void setup(float angleH, float angleV, float distance, sead::Vector3f lookAtPos) {
-        sead::Vector3f pos = {
-            lookAtPos.x + distance * cosf(angleH * M_PI / 180) * cosf(angleV * M_PI / 180),
-            lookAtPos.y + distance * sinf(angleV * M_PI / 180),
-            lookAtPos.z + distance * sinf(angleH * M_PI / 180) * cosf(angleV * M_PI / 180)};
+        f32 v20 = sead::Mathf::deg2rad(calcZoneRotAngleH(angleH));
+        sead::Vector3f v37 = {
+            sead::Mathf::sin(v20) * sead::Mathf::cos(sead::Mathf::deg2rad(angleV)),
+            sead::Mathf::sin(sead::Mathf::deg2rad(angleV)),
+            sead::Mathf::cos(v20) * sead::Mathf::cos(sead::Mathf::deg2rad(angleV))
+        };
+        al::normalize(&v37);
+        sead::Vector3f pos = v37 * distance + lookAtPos;
         mCamera = sead::LookAtCamera(pos, lookAtPos, {0, 1, 0});
         mCamera.doUpdateMatrix(&mCamera.getMatrix());
     }
