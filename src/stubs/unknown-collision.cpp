@@ -6,10 +6,3 @@
 void PlayerActorBase::sendCollisionMsg() {
     WARN_UNIMPL;
 }
-
-PlayerFormSensorCollisionArranger::PlayerFormSensorCollisionArranger(al::LiveActor*,
-                                                                     PlayerColliderHakoniwa*,
-                                                                     IPlayerModelChanger const*,
-                                                                     PlayerHackKeeper const*) {
-    WARN_UNIMPL;
-}

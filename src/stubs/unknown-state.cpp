@@ -24,3 +24,8 @@ const sead::Vector3f& PlayerStateWallCatch::getCeilingCheckPos() {
     WARN_UNIMPL;
     return sead::Vector3f::zero;
 }
+
+const sead::Vector3f& PlayerStateWallCatch::getWallCatchFront() const {
+    WARN_UNIMPL;
+    return sead::Vector3f::zero;
+}

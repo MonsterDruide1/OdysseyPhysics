@@ -89,6 +89,9 @@ bool PlayerHackKeeper::executeForceHackStageStart(al::HitSensor*, IUsePlayerHack
 const char* PlayerHackKeeper::getCurrentHackName() const {
     return nullptr;
 }
+al::CollisionPartsFilterBase* PlayerHackKeeper::getCollisionPartsFilter() const {
+    return nullptr;
+}
 
 PlayerRecoverySafetyPoint::PlayerRecoverySafetyPoint(al::LiveActor const*, HackCap const*,
                                                      al::ActorInitInfo const&, IUseDimension const*,
