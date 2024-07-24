@@ -107,6 +107,8 @@ public:
 
     static void createInstance() { sInstance = new Input(); }
 
+    s32 getInputCount() { return mInputCount; }
+
 private:
     Input() { mInputs = new FrameInput[MAX_RECORDED_INPUTS]; }
 

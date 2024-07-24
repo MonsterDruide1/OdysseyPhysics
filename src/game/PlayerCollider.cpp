@@ -652,8 +652,8 @@ void PlayerCollider::moveCollide(sead::Vector3f* trans, float* size, sead::Quatf
         interp.calcInterp(trans, size, quat, 0LL);
     }
 
-    printf("PostMoveCollide: (%.02f, %.02f, %.02f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.02f, "
-           "%.02f, %.02f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.02f, %.02f, %.02f), %.02f, %s\n",
+    printf("PostMoveCollide: (%.020f, %.020f, %.020f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.020f, "
+           "%.020f, %.020f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.02f, %.02f, %.02f), %.02f, %s\n",
            trans->x, trans->y, trans->z, *size, quat->x, quat->y, quat->z, quat->w, newTrans.x,
            newTrans.y, newTrans.z, newSize, newQuat.x, newQuat.y, newQuat.z, newQuat.w, velocity.x,
            velocity.y, velocity.z, checkStepRange, skipFirstStep ? "true" : "false");

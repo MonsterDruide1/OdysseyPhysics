@@ -1,6 +1,7 @@
 #include <filesystem>
 #include <vector>
 #include "CUSTOM/PlayerAnimator.h"
+#include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/Nerve/NerveKeeper.h"
 #include "Library/Nerve/NerveStateCtrl.h"
 #include "Player/CollisionShapeInfo.h"
@@ -105,11 +106,14 @@ int main() {
 
         int cameraDirLoc = GetShaderLocation(checkerShader, "cameraDirection");
         while (!WindowShouldClose()) {
-            printf("----------------------------\n");
+            printf("-----------------%d-----------\n", Input::instance()->getInputCount());
             sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
             sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
-            printf("Position: (%f, %f, %f)\n", playerPos.x, playerPos.y, playerPos.z);
-            printf("Velocity: (%f, %f, %f)\n", playerVel.x, playerVel.y, playerVel.z);
+            sead::Vector3f playerFront;
+            al::calcFrontDir(&playerFront, scene->mPlayer->mActor);
+            printf("Position: (%.17f, %.17f, %.17f)\n", playerPos.x, playerPos.y, playerPos.z);
+            printf("Velocity: (%.17f, %.17f, %.17f)\n", playerVel.x, playerVel.y, playerVel.z);
+            printf("Front: (%.17f, %.17f, %.17f)\n", playerFront.x, playerFront.y, playerFront.z);
 
             if (IsKeyPressed(KEY_P)) {
                 sead::ClonableExpHeap* currentHeap = sceneManager.mHeap;
