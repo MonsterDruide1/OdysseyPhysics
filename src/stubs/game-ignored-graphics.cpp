@@ -56,6 +56,10 @@ void PlayerEffect::tryEmitRollingEffect() {}
 
 void PlayerEffect::tryDeleteRollingEffect() {}
 
+void PlayerEffect::tryStartRunEffectDashWaterSurface() {}
+
+void PlayerEffect::tryStartRunEffectRunStart() {}
+
 void PlayerEffect::clearRunEffect() {}
 
 PlayerModelChangerHakoniwa::PlayerModelChangerHakoniwa(al::LiveActor const*, PlayerModelHolder*,
@@ -103,9 +107,6 @@ void PlayerModelChangerHakoniwa::showSilhouette() {}
 void PlayerModelChangerHakoniwa::showShadowMask() {}
 
 void PlayerModelChangerHakoniwa::resetPosition() {}
-
-PlayerAnimControlRun::PlayerAnimControlRun(PlayerAnimator*, PlayerConst const*, IJudge const*,
-                                           PlayerEffect*, bool) {}
 
 PlayerEyeSensorHitHolder::PlayerEyeSensorHitHolder(int) {}
 

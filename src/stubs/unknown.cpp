@@ -114,11 +114,6 @@ void al::getQuat(sead::Quatf* q, const al::ActorInitInfo& info) {
               sead::Mathf::deg2rad(rot.z));
 }
 
-bool PlayerAnimControlRun::isAnimDashFast() const {
-    WARN_UNIMPL;
-    return false;
-}
-
 al::MtxConnector* al::createCollisionPartsConnector(al::LiveActor const*,
                                                     sead::Quat<float> const&) {
     WARN_UNIMPL;
