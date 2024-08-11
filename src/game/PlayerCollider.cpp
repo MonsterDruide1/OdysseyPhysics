@@ -32,8 +32,8 @@ PlayerCollider::~PlayerCollider() {
     ptrArraysChangeMe[2].freeBuffer();
     anotherPtrArray.freeBuffer();
 
-    delete[] someThreeFloats;
-    delete[] anotherThreeFloats;
+    someThreeFloats1.freeBuffer();
+    someThreeFloats2.freeBuffer();
 }
 
 PlayerCollider::PlayerCollider(al::CollisionDirector* a2, sead::Matrix34f const* a3,
@@ -98,11 +98,7 @@ PlayerCollider::PlayerCollider(al::CollisionDirector* a2, sead::Matrix34f const*
     a1->mCutCollideAffectDir.y = 0.0;
     a1->mCutCollideAffectDir.z = 0.0;
     a1->mWallBorderCheckType = 1;
-    a1->someThreeFloats = 0LL;
-    a1->sizeOfArrayBelowIs3_2 = 0;
-    a1->anotherThreeFloats = 0LL;
     memset(&a1->mCollisionPartsFilter, 0, 0x44uLL);
-    a1->sizeOfArrayBelowIs3 = 0;
     a1->mCollidedGroundPos.z = 0.0;
     a1->mCollidedGroundPos.x = 0.0;
     a1->mCollidedGroundPos.y = 0.0;
@@ -118,80 +114,25 @@ PlayerCollider::PlayerCollider(al::CollisionDirector* a2, sead::Matrix34f const*
     a1->ptrArraysChangeMe[2].allocBuffer(64, nullptr);
     a1->anotherPtrArray.allocBuffer(3, nullptr);
 
-    a1->sizeOfArrayBelowIs3 = 3;
-    a1->someThreeFloats = new float[3];
-
-    a1->sizeOfArrayBelowIs3_2 = 3;
-    a1->anotherThreeFloats = new float[3];
+    a1->someThreeFloats1.allocBuffer(3, nullptr);
+    a1->someThreeFloats2.allocBuffer(3, nullptr);
 
     anotherPtrArray.pushBack(new al::HitInfo());
-
-    *a1->someThreeFloats = -99999.0;
-    *a1->anotherThreeFloats = 0.0;
-
-    anotherPtrArray.pushBack(new al::HitInfo());
-
-    if (a1->sizeOfArrayBelowIs3 <= 1u)
-        someThreeFloats = a1->someThreeFloats;
-    else
-        someThreeFloats = a1->someThreeFloats + 1;
-
-    *someThreeFloats = -99999.0;
-    if (a1->sizeOfArrayBelowIs3_2 <= 1u)
-        anotherThreeFloats = a1->anotherThreeFloats;
-    else
-        anotherThreeFloats = a1->anotherThreeFloats + 1;
-
-    *anotherThreeFloats = 0.0;
+    a1->someThreeFloats1[0] = -99999.0;
+    a1->someThreeFloats2[0] = 0.0;
 
     anotherPtrArray.pushBack(new al::HitInfo());
+    a1->someThreeFloats1[1] = -99999.0;
+    a1->someThreeFloats2[1] = 0.0;
 
-    if (a1->sizeOfArrayBelowIs3 <= 2u)
-        v25 = a1->someThreeFloats;
-    else
-        v25 = a1->someThreeFloats + 2;
+    anotherPtrArray.pushBack(new al::HitInfo());
+    a1->someThreeFloats1[2] = -99999.0;
+    a1->someThreeFloats2[2] = 0.0;
 
-    *v25 = -99999.0;
-    if (a1->sizeOfArrayBelowIs3_2 <= 2u)
-        v26 = a1->anotherThreeFloats;
-    else
-        v26 = a1->anotherThreeFloats + 2;
-
-    *v26 = 0.0;
-    v27 = a1->someThreeFloats;
-    a1->val3 = -99999.0;
-    a1->unk3.x = 0.0;
-    a1->unk3.y = 0.0;
-    a1->unk3.z = 0.0;
-    a1->val1 = -99999.0;
-    a1->val2 = -99999.0;
-    if (a1->sizeOfArrayBelowIs3 <= 1u)
-        v28 = a1->someThreeFloats;
-    else
-        v28 = a1->someThreeFloats + 1;
-
-    *v28 = -99999.0;
-    if (a1->sizeOfArrayBelowIs3 <= 2u)
-        v29 = a1->someThreeFloats;
-    else
-        v29 = a1->someThreeFloats + 2;
-
-    *v29 = -99999.0;
-    a1->mTrans = *a1->mTransPtr;
-    mCollisionShapeKeeper = a1->mCollisionShapeKeeper;
-    if (mCollisionShapeKeeper)
-        v31 = mCollisionShapeKeeper->mBoundingRadius * a1->mCollisionShapeScale;
-    else
-        v31 = 0.0;
-
-    mMtxPtr = a1->mMtxPtr;
-    a1->mSize = v31;
-    mMtx = *mMtxPtr;
-    a1->mTimeInAir = 2;
+    onInvalidate();
 }
 
 void PlayerCollider::onInvalidate() {
-    float* someThreeFloats;                       // x9
     float* v2;                                    // x9
     float* v3;                                    // x9
     CollisionShapeKeeper* mCollisionShapeKeeper;  // x8
@@ -199,26 +140,15 @@ void PlayerCollider::onInvalidate() {
     const sead::Matrix34f* mMtxPtr;               // x8
     long double result;                           // q0
 
-    someThreeFloats = this->someThreeFloats;
     this->val3 = -99999.0;
     this->unk3.x = 0.0;
     this->unk3.y = 0.0;
     this->unk3.z = 0.0;
     this->val1 = -99999.0;
     this->val2 = -99999.0;
-    *someThreeFloats = -99999.0;
-    if (this->sizeOfArrayBelowIs3 <= 1u)
-        v2 = this->someThreeFloats;
-    else
-        v2 = this->someThreeFloats + 1;
-
-    *v2 = -99999.0;
-    if (this->sizeOfArrayBelowIs3 <= 2u)
-        v3 = this->someThreeFloats;
-    else
-        v3 = this->someThreeFloats + 2;
-
-    *v3 = -99999.0;
+    this->someThreeFloats1[0] = -99999.0;
+    this->someThreeFloats1[1] = -99999.0;
+    this->someThreeFloats1[2] = -99999.0;
     this->mTrans = *this->mTransPtr;
     mCollisionShapeKeeper = this->mCollisionShapeKeeper;
     if (mCollisionShapeKeeper)
@@ -285,7 +215,6 @@ void PlayerCollider::resetPose(sead::Quatf const&){
     float mBoundingRadius;                    // s8
     float mCollisionShapeScale;               // s9
     sead::Vector3f* FaceNormal;               // x8
-    float* someThreeFloats;                   // x8
     float* v8;                                // x8
     float* v9;                                // x8
     float mCheckStepRange;                    // s11
@@ -386,26 +315,16 @@ void PlayerCollider::resetPose(sead::Quatf const&){
           al::verticalizeVec(&movePower, FaceNormal, &movePower);*/
     }
 
-    someThreeFloats = a1->someThreeFloats;
     a1->unk3.y = 0.0;
     a1->unk3.z = 0.0;
     a1->val3 = -99999.0;
     a1->unk3.x = 0.0;
     a1->val1 = -99999.0;
     a1->val2 = -99999.0;
-    *someThreeFloats = -99999.0;
-    if (a1->sizeOfArrayBelowIs3 <= 1u)
-        v8 = a1->someThreeFloats;
-    else
-        v8 = a1->someThreeFloats + 1;
+    a1->someThreeFloats1[0] = -99999.0;
+    a1->someThreeFloats1[1] = -99999.0;
+    a1->someThreeFloats1[2] = -99999.0;
 
-    *v8 = -99999.0;
-    if (a1->sizeOfArrayBelowIs3 <= 2u)
-        v9 = a1->someThreeFloats;
-    else
-        v9 = a1->someThreeFloats + 2;
-
-    *v9 = -99999.0;
     mCheckStepRange = a1->mCollisionShapeKeeper->mCheckStepRange;
     finalTrans = destTrans + movePower;
     newSize = mBoundingRadius * mCollisionShapeScale;
@@ -816,7 +735,7 @@ void PlayerCollider::calcResultVec(sead::Vector3f* a2, sead::Vector3f* a3,
             v24 = &v23->getFaceNormal();
             if (al::isNearZero(*v24, 0.001) ||
                 (v25 = v24->dot(v142),
-                 v25 < 0.0 && (sead::Mathf::abs(v25) < cosf(sead::Mathf::deg2rad(v22)))))
+                 v25 >= 0.0 || (sead::Mathf::abs(v25) < cosf(sead::Mathf::deg2rad(v22)))))
                 if (al::isNearZero(*v24, 0.001) ||
                     (sead::Mathf::abs(v24->dot(v142)) >= cosf(sead::Mathf::deg2rad(v22))))
                     *p_someBitField = *p_someBitField | 4;
@@ -868,8 +787,8 @@ LABEL_51:
         else if (v42->isDisk())
             PlayerCollider::calcResultVecDisk(p_someBitField, &v136, &v137, &v138, &v139, v42);
 
-        printf("after %d/%d (%s): v136=(%.02f, %.02f, %.02f), v137=(%.02f, %.02f, %.02f), "
-               "v138=(%.02f, %.02f, %.02f), v139=(%.02f, %.02f, %.02f)\n",
+        printf("after %d/%d (%s): v136=(%.020f, %.020f, %.020f), v137=(%.020f, %.020f, %.020f), "
+               "v138=(%.020f, %.020f, %.020f), v139=(%.020f, %.020f, %.020f)\n",
                i + 1, mNumCollideResult,
                v42->isArrow()  ? "arrow" :
                v42->isSphere() ? "sphere" :
@@ -1161,17 +1080,13 @@ LABEL_214:
            a3->z);
 }
 
-void sub_7100433D98(sead::PtrArray<al::HitInfo>* a1, int* a2, int* a3,
+void sub_7100433D98(sead::PtrArray<al::HitInfo>* a1, sead::Buffer<f32>* a2, sead::Buffer<f32>* a3,
                     const CollidedShapeResult* a4, const sead::Vector3f* a5, float a6) {
     float v14;         // s9
     float v15;         // s0
     float v16;         // s1
     u64 v18;           // x24
-    float* v19;        // x8
     al::HitInfo* v20;  // x8
-    u32* v21;          // x9
-    float v22;         // w8
-    float* v23;        // x9
 
     if (!a4->isArrow())
         return;
@@ -1186,8 +1101,7 @@ void sub_7100433D98(sead::PtrArray<al::HitInfo>* a1, int* a2, int* a3,
     v16 = sead::Mathf::abs(v14);
     if (v14 < 0.0 && v16 >= v15) {
         v18 = a4->getShapeInfoArrow()->mArrowIndex;
-        v19 = (float*)(*a2 <= (unsigned int)v18 ? *((u64*)a2 + 1) : *((u64*)a2 + 1) + 4 * v18);
-        if (*v19 < ArrowHitInfo.unk) {
+        if ((*a2)[v18] < ArrowHitInfo.unk) {
             v20 = (al::HitInfo*)(a1->at(v18));
 
             v20->mTriangle.mKCPrismHeader = ArrowHitInfo.mTriangle.mKCPrismHeader;
@@ -1226,19 +1140,8 @@ void sub_7100433D98(sead::PtrArray<al::HitInfo>* a1, int* a2, int* a3,
             v20->mCollisionMovingReaction.z = ArrowHitInfo.mCollisionMovingReaction.z;
             v20->mCollisionLocation = ArrowHitInfo.mCollisionLocation;
 
-            if (*a2 <= (unsigned int)v18)
-                v21 = (u32*)*((u64*)a2 + 1);
-            else
-                v21 = (u32*)(*((u64*)a2 + 1) + 4 * v18);
-
-            *v21 = ArrowHitInfo.unk;
-            v22 = a4->getShapeInfoArrow()->a5;
-            if (*a3 <= (unsigned int)v18)
-                v23 = (float*)*((u64*)a3 + 1);
-            else
-                v23 = (float*)(*((u64*)a3 + 1) + 4 * v18);
-
-            *v23 = v22;
+            (*a2)[v18] = ArrowHitInfo.unk;
+            (*a3)[v18] = a4->getShapeInfoArrow()->a5;
         }
     }
 }
@@ -1307,11 +1210,9 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
     int v24;                                                // w25
     float* someThreeFloats;                                 // x8
     float v26;                                              // s0
-    float* anotherThreeFloats;                              // x8
     const al::HitInfo* v28;                                 // x0
     const sead::Vector3f* CollisionHitNormal;               // x24
     bool isNearExistingNormal;                              // w19
-    float* v35;                                             // x8
 
     *a2 = 0;
     *a4 = 0;
@@ -1320,16 +1221,16 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
     mNumCollideResult = a6->mNumCollideResult;
     for (i = 0; i != mNumCollideResult; ++i) {
         collidedShapeResult = a6->getCollidedShapeResult(i);
-        sub_7100433D98(&this->anotherPtrArray, &this->sizeOfArrayBelowIs3,
-                       &this->sizeOfArrayBelowIs3_2, collidedShapeResult, this->mGravityPtr,
+        sub_7100433D98(&this->anotherPtrArray, &this->someThreeFloats1,
+                       &this->someThreeFloats2, collidedShapeResult, this->mGravityPtr,
                        this->unk11);
     }
 
     mNumCollideSupportResult = a6->mNumCollideSupportResult;
     for (j = 0; j != mNumCollideSupportResult; ++j) {
         CollidedShapeSupportResult = a6->getCollidedShapeSupportResult(j);
-        sub_7100433D98(&this->anotherPtrArray, &this->sizeOfArrayBelowIs3,
-                       &this->sizeOfArrayBelowIs3_2, CollidedShapeSupportResult, this->mGravityPtr,
+        sub_7100433D98(&this->anotherPtrArray, &this->someThreeFloats1,
+                       &this->someThreeFloats2, CollidedShapeSupportResult, this->mGravityPtr,
                        this->unk11);
     }
 
@@ -1339,19 +1240,9 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
     v23 = 0;
     v24 = 0;
     for (v22 = 0; v22 != 3; v22++) {
-        if ((unsigned int)this->sizeOfArrayBelowIs3 <= v22)
-            someThreeFloats = this->someThreeFloats;
-        else
-            someThreeFloats = &this->someThreeFloats[v22];
-
-        v26 = *someThreeFloats;
+        v26 = this->someThreeFloats1[v22];
         if (*someThreeFloats >= 0.0) {
-            if ((unsigned int)this->sizeOfArrayBelowIs3_2 <= v22)
-                anotherThreeFloats = this->anotherThreeFloats;
-            else
-                anotherThreeFloats = &this->anotherThreeFloats[v22];
-
-            if (v26 >= *anotherThreeFloats) {
+            if (v26 >= this->someThreeFloats2[v22]) {
                 ++v23;
                 v28 = (const al::HitInfo*)this->anotherPtrArray[v22];
 
@@ -1363,12 +1254,7 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
 
             isNearExistingNormal = false;
             for (int v33 = 0; v33 != v22; v33++) {
-                if ((unsigned int)this->sizeOfArrayBelowIs3 <= v33)
-                    v35 = this->someThreeFloats;
-                else
-                    v35 = &this->someThreeFloats[v33];
-
-                if (*v35 >= 0.0) {
+                if (this->someThreeFloats1[v33] >= 0.0) {
                     isNearExistingNormal |= al::isNearDirection(
                         *CollisionHitNormal,
                         alCollisionUtil::getCollisionHitNormal(this->anotherPtrArray[v33]), 0.01);
