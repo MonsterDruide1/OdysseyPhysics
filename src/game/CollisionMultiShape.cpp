@@ -36,7 +36,9 @@ bool CollisionMultiShape::check(CollisionShapeKeeper* keeper, const sead::Matrix
 void sub_71003F78A8(al::KCollisionServer* server, const CollisionShapeInfoBase* shape,
                     al::CollisionParts* parts, const sead::Vector3f& vec,
                     sead::Delegate2<CollisionMultiShape, const al::KCPrismData*,
-                                    const al::KCPrismHeader*>& delegate) {
+                                    const al::KCPrismHeader*>& delegate,
+                    sead::PtrArray<const al::KCPrismData>& checkedTriangles) {
+    checkedTriangles.clear();
     if (CollisionShapeFunction::isShapeArrow(shape)) {
         const CollisionShapeInfoArrow* arrow = CollisionShapeFunction::getShapeInfoArrow(shape);
         sead::Vector3f v28 = arrow->vec5 + vec;
@@ -167,7 +169,8 @@ void CollisionMultiShape::callbackFromParts(al::CollisionParts* parts) {
                 sead::Delegate2<CollisionMultiShape, const al::KCPrismData*,
                                 const al::KCPrismHeader*>
                     delegate(this, &CollisionMultiShape::callbackFromServer);
-                sub_71003F78A8(parts->mKCollisionServer, v9, parts, sead::Vector3f::zero, delegate);
+                sub_71003F78A8(parts->mKCollisionServer, v9, parts, sead::Vector3f::zero, delegate,
+                               mCheckedTriangles);
             }
 
             if (++v7 == mPtrNum)
@@ -196,6 +199,15 @@ void CollisionMultiShape::callbackFromParts(al::CollisionParts* parts) {
 
 void CollisionMultiShape::callbackFromServer(al::KCPrismData const* data,
                                              al::KCPrismHeader const* header) {
+    if (mHeader == header) {
+        if (mCheckedTriangles.search(data) != -1)
+            return;
+    } else {
+        mHeader = header;
+        mCheckedTriangles.clear();
+    }
+    mCheckedTriangles.pushBack(data);
+
     if (mCollisionShapeKeeper->isShapeArrow(mCurrentShapeIndex)) {
         const CollisionShapeInfoArrow* arrow =
             mCollisionShapeKeeper->getShapeInfoArrow(mCurrentShapeIndex);
