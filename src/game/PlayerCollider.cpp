@@ -1208,7 +1208,6 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
     u64 v22;                                                // x27
     int v23;                                                // w26
     int v24;                                                // w25
-    float* someThreeFloats;                                 // x8
     float v26;                                              // s0
     const al::HitInfo* v28;                                 // x0
     const sead::Vector3f* CollisionHitNormal;               // x24
@@ -1241,7 +1240,7 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
     v24 = 0;
     for (v22 = 0; v22 != 3; v22++) {
         v26 = this->someThreeFloats1[v22];
-        if (*someThreeFloats >= 0.0) {
+        if (v26 >= 0.0) {
             if (v26 >= this->someThreeFloats2[v22]) {
                 ++v23;
                 v28 = (const al::HitInfo*)this->anotherPtrArray[v22];
