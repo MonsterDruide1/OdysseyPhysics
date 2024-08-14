@@ -21,7 +21,7 @@ gdb: build
 	gdb -q build/OdysseyPhysics
 
 valgrind: build
-	valgrind --leak-check=full --suppressions=valgrind.supp --keep-debuginfo=yes --gen-suppressions=all build/OdysseyPhysics
+	valgrind --suppressions=valgrind.supp --keep-debuginfo=yes --gen-suppressions=all --log-file=valgrind.log --soname-synonyms=somalloc=nouserintercepts build/OdysseyPhysics
 
 run: build
 	build/OdysseyPhysics
