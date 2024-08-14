@@ -77,33 +77,40 @@ void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper*
     std::vector<u8> szsData = nlib::util::readFile<u8>(szsPath);
     std::vector<u8> sarcData = oead::yaz0::Decompress(szsData);
     oead::Sarc sarc(sarcData);
-    const oead::Sarc::File* kclFile = nullptr;
-    const oead::Sarc::File* bymlFile = nullptr;
+    int kclIndex = -1;
     for (u16 i = 0; i < sarc.GetNumFiles(); i++) {
         const oead::Sarc::File& file = sarc.GetFile(i);
         if (file.name.ends_with(".kcl")) {
-            kclFile = &file;
+            kclIndex = i;
             break;
         }
     }
-    if (!kclFile) {
+    if (kclIndex == -1) {
         printf("Actor has no collision: %s (%s)\n", mActor->mActorName, szsPath.c_str());
         return;
     }
+    const oead::Sarc::File& kclFile = sarc.GetFile(kclIndex);
+
+    int byamlIndex = -1;
     for (u16 i = 0; i < sarc.GetNumFiles(); i++) {
         const oead::Sarc::File& file = sarc.GetFile(i);
-        if (file.name.compare(std::string(kclFile->name.substr(0, kclFile->name.size() - 4)) +
+        if (file.name.compare(std::string(kclFile.name.substr(0, kclFile.name.size() - 4)) +
                               ("Attribute.byml")) == 0) {
-            bymlFile = &file;
+            byamlIndex = i;
             break;
         }
     }
+    if(byamlIndex == -1) {
+        printf("Actor has corrupted collision: %s (%s)\n", mActor->mActorName, szsPath.c_str());
+        CRASH
+    }
+    const oead::Sarc::File& bymlFile = sarc.GetFile(byamlIndex);
 
     try {
-        kclData = new u8[kclFile->data.size()];
-        memcpy(kclData, kclFile->data.data(), kclFile->data.size());
-        collisionByml = new u8[bymlFile->data.size()];
-        memcpy(collisionByml, bymlFile->data.data(), bymlFile->data.size());
+        kclData = new u8[kclFile.data.size()];
+        memcpy(kclData, kclFile.data.data(), kclFile.data.size());
+        collisionByml = new u8[bymlFile.data.size()];
+        memcpy(collisionByml, bymlFile.data.data(), bymlFile.data.size());
 
         mActor->mCollisionParts = new al::CollisionParts(kclData, collisionByml);
         sead::Matrix34f mat;
