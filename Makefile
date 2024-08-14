@@ -25,3 +25,11 @@ valgrind: build
 
 run: build
 	build/OdysseyPhysics
+
+test_fps: build
+	build/OdysseyPhysics "SandMeganeExStageMap"
+	build/OdysseyPhysics "SandWorldHomeStageMap"
+	build/OdysseyPhysics "CityWorldHomeStageMap"
+	build/OdysseyPhysics "PeachWorldHomeStageMap"
+	build/OdysseyPhysics "SeaWorldHomeStageMap"
+	build/OdysseyPhysics "SeaWorldVibrationStageMap"

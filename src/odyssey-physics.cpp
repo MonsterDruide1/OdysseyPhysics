@@ -6,7 +6,7 @@
 // Testing modes
 #define TEST_FPS_HEADLESS true
 #define TEST_FPS_RAYLIB false
-#define TEST_FRAMES 60000
+#define TEST_FRAMES 600000
 // ----------------------------------
 
 
@@ -68,7 +68,14 @@ void resume_stdout(int fd) {
 
 #define SCALE 0.005f
 
-int main() {
+int main(int argc, char *argv[]) {
+    const char* stage;
+    if(argc > 1) {
+        stage = argv[1];
+    } else {
+        stage = Stage;
+    }
+
     SetTraceLogLevel(LOG_NONE);
     InitWindow(1920, 1080, "TAS Client");
     SetTargetFPS(TEST_FPS_RAYLIB ? 0 : 60);
