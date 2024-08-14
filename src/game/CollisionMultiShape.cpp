@@ -25,7 +25,7 @@ bool CollisionMultiShape::check(CollisionShapeKeeper* keeper, const sead::Matrix
     sead::Delegate1<CollisionMultiShape, al::CollisionParts*> delegate(
         this, &CollisionMultiShape::callbackFromParts);
     mPartsKeeper->searchWithSphere(info, delegate);
-    printf("CollisionMultiShapeSimple::check((%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%."
+    dbg_printf("CollisionMultiShapeSimple::check((%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%.02f,%."
            "02f,%.02f,%.02f,%.02f), %.02f, (%.02f,%.02f,%.02f)) => %d\n",
            mtx->m[0][0], mtx->m[0][1], mtx->m[0][2], mtx->m[0][3], mtx->m[1][0], mtx->m[1][1],
            mtx->m[1][2], mtx->m[1][3], mtx->m[2][0], mtx->m[2][1], mtx->m[2][2], mtx->m[2][3], val,
@@ -260,8 +260,12 @@ void CollisionMultiShape::callbackFromServer(al::KCPrismData const* data,
         sead::Vector3f v75 = a3a;
         f32 v74 = 0.0f;
         u8 v73 = 0;
+        dbg_printf("KCHitSphereForPlayer(%p(%d), %p, (%.02f, %.02f, %.02f), %f, %f)\n", data,
+               data->mTriIndex, header, v75.x, v75.y, v75.z, sphere->mBoundingRadiusWorld * unk6,
+               unk6);
         bool hitsphere = mParts->mKCollisionServer->KCHitSphereForPlayer(
             data, header, &v75, sphere->mBoundingRadiusWorld * unk6, unk6, &v74, &v73);
+        dbg_printf("hitSphereResult = %s\n", hitsphere ? "true" : "false");
         if (!hitsphere)
             return;
 

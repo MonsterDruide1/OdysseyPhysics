@@ -60,7 +60,7 @@ al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
         return nullptr;
     }  // al::FootPrintHolder => graphics
     if (index == 18) {
-        printf("Returning nullptr for GameDataHolderAccessor from getSceneObj!\n");
+        dbg_printf("Returning nullptr for GameDataHolderAccessor from getSceneObj!\n");
         return nullptr;
     }  // GameDataHolderAccessor => ?
     CRASH

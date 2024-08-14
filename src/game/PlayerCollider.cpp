@@ -471,7 +471,7 @@ LABEL_29:
     }
 
     result = v60;
-    printf("Collide: (%f, %f, %f) => (%f, %f, %f)\n", velocity.x, velocity.y, velocity.z, result.x,
+    dbg_printf("Collide: (%f, %f, %f) => (%f, %f, %f)\n", velocity.x, velocity.y, velocity.z, result.x,
            result.y, result.z);
     return result;
 }
@@ -499,7 +499,7 @@ void PlayerCollider::moveCollide(sead::Vector3f* trans, float* size, sead::Quatf
             interp.calcInterp(trans, size, quat, &remainMoveVec);
             sead::Vector3f a1a = {0.0f, 0.0f, 0.0f};
             sead::Vector3f x2_0 = {0.0f, 0.0f, 0.0f};
-            printf("before calcResultVec: progress=%f\n", interp.mCurrentStep);
+            dbg_printf("before calcResultVec: progress=%f\n", interp.mCurrentStep);
             PlayerCollider::calcResultVec(&a1a, &x2_0, a4a);
             *trans += a1a;
 
@@ -571,7 +571,7 @@ void PlayerCollider::moveCollide(sead::Vector3f* trans, float* size, sead::Quatf
         interp.calcInterp(trans, size, quat, 0LL);
     }
 
-    printf("PostMoveCollide: (%.020f, %.020f, %.020f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.020f, "
+    dbg_printf("PostMoveCollide: (%.020f, %.020f, %.020f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.020f, "
            "%.020f, %.020f), %.02f, (%.02f, %.02f, %.02f, %.02f), (%.02f, %.02f, %.02f), %.02f, %s\n",
            trans->x, trans->y, trans->z, *size, quat->x, quat->y, quat->z, quat->w, newTrans.x,
            newTrans.y, newTrans.z, newSize, newQuat.x, newQuat.y, newQuat.z, newQuat.w, velocity.x,
@@ -787,7 +787,7 @@ LABEL_51:
         else if (v42->isDisk())
             PlayerCollider::calcResultVecDisk(p_someBitField, &v136, &v137, &v138, &v139, v42);
 
-        printf("after %d/%d (%s): v136=(%.020f, %.020f, %.020f), v137=(%.020f, %.020f, %.020f), "
+        dbg_printf("after %d/%d (%s): v136=(%.020f, %.020f, %.020f), v137=(%.020f, %.020f, %.020f), "
                "v138=(%.020f, %.020f, %.020f), v139=(%.020f, %.020f, %.020f)\n",
                i + 1, mNumCollideResult,
                v42->isArrow()  ? "arrow" :
@@ -1076,7 +1076,7 @@ LABEL_214:
     a3->x = v126;
     a3->y = v86;
 
-    printf("calcResultVec result: (%f, %f, %f), (%f, %f, %f)\n", a2->x, a2->y, a2->z, a3->x, a3->y,
+    dbg_printf("calcResultVec result: (%f, %f, %f), (%f, %f, %f)\n", a2->x, a2->y, a2->z, a3->x, a3->y,
            a3->z);
 }
 
@@ -1278,7 +1278,7 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
         *a4 = 1;
     }
 
-    printf("Result of GroundArrowAverage: %s=(%f, %f, %f), %s=(%f, %f, %f)\n",
+    dbg_printf("Result of GroundArrowAverage: %s=(%f, %f, %f), %s=(%f, %f, %f)\n",
            *a2 ? "true" : "false", a3->x, a3->y, a3->z, *a4 ? "true" : "false", a5->x, a5->y,
            a5->z);
 }

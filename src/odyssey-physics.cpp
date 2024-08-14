@@ -111,6 +111,8 @@ int main() {
             sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
             sead::Vector3f playerFront;
             al::calcFrontDir(&playerFront, scene->mPlayer->mActor);
+            printf("Currently in %s\n",
+                playerNerveKeeper->getStateCtrl()->findStateInfo(playerNerveKeeper->getCurrentNerve())->name);
             printf("Position: (%.17f, %.17f, %.17f)\n", playerPos.x, playerPos.y, playerPos.z);
             printf("Velocity: (%.17f, %.17f, %.17f)\n", playerVel.x, playerVel.y, playerVel.z);
             printf("Front: (%.17f, %.17f, %.17f)\n", playerFront.x, playerFront.y, playerFront.z);
