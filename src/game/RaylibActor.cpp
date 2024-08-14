@@ -86,7 +86,7 @@ void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper*
         }
     }
     if (kclIndex == -1) {
-        printf("Actor has no collision: %s (%s)\n", mActor->mActorName, szsPath.c_str());
+        dbg_printf("Actor has no collision: %s (%s)\n", mActor->mActorName, szsPath.c_str());
         return;
     }
     const oead::Sarc::File& kclFile = sarc.GetFile(kclIndex);
@@ -101,7 +101,7 @@ void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper*
         }
     }
     if(byamlIndex == -1) {
-        printf("Actor has corrupted collision: %s (%s)\n", mActor->mActorName, szsPath.c_str());
+        dbg_printf("Actor has corrupted collision: %s (%s)\n", mActor->mActorName, szsPath.c_str());
         CRASH
     }
     const oead::Sarc::File& bymlFile = sarc.GetFile(byamlIndex);
@@ -119,17 +119,17 @@ void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper*
         al::preScaleMtx(&mat, *mActor->mPoseKeeper->getScalePtr());
         // ---
         if (data.getKeyIndex("Sensor") != -1)
-            printf("Sensor-attribute exists, but is not implemented! (%s)\n", mActor->mActorName);
+            dbg_printf("Sensor-attribute exists, but is not implemented! (%s)\n", mActor->mActorName);
         mActor->mCollisionParts->mConnectedSensor = nullptr;
 
         mActor->mCollisionParts->initParts(mat);
 
         if (data.getKeyIndex("Joint") != -1)
-            printf("Joint-attribute exists, but is not implemented! (%s)\n", mActor->mActorName);
+            dbg_printf("Joint-attribute exists, but is not implemented! (%s)\n", mActor->mActorName);
         mActor->mCollisionParts->mJointMtx = nullptr;
         keeper->addCollisionParts(mActor->mCollisionParts);
     } catch (const nlib::Exception& ex) {
-        printf("Invalid kcl: %s\n", mActor->mActorName);
+        dbg_printf("Invalid kcl: %s\n", mActor->mActorName);
     }
 }
 

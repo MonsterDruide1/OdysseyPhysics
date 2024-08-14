@@ -19,7 +19,7 @@ void CollisionPartsKeeper::endInit() {
 
 void CollisionPartsKeeper::addCollisionParts(al::CollisionParts* parts) {
     mPartsList.pushBack(parts);
-    printf("Adding parts %p at %p, now %d entries\n", parts, this, mPartsList.size());
+    dbg_printf("Adding parts %p at %p, now %d entries\n", parts, this, mPartsList.size());
 }
 
 void CollisionPartsKeeper::connectToCollisionPartsList(al::CollisionParts*) {
