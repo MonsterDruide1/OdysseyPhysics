@@ -1,3 +1,15 @@
+// ----------------------------------
+// Easy configuration stuff
+#define Stage "SandWorldMeganeExStageMap"
+#define TASFile "res/placid-record.txt"
+
+// Testing modes
+#define TEST_FPS_HEADLESS true
+#define TEST_FPS_RAYLIB false
+#define TEST_FRAMES 60000
+// ----------------------------------
+
+
 #include <filesystem>
 #include <vector>
 #include "CUSTOM/PlayerAnimator.h"
@@ -59,7 +71,7 @@ void resume_stdout(int fd) {
 int main() {
     SetTraceLogLevel(LOG_NONE);
     InitWindow(1920, 1080, "TAS Client");
-    SetTargetFPS(60);
+    SetTargetFPS(TEST_FPS_RAYLIB ? 0 : 60);
     // DisableCursor();
 
     setupRaylibUtil();
@@ -70,11 +82,10 @@ int main() {
 
         game::StageSceneManager sceneManager{};
         game::StageScene* scene = sceneManager.getScene();
-        // sceneManager.init("CapWorldHomeStageMap", 0);
-        sceneManager.init("SandWorldMeganeExStageMap", 0);
+        sceneManager.init(Stage, 0);
 
         // Input::instance()->setInputProvider(new InputProviderRaylib());
-        Input::instance()->setInputProvider(new InputProviderTAS("res/b.txt"));
+        Input::instance()->setInputProvider(new InputProviderTAS(TASFile));
 
         float angleH = 0;
         float angleV = 60;
@@ -91,22 +102,34 @@ int main() {
         cam.fovy = 45;
         cam.projection = CAMERA_PERSPECTIVE;
 
-        /*int test_frames = 60000;
-        int fd = supress_stdout();
-        double time_start = GetTime();
-        for(int i=0; i<test_frames; i++) {
-            scene->update();
+        if(TEST_FPS_HEADLESS) {
+            int fd = 0;//supress_stdout();
+            double time_start = GetTime();
+            for(int i=0; i<TEST_FRAMES; i++) {
+                scene->update();
+            }
+            double time_end = GetTime();
+            resume_stdout(fd);
+            fprintf(stdout, "Time taken for %d frames: %f => %f FPS\n", TEST_FRAMES, time_end - time_start, TEST_FRAMES / (time_end - time_start));
+            return 1;
         }
-        double time_end = GetTime();
-        resume_stdout(fd);
-        printf("Time taken for %d frames: %f => %f FPS\n", test_frames, time_end - time_start,
-        test_frames / (time_end - time_start)); return 1;*/
 
         sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
+        
+        int fd = TEST_FPS_RAYLIB ? supress_stdout() : -1;
+        double time_start = GetTime();
+        int frames = 0;
 
         int cameraDirLoc = GetShaderLocation(checkerShader, "cameraDirection");
         while (!WindowShouldClose()) {
-            printf("-----------------%d-----------\n", Input::instance()->getInputCount());
+            if(TEST_FPS_RAYLIB && frames >= TEST_FRAMES) {
+                double time_end = GetTime();
+                resume_stdout(fd);
+                printf("Time taken for %d frames: %f => %f FPS\n", frames, time_end - time_start, frames / (time_end - time_start));
+                return 1;
+            }
+            printf("--------------------------- %d ---------------------------------\n", Input::instance()->getInputCount());
+            al::NerveKeeper* playerNerveKeeper = scene->mPlayer->mActor->mNerveKeeper;
             sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
             sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
             sead::Vector3f playerFront;
@@ -225,6 +248,8 @@ int main() {
                 0, 255});*/
             }
             EndDrawing();
+
+            frames++;
         }
     }
     unloadSead();
