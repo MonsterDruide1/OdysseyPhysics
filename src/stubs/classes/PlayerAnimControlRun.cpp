@@ -21,7 +21,6 @@ void PlayerAnimControlRun::reset(float a2, bool a3) {
 }
 
 bool PlayerAnimControlRun::isAnimDashFast() const {
-    WARN_UNIMPL;
     return mAnimator->isAnim(mMoveAnimName) && customDashBlendWeight > 0.5f;
 }
 

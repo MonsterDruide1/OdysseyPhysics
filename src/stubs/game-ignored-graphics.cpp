@@ -1,3 +1,7 @@
+#include "Library/LiveActor/ActorPoseKeeper.h"
+#include "Library/Math/MathAngleUtil.h"
+#include "Library/Math/MathLengthUtil.h"
+#include "Library/Math/MathUtil.h"
 #include "Player/Player.h"
 #include "PlayerUtil.h"
 
@@ -34,13 +38,15 @@ bool PlayerFunction::isInvisibleCap(PlayerCostumeInfo const*) {
 void PlayerFunction::initMarioModelActor2D(al::LiveActor*, al::ActorInitInfo const&, char const*,
                                            bool) {}
 
-PlayerJointControlKeeper::PlayerJointControlKeeper(al::LiveActor*, PlayerConst const*, bool, bool,
-                                                   bool) {}
+PlayerJointControlKeeper::PlayerJointControlKeeper(al::LiveActor* player, PlayerConst const*, bool, bool,
+                                                   bool) : mPlayer(player) {}
 
 void PlayerJointControlKeeper::resetPartsDynamics() {}
 
-void PlayerJointControlKeeper::calcGroundPoseUp(sead::Vector3<float>*) const {
+void PlayerJointControlKeeper::calcGroundPoseUp(sead::Vector3<float>* up) const {
     WARN_UNIMPL;
+    al::calcUpDir(up, mPlayer);
+    al::normalize(up);
 }
 
 al::ActorDitherAnimator* PlayerFunction::createPlayerDitherAnimator(al::LiveActor*, float) {
