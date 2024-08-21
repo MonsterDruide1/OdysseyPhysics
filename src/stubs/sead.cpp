@@ -24,14 +24,6 @@ void sead::Heap::dumpTreeYAML(WriteStream& stream, int) const {
     CRASH
 }
 
-void sead::Heap::destruct_() {
-    CRASH
-}
-
-void sead::Heap::dispose_(void const*, void const*) {
-    CRASH
-}
-
 void sead::ExpHeap::setFindFreeBlockMode(sead::ExpHeap::FindFreeBlockMode) {
     CRASH
 }

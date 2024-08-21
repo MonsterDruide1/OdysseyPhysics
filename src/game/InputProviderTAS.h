@@ -79,6 +79,21 @@ public:
         }
     }
 
+    InputProviderTAS(const sead::TList<TASFrame>& frames) {
+        for (auto it = frames.begin(); it != frames.end(); ++it) {
+            auto node = new sead::TListNode<TASFrame>(*it);
+            mFrames.pushBack(node);
+        }
+    }
+
+    ~InputProviderTAS() {
+        sead::TListNode<TASFrame>* node;
+        while (!mFrames.isEmpty()) {
+            node = mFrames.popBack();
+            delete node;
+        }
+    }
+
     void update() override {
         if (!mPlaying)
             return;
@@ -107,7 +122,7 @@ public:
         return mFrames.nth(mCurrentFrame)->mData.stickRight;
     }
 
-private:
+public:
     sead::TList<TASFrame> mFrames = {};
     int mCurrentFrame = 0;
     bool mPlaying = true;

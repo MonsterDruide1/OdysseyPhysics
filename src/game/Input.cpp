@@ -4,15 +4,15 @@
 
 Input* Input::sInstance;
 
-void Input::dumpToTASFile(const char* filename) {
+void Input::dumpToTASFile(const char* filename, FrameInput* inputs, int inputCount) {
     std::ofstream file(filename);
 
     // format: `FRAME_ID BUTTONS STICK_LEFT STICK_RIGHT`
     // example: `30 KEY_A;KEY_B 18000;-3000 1234;8753`
     // if no button is set, use `NONE` instead
     // do not use trailing semicolon for buttons
-    for (int i = 0; i < mInputCount; i++) {
-        auto& input = mInputs[i];
+    for (int i = 0; i < inputCount; i++) {
+        auto& input = inputs[i];
         file << i << ' ';
 
         if (input.buttons == 0) {

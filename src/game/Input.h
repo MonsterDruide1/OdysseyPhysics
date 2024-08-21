@@ -101,7 +101,8 @@ public:
 
     void setInputProvider(InputProvider* provider) { mProvider = provider; }
 
-    void dumpToTASFile(const char* filename);
+    static void dumpToTASFile(const char* filename, FrameInput* inputs, int inputCount);
+    void dumpToTASFile(const char* filename) { dumpToTASFile(filename, mInputs, mInputCount); }
 
     static Input* instance() { return sInstance; }
 

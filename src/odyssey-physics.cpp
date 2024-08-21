@@ -4,9 +4,10 @@
 #define TASFile "res/placid-record.txt"
 
 // Testing modes
-#define TEST_FPS_HEADLESS true
+#define TEST_FPS_HEADLESS false
 #define TEST_FPS_RAYLIB false
 #define TEST_FRAMES 600000
+#define TEST_AGENT false
 // ----------------------------------
 
 
@@ -43,6 +44,11 @@
 #include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraPoserFunction.h"
 
+#include "Util/PlayerCollisionUtil.h"
+#include "Library/Collision/Collider.h"
+#include "Library/Collision/CollisionUtil.h"
+#include "agent/ScriptOptimizerDemo.h"
+
 #include <fcntl.h>
 #include <sys/stat.h>
 
@@ -76,12 +82,15 @@ int main(int argc, char *argv[]) {
         stage = Stage;
     }
 
-    SetTraceLogLevel(LOG_NONE);
-    InitWindow(1920, 1080, "TAS Client");
-    SetTargetFPS(TEST_FPS_RAYLIB ? 0 : 60);
-    // DisableCursor();
+    if(!TEST_FPS_HEADLESS) {
+        SetTraceLogLevel(LOG_NONE);
+        InitWindow(1920, 1080, "TAS Client");
+        SetTargetFPS(TEST_FPS_RAYLIB ? 0 : 60);
+        // DisableCursor();
 
-    setupRaylibUtil();
+        setupRaylibUtil();
+    }
+
     initializeSead();
     {
         // context of sead
@@ -113,12 +122,32 @@ int main(int argc, char *argv[]) {
             int fd = 0;//supress_stdout();
             double time_start = GetTime();
             for(int i=0; i<TEST_FRAMES; i++) {
+                Input::instance()->update();
                 scene->update();
             }
             double time_end = GetTime();
             resume_stdout(fd);
             fprintf(stdout, "Time taken for %d frames: %f => %f FPS\n", TEST_FRAMES, time_end - time_start, TEST_FRAMES / (time_end - time_start));
             return 1;
+        }
+
+        if(TEST_AGENT) {
+            sead::BoundBox3f destination{{-850, 50, 700}, {-450, 1000, 1100}};
+            //sead::BoundBox3f destination{{-6780, 150, 350}, {-6450, 1000, 710}};
+
+            ScriptOptimizerDemo optimizer(sceneManager.mHeap, TASFile, destination);
+            printf("initial score: %f\n", optimizer.mScore);
+            optimizer.optimize(110000);
+            printf("final score: %f\n", optimizer.mScore);
+            TASFrame* frame = new TASFrame[optimizer.mFrames.size()];
+            int i = 0;
+            for (auto it = optimizer.mFrames.begin(); it != optimizer.mFrames.end(); ++it) {
+                frame[i++] = *it;
+            }
+            Input::dumpToTASFile("tmp.tas", frame, optimizer.mFrames.size());
+            delete[] frame;
+
+            Input::instance()->setInputProvider(new InputProviderTAS(optimizer.mFrames));
         }
 
         sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
