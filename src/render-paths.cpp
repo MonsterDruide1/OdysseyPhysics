@@ -1,0 +1,143 @@
+#include <filesystem>
+#include <vector>
+#include "CUSTOM/PlayerAnimator.h"
+#include "Library/LiveActor/ActorPoseKeeper.h"
+#include "Library/Nerve/NerveKeeper.h"
+#include "Library/Nerve/NerveStateCtrl.h"
+#include "Player/CollisionShapeInfo.h"
+#include "Player/CollisionShapeKeeper.h"
+#include "Player/PlayerActorHakoniwa.h"
+#include "Player/PlayerCollider.h"
+#include "Player/PlayerColliderHakoniwa.h"
+#include "RaylibUtil.h"
+#include "game/Input.h"
+#include "game/InputProviderRaylib.h"
+#include "game/InputProviderTAS.h"
+#include "game/RaylibActor.h"
+#include "game/StageSceneManager.h"
+#include "heap/ClonableExpHeap.h"
+#include "math/seadMatrix.h"
+#include "nlib/types.h"
+#include "nlib/util.h"
+#include "oead/sarc.h"
+#include "oead/yaz0.h"
+#include "raylib.h"
+#include "raymath.h"
+#include "rcamera.h"
+#include "rlgl.h"
+#include "seadInterface.h"
+#include "types.h"
+
+#include "Library/Base/StringUtil.h"
+#include "Library/Camera/CameraPoserFunction.h"
+
+#include "Util/PlayerCollisionUtil.h"
+#include "Library/Collision/Collider.h"
+#include "Library/Collision/CollisionUtil.h"
+#include "agent/ScriptOptimizerDemo.h"
+
+#include <fcntl.h>
+#include <sys/stat.h>
+
+#define SCALE 0.005f
+
+int main_disabled() {
+    SetTraceLogLevel(LOG_NONE);
+    InitWindow(1920, 1080, "TAS Client");
+    SetTargetFPS(60);
+    // DisableCursor();
+
+    setupRaylibUtil();
+
+    initializeSead();
+    {
+        game::StageSceneManager sceneManager{};
+        game::StageScene* scene = sceneManager.getScene();
+        sceneManager.init("SandWorldMeganeExStageMap", 0);
+
+        Input::instance()->setInputProvider(new InputProviderRaylib());
+
+        float angleH = 0;
+        float angleV = 60;
+        float distance = 3000.000244140625;
+        sead::Vector3f lookAtPos1 = {-250, 300, 1500};   // room 1
+        scene->mCamera->setup(angleH, angleV, distance, lookAtPos1);
+
+        Camera3D cam = {0};
+        cam.position = raylibVec(scene->mCamera->position() * SCALE);
+        cam.target = raylibVec(scene->mCamera->at() * SCALE);
+        cam.up = raylibVec(scene->mCamera->up());
+        cam.fovy = 45;
+        cam.projection = CAMERA_PERSPECTIVE;
+
+        int cameraDirLoc = GetShaderLocation(checkerShader, "cameraDirection");
+        sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
+        cameraDir.normalize();
+
+        BeginDrawing();
+        {
+            ClearBackground(BLACK);
+            BeginMode3D(cam);
+
+            SetShaderValue(checkerShader, cameraDirLoc, &cameraDir, SHADER_UNIFORM_VEC3);
+
+            for (int i = 0; i < scene->mActorsNum; i++) {
+                auto actor = scene->mActors[i];
+                if (!actor)
+                    continue;
+
+                sead::Matrix34f mtx;
+                actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
+                actor->raylibModel.transform = raylibMtx(mtx);
+                DrawModel(actor->raylibModel, {0, 0, 0}, SCALE, WHITE);
+            }
+
+            // list files in directory "out"
+            std::vector<int> files;
+            for (const auto& entry : std::filesystem::directory_iterator("out")) {
+                // 123.tas
+                std::string name = entry.path().filename().string();
+                int num = std::stoi(name.substr(0, name.find('.')));
+                files.push_back(num);
+            }
+
+            std::sort(files.begin(), files.end());
+
+            // load and draw position files
+            for (int i = 0; i < files.size(); i++) {
+                char filename[100];
+                sprintf(filename, "out/%d.pos", files[i]);
+                printf("%d / %ld: %s\n", i, files.size(), filename);
+                
+                // x y z
+                FILE* posFile = fopen(filename, "r");
+                if (!posFile) {
+                    printf("Failed to open file %s\n", filename);
+                    continue;
+                }
+
+                sead::Vector3f pos, prevPos;
+                fscanf(posFile, "%f %f %f", &prevPos.x, &prevPos.y, &prevPos.z);
+                while (fscanf(posFile, "%f %f %f", &pos.x, &pos.y, &pos.z) != EOF) {
+                    pos += {0, 1, 0};
+                    DrawLine3D(raylibVec(prevPos * SCALE), raylibVec(pos * SCALE), ColorFromHSV((float)i / files.size() * 180, 1, 1));
+                    //DrawCube(raylibVec(pos * SCALE), 0.05, 0.05, 0.05, ColorFromHSV((float)i / files.size() * 180, 1, 1));
+                    prevPos = pos;
+                }
+            }
+
+            EndMode3D();
+        }
+        EndDrawing();
+
+        // save screenshot
+        TakeScreenshot("paths.png");
+    }
+    unloadSead();
+    unloadRaylibUtil();
+
+    CloseWindow();
+
+    printf("Exiting...\n");
+    return 0;
+}
