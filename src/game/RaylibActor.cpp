@@ -134,6 +134,8 @@ void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper*
 }
 
 void RaylibActor::initRaylibModel() {
+    if(!IsWindowReady())
+        return;
     if (!mActor->mCollisionParts) {
         initFallbackModel();
         return;

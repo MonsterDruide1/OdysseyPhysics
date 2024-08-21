@@ -98,7 +98,8 @@ void StageScene::init(const char* stageName, int scenario) {
     mPlayer = new RaylibActor(player);
     mPlayer->initRaylibModel();
     mPlayer->initAfterPlacement();
-    mPlayer->raylibModel.materials[0].maps->color = RED;
+    if(IsWindowReady())
+        mPlayer->raylibModel.materials[0].maps->color = RED;
 }
 
 }  // namespace game
