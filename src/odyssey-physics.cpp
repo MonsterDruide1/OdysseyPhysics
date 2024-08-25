@@ -1,7 +1,9 @@
 // ----------------------------------
 // Easy configuration stuff
 #define Stage "SandWorldMeganeExStageMap"
-#define TASFile "res/placid-record.txt"
+#define TASFile "res/beginner_recording.txt"
+#define TASPlayback false
+#define WSL_COMPATIBILITY false
 
 // Testing modes
 #define TEST_FPS_HEADLESS false
@@ -84,9 +86,9 @@ int main(int argc, char *argv[]) {
 
     if(!TEST_FPS_HEADLESS) {
         SetTraceLogLevel(LOG_NONE);
-        InitWindow(1920, 1080, "TAS Client");
+        InitWindow(1920, 1080, "OdysseyPhysics");
         SetTargetFPS(TEST_FPS_RAYLIB ? 0 : 60);
-        // DisableCursor();
+        if (!WSL_COMPATIBILITY) DisableCursor();
 
         setupRaylibUtil();
     }
@@ -100,8 +102,10 @@ int main(int argc, char *argv[]) {
         game::StageScene* scene = sceneManager.getScene();
         sceneManager.init(Stage, 0);
 
-        // Input::instance()->setInputProvider(new InputProviderRaylib());
-        Input::instance()->setInputProvider(new InputProviderTAS(TASFile));
+        if (TASPlayback)
+            Input::instance()->setInputProvider(new InputProviderTAS(TASFile));
+        else
+            Input::instance()->setInputProvider(new InputProviderRaylib());
 
         float angleH = 0;
         float angleV = 60;
