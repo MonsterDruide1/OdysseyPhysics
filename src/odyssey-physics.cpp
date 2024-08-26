@@ -10,6 +10,7 @@
 #define TEST_FPS_RAYLIB false
 #define TEST_FRAMES 600000
 #define TEST_AGENT false
+#define TEST_AGENT_ITERATIONS 110000
 // ----------------------------------
 
 
@@ -141,7 +142,7 @@ int main(int argc, char *argv[]) {
 
             ScriptOptimizerDemo optimizer(sceneManager.mHeap, TASFile, destination);
             printf("initial score: %f\n", optimizer.mScore);
-            optimizer.optimize(110000);
+            optimizer.optimize(TEST_AGENT_ITERATIONS);
             printf("final score: %f\n", optimizer.mScore);
             TASFrame* frame = new TASFrame[optimizer.mFrames.size()];
             int i = 0;
@@ -179,6 +180,9 @@ int main(int argc, char *argv[]) {
             printf("Position: (%.17f, %.17f, %.17f)\n", playerPos.x, playerPos.y, playerPos.z);
             printf("Velocity: (%.17f, %.17f, %.17f)\n", playerVel.x, playerVel.y, playerVel.z);
             printf("Front: (%.17f, %.17f, %.17f)\n", playerFront.x, playerFront.y, playerFront.z);
+            if(Input::instance()->getInputCount() == 111) {
+                printf("Dbg\n");
+            }
 
             if (IsKeyPressed(KEY_P)) {
                 sead::ClonableExpHeap* currentHeap = sceneManager.mHeap;
@@ -280,6 +284,10 @@ int main(int argc, char *argv[]) {
                         ->findStateInfo(scene->mPlayer->mActor->mNerveKeeper->getCurrentNerve())
                         ->name,
                     0, 0, 40, {255, 0, 0, 255});
+                
+                if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
+                    DrawText("Poison Touch", 0, 50, 40, {255, 0, 0, 255});
+                }
 
                 /*PlayerAnimator* animator =
                 ((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerAnimator; char buffer[128] =
