@@ -35,11 +35,15 @@ StageScene::~StageScene() {
 }
 
 void StageScene::init(const char* stageName, int scenario) {
-    std::string szsPath = nlib::util::format("res/romfs/StageData/%s.szs", stageName);
+    std::string szsPath = nlib::util::format("res/%s.szs", stageName);
 
     if (!std::filesystem::exists(szsPath)) {
-        printf("File does not exist: %s\n", szsPath.c_str());
-        return;
+        szsPath = nlib::util::format("res/romfs/StageData/%s.szs", stageName);
+
+        if (!std::filesystem::exists(szsPath)) {
+            printf("File does not exist: %s\n", szsPath.c_str());
+            return;
+        }
     }
 
     std::vector<u8> szsData = nlib::util::readFile<u8>(szsPath);
