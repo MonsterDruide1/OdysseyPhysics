@@ -11,6 +11,8 @@
 #define TEST_FRAMES 600000
 #define TEST_AGENT false
 #define TEST_AGENT_ITERATIONS 110000
+#define TEST_COLLISION_STUFF false
+#define TEST_UPWARPS false
 // ----------------------------------
 
 
@@ -155,7 +157,39 @@ int main(int argc, char *argv[]) {
             Input::instance()->setInputProvider(new InputProviderTAS(optimizer.mFrames));
         }
 
+        if(TEST_COLLISION_STUFF) {
+            sead::ClonableExpHeap* baseHeap = sceneManager.mHeap;
+            sead::Vector3f baseTrans = {501, 150, 1900};
+            for(int i=0; i<360; i++) {
+                float v2 = sead::Mathf::deg2rad(i * 0.5);
+                sead::Quatf quat;
+                quat.x = 0;
+                quat.y = sead::Mathf::sin(v2);
+                quat.z = 0;
+                quat.w = sead::Mathf::cos(v2);
+
+                sead::ClonableExpHeap* localHeap = baseHeap->clone();
+                game::StageScene* scene = sceneManager.getScene();
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseQuat(quat);
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(baseTrans);
+                scene->update();
+
+                for(int j=0; j<500; j++) {
+                    scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(baseTrans - j*sead::Vector3f::ez*0.1);
+                    scene->update();
+
+                    if(!rs::isCollidedGround(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
+                        printf("For rotation %d: Z=%f\n", i, (baseTrans - j*sead::Vector3f::ez*0.1).z);
+                        break;
+                    }
+                }
+                delete localHeap;
+            }
+            return 1;
+        }
+
         sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
+
         
         int fd = TEST_FPS_RAYLIB ? supress_stdout() : -1;
         double time_start = GetTime();
@@ -169,19 +203,21 @@ int main(int argc, char *argv[]) {
                 printf("Time taken for %d frames: %f => %f FPS\n", frames, time_end - time_start, frames / (time_end - time_start));
                 return 1;
             }
-            printf("--------------------------- %d ---------------------------------\n", Input::instance()->getInputCount());
-            al::NerveKeeper* playerNerveKeeper = scene->mPlayer->mActor->mNerveKeeper;
-            sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
-            sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
-            sead::Vector3f playerFront;
-            al::calcFrontDir(&playerFront, scene->mPlayer->mActor);
-            printf("Currently in %s\n",
-                playerNerveKeeper->getStateCtrl()->findStateInfo(playerNerveKeeper->getCurrentNerve())->name);
-            printf("Position: (%.17f, %.17f, %.17f)\n", playerPos.x, playerPos.y, playerPos.z);
-            printf("Velocity: (%.17f, %.17f, %.17f)\n", playerVel.x, playerVel.y, playerVel.z);
-            printf("Front: (%.17f, %.17f, %.17f)\n", playerFront.x, playerFront.y, playerFront.z);
-            if(Input::instance()->getInputCount() == 111) {
-                printf("Dbg\n");
+            if(!TEST_UPWARPS) {
+                printf("--------------------------- %d ---------------------------------\n", Input::instance()->getInputCount());
+                al::NerveKeeper* playerNerveKeeper = scene->mPlayer->mActor->mNerveKeeper;
+                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+                sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
+                sead::Vector3f playerFront;
+                al::calcFrontDir(&playerFront, scene->mPlayer->mActor);
+                printf("Currently in %s\n",
+                    playerNerveKeeper->getStateCtrl()->findStateInfo(playerNerveKeeper->getCurrentNerve())->name);
+                printf("Position: (%.17f, %.17f, %.17f)\n", playerPos.x, playerPos.y, playerPos.z);
+                printf("Velocity: (%.17f, %.17f, %.17f)\n", playerVel.x, playerVel.y, playerVel.z);
+                printf("Front: (%.17f, %.17f, %.17f)\n", playerFront.x, playerFront.y, playerFront.z);
+                if(Input::instance()->getInputCount() == 111) {
+                    printf("Dbg\n");
+                }
             }
 
             if (IsKeyPressed(KEY_P)) {
@@ -195,8 +231,48 @@ int main(int argc, char *argv[]) {
                 camMode = (MyCameraMode)(((int)camMode + 1) % 3);
             scene = sceneManager.getScene();
 
-            Input::instance()->update();
-            scene->update();
+            if(!TEST_UPWARPS || IsKeyPressedRepeat(KEY_U) || IsKeyPressed(KEY_U)) {
+                printf("--------------------------- %d ---------------------------------\n", Input::instance()->getInputCount());
+                al::NerveKeeper* playerNerveKeeper = scene->mPlayer->mActor->mNerveKeeper;
+                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+                sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
+                sead::Vector3f playerFront;
+                al::calcFrontDir(&playerFront, scene->mPlayer->mActor);
+                printf("Currently in %s\n",
+                    playerNerveKeeper->getStateCtrl()->findStateInfo(playerNerveKeeper->getCurrentNerve())->name);
+                printf("Position: (%.17f, %.17f, %.17f)\n", playerPos.x, playerPos.y, playerPos.z);
+                printf("Velocity: (%.17f, %.17f, %.17f)\n", playerVel.x, playerVel.y, playerVel.z);
+                printf("Front: (%.17f, %.17f, %.17f)\n", playerFront.x, playerFront.y, playerFront.z);
+                if(Input::instance()->getInputCount() == 111) {
+                    printf("Dbg\n");
+                }
+
+                Input::instance()->update();
+                scene->update();
+            }
+
+            if (IsKeyPressed(KEY_L)) {
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans({-40793, 10092, -9000});
+                Input::instance()->setInputProvider(new InputProviderTAS(TASFile));
+
+                float v2 = sead::Mathf::deg2rad(90 * 0.5);
+                sead::Quatf quat;
+                quat.x = 0;
+                quat.y = sead::Mathf::sin(v2);
+                quat.z = 0;
+                quat.w = sead::Mathf::cos(v2);
+
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseQuat(quat);
+                *scene->mPlayer->mActor->mPoseKeeper->getVelocityPtr() = {0,0,0};
+
+                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+                scene->mCamera->setup(angleH, angleV, distance, playerPos);
+                cam.position = raylibVec(scene->mCamera->position() * SCALE);
+                cam.target = raylibVec(scene->mCamera->at() * SCALE);
+                cam.up = raylibVec(scene->mCamera->up());
+
+                camMode = MyCameraMode::Free;
+            }
 
             if (camMode == MyCameraMode::Free) {
                 UpdateCamera(&cam, CAMERA_FREE);
