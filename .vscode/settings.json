@@ -3,5 +3,6 @@
     "files.associations": {
         "__nullptr": "cpp",
         "__config": "cpp"
-    }
+    },
+    "cmake.generator": "Ninja"
 }
