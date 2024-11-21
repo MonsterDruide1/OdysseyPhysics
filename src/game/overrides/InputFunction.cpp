@@ -1,12 +1,14 @@
 #include "Library/Controller/InputFunction.h"
 #include "game/Input.h"
+#include <controller/seadControllerBase.h>
+#include <controller/seadControllerMgr.h>
 
 namespace al {
 
 sead::ControllerBase* getController_(s32 port) {
     CRASH
-    return isValidReplayController(port) ? getReplayController(port) :
-                                           sead::ControllerMgr::instance()->getController(port);
+    //return isValidReplayController(port) ? getReplayController(port) :
+    //                                       sead::ControllerMgr::instance()->getController(port);
 }
 
 sead::ControllerBase* getController(s32 port) {
