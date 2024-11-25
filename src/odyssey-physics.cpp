@@ -79,7 +79,7 @@ void resume_stdout(int fd) {
 
 #define SCALE 0.005f
 
-int main(int argc, char *argv[]) {
+int main2(int argc, char *argv[]) {
     const char* stage;
     if(argc > 1) {
         stage = argv[1];
