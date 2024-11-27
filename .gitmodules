@@ -6,4 +6,4 @@
 	url = https://github.com/raysan5/raylib
 [submodule "lib/smo"]
 	path = lib/smo
-	url = https://gitlab.fachschaften.org/Odyssey/OdysseyDecomp
+	url = https://github.com/MonsterDruide1/OdysseyPhysicsDecomp
