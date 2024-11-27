@@ -37,6 +37,7 @@
           rustToolchain
           (python3.withPackages (python-pkgs: [
             python-pkgs.toml
+            python-pkgs.gymnasium
           ]))
           openssl
           libclang

@@ -25,11 +25,13 @@
 #define COMMAND_OUT_ACK 1  // currently unused
 #define COMMAND_OUT_DATA 2
 
+#pragma pack(1)
 struct __attribute__((packed)) DataPacket {
     char type = COMMAND_OUT_DATA;
     sead::Vector3f playerPos;
     bool isTouchingPoison;
 };
+#pragma pack()
 
 struct InputProviderGym : public InputProvider {
     FrameInput frame;
