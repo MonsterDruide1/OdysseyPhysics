@@ -3,6 +3,9 @@
 #include <fcntl.h>
 #include <sys/socket.h>
 #include <sys/un.h>
+#include "Library/Collision/CollisionUtil.h"
+#include "Library/LiveActor/ActorMovementFunction.h"
+#include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/Nerve/NerveKeeper.h"
 #include "Library/Nerve/NerveStateCtrl.h"
 #include "Player/CollisionShapeInfo.h"
@@ -10,6 +13,9 @@
 #include "Player/PlayerActorHakoniwa.h"
 #include "Player/PlayerCollider.h"
 #include "Player/PlayerColliderHakoniwa.h"
+#include "Player/PlayerContinuousJump.h"
+#include "Player/PlayerCounterQuickTurnJump.h"
+#include "PlayerStateGym.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "RaylibUtil.h"
 #include "game/Input.h"
@@ -27,11 +33,19 @@
 
 #pragma pack(1)
 struct __attribute__((packed)) DataPacket {
-    char type = COMMAND_OUT_DATA;
-    sead::Vector3f playerPos;
-    bool isTouchingPoison;
+    char type = COMMAND_OUT_DATA;  // +1
+    sead::Vector3f playerPos;  // 0x000
+    sead::Vector3f playerVel;  // 0x00c
+    sead::Quatf playerQuat;    // 0x018
+    u128 stateBitMap;          // 0x028
+    f32 raycastResults[250];   // 0x038
+    u32 counterContinuousJump; // 0x420
+    s32 counterQuickTurnJump;  // 0x424
+    bool isTouchingMoon;       // 0x428
+    bool isTouchingPoison;     // 0x429
 };
 #pragma pack()
+static_assert(sizeof(DataPacket) == 0x42a+1);
 
 struct InputProviderGym : public InputProvider {
     FrameInput frame;
@@ -142,13 +156,55 @@ void drawRaylib(game::StageScene* scene, Camera3D cam) {
     EndDrawing();
 }
 
+void fillRaycastResults(PlayerActorHakoniwa* player, f32* results, int numSamples) {
+    sead::Matrix34f playerMtx = sead::Matrix34f::ident;
+    playerMtx.fromQuat(al::getQuat(player));
+    sead::Vector3f playerPos = al::getTrans(player);
+
+    // fibonacci sphere: https://stackoverflow.com/a/26127012/9275661
+    f32 phi = sead::Mathf::pi() * (sead::Mathf::sqrt(5.0f) - 1.0f);
+    for(int i=0; i<numSamples; i++) {
+        f32 y = 1 - (i / (f32)(numSamples - 1)) * 2;
+        f32 radius = sead::Mathf::sqrt(1 - y * y);
+        f32 theta = phi * i;
+        f32 x = sead::Mathf::cos(theta) * radius;
+        f32 z = sead::Mathf::sin(theta) * radius;
+
+        sead::Vector3f dir = {x, y, z};
+        dir.normalize();
+        sead::Vector3f hitPos = {0, 0, 0};
+        sead::Vector3f hitNormal = {0, 0, 0};
+        bool hit = alCollisionUtil::getHitPosAndNormalOnArrow(player, &hitPos, &hitNormal, al::getTrans(player), playerMtx * dir * 500'00, nullptr, nullptr);
+        results[i] = hit ? (hitPos - playerPos).length() : 500'00.0f;
+    }
+}
+
 void sendState(game::StageScene* scene, int sock) {
     PlayerActorHakoniwa* player = (PlayerActorHakoniwa*)scene->mPlayer->mActor;
+
+    bool isTouchingMoon;
+    for(int i=0; i<scene->mShinesNum; i++) {
+        sead::Vector3f shinePos = scene->mShinePositions[i];
+        if((shinePos - al::getTrans(player)).length() < 100) {
+            isTouchingMoon = true;
+            break;
+        }
+    }
+
     DataPacket p = {
         COMMAND_OUT_DATA,
         al::getTrans(player),
+        al::getVelocity(player),
+        al::getQuat(player),
+        getPlayerStateBitMap(player),
+        {},  // placeholder
+        player->mPlayerContinuousJump->mCount,
+        player->mPlayerCounterQuickTurnJump->mCounter,
+        isTouchingMoon,
         rs::isCollisionCodePoisonTouch(player->mPlayerColliderHakoniwa),
     };
+    fillRaycastResults(player, p.raycastResults, 250);
+
     write(sock, &p, sizeof(DataPacket));
 }
 

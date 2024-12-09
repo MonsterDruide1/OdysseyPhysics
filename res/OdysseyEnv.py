@@ -30,13 +30,20 @@ class OdysseyEnv(gym.Env):
         self.observation_space = gym.spaces.Dict(
             {
                 "playerPos": gym.spaces.Box(low=np.array([-inf, -inf, -inf]), high=np.array([inf, inf, inf]), shape=(3,), dtype=np.float32),
+                "playerVel": gym.spaces.Box(low=np.array([-inf, -inf, -inf]), high=np.array([inf, inf, inf]), shape=(3,), dtype=np.float32),
+                "playerQuat": gym.spaces.Box(low=np.array([-1, -1, -1, -1]), high=np.array([1, 1, 1, 1]), shape=(4,), dtype=np.float32),
+                "states": gym.spaces.MultiBinary(96),
+                "raycastResults": gym.spaces.Box(low=0, high=500_00, shape=(250,), dtype=np.float32),
+                "counterQuickTurnJump": gym.spaces.Discrete(21, start=0),
+                "counterContinuousJump": gym.spaces.Discrete(3, start=0),
+                "isTouchingMoon": gym.spaces.Discrete(2),
                 "isTouchingPoison": gym.spaces.Discrete(2),
             }
         )
 
         self.action_space = gym.spaces.Dict(
             {
-                "buttons": gym.spaces.MultiBinary(32),  # 27 usable buttons, afaik
+                "buttons": gym.spaces.MultiBinary(3),  # B, Y, ZL
                 "stickLeft": gym.spaces.Box(low=-1, high=1, shape=(2,), dtype=np.float32),
                 "stickRight": gym.spaces.Box(low=-1, high=1, shape=(2,), dtype=np.float32),
             }
@@ -57,19 +64,56 @@ class OdysseyEnv(gym.Env):
         command = self.conn.recv(1)
         if(command != self.COMMAND_IN_DATA):
             raise Exception("OdysseyPhysics did not send COMMAND_IN_DATA! Instead: "+str(command)+", followed by "+str(self.conn.recv(300)))
+        
+        """
+        struct __attribute__((packed)) DataPacket {
+            char type = COMMAND_OUT_DATA;  // +1
+            sead::Vector3f playerPos;  // 0x000
+            sead::Vector3f playerVel;  // 0x00c
+            sead::Quatf playerQuat;    // 0x018
+            u128 stateBitMap;          // 0x028
+            f32 raycastResults[250];   // 0x038
+            u32 counterContinuousJump; // 0x420
+            s32 counterQuickTurnJump;  // 0x424
+            bool isTouchingMoon;       // 0x428
+            bool isTouchingPoison;     // 0x429
+        };
+        """
 
-        state_format = "=fff?"
-        state_data = self.conn.recv(struct.calcsize(state_format))
-        playerPosX, playerPosY, playerPosZ, isTouchingPoison = struct.unpack(state_format, state_data)
+        state_data = self.conn.recv(0x42a)
+        playerPosX, playerPosY, playerPosZ = struct.unpack("=fff", state_data[0:0xc])
+        playerVelX, playerVelY, playerVelZ = struct.unpack("=fff", state_data[0xc:0x18])
+        playerQuatX, playerQuatY, playerQuatZ, playerQuatW = struct.unpack("=ffff", state_data[0x18:0x28])
+        stateBitMap1, stateBitMap2 = struct.unpack("=QQ", state_data[0x28:0x38])
+        raycastResults = list(struct.unpack("=250f", state_data[0x38:0x420]))
+        counterContinuousJump = struct.unpack("=I", state_data[0x420:0x424])[0]
+        counterQuickTurnJump = struct.unpack("=i", state_data[0x424:0x428])[0]
+        isTouchingMoon, isTouchingPoison = struct.unpack("=??", state_data[0x428:0x42a])
+
+        states = []  # total=96
+        for i in range(64):
+            states.append((stateBitMap1 >> i) & 1 == 1)
+        for i in range(32):
+            states.append((stateBitMap2 >> i) & 1 == 1)
 
         return {
             "playerPos": np.array([playerPosX, playerPosY, playerPosZ], dtype=np.float32),
+            "playerVel": np.array([playerVelX, playerVelY, playerVelZ], dtype=np.float32),
+            "playerQuat": np.array([playerQuatX, playerQuatY, playerQuatZ, playerQuatW], dtype=np.float32),
+            "states": np.array(states),
+            "raycastResults": np.array(raycastResults, dtype=np.float32),
+            "counterContinuousJump": counterContinuousJump,
+            "counterQuickTurnJump": counterQuickTurnJump,
+            "isTouchingMoon": isTouchingMoon,
             "isTouchingPoison": isTouchingPoison,
         }
     
     def step(self, action):
         buttons_arr = action["buttons"].astype(bool)
-        buttons = sum(v << i for i, v in enumerate(buttons_arr[::-1]))
+        buttons = 0
+        buttons |= buttons_arr[0] << 1  # B
+        buttons |= buttons_arr[1] << 4  # Y
+        buttons |= buttons_arr[2] << 2  # ZL
         stickLeft = action["stickLeft"]
         stickRight = action["stickRight"]
 
@@ -79,8 +123,16 @@ class OdysseyEnv(gym.Env):
         state = self.readState()
 
         observation = state
-        reward = -1 if state["isTouchingPoison"] else 0
-        terminated = state["isTouchingPoison"]
+
+        reward = 0
+        terminated = False
+        if state["isTouchingMoon"]:
+            reward = 1
+            terminated = True
+        if state["isTouchingPoison"]:
+            reward = -0.1
+            terminated = True
+        
         truncated = False
         info = {}
 

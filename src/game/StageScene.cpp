@@ -7,6 +7,7 @@
 #include "Library/Player/PlayerHolder.h"
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
+#include "Library/Yaml/ByamlUtil.h"
 #include "Player/PlayerActorHakoniwa.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "PlayerUtil.h"
@@ -23,6 +24,7 @@ StageScene::StageScene() {
     mActors = new RaylibActor*[mActorsMax];
     mCamera = new Camera();
     mPartsKeeper = new CollisionPartsKeeper();
+    mShinePositions = new sead::Vector3f[mShinesMax];
 }
 
 StageScene::~StageScene() {
@@ -32,6 +34,7 @@ StageScene::~StageScene() {
     delete mPlayer;
     delete mCamera;
     delete mPartsKeeper;
+    delete[] mShinePositions;
 }
 
 void StageScene::init(const char* stageName, int scenario) {
@@ -68,6 +71,22 @@ void StageScene::init(const char* stageName, int scenario) {
         actor->initRaylibModel();
         addObject(actor);
         // actor->initAfterPlacement();
+    }
+
+    al::ByamlIter playerStartInfoList = lists.getIterByKey("PlayerStartInfoList");
+    for(int i=0; i<playerStartInfoList.getSize(); i++) {
+        al::ByamlIter obj = playerStartInfoList.getIterByIndex(i);
+        const char* unitConfigName;
+        obj.tryGetStringByKey(&unitConfigName, "UnitConfigName");
+        if(strcmp(unitConfigName, "Shine") == 0) {
+            sead::Vector3f trans = {0, 0, 0};
+            al::tryGetByamlV3f(&trans, obj, "Translate");
+            if(mShinesNum == mShinesMax) {
+                printf("Too many shines\n");
+                continue;
+            }
+            mShinePositions[mShinesNum++] = trans;
+        }
     }
 
     al::ByamlIter playerlist = lists.getIterByKey("PlayerList");

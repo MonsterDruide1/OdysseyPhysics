@@ -45,6 +45,7 @@
 #include "rlgl.h"
 #include "seadInterface.h"
 #include "types.h"
+#include "PlayerStateGym.h"
 
 #include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraPoserFunction.h"
@@ -370,6 +371,14 @@ int main2(int argc, char *argv[]) {
                 {}; snprintf(buffer, 128, "%s (%.0f/%.0f)", animator->currentAnim,
                 animator->currentFrame, animator->maxFrame); DrawText(buffer, 0, 50, 40,  {255, 0,
                 0, 255});*/
+                
+                /*char buffer[129] = {};
+                snprintf(buffer, 129, "%0128llb", getPlayerStateBitMap((PlayerActorHakoniwa*)scene->mPlayer->mActor));
+                for(int i=0; i<=128; i++) {
+                    char c[2] = {};
+                    c[0] = buffer[i];
+                    DrawText(c, (i%64)*25, 40+40*(i/64), 40, buffer[i]=='0' ? Color{255, 0, 0, 255} : Color{0, 255, 0, 255});
+                }*/
             }
             EndDrawing();
 

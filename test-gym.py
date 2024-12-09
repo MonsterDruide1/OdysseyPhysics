@@ -19,7 +19,7 @@ import time
 start = time.time()
 with cProfile.Profile() as pr:
     for i in range(10000):
-        env.step({"buttons": np.array([0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]), "stickLeft": np.array([0,0]), "stickRight": np.array([0,0])})
+        env.step({"buttons": np.array([0,0,0]), "stickLeft": np.array([0,0]), "stickRight": np.array([0,0])})
     ps = pstats.Stats(pr).sort_stats(pstats.SortKey.CUMULATIVE)
     ps.print_stats()
 end = time.time()

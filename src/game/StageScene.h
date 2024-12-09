@@ -38,6 +38,9 @@ public:
     RaylibActor* mPlayer;
     Camera* mCamera;
     CollisionPartsKeeper* mPartsKeeper;
+    sead::Vector3f* mShinePositions;
+    int mShinesNum = 0;
+    int mShinesMax = 200;
 };
 
 }  // namespace game
