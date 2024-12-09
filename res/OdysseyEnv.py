@@ -14,7 +14,7 @@ class OdysseyEnv(gym.Env):
     COMMAND_IN_DATA = bytes([2])
 
 
-    def __init__(self, stage: str, scenario: int, instance: str, display: bool = False):
+    def __init__(self, stage: str, scenario: int, instance: str, romfs_path: str = "res/romfs", display: bool = False):
         self.socket_file = "/tmp/odyssey-physics-"+instance+".sock"
         if os.path.exists(self.socket_file):
             os.remove(self.socket_file)
@@ -22,7 +22,7 @@ class OdysseyEnv(gym.Env):
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.socket.bind(self.socket_file)
 
-        self.process = subprocess.Popen(["build/OdysseyPhysics", stage, str(scenario), self.socket_file, str(display).lower()])
+        self.process = subprocess.Popen(["build/OdysseyPhysics", stage, str(scenario), romfs_path, self.socket_file, str(display).lower()])
 
         self.socket.listen(1)
         self.conn, self.addr = self.socket.accept()

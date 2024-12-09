@@ -23,6 +23,7 @@
 #include "raylib.h"
 #include "rlgl.h"
 #include "seadInterface.h"
+#include "settings.h"
 
 #define SCALE 0.005f
 
@@ -210,14 +211,15 @@ void sendState(game::StageScene* scene, int sock) {
 
 int main(int argc, char* argv[]) {
     if (argc < 2) {
-        printf("Usage: %s <stage> <scenario> <socket-file> [display?]\n", argv[0]);
+        printf("Usage: %s <stage> <scenario> <path to romfs> <socket-file> [display?]\n", argv[0]);
         return 1;
     }
 
     const char* stage = argv[1];
     int scenario = atoi(argv[2]);
-    const char* socketFile = argv[3];
-    bool display = argc >= 4 && strcmp(argv[4], "true") == 0;
+    settings::sRomfsPath = argv[3];  //FIXME
+    const char* socketFile = argv[4];
+    bool display = argc >= 5 && strcmp(argv[5], "true") == 0;
 
     int serverSocket = socket(AF_UNIX, SOCK_STREAM, 0);
     //fcntl(serverSocket, F_SETFL, fcntl(serverSocket, F_GETFL, 0) | O_NONBLOCK);

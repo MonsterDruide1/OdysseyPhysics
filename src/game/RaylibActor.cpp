@@ -13,6 +13,7 @@
 #include "oead/sarc.h"
 #include "oead/yaz0.h"
 #include "raylib.h"
+#include "settings.h"
 
 namespace game {
 
@@ -67,7 +68,7 @@ RaylibActor::~RaylibActor() {
 }
 
 void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper* keeper) {
-    std::string szsPath = nlib::util::format("res/romfs/ObjectData/%s.szs", mActor->mActorName);
+    std::string szsPath = nlib::util::format("%s/ObjectData/%s.szs", settings::sRomfsPath, mActor->mActorName);
 
     if (!std::filesystem::exists(szsPath)) {
         printf("File does not exist: %s\n", szsPath.c_str());

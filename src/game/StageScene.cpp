@@ -16,6 +16,7 @@
 #include "nlib/util.h"
 #include "oead/sarc.h"
 #include "oead/yaz0.h"
+#include "settings.h"
 
 namespace game {
 
@@ -41,7 +42,7 @@ void StageScene::init(const char* stageName, int scenario) {
     std::string szsPath = nlib::util::format("res/%s.szs", stageName);
 
     if (!std::filesystem::exists(szsPath)) {
-        szsPath = nlib::util::format("res/romfs/StageData/%s.szs", stageName);
+        szsPath = nlib::util::format("%s/StageData/%s.szs", settings::sRomfsPath, stageName);
 
         if (!std::filesystem::exists(szsPath)) {
             printf("File does not exist: %s\n", szsPath.c_str());
