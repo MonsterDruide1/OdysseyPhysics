@@ -210,14 +210,14 @@ void sendState(game::StageScene* scene, int sock) {
 }
 
 int main(int argc, char* argv[]) {
-    if (argc < 2) {
+    if (argc < 4) {
         printf("Usage: %s <stage> <scenario> <path to romfs> <socket-file> [display?]\n", argv[0]);
         return 1;
     }
 
     const char* stage = argv[1];
     int scenario = atoi(argv[2]);
-    settings::sRomfsPath = argv[3];  //FIXME
+    settings::sRomfsPath = argv[3];
     const char* socketFile = argv[4];
     bool display = argc >= 5 && strcmp(argv[5], "true") == 0;
 
