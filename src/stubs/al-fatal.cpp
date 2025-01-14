@@ -200,7 +200,7 @@ bool al::isExistModelResource(al::LiveActor const*) {
     CRASH
 }
 
-const char* al::createStringIfInStack(char const*) {
+bool al::isInStack(const void *) {
     CRASH
 }
 

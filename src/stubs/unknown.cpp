@@ -48,7 +48,7 @@
 #include "System/GameDataFunction.h"
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/PlayerCollisionUtil.h"
-#include "Util/Sensor.h"
+#include "Util/SensorMsgFunction.h"
 #include "basis/seadTypes.h"
 #include "game/RaylibActor.h"
 #include "playerUtil.h"

@@ -4,7 +4,7 @@
 #include "Library/Math/MathUtil.h"
 #include "Library/stuff.h"
 #include "Player/PlayerConst.h"
-#include "Util/StageSceneFunction.h"
+#include "Util/JudgeUtil.h"
 #include "math/seadMathCalcCommon.h"
 #include "PlayerUtil.h"
 

@@ -127,3 +127,7 @@ sead::NinJoyNpadDevice::NinJoyNpadDevice(sead::ControllerMgr* mgr, sead::Heap*)
 void sead::NinJoyNpadDevice::calc() {
     CRASH
 }
+
+char16* sead::StringUtil::wcs16cpy(char16_t*, unsigned long, char16_t const*) {
+    CRASH
+}
