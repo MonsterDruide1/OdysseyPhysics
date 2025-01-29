@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-23.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -31,15 +31,17 @@
           xorg.libXi
           libffi
           pkgs.wayland
+          pkgs.wayland-scanner
           pkgs.libxkbcommon
           pkgs.libGL
 
           rustToolchain
-          (python3.withPackages (python-pkgs: [
+          (python311.withPackages (python-pkgs: [
             python-pkgs.toml
             python-pkgs.gymnasium
           ]))
           openssl
+          openssl_legacy
           libclang
           ncurses5
           ncurses6
