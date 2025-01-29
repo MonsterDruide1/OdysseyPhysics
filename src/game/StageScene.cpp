@@ -1,5 +1,6 @@
 #include "game/StageScene.h"
 #include <filesystem>
+#include "Library/Base/StringUtil.h"
 #include "Library/Collision/CollisionDirector.h"
 #include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/Placement/PlacementFunction.h"
@@ -11,6 +12,7 @@
 #include "Player/PlayerActorHakoniwa.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "PlayerUtil.h"
+#include "Scene/ProjectActorFactory.h"
 #include "game/Input.h"
 #include "heap/seadHeapMgr.h"
 #include "nlib/util.h"
@@ -63,9 +65,32 @@ void StageScene::init(const char* stageName, int scenario) {
     al::ByamlIter lists = iter.getIterByIndex(scenario);
     al::ByamlIter objectlist = lists.getIterByKey("ObjectList");
 
+    ProjectActorFactory factory;
     for (int i = 0; i < objectlist.getSize(); i++) {
         al::ByamlIter objiter = objectlist.getIterByIndex(i);
-        al::LiveActor* liveactor = new al::LiveActor("LiveActor");
+        al::LiveActor* liveactor = nullptr;
+
+        const char* className = nullptr;
+        objiter.getIterByKey("UnitConfig").tryGetStringByKey(&className, "ParameterConfigName");
+        if(className) {
+            for (int i=0; i<factory.mNumFactoryEntries; i++) {
+                if(al::isEqualString(factory.mFactoryEntries[i].mName, className)) {
+                    if(!factory.mFactoryEntries[i].mCreationFunction) {
+                        printf("No creation function for class: %s\n", className);
+                        break;
+                    }
+
+                    liveactor = factory.mFactoryEntries[i].mCreationFunction(className);
+                    break;
+                }
+            }
+        }
+
+        if(!liveactor) {
+            printf("Unknown class: %s\n", className ?: "nullptr");
+            liveactor = new al::LiveActor("LiveActor");
+        }
+        // actor->init(...);
         RaylibActor::apply(liveactor, objiter);
         RaylibActor* actor = new RaylibActor(liveactor);
         actor->initCollision(objiter, mPartsKeeper);
