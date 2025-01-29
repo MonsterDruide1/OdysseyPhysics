@@ -181,7 +181,7 @@ void fillRaycastResults(PlayerActorHakoniwa* player, f32* results, int numSample
 void sendState(game::StageScene* scene, int sock) {
     PlayerActorHakoniwa* player = (PlayerActorHakoniwa*)scene->mPlayer->mActor;
 
-    bool isTouchingMoon;
+    bool isTouchingMoon = false;
     for(int i=0; i<scene->mShinesNum; i++) {
         sead::Vector3f shinePos = scene->mShinePositions[i];
         if((shinePos - al::getTrans(player)).length() < 200) {
