@@ -5,6 +5,7 @@
 #include "Library/LiveActor/LiveActorUtil.h"
 #include "Library/Model/ModelCtrl.h"
 #include "Library/Model/ModelKeeper.h"
+#include "Library/Shadow/ShadowMaskCtrl.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
 #include "playerUtil.h"
@@ -144,6 +145,10 @@ f32 AnimPlayerSkl::getPartialAnimFrameRate(int) {}
 void AnimPlayerSkl::setPartialAnimFrameRate(int, float) {}
 
 void AnimPlayerSkl::setSklAnimBlendWeight(int, float) {}
+
+void ShadowMaskCtrl::validate() {}
+
+void ShadowMaskCtrl::invalidate() {}
 
 }  // namespace al
 

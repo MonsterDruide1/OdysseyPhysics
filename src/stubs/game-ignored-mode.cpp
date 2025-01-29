@@ -39,7 +39,7 @@ bool isPlayerHack(al::LiveActor const*) {
     return false;
 }
 
-al::CollisionPartsFilterBase* createCollisionPartsFilter2DOnly() {
+al::CollisionPartsFilterOnlySpecialPurpose* createCollisionPartsFilter2DOnly() {
     return nullptr;
 }
 
