@@ -1,3 +1,5 @@
+#include "Item/Coin.h"
+#include "Item/CoinRotateCalculator.h"
 #include "Library/Audio/System/AudioKeeper.h"
 #include "Library/Bgm/BgmLineFunction.h"
 #include "Library/Collision/CollisionUtil.h"
@@ -34,12 +36,15 @@
 #include "Library/MapObj/KeyMoveMapParts.h"
 #include "Library/MapObj/RollingCubeMapParts.h"
 #include "Library/LiveActor/ActorSensorFunction.h"
-#include "Library/Math/MathAngleUtil.h"
 #include "Library/Math/MathUtil.h"
-#include "Library/Math/VectorUtil.h"
+#include "Library/MapObj/WheelMapParts.h"
+#include "Library/Math/MathUtil.h"
+#include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
 #include "Library/Model/ModelKeeper.h"
 #include "Library/Model/ModelShapeUtil.h"
+#include "Library/Movement/WheelMovement.h"
+#include "Library/Nature/NatureUtil.h"
 #include "Library/Nerve/NerveUtil.h"
 #include "Library/Obj/PartsFunction.h"
 #include "Library/Placement/PlacementFunction.h"
@@ -49,6 +54,7 @@
 #include "Library/Se/SeFunction.h"
 #include "Library/Stage/StageSwitchKeeper.h"
 #include "Library/Stage/StageSwitchUtil.h"
+#include "PlayerUtil.h"
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
 #include "Project/Joint/RollingCubePoseKeeper.h"
 #include "MapObj/AnagramAlphabet.h"
@@ -66,6 +72,8 @@
 #include "Util/Hack.h"
 #include "Util/PlayerUtil.h"
 #include "Util/SensorMsgFunction.h"
+#include "Util/ShadowUtil.h"
+#include "Util/WaterSurfaceShadow.h"
 #include "math/seadMathCalcCommon.h"
 
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
@@ -120,8 +128,6 @@ void al::calcLerpKeyTrans(sead::Vector3<float>*, al::KeyPoseKeeper const*, float
 s32 al::calcLinkChildNum(al::ActorInitInfo const&, char const*) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34<float>*, al::RollingCubePoseKeeper const*, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
 al::Axis al::calcNearVecFromAxis3(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Quat<float> const&) {CRASH}
-f32 al::calcNerveSquareInRate(al::IUseNerve const*, int) {CRASH}
-f32 al::calcNerveValue(al::IUseNerve const*, int, float, float) {CRASH}
 void al::calcQuatLocalAxis(sead::Vector3<float>*, sead::Quat<float> const&, int) {CRASH}
 void al::calcQuatSide(sead::Vector3<float>*, sead::Quat<float> const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3<float>*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
@@ -339,3 +345,65 @@ bool rs::tryShowCapMsgCollectCoinGetFirst(al::IUseSceneObjHolder const*) {CRASH}
 void rs::updateDimensionKeeper(ActorDimensionKeeper*) {CRASH}
 template <>
 s32 sead::Mathi::lcm(int, int) {CRASH}
+
+Coin::Coin(char const*, bool) : al::LiveActor("") {CRASH}
+void Coin::appearCoinChameleon(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
+void Coin::setShadowDropLength(float) {CRASH}
+void CoinCollectHolder::registerCoinCollect(CoinCollect*) {CRASH}
+CoinRotateCalculator::CoinRotateCalculator(al::LiveActor*) {CRASH}
+void CoinRotateCalculator::addFishingLineTouch() {CRASH}
+f32 CoinRotateCalculator::getRotate() const {CRASH}
+void CoinRotateCalculator::reset() {CRASH}
+void CoinRotateCalculator::update(sead::Vector3<float> const&, bool) {CRASH}
+void WaterSurfaceShadow::disappearShadow() {CRASH}
+bool al::WheelMovement::receiveMsg(al::LiveActor*, al::SensorMsg const*, al::HitSensor*, al::HitSensor*) {CRASH}
+void al::WheelMovement::reset(al::LiveActor*) {CRASH}
+void al::WheelMovement::update(al::LiveActor*) {CRASH}
+void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
+bool al::calcFindWaterSurface(sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {CRASH}
+f32 al::easeByType(float, int) {CRASH}
+void al::expandClippingRadiusByShadowLength(al::LiveActor*, sead::Vector3<float>*, float) {CRASH}
+f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
+void al::holdSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {CRASH}
+bool al::isExistDitherAnimator(al::LiveActor const*) {CRASH}
+bool al::isInWater(al::LiveActor const*) {CRASH}
+bool al::isMsgScreenPointInvalidCollisionParts(al::SensorMsg const*) {CRASH}
+bool al::isPlaced(al::ActorInitInfo const&) {CRASH}
+bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3<float> const&) {CRASH}
+bool al::listenStageSwitchOnAppear(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
+bool al::listenStageSwitchOnKill(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
+void al::rotateQuatLocalDirDegree(sead::Quat<float>*, sead::Quat<float> const&, int, float) {CRASH}
+void al::rotateQuatYDirDegree(al::LiveActor*, float) {CRASH}
+void al::rotateVectorDegree(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+void al::setEffectNamedMtxPtr(al::IUseEffectKeeper*, char const*, sead::Matrix34<float> const*) {CRASH}
+void al::setModelMaterialParameterF32(al::LiveActor const*, char const*, char const*, float) {CRASH}
+void al::stopDitherAnimAutoCtrl(al::LiveActor*) {CRASH}
+bool al::tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<float>*) {CRASH}
+bool al::tryGetDisplayOffset(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
+const char* rs::getStageCoinCollectArchiveName(al::LiveActor const*) {CRASH}
+const char* rs::getStageCoinCollectEmptyArchiveName(al::LiveActor const*) {CRASH}
+bool rs::isMsgAirExplosion(al::SensorMsg const*) {CRASH}
+bool rs::isMsgByugoBlow(al::SensorMsg const*) {CRASH}
+bool rs::isMsgCapAttack(al::SensorMsg const*) {CRASH}
+bool rs::isMsgFishingItemGet(al::SensorMsg const*) {CRASH}
+bool rs::isMsgFishingLineTouch(al::SensorMsg const*) {CRASH}
+bool rs::isMsgItemAmiiboKoopa(al::SensorMsg const*) {CRASH}
+bool rs::isMsgItemGetAll(al::SensorMsg const*) {CRASH}
+bool rs::isNearPlayerH(al::LiveActor const*, float) {CRASH}
+bool rs::isPlayerEnableToSeeOddSpace(al::LiveActor const*) {CRASH}
+bool rs::isVisibleChameleon(al::SensorMsg const*) {CRASH}
+f32 rs::setShadowDropLength(al::LiveActor*, al::ActorInitInfo const&, char const*) {CRASH}
+WaterSurfaceShadow* rs::tryCreateWaterSurfaceCoinShadow(al::ActorInitInfo const&) {CRASH}
+bool rs::tryGetAirExplosionForce(sead::Vector3<float>*, al::SensorMsg const*) {CRASH}
+bool rs::tryGetByugoBlowForce(sead::Vector3<float>*, al::SensorMsg const*) {CRASH}
+void rs::tryUpdateWaterSurfaceCoinShadow(WaterSurfaceShadow*, al::LiveActor*, float) {CRASH}
+
+void Coin::init(const al::ActorInitInfo &initInfo) {CRASH}
+void Coin::initAfterPlacement() {CRASH}
+void Coin::appear() {CRASH}
+void Coin::makeActorAlive() {CRASH}
+void Coin::control() {CRASH}
+void Coin::endClipped() {CRASH}
+bool Coin::receiveMsg(const al::SensorMsg* message, al::HitSensor* other,
+                al::HitSensor* self) {CRASH}

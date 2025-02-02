@@ -1,7 +1,7 @@
 #pragma once
 
 #include <math/seadVector.h>
-#include "Library/Math/MathAngleUtil.h"
+#include "Library/Math/MathUtil.h"
 #include "gfx/seadCamera.h"
 #include "math/seadMatrix.h"
 #include "math/seadVectorFwd.h"

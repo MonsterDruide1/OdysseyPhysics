@@ -6,7 +6,7 @@
 #include "Library/Collision/CollisionUtil.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/KTriangle.h"
-#include "Library/Math/MathLengthUtil.h"
+#include "Library/Math/MathUtil.h"
 #include "Player/CollisionShapeInfo.h"
 #include "Player/CollisionShapeKeeper.h"
 #include "Util/CollisionShapeFunction.h"

@@ -19,7 +19,7 @@ void rs::reflectCeilingUpperPunch(al::LiveActor*, IUsePlayerCollision const*, Pl
     CRASH
 }
 
-void rs::sendMsgPlayerStartWallJump(al::HitSensor*, al::HitSensor*) {
+bool rs::sendMsgPlayerStartWallJump(al::HitSensor*, al::HitSensor*) {
     CRASH
 }
 
