@@ -186,11 +186,16 @@ void sendState(game::StageScene* scene, int sock) {
     bool isTouchingMoon;
     for(int i=0; i<scene->mShinesNum; i++) {
         sead::Vector3f shinePos = scene->mShinePositions[i];
-        if((shinePos - al::getTrans(player)).length() < 100) {
+        if((shinePos - al::getTrans(player)).length() < 200) {
             isTouchingMoon = true;
             break;
         }
     }
+
+    bool isDead = false;
+    isDead |= rs::isCollisionCodePoisonTouch(player->mPlayerColliderHakoniwa);
+    isDead |= rs::isCollisionCodeDamageFireGround(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
+    isDead |= scene->mPlayer->mActor->mPoseKeeper->getTrans().y < -2000;
 
     DataPacket p = {
         COMMAND_OUT_DATA,
@@ -202,7 +207,7 @@ void sendState(game::StageScene* scene, int sock) {
         player->mPlayerContinuousJump->mCount,
         player->mPlayerCounterQuickTurnJump->mCounter,
         isTouchingMoon,
-        rs::isCollisionCodePoisonTouch(player->mPlayerColliderHakoniwa),
+        isDead,
     };
     fillRaycastResults(player, p.raycastResults, 250);
 

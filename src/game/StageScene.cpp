@@ -97,14 +97,38 @@ void StageScene::init(const char* stageName, int scenario) {
         actor->initRaylibModel();
         addObject(actor);
         // actor->initAfterPlacement();
+        
+        const char* unitConfigName;
+        const char* itemType = nullptr;
+        objiter.tryGetStringByKey(&unitConfigName, "UnitConfigName");
+        objiter.tryGetStringByKey(&itemType, "ItemType");
+        bool isShine = false;
+        isShine |= strcmp(unitConfigName, "Shine") == 0;
+        isShine |= strcmp(unitConfigName, "ShineAddHeight") == 0;
+        isShine |= strcmp(unitConfigName, "TreasureBox") == 0 && itemType && strcmp(itemType, "Shine") == 0;
+        if(isShine) {
+            sead::Vector3f trans = {0, 0, 0};
+            al::tryGetByamlV3f(&trans, objiter, "Translate");
+            if(mShinesNum == mShinesMax) {
+                printf("Too many shines\n");
+                continue;
+            }
+            mShinePositions[mShinesNum++] = trans;
+        }
     }
 
     al::ByamlIter playerStartInfoList = lists.getIterByKey("PlayerStartInfoList");
     for(int i=0; i<playerStartInfoList.getSize(); i++) {
         al::ByamlIter obj = playerStartInfoList.getIterByIndex(i);
         const char* unitConfigName;
+        const char* itemType = nullptr;
         obj.tryGetStringByKey(&unitConfigName, "UnitConfigName");
-        if(strcmp(unitConfigName, "Shine") == 0) {
+        obj.tryGetStringByKey(&itemType, "ItemType");
+        bool isShine = false;
+        isShine |= strcmp(unitConfigName, "Shine") == 0;
+        isShine |= strcmp(unitConfigName, "ShineAddHeight") == 0;
+        isShine |= strcmp(unitConfigName, "TreasureBox") == 0 && itemType && strcmp(itemType, "Shine") == 0;
+        if(isShine) {
             sead::Vector3f trans = {0, 0, 0};
             al::tryGetByamlV3f(&trans, obj, "Translate");
             if(mShinesNum == mShinesMax) {

@@ -1,6 +1,6 @@
 // ----------------------------------
 // Easy configuration stuff
-#define Stage "SandWorldMeganeExStageMap"
+#define Stage "CloudExStageMap"
 #define TASFile "res/beginner_recording.txt"
 #define TASPlayback false
 #define WSL_COMPATIBILITY false
@@ -11,8 +11,6 @@
 #define TEST_FRAMES 600000
 #define TEST_AGENT false
 #define TEST_AGENT_ITERATIONS 110000
-#define TEST_COLLISION_STUFF false
-#define TEST_UPWARPS false
 // ----------------------------------
 
 
@@ -76,6 +74,13 @@ void resume_stdout(int fd) {
     fflush(stdout);
     dup2(fd, 1);
     close(fd);
+}
+
+bool shouldUpdate() {
+    static bool paused = false;
+    if (IsKeyPressed(KEY_HOME))
+        paused = !paused;
+    return !paused || IsKeyPressed(KEY_SPACE) || IsKeyPressedRepeat(KEY_SPACE);
 }
 
 #define SCALE 0.005f
@@ -158,37 +163,6 @@ int main2(int argc, char *argv[]) {
             Input::instance()->setInputProvider(new InputProviderTAS(optimizer.mFrames));
         }
 
-        if(TEST_COLLISION_STUFF) {
-            sead::ClonableExpHeap* baseHeap = sceneManager.mHeap;
-            sead::Vector3f baseTrans = {501, 150, 1900};
-            for(int i=0; i<360; i++) {
-                float v2 = sead::Mathf::deg2rad(i * 0.5);
-                sead::Quatf quat;
-                quat.x = 0;
-                quat.y = sead::Mathf::sin(v2);
-                quat.z = 0;
-                quat.w = sead::Mathf::cos(v2);
-
-                sead::ClonableExpHeap* localHeap = baseHeap->clone();
-                game::StageScene* scene = sceneManager.getScene();
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseQuat(quat);
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(baseTrans);
-                scene->update();
-
-                for(int j=0; j<500; j++) {
-                    scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(baseTrans - j*sead::Vector3f::ez*0.1);
-                    scene->update();
-
-                    if(!rs::isCollidedGround(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
-                        printf("For rotation %d: Z=%f\n", i, (baseTrans - j*sead::Vector3f::ez*0.1).z);
-                        break;
-                    }
-                }
-                delete localHeap;
-            }
-            return 1;
-        }
-
         sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
 
         
@@ -204,22 +178,6 @@ int main2(int argc, char *argv[]) {
                 printf("Time taken for %d frames: %f => %f FPS\n", frames, time_end - time_start, frames / (time_end - time_start));
                 return 1;
             }
-            if(!TEST_UPWARPS) {
-                printf("--------------------------- %d ---------------------------------\n", Input::instance()->getInputCount());
-                al::NerveKeeper* playerNerveKeeper = scene->mPlayer->mActor->mNerveKeeper;
-                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
-                sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
-                sead::Vector3f playerFront;
-                al::calcFrontDir(&playerFront, scene->mPlayer->mActor);
-                printf("Currently in %s\n",
-                    playerNerveKeeper->getStateCtrl()->findStateInfo(playerNerveKeeper->getCurrentNerve())->name);
-                printf("Position: (%.17f, %.17f, %.17f)\n", playerPos.x, playerPos.y, playerPos.z);
-                printf("Velocity: (%.17f, %.17f, %.17f)\n", playerVel.x, playerVel.y, playerVel.z);
-                printf("Front: (%.17f, %.17f, %.17f)\n", playerFront.x, playerFront.y, playerFront.z);
-                if(Input::instance()->getInputCount() == 111) {
-                    printf("Dbg\n");
-                }
-            }
 
             if (IsKeyPressed(KEY_P)) {
                 sead::ClonableExpHeap* currentHeap = sceneManager.mHeap;
@@ -232,7 +190,21 @@ int main2(int argc, char *argv[]) {
                 camMode = (MyCameraMode)(((int)camMode + 1) % 3);
             scene = sceneManager.getScene();
 
-            if(!TEST_UPWARPS || IsKeyPressedRepeat(KEY_U) || IsKeyPressed(KEY_U)) {
+            if (IsKeyPressed(KEY_KP_8) || IsKeyPressedRepeat(KEY_KP_8))
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() - sead::Vector3f::ez*100);
+            if (IsKeyPressed(KEY_KP_2) || IsKeyPressedRepeat(KEY_KP_2))
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() + sead::Vector3f::ez*100);
+            if (IsKeyPressed(KEY_KP_4) || IsKeyPressedRepeat(KEY_KP_4))
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() - sead::Vector3f::ex*100);
+            if (IsKeyPressed(KEY_KP_6) || IsKeyPressedRepeat(KEY_KP_6))
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() + sead::Vector3f::ex*100);
+            if (IsKeyPressed(KEY_KP_0) || IsKeyPressedRepeat(KEY_KP_0))
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() + sead::Vector3f::ey*100);
+            if (IsKeyPressed(KEY_KP_5) || IsKeyPressedRepeat(KEY_KP_5))
+                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() - sead::Vector3f::ey*100);
+
+            //if(!TEST_UPWARPS || IsKeyPressedRepeat(KEY_U) || IsKeyPressed(KEY_U)) {
+            if(shouldUpdate()) {
                 printf("--------------------------- %d ---------------------------------\n", Input::instance()->getInputCount());
                 al::NerveKeeper* playerNerveKeeper = scene->mPlayer->mActor->mNerveKeeper;
                 sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
@@ -250,29 +222,6 @@ int main2(int argc, char *argv[]) {
 
                 Input::instance()->update();
                 scene->update();
-            }
-
-            if (IsKeyPressed(KEY_L)) {
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans({-40793, 10092, -9000});
-                Input::instance()->setInputProvider(new InputProviderTAS(TASFile));
-
-                float v2 = sead::Mathf::deg2rad(90 * 0.5);
-                sead::Quatf quat;
-                quat.x = 0;
-                quat.y = sead::Mathf::sin(v2);
-                quat.z = 0;
-                quat.w = sead::Mathf::cos(v2);
-
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseQuat(quat);
-                *scene->mPlayer->mActor->mPoseKeeper->getVelocityPtr() = {0,0,0};
-
-                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
-                scene->mCamera->setup(angleH, angleV, distance, playerPos);
-                cam.position = raylibVec(scene->mCamera->position() * SCALE);
-                cam.target = raylibVec(scene->mCamera->at() * SCALE);
-                cam.up = raylibVec(scene->mCamera->up());
-
-                camMode = MyCameraMode::Free;
             }
 
             if (camMode == MyCameraMode::Free) {
@@ -362,23 +311,18 @@ int main2(int argc, char *argv[]) {
                         ->name,
                     0, 0, 40, {255, 0, 0, 255});
                 
-                if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
-                    DrawText("Poison Touch", 0, 50, 40, {255, 0, 0, 255});
+                bool isDead = false;
+                isDead |= rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
+                isDead |= rs::isCollisionCodeDamageFireGround(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
+                if(isDead) {
+                    DrawText("Dead", 0, 50, 40, {255, 0, 0, 255});
                 }
 
-                /*PlayerAnimator* animator =
-                ((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerAnimator; char buffer[128] =
-                {}; snprintf(buffer, 128, "%s (%.0f/%.0f)", animator->currentAnim,
-                animator->currentFrame, animator->maxFrame); DrawText(buffer, 0, 50, 40,  {255, 0,
-                0, 255});*/
-                
-                /*char buffer[129] = {};
-                snprintf(buffer, 129, "%0128llb", getPlayerStateBitMap((PlayerActorHakoniwa*)scene->mPlayer->mActor));
-                for(int i=0; i<=128; i++) {
-                    char c[2] = {};
-                    c[0] = buffer[i];
-                    DrawText(c, (i%64)*25, 40+40*(i/64), 40, buffer[i]=='0' ? Color{255, 0, 0, 255} : Color{0, 255, 0, 255});
-                }*/
+                sead::Vector3f playerTrans = al::getTrans(scene->mPlayer->mActor);
+                for(int i=0; i<scene->mShinesNum; i++) {
+                    sead::Vector3f shinePos = scene->mShinePositions[i];
+                    DrawText(TextFormat("Shine %d: %.2f", i, (shinePos - playerTrans).length()), 0, 90+40*i, 40, {255, 0, 0, 255});
+                }
             }
             EndDrawing();
 
