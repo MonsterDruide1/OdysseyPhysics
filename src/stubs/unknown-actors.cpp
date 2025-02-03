@@ -117,7 +117,6 @@ bool al::appearItemTiming(al::LiveActor const*, char const*) {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, bool) {CRASH}
 void al::calcCameraFront(sead::Vector3<float>*, al::IUseCamera const*, int) {CRASH}
 void al::calcCurrentKeyQT(sead::Quat<float>*, sead::Vector3<float>*, al::RollingCubePoseKeeper const*, sead::Quat<float> const&, sead::Vector3<float> const&, float) {CRASH}
-void al::calcDirBetweenSensorsH(sead::Vector3<float>*, al::HitSensor const*, al::HitSensor const*) {CRASH}
 f32 al::calcDistanceNextKeyTrans(al::KeyPoseKeeper const*) {CRASH}
 void al::calcJointPos(sead::Vector3<float>*, al::LiveActor const*, char const*) {CRASH}
 void al::calcKeyMoveClippingInfo(sead::Vector3<float>*, float*, al::KeyPoseKeeper const*, float) {CRASH}
@@ -145,7 +144,6 @@ void al::emitEffect(al::IUseEffectKeeper*, char const*, sead::Vector3<float> con
 void al::fittingToCurrentKeyBoundingBox(sead::Quat<float>*, sead::Vector3<float>*, al::RollingCubePoseKeeper const*) {CRASH}
 void al::forceApplyCubeMap(al::LiveActor*, char const*) {CRASH}
 f32 al::getActionFrameMax(al::LiveActor const*, char const*) {CRASH}
-sead::Vector3f& al::getActorTrans(al::HitSensor const*) {CRASH}
 f32 al::getClippingRadius(al::LiveActor const*) {CRASH}
 const al::PlacementInfo& al::getCurrentKeyPlacementInfo(al::RollingCubePoseKeeper const*) {CRASH}
 const sead::Quatf& al::getCurrentKeyQuat(al::KeyPoseKeeper const*) {CRASH}
@@ -155,7 +153,6 @@ void al::getLinksInfo(al::PlacementInfo*, al::ActorInitInfo const&, char const*)
 sead::Quatf* al::getQuatPtr(al::LiveActor*) {CRASH}
 f32 al::getRailCoord(al::IUseRail const*) {CRASH}
 const sead::Vector3f& al::getRotate(al::LiveActor const*) {CRASH}
-sead::Vector3f& al::getSensorPos(al::HitSensor const*) {CRASH}
 void al::getStringArg(char const**, al::ActorInitInfo const&, char const*) {CRASH}
 al::LiveActor* al::getSubActor(al::LiveActor const*, int) {CRASH}
 void al::getTrans(sead::Vector3<float>*, al::PlacementInfo const&) {CRASH}
@@ -196,28 +193,10 @@ bool al::isLeftTarget(al::LiveActor const*, sead::Vector3<float> const&) {CRASH}
 bool al::isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isMoveSignKey(al::KeyPoseKeeper const*) {CRASH}
 bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
-bool al::isMsgAskSafetyPoint(al::SensorMsg const*) {CRASH}
-bool al::isMsgEnemyFloorTouch(al::SensorMsg const*) {CRASH}
-bool al::isMsgExplosion(al::SensorMsg const*) {CRASH}
-bool al::isMsgFloorTouch(al::SensorMsg const*) {CRASH}
-bool al::isMsgHideModel(al::SensorMsg const*) {CRASH}
-bool al::isMsgIsNerveSupportFreeze(al::SensorMsg const*) {CRASH}
-bool al::isMsgOffSyncSupportFreeze(al::SensorMsg const*) {CRASH}
-bool al::isMsgOnSyncSupportFreeze(al::SensorMsg const*) {CRASH}
-bool al::isMsgPlayerDisregard(al::SensorMsg const*) {CRASH}
-bool al::isMsgPlayerFloorTouch(al::SensorMsg const*) {CRASH}
-bool al::isMsgPlayerHipDropAll(al::SensorMsg const*) {CRASH}
-bool al::isMsgPlayerObjTouch(al::SensorMsg const*) {CRASH}
-bool al::isMsgRestart(al::SensorMsg const*) {CRASH}
-bool al::isMsgShowModel(al::SensorMsg const*) {CRASH}
-bool al::isMsgTouchAssist(al::SensorMsg const*) {CRASH}
-bool al::isMySensor(al::HitSensor const*, al::LiveActor const*) {CRASH}
 bool al::isObjectName(al::ActorInitInfo const&, char const*) {CRASH}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isRestart(al::KeyPoseKeeper const*) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
-bool al::isSensorMapObj(al::HitSensor const*) {CRASH}
-bool al::isSensorName(al::HitSensor const*, char const*) {CRASH}
 bool al::isStop(al::KeyPoseKeeper const*) {CRASH}
 bool al::isValidStageSwitch(al::IUseStageSwitch const*, char const*) {CRASH}
 bool al::isValidSwitchAppear(al::IUseStageSwitch const*) {CRASH}
@@ -253,7 +232,6 @@ void al::rotateQuatLocalDirDegree(al::LiveActor*, sead::Quat<float> const&, int,
 void al::rotateQuatRadian(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::scaleVelocity(al::LiveActor*, float) {CRASH}
 void al::scaleVelocityHV(al::LiveActor*, float, float) {CRASH}
-bool al::sendMsgExplosion(al::HitSensor*, al::HitSensor*, al::ComboCounter*) {CRASH}
 void al::setClippingInfo(al::LiveActor*, float, sead::Vector3<float> const*) {CRASH}
 void al::setEffectAllScale(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const&) {CRASH}
 void al::setKeyMoveClippingInfo(al::LiveActor*, sead::Vector3<float>*, al::KeyPoseKeeper const*) {CRASH}
@@ -307,8 +285,6 @@ void al::updateLayoutPaneRecursive(al::LayoutActor*) {CRASH}
 void al::validateClipping(al::LiveActor*) {CRASH}
 void al::validateCollisionParts(al::LiveActor*) {CRASH}
 void al::validateDitherAnim(al::LiveActor*) {CRASH}
-void al::validateHitSensor(al::LiveActor*, char const*) {CRASH}
-void al::validateHitSensors(al::LiveActor*) {CRASH}
 bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3<float>*, al::Triangle*, sead::Vector3<float> const&, sead::Vector3<float> const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 void alPadRumbleFunction::startPadRumble(al::LiveActor const*, char const*, float, float, int) {CRASH}
 CapTargetInfo* rs::createCapTargetInfo(al::LiveActor*, char const*) {CRASH}
@@ -317,25 +293,10 @@ SaveObjInfo* rs::createSaveObjInfoWriteSaveData(al::ActorInitInfo const&) {CRASH
 const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
 const char* rs::getStageCoinCollect2DArchiveName(al::LiveActor const*) {CRASH}
 const char* rs::getStageCoinCollect2DEmptyArchiveName(al::LiveActor const*) {CRASH}
-bool rs::isMsgCapCancelLockOn(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapIgnoreCancelLockOn(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapKeepLockOn(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapStartLockOn(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapTouchWall(al::SensorMsg const*) {CRASH}
-bool rs::isMsgItemGet2D(al::SensorMsg const*) {CRASH}
-bool rs::isMsgItemGetByWeapon(al::SensorMsg const*) {CRASH}
-bool rs::isMsgKoopaHackPunchCollide(al::SensorMsg const*) {CRASH}
-bool rs::isMsgNpcCapReactionAll(al::SensorMsg const*) {CRASH}
-bool rs::isMsgPlayerAndCapHipDropAll(al::SensorMsg const*) {CRASH}
-bool rs::isMsgPlayerDisregardHomingAttack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgPlayerDisregardTargetMarker(al::SensorMsg const*) {CRASH}
-bool rs::isMsgPlayerRollingWallHitDown(al::SensorMsg const*) {CRASH}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {CRASH}
 void rs::onSaveObjInfo(SaveObjInfo*) {CRASH}
 void rs::requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, sead::Vector3<float> const&) {CRASH}
 void rs::requestLockOnCapHitReaction(al::LiveActor const*, CapTargetInfo const*, char const*) {CRASH}
-bool rs::sendMsgEnemyAttack2D(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgTouchFireDrum2D(al::HitSensor*, al::HitSensor*) {CRASH}
 void rs::snap2D(al::LiveActor const*, IUseDimension const*, float) {CRASH}
 void rs::snap2DParallelizeFront(al::LiveActor*, IUseDimension const*, float) {CRASH}
 void rs::syncCoin2DAnimFrame(al::LiveActor*, char const*) {CRASH}
@@ -383,13 +344,6 @@ bool al::tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<floa
 bool al::tryGetDisplayOffset(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
 const char* rs::getStageCoinCollectArchiveName(al::LiveActor const*) {CRASH}
 const char* rs::getStageCoinCollectEmptyArchiveName(al::LiveActor const*) {CRASH}
-bool rs::isMsgAirExplosion(al::SensorMsg const*) {CRASH}
-bool rs::isMsgByugoBlow(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapAttack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgFishingItemGet(al::SensorMsg const*) {CRASH}
-bool rs::isMsgFishingLineTouch(al::SensorMsg const*) {CRASH}
-bool rs::isMsgItemAmiiboKoopa(al::SensorMsg const*) {CRASH}
-bool rs::isMsgItemGetAll(al::SensorMsg const*) {CRASH}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {CRASH}
 bool rs::isPlayerEnableToSeeOddSpace(al::LiveActor const*) {CRASH}
 bool rs::isVisibleChameleon(al::SensorMsg const*) {CRASH}
