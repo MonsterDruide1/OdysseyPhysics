@@ -8,13 +8,18 @@ import socket
 import struct
 
 class OdysseyEnv(gym.Env):
+    metadata = {'render_modes': ['rgb_array', 'human'], 'render_fps': 60}
+
     COMMAND_OUT_FRAME = bytes([1])
     COMMAND_OUT_RESET = bytes([2])
+    COMMAND_OUT_RENDER = bytes([3])
     COMMAND_IN_ACK = bytes([1])
     COMMAND_IN_DATA = bytes([2])
+    COMMAND_IN_RENDER = bytes([3])
 
 
-    def __init__(self, stage: str, scenario: int, instance: str, romfs_path: str = "res/romfs", display: bool = False):
+    def __init__(self, stage: str, scenario: int, instance: str, romfs_path: str = "res/romfs", render_mode: str = None):
+        self.render_mode = render_mode
         self.socket_file = "/tmp/odyssey-physics-"+instance+".sock"
         if os.path.exists(self.socket_file):
             os.remove(self.socket_file)
@@ -22,7 +27,8 @@ class OdysseyEnv(gym.Env):
         self.socket = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         self.socket.bind(self.socket_file)
 
-        self.process = subprocess.Popen(["build/OdysseyPhysics", stage, str(scenario), romfs_path, self.socket_file, str(display).lower()])
+        display = 2 if render_mode == "human" else 1 if render_mode == "rgb_array" else 0
+        self.process = subprocess.Popen(["build/OdysseyPhysics", stage, str(scenario), romfs_path, self.socket_file, str(display)])
 
         self.socket.listen(1)
         self.conn, self.addr = self.socket.accept()
@@ -149,3 +155,15 @@ class OdysseyEnv(gym.Env):
         info = {}
 
         return observation, info
+
+    def render(self):
+        self.conn.send(struct.pack("=c", self.COMMAND_OUT_RENDER))
+        command = self.conn.recv(1)
+        if(command != self.COMMAND_IN_RENDER):
+            raise Exception("OdysseyPhysics did not send COMMAND_IN_RENDER! Instead: "+str(command)+", followed by "+str(self.conn.recv(300)))
+        
+        render_data = self.conn.recv(1920*1080*3, socket.MSG_WAITALL)
+        if len(render_data) != 1920*1080*3:
+            raise Exception("OdysseyPhysics did not send enough data for render! Instead: "+str(len(render_data))+" bytes")
+        # shape into nd.array with (x, y, 3) representing RGB values
+        return np.flip(np.frombuffer(render_data, dtype=np.dtype('B')).reshape((1080, 1920, 3)), axis=0)

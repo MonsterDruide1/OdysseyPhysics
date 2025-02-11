@@ -29,8 +29,10 @@
 
 #define COMMAND_IN_FRAME 1
 #define COMMAND_IN_RESET 2
+#define COMMAND_IN_RENDER 3
 #define COMMAND_OUT_ACK 1  // currently unused
 #define COMMAND_OUT_DATA 2
+#define COMMAND_OUT_RENDER 3
 
 #pragma pack(1)
 struct __attribute__((packed)) DataPacket {
@@ -87,74 +89,70 @@ void setupCameraSandMegane(game::StageScene* scene, Camera3D& cam) {
 }
 
 void drawRaylib(game::StageScene* scene, Camera3D& cam) {
-    BeginDrawing();
+    ClearBackground(BLACK);
+    BeginMode3D(cam);
+
+    int cameraDirLoc = GetShaderLocation(checkerShader, "cameraDirection");
+    sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
+    cameraDir.normalize();
+    SetShaderValue(checkerShader, cameraDirLoc, &cameraDir, SHADER_UNIFORM_VEC3);
+
+    for (int i = 0; i < scene->mActorsNum; i++) {
+        auto actor = scene->mActors[i];
+        if (!actor)
+            continue;
+
+        sead::Matrix34f mtx;
+        actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
+        actor->raylibModel.transform = raylibMtx(mtx);
+        DrawModel(actor->raylibModel, {0, 0, 0}, SCALE, WHITE);
+    }
+
     {
-        ClearBackground(BLACK);
-        BeginMode3D(cam);
-
-        int cameraDirLoc = GetShaderLocation(checkerShader, "cameraDirection");
-        sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
-        cameraDir.normalize();
-        SetShaderValue(checkerShader, cameraDirLoc, &cameraDir, SHADER_UNIFORM_VEC3);
-
-        for (int i = 0; i < scene->mActorsNum; i++) {
-            auto actor = scene->mActors[i];
-            if (!actor)
-                continue;
-
-            sead::Matrix34f mtx;
-            actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
-            actor->raylibModel.transform = raylibMtx(mtx);
-            DrawModel(actor->raylibModel, {0, 0, 0}, SCALE, WHITE);
-        }
-
-        {
-            sead::Matrix34f mtx;
-            scene->mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
-            CollisionShapeKeeper* collisionShapeKeeper =
-                ((PlayerActorHakoniwa*)scene->mPlayer->mActor)
-                    ->getPlayerCollision()
-                    ->getPlayerCollider()
-                    ->mCollisionShapeKeeper;
-            for (int i = 0; i < collisionShapeKeeper->mCollisionShape.size(); i++) {
-                auto shape = collisionShapeKeeper->mCollisionShape[i];
-                if (shape->getId() == CollisionShapeId::Arrow) {
-                    auto arrow = (CollisionShapeInfoArrow*)shape;
-                    sead::Vector3f startOrig = arrow->a3;
-                    sead::Vector3f endOrig = arrow->a4;
-                    sead::Vector3f start, end;
-                    start.setMul(mtx, startOrig);
-                    end.setMul(mtx, endOrig);
-                    start *= SCALE;
-                    end *= SCALE;
-                    rlPushMatrix();
-                    DrawLine3D(raylibVec(start), raylibVec(end), RED);
-                    rlPopMatrix();
-                } else if (shape->getId() == CollisionShapeId::Sphere) {
-                    auto sphere = (CollisionShapeInfoSphere*)shape;
-                    sead::Vector3f center = sphere->mBoundingCenter * SCALE;
-                    sphereModel.transform = raylibMtx(mtx);
-                    DrawModel(sphereModel, raylibVec(center), SCALE, RED);
-                } else {
-                    printf("Unknown shape type: %d\n", (int)shape->getId());
-                    CRASH
-                }
+        sead::Matrix34f mtx;
+        scene->mPlayer->mActor->mPoseKeeper->calcBaseMtx(&mtx);
+        CollisionShapeKeeper* collisionShapeKeeper =
+            ((PlayerActorHakoniwa*)scene->mPlayer->mActor)
+                ->getPlayerCollision()
+                ->getPlayerCollider()
+                ->mCollisionShapeKeeper;
+        for (int i = 0; i < collisionShapeKeeper->mCollisionShape.size(); i++) {
+            auto shape = collisionShapeKeeper->mCollisionShape[i];
+            if (shape->getId() == CollisionShapeId::Arrow) {
+                auto arrow = (CollisionShapeInfoArrow*)shape;
+                sead::Vector3f startOrig = arrow->a3;
+                sead::Vector3f endOrig = arrow->a4;
+                sead::Vector3f start, end;
+                start.setMul(mtx, startOrig);
+                end.setMul(mtx, endOrig);
+                start *= SCALE;
+                end *= SCALE;
+                rlPushMatrix();
+                DrawLine3D(raylibVec(start), raylibVec(end), RED);
+                rlPopMatrix();
+            } else if (shape->getId() == CollisionShapeId::Sphere) {
+                auto sphere = (CollisionShapeInfoSphere*)shape;
+                sead::Vector3f center = sphere->mBoundingCenter * SCALE;
+                sphereModel.transform = raylibMtx(mtx);
+                DrawModel(sphereModel, raylibVec(center), SCALE, RED);
+            } else {
+                printf("Unknown shape type: %d\n", (int)shape->getId());
+                CRASH
             }
         }
-
-        EndMode3D();
-
-        DrawText(
-            scene->mPlayer->mActor->mNerveKeeper->getStateCtrl()
-                ->findStateInfo(scene->mPlayer->mActor->mNerveKeeper->getCurrentNerve())
-                ->name,
-            0, 0, 40, {255, 0, 0, 255});
-        
-        if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
-            DrawText("Poison Touch", 0, 50, 40, {255, 0, 0, 255});
-        }
     }
-    EndDrawing();
+
+    EndMode3D();
+
+    DrawText(
+        scene->mPlayer->mActor->mNerveKeeper->getStateCtrl()
+            ->findStateInfo(scene->mPlayer->mActor->mNerveKeeper->getCurrentNerve())
+            ->name,
+        0, 0, 40, {255, 0, 0, 255});
+    
+    if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
+        DrawText("Poison Touch", 0, 50, 40, {255, 0, 0, 255});
+    }
 }
 
 void fillRaycastResults(PlayerActorHakoniwa* player, f32* results, int numSamples) {
@@ -214,8 +212,25 @@ void sendState(game::StageScene* scene, int sock) {
     write(sock, &p, sizeof(DataPacket));
 }
 
+void sendRender(RenderTexture2D tex, int sock) {
+    Image img = LoadImageFromTexture(tex.texture);
+    Color* pixels = LoadImageColors(img);
+
+    char data[1920*1080*3 + 1];
+    data[0] = COMMAND_OUT_RENDER;
+    for(int i=0; i<img.width*img.height; i++) {
+        data[i*3+1] = pixels[i].r;
+        data[i*3+2] = pixels[i].g;
+        data[i*3+3] = pixels[i].b;
+    }
+    write(sock, data, sizeof(data));
+
+    UnloadImageColors(pixels);
+    UnloadImage(img);
+}
+
 int main(int argc, char* argv[]) {
-    if (argc < 4) {
+    if (argc < 5) {
         printf("Usage: %s <stage> <scenario> <path to romfs> <socket-file> [display?]\n", argv[0]);
         return 1;
     }
@@ -224,7 +239,7 @@ int main(int argc, char* argv[]) {
     int scenario = atoi(argv[2]);
     settings::sRomfsPath = argv[3];
     const char* socketFile = argv[4];
-    bool display = argc >= 5 && strcmp(argv[5], "true") == 0;
+    int display_mode = argc >= 5 ? atoi(argv[5]) : 0;
 
     int serverSocket = socket(AF_UNIX, SOCK_STREAM, 0);
     //fcntl(serverSocket, F_SETFL, fcntl(serverSocket, F_GETFL, 0) | O_NONBLOCK);
@@ -244,12 +259,19 @@ int main(int argc, char* argv[]) {
         return -1;
     }
 
-    if(display) {
+    RenderTexture2D renderTarget;
+
+    if(display_mode >= 1) {
         SetTraceLogLevel(LOG_NONE);
         InitWindow(1920, 1080, "OdysseyPhysics");
         SetTargetFPS(0);  // no artificial limit, just go as fast as possible
-
         setupRaylibUtil();
+        
+        // setup render texture for render command
+        renderTarget = LoadRenderTexture(1920, 1080);
+        BeginTextureMode(renderTarget);
+        ClearBackground(BLACK);
+        EndTextureMode();
     }
 
     initializeSead();
@@ -271,13 +293,13 @@ int main(int argc, char* argv[]) {
         sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
 
         while (true) {
-            if(display && WindowShouldClose())
+            if(display_mode >= 2 && WindowShouldClose())
                 break;
 
             char command;
             int read_bytes = read(serverSocket, &command, 1);
             if(read_bytes <= 0) {
-                if(display)
+                if(display_mode >= 2)
                     PollInputEvents();
                 if(read_bytes == 0)
                     continue;
@@ -307,14 +329,28 @@ int main(int argc, char* argv[]) {
 
                     sendState(scene, serverSocket);
                     
-                    if(display)
+                    if(display_mode >= 2) {
+                        BeginDrawing();
                         drawRaylib(scene, cam);
+                        EndDrawing();
+                    }
                     break;
                 case COMMAND_IN_RESET:
                     delete sceneManager.mHeap;
                     sceneManager.mHeap = prevHeap->clone();
 
                     sendState(scene, serverSocket);
+                    break;
+                case COMMAND_IN_RENDER:
+                    if (display_mode < 1) {
+                        printf("Error: received render command but display is disabled!\n");
+                        break;
+                    }
+                    BeginTextureMode(renderTarget);
+                    drawRaylib(scene, cam);
+                    EndTextureMode();
+
+                    sendRender(renderTarget, serverSocket);
                     break;
                 default:
                     printf("Error: no command with ID %d found!", command);
@@ -324,10 +360,12 @@ int main(int argc, char* argv[]) {
 
     }
     unloadSead();
-    unloadRaylibUtil();
 
-    if(display)
+    if(display_mode >= 1) {
+        unloadRaylibUtil();
         CloseWindow();
+        UnloadRenderTexture(renderTarget);
+    }
 
     close(serverSocket);
     return 0;
