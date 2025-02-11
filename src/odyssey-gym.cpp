@@ -62,7 +62,7 @@ struct InputProviderGym : public InputProvider {
     }
 };
 
-void setupCameraSandMegane(game::StageScene* scene, Camera3D cam) {
+void setupCameraSandMegane(game::StageScene* scene, Camera3D& cam) {
     float angleH = 0;
     float angleV = 60;
     float distance = 3000.000244140625;
@@ -86,7 +86,7 @@ void setupCameraSandMegane(game::StageScene* scene, Camera3D cam) {
     cam.up = raylibVec(scene->mCamera->up());
 }
 
-void drawRaylib(game::StageScene* scene, Camera3D cam) {
+void drawRaylib(game::StageScene* scene, Camera3D& cam) {
     BeginDrawing();
     {
         ClearBackground(BLACK);
