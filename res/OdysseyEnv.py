@@ -4,6 +4,7 @@ import numpy as np
 from typing import Optional
 import subprocess
 import os, os.path
+import sys
 import socket
 import struct
 
@@ -28,7 +29,7 @@ class OdysseyEnv(gym.Env):
         self.socket.bind(self.socket_file)
 
         display = 2 if render_mode == "human" else 1 if render_mode == "rgb_array" else 0
-        self.process = subprocess.Popen(["build/OdysseyPhysics", stage, str(scenario), romfs_path, self.socket_file, str(display)])
+        self.process = subprocess.Popen(["build/OdysseyPhysics", stage, str(scenario), romfs_path, self.socket_file, str(display)], stdout=sys.stdout, stderr=sys.stderr)
 
         self.socket.listen(1)
         self.conn, self.addr = self.socket.accept()
