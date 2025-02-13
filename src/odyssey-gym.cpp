@@ -239,7 +239,7 @@ int main(int argc, char* argv[]) {
     int scenario = atoi(argv[2]);
     settings::sRomfsPath = argv[3];
     const char* socketFile = argv[4];
-    int display_mode = argc >= 5 ? atoi(argv[5]) : 0;
+    int display_mode = argc >= 6 ? atoi(argv[5]) : 0;
 
     int serverSocket = socket(AF_UNIX, SOCK_STREAM, 0);
     //fcntl(serverSocket, F_SETFL, fcntl(serverSocket, F_GETFL, 0) | O_NONBLOCK);
