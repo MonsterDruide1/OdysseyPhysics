@@ -16,6 +16,7 @@
 #include "Player/PlayerContinuousJump.h"
 #include "Player/PlayerCounterQuickTurnJump.h"
 #include "PlayerStateGym.h"
+#include "PlayerUtil.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "RaylibUtil.h"
 #include "game/Input.h"
@@ -49,6 +50,14 @@ struct __attribute__((packed)) DataPacket {
 };
 #pragma pack()
 static_assert(sizeof(DataPacket) == 0x42a+1);
+
+#pragma pack(1)
+struct __attribute__((packed)) ResetPacket {
+    bool isOverridePosition;   // 0x000
+    sead::Vector3f playerPos;  // 0x001
+};
+#pragma pack()
+static_assert(sizeof(ResetPacket) == 0xd);
 
 struct InputProviderGym : public InputProvider {
     FrameInput frame;
@@ -311,6 +320,7 @@ int main(int argc, char* argv[]) {
                 }
             }
 
+            ResetPacket reset_packet;
             switch(command) {
                 case COMMAND_IN_FRAME:
                     read_bytes = read(serverSocket, &input->frame, sizeof(FrameInput));
@@ -338,6 +348,14 @@ int main(int argc, char* argv[]) {
                 case COMMAND_IN_RESET:
                     delete sceneManager.mHeap;
                     sceneManager.mHeap = prevHeap->clone();
+                    if(read(serverSocket, &reset_packet, sizeof(ResetPacket)) != sizeof(ResetPacket)) {
+                        printf("Failed to read ResetPacket!\n");
+                        break;
+                    }
+                    if(reset_packet.isOverridePosition) {
+                        scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(reset_packet.playerPos);
+                        rs::resetCollision(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
+                    }
 
                     sendState(scene, serverSocket);
                     break;

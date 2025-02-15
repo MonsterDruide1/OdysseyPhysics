@@ -14,8 +14,8 @@ sys.excepthook = handle_exception
 
 gym.register(id="gym_ody", entry_point=OdysseyEnv)
 
-def test_env(env, steps, render):
-    env.reset()
+def test_env(env, steps, render, reset_options = None):
+    env.reset(options=reset_options)
     # measure time for loop
     import time
     start = time.time()
