@@ -10,12 +10,13 @@
 #include "Library/HitSensor/SensorFunction.h"
 #include "Library/LiveActor/ActorActionFunction.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
+#include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorInitInfo.h"
+#include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorSensorMsgFunction.h"
-#include "Library/LiveActor/LiveActorUtil.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/Model/ModelKeeper.h"
 #include "Library/Placement/PlacementFunction.h"
@@ -77,7 +78,7 @@ void al::ActorPrePassLightKeeper::initAfterPlacement() {
     CRASH
 }
 
-void al::tryInitFixedModelGpuBuffer(const LiveActor*) {
+void al::tryInitFixedModelGpuBuffer(LiveActor*) {
     CRASH
 }
 
@@ -206,10 +207,6 @@ bool al::isInStack(const void *) {
 
 bool al::tryGetActorInitFileName(sead::BufferedSafeStringBase<char>*, al::LiveActor const*,
                                  char const*, char const*) {
-    CRASH
-}
-
-void al::tryInitFixedModelGpuBuffer(al::LiveActor*) {
     CRASH
 }
 

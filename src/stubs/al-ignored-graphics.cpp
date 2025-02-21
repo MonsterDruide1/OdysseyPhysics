@@ -2,7 +2,6 @@
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
 #include "Library/Layout/LayoutInitInfo.h"
 #include "Library/LiveActor/ActorModelFunction.h"
-#include "Library/LiveActor/LiveActorUtil.h"
 #include "Library/Model/ModelCtrl.h"
 #include "Library/Model/ModelKeeper.h"
 #include "Library/Shadow/ShadowMaskCtrl.h"
@@ -151,5 +150,3 @@ void ShadowMaskCtrl::validate() {}
 void ShadowMaskCtrl::invalidate() {}
 
 }  // namespace al
-
-void alActorSystemFunction::updateExecutorDraw(al::LiveActor*) {}

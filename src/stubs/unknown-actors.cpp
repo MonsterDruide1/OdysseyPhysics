@@ -22,13 +22,15 @@
 #include "Library/LiveActor/ActorActionFunction.h"
 #include "Library/LiveActor/ActorClippingFunction.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
+#include "Library/LiveActor/ActorInitFunction.h"
+#include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/ActorMovementFunction.h"
 #include "Library/LiveActor/ActorSensorMsgFunction.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
+#include "Library/Demo/DemoFunction.h"
 #include "Library/Layout/LayoutInitInfo.h"
 #include "Library/LiveActor/ActorSensorMsgFunction.h"
-#include "Library/LiveActor/LiveActorUtil.h"
 #include "Library/LiveActor/SubActorKeeper.h"
 #include "Library/MapObj/ClockMapParts.h"
 #include "Library/MapObj/ConveyerMapParts.h"
@@ -62,6 +64,7 @@
 #include "MapObj/CapSwitch.h"
 #include "MapObj/CapMessageShowInfo.h"
 #include "Player/CapTargetInfo.h"
+#include "Item/Coin.h"
 #include "Item/CoinCollectHolder.h"
 #include "System/GameDataFunction.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
@@ -131,7 +134,6 @@ void al::calcQuatLocalAxis(sead::Vector3<float>*, sead::Quat<float> const&, int)
 void al::calcQuatSide(sead::Vector3<float>*, sead::Quat<float> const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3<float>*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
 void al::calcSlerpKeyQuat(sead::Quat<float>*, al::KeyPoseKeeper const*, float) {CRASH}
-void al::calcViewModel(al::LiveActor const*) {CRASH}
 void al::calcViewModel(al::LiveActor*) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
@@ -307,9 +309,6 @@ void rs::updateDimensionKeeper(ActorDimensionKeeper*) {CRASH}
 template <>
 s32 sead::Mathi::lcm(int, int) {CRASH}
 
-Coin::Coin(char const*, bool) : al::LiveActor("") {CRASH}
-void Coin::appearCoinChameleon(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
-void Coin::setShadowDropLength(float) {CRASH}
 void CoinCollectHolder::registerCoinCollect(CoinCollect*) {CRASH}
 CoinRotateCalculator::CoinRotateCalculator(al::LiveActor*) {CRASH}
 void CoinRotateCalculator::addFishingLineTouch() {CRASH}
@@ -352,12 +351,3 @@ WaterSurfaceShadow* rs::tryCreateWaterSurfaceCoinShadow(al::ActorInitInfo const&
 bool rs::tryGetAirExplosionForce(sead::Vector3<float>*, al::SensorMsg const*) {CRASH}
 bool rs::tryGetByugoBlowForce(sead::Vector3<float>*, al::SensorMsg const*) {CRASH}
 void rs::tryUpdateWaterSurfaceCoinShadow(WaterSurfaceShadow*, al::LiveActor*, float) {CRASH}
-
-void Coin::init(const al::ActorInitInfo &initInfo) {CRASH}
-void Coin::initAfterPlacement() {CRASH}
-void Coin::appear() {CRASH}
-void Coin::makeActorAlive() {CRASH}
-void Coin::control() {CRASH}
-void Coin::endClipped() {CRASH}
-bool Coin::receiveMsg(const al::SensorMsg* message, al::HitSensor* other,
-                al::HitSensor* self) {CRASH}

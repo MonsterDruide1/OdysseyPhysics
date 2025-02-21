@@ -2,6 +2,7 @@
 #include <filesystem>
 #include "Library/Base/StringUtil.h"
 #include "Library/Collision/CollisionDirector.h"
+#include "Library/Execute/ExecuteDirector.h"
 #include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
@@ -144,7 +145,8 @@ void StageScene::init(const char* stageName, int scenario) {
         printf("PlayerList size is not 1\n");
         return;
     }
-    al::CollisionDirector* collDirector = new al::CollisionDirector(nullptr);
+    al::ExecuteDirector* executeDirector = new al::ExecuteDirector(512);
+    al::CollisionDirector* collDirector = new al::CollisionDirector(executeDirector);
     collDirector->setPartsKeeper(mPartsKeeper);
     PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
     al::PlacementInfo placementInfo = {};
@@ -153,7 +155,7 @@ void StageScene::init(const char* stageName, int scenario) {
     playerHolder->registerPlayer(player, nullptr);
     al::ActorInitInfo actorInfo = {};
     actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-                      nullptr, collDirector, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+                      nullptr, collDirector, nullptr, nullptr, executeDirector, nullptr, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, playerHolder, nullptr, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     al::ActorSceneInfo* sceneInfo =
