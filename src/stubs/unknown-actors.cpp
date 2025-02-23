@@ -6,6 +6,7 @@
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Controller/PadRumbleFunction.h"
 #include "Library/Effect/EffectSystemInfo.h"
+#include "Library/Joint/JointControllerKeeper.h"
 #include "Library/Layout/LayoutActionFunction.h"
 #include "Library/Layout/LayoutActor.h"
 #include "Library/Item/ItemUtil.h"
@@ -15,6 +16,7 @@
 #include "Library/Audio/System/SimpleAudioUser.h"
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Layout/LayoutActorUtil.h"
+#include "Library/LiveActor/ActorAnimFunction.h"
 #include "Library/LiveActor/ActorAreaFunction.h"
 #include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/Fluid/RippleCtrl.h"
@@ -28,6 +30,7 @@
 #include "Library/LiveActor/ActorMovementFunction.h"
 #include "Library/LiveActor/ActorSensorMsgFunction.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
+#include "Library/LiveActor/HitReactionKeeper.h"
 #include "Library/Demo/DemoFunction.h"
 #include "Library/Layout/LayoutInitInfo.h"
 #include "Library/LiveActor/ActorSensorMsgFunction.h"
@@ -57,6 +60,8 @@
 #include "Library/Stage/StageSwitchKeeper.h"
 #include "Library/Stage/StageSwitchUtil.h"
 #include "PlayerUtil.h"
+#include "Project/Action/ActionAnimCtrl.h"
+#include "Project/Action/ActionSeCtrl.h"
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
 #include "Project/Joint/RollingCubePoseKeeper.h"
 #include "MapObj/AnagramAlphabet.h"
@@ -66,6 +71,8 @@
 #include "Player/CapTargetInfo.h"
 #include "Item/Coin.h"
 #include "Item/CoinCollectHolder.h"
+#include "Item/LifeMaxUpItem.h"
+#include "Item/LifeMaxUpItem2D.h"
 #include "System/GameDataFunction.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
 #include "System/GameDataUtil.h"
@@ -145,7 +152,6 @@ void al::deleteEffect(al::IUseEffectKeeper*, char const*) {CRASH}
 void al::emitEffect(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const*) {CRASH}
 void al::fittingToCurrentKeyBoundingBox(sead::Quat<float>*, sead::Vector3<float>*, al::RollingCubePoseKeeper const*) {CRASH}
 void al::forceApplyCubeMap(al::LiveActor*, char const*) {CRASH}
-f32 al::getActionFrameMax(al::LiveActor const*, char const*) {CRASH}
 f32 al::getClippingRadius(al::LiveActor const*) {CRASH}
 const al::PlacementInfo& al::getCurrentKeyPlacementInfo(al::RollingCubePoseKeeper const*) {CRASH}
 const sead::Quatf& al::getCurrentKeyQuat(al::KeyPoseKeeper const*) {CRASH}
@@ -181,10 +187,6 @@ void al::initSubActorKeeperNoFile(al::LiveActor*, al::ActorInitInfo const&, int)
 void al::invalidateCollisionParts(al::LiveActor*) {CRASH}
 void al::invalidateDitherAnim(al::LiveActor*) {CRASH}
 bool al::isActionEnd(al::IUseLayoutAction const*, char const*) {CRASH}
-bool al::isActionEnd(al::LiveActor const*) {CRASH}
-bool al::isActionPlaying(al::LiveActor const*, char const*) {CRASH}
-bool al::isExistAction(al::LiveActor const*) {CRASH}
-bool al::isExistAction(al::LiveActor const*, char const*) {CRASH}
 bool al::isExistCollisionParts(al::LiveActor const*) {CRASH}
 bool al::isExistModel(al::LiveActor const*) {CRASH}
 bool al::isExistRail(al::IUseRail const*) {CRASH}
@@ -227,7 +229,6 @@ void al::registSupportFreezeSyncGroup(al::LiveActor*, al::ActorInitInfo const&) 
 void al::registerAreaHostMtx(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::registerSubActorSyncClipping(al::LiveActor*, al::LiveActor*) {CRASH}
 void al::resetKeyPose(al::KeyPoseKeeper*) {CRASH}
-void al::restartAction(al::LiveActor*) {CRASH}
 void al::restartKeyPose(al::KeyPoseKeeper*, sead::Vector3<float>*, sead::Quat<float>*) {CRASH}
 void al::rotateQuatLocalDirDegree(al::LiveActor*, int, float) {CRASH}
 void al::rotateQuatLocalDirDegree(al::LiveActor*, sead::Quat<float> const&, int, float) {CRASH}
@@ -239,7 +240,6 @@ void al::setEffectAllScale(al::IUseEffectKeeper*, char const*, sead::Vector3<flo
 void al::setKeyMoveClippingInfo(al::LiveActor*, sead::Vector3<float>*, al::KeyPoseKeeper const*) {CRASH}
 void al::setLocalTrans(al::IUseLayout*, sead::Vector2<float> const&) {CRASH}
 void al::setModelProjMtx0(al::ModelKeeper const*, sead::Matrix44<float> const&) {CRASH}
-void al::setNerveAtActionEnd(al::LiveActor*, al::Nerve const*) {CRASH}
 void al::setPaneStringFormat(al::IUseLayout*, char const*, char const*, ...) {CRASH}
 void al::setQuat(al::LiveActor*, sead::Quat<float> const&) {CRASH}
 void al::setRailClippingInfo(sead::Vector3<float>*, al::LiveActor*, float, float) {CRASH}
@@ -250,9 +250,7 @@ void al::setTransOffsetLocalDir(al::LiveActor*, sead::Quat<float> const&, sead::
 void al::showModel(al::LiveActor*) {CRASH}
 bool al::startAction(al::IUseLayoutAction*, char const*, char const*) {CRASH}
 void al::startBgmSituation(al::IUseAudioKeeper const*, char const*, bool, bool) {CRASH}
-void al::startNerveAction(al::LiveActor*, char const*) {CRASH}
 void al::startSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {CRASH}
-void al::stopAction(al::LiveActor*) {CRASH}
 bool al::tryAddDisplayOffset(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
 al::SwitchKeepOnAreaGroup* al::tryCreateSwitchKeepOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
@@ -276,7 +274,6 @@ bool al::tryOffStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
 bool al::tryOnStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
 bool al::tryOnSwitchDeadOn(al::IUseStageSwitch*) {CRASH}
 bool al::trySetEffectNamedMtxPtr(al::IUseEffectKeeper*, char const*, sead::Matrix34<float> const*) {CRASH}
-bool al::tryStartActionIfNotPlaying(al::LiveActor*, char const*) {CRASH}
 bool al::tryStartSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {CRASH}
 bool al::tryStartSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {CRASH}
 bool al::tryStopSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, int, char const*) {CRASH}
@@ -299,7 +296,7 @@ bool rs::isOnSaveObjInfo(SaveObjInfo const*) {CRASH}
 void rs::onSaveObjInfo(SaveObjInfo*) {CRASH}
 void rs::requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, sead::Vector3<float> const&) {CRASH}
 void rs::requestLockOnCapHitReaction(al::LiveActor const*, CapTargetInfo const*, char const*) {CRASH}
-void rs::snap2D(al::LiveActor const*, IUseDimension const*, float) {CRASH}
+void rs::snap2D(al::LiveActor*, IUseDimension const*, float) {CRASH}
 void rs::snap2DParallelizeFront(al::LiveActor*, IUseDimension const*, float) {CRASH}
 void rs::syncCoin2DAnimFrame(al::LiveActor*, char const*) {CRASH}
 bool rs::tryGetFlyingCapPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
@@ -351,3 +348,48 @@ WaterSurfaceShadow* rs::tryCreateWaterSurfaceCoinShadow(al::ActorInitInfo const&
 bool rs::tryGetAirExplosionForce(sead::Vector3<float>*, al::SensorMsg const*) {CRASH}
 bool rs::tryGetByugoBlowForce(sead::Vector3<float>*, al::SensorMsg const*) {CRASH}
 void rs::tryUpdateWaterSurfaceCoinShadow(WaterSurfaceShadow*, al::LiveActor*, float) {CRASH}
+
+LifeMaxUpItem2D::LifeMaxUpItem2D(char const*) : al::LiveActor("") {CRASH}
+void LifeMaxUpItem2D::init(const al::ActorInitInfo& initInfo) {CRASH}
+bool LifeMaxUpItem2D::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
+ActorDimensionKeeper* LifeMaxUpItem2D::getActorDimensionKeeper() const {CRASH}
+void LifeMaxUpItem2D::appear() {CRASH}
+
+LifeMaxUpItem::LifeMaxUpItem(char const*) : al::LiveActor("") {CRASH}
+void LifeMaxUpItem::init(const al::ActorInitInfo& initInfo) {CRASH}
+void LifeMaxUpItem::initAfterPlacement() {CRASH}
+bool LifeMaxUpItem::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
+void LifeMaxUpItem::appear() {CRASH}
+void LifeMaxUpItem::control() {CRASH}
+
+f32 al::ActionAnimCtrl::getActionFrameMax(char const*) const {CRASH}
+f32 al::ActionAnimCtrl::getFrame() const {CRASH}
+f32 al::ActionAnimCtrl::getFrameRate() const {CRASH}
+const char* al::ActionAnimCtrl::getPlayingActionName() {CRASH}
+bool al::ActionAnimCtrl::isActionEnd() {CRASH}
+bool al::ActionAnimCtrl::isActionOneTime(const char*) {CRASH}
+void al::ActionSeCtrl::resetAction(bool) {CRASH}
+void al::ActionSeCtrl::restartAction() {CRASH}
+void al::HitReactionKeeper::start(char const*, sead::Vector3<float> const*, al::HitSensor const*, al::HitSensor const*) {CRASH}
+void al::addVelocityToFront(al::LiveActor*, float) {CRASH}
+void al::copySklAnim(al::LiveActor*, al::LiveActor const*) {CRASH}
+const sead::Vector3f& al::getFront(al::LiveActor const*) {CRASH}
+void al::initJointControllerKeeper(al::LiveActor const*, int) {CRASH}
+void al::initJointLocalZRotator(al::LiveActor const*, float const*, char const*) {CRASH}
+bool al::isCollidedWall(al::LiveActor const*) {CRASH}
+bool al::isSensorEnemyAttack(al::HitSensor const*) {CRASH}
+bool al::isSensorPlayer(al::HitSensor const*) {CRASH}
+void al::rotateQuatMomentDegree(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
+void al::setVelocityToFront(al::LiveActor*, float) {CRASH}
+void al::turnFront(al::LiveActor*, float) {CRASH}
+f32 alAnimFunction::getAllAnimFrame(al::LiveActor const*, int) {CRASH}
+f32 alAnimFunction::getAllAnimFrameMax(al::LiveActor const*, char const*, int) {CRASH}
+f32 alAnimFunction::getAllAnimFrameRate(al::LiveActor const*, int) {CRASH}
+const char* alAnimFunction::getAllAnimName(al::LiveActor const*) {CRASH}
+bool alAnimFunction::isAllAnimEnd(al::LiveActor const*, int) {CRASH}
+void rs::createAndSetFilter2DOnly(al::LiveActor*) {CRASH}
+bool rs::isMsgBlockUpperPunch2D(al::SensorMsg const*) {CRASH}
+bool rs::isMsgKouraAttack2D(al::SensorMsg const*) {CRASH}
+bool rs::isMsgPush2D(al::SensorMsg const*) {CRASH}
+bool rs::sendMsgPush2D(al::HitSensor*, al::HitSensor*) {CRASH}
+void rs::snap2DGravity(al::LiveActor*, IUseDimension const*, float) {CRASH}

@@ -45,8 +45,6 @@ void onSyncHideSubActor(al::LiveActor*, al::LiveActor const*) {}
 
 void onSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) {}
 
-void startHitReaction(al::LiveActor const*, char const*) {}
-
 FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
                                  al::FootPrintServer*) {}
 

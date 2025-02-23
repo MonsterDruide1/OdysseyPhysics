@@ -127,7 +127,6 @@ s32 al::getSubActorNum(al::LiveActor const*) {CRASH}
 void al::hideShadowMask(al::LiveActor*) {CRASH}
 void al::hideSilhouetteModelIfShow(al::LiveActor*) {CRASH}
 void al::invalidateDepthShadowMap(al::LiveActor*) {CRASH}
-bool al::isActionOneTime(al::LiveActor const*, char const*) {CRASH}
 bool al::isCollidedFloorCode(al::LiveActor const*, char const*) {CRASH}
 bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
 bool al::isExistDepthShadowMapCtrl(al::LiveActor*) {CRASH}
