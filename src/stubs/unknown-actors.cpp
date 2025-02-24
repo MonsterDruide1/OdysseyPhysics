@@ -1,5 +1,6 @@
 #include "Item/Coin.h"
 #include "Item/CoinRotateCalculator.h"
+#include "Library/Area/AreaObjUtil.h"
 #include "Library/Audio/System/AudioKeeper.h"
 #include "Library/Bgm/BgmLineFunction.h"
 #include "Library/Collision/CollisionUtil.h"
@@ -15,6 +16,7 @@
 #include "Library/Area/SwitchOnAreaGroup.h"
 #include "Library/Audio/System/SimpleAudioUser.h"
 #include "Library/Collision/PartsConnector.h"
+#include "Library/Joint/JointSpringControllerHolder.h"
 #include "Library/Layout/LayoutActorUtil.h"
 #include "Library/LiveActor/ActorAnimFunction.h"
 #include "Library/LiveActor/ActorAreaFunction.h"
@@ -43,7 +45,6 @@
 #include "Library/LiveActor/ActorSensorFunction.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/MapObj/WheelMapParts.h"
-#include "Library/Math/MathUtil.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
 #include "Library/Model/ModelKeeper.h"
@@ -158,9 +159,7 @@ const sead::Quatf& al::getCurrentKeyQuat(al::KeyPoseKeeper const*) {CRASH}
 const sead::Vector3f& al::getCurrentKeyTrans(al::KeyPoseKeeper const*) {CRASH}
 s32 al::getKeyPoseCount(al::KeyPoseKeeper const*) {CRASH}
 void al::getLinksInfo(al::PlacementInfo*, al::ActorInitInfo const&, char const*) {CRASH}
-sead::Quatf* al::getQuatPtr(al::LiveActor*) {CRASH}
 f32 al::getRailCoord(al::IUseRail const*) {CRASH}
-const sead::Vector3f& al::getRotate(al::LiveActor const*) {CRASH}
 void al::getStringArg(char const**, al::ActorInitInfo const&, char const*) {CRASH}
 al::LiveActor* al::getSubActor(al::LiveActor const*, int) {CRASH}
 void al::getTrans(sead::Vector3<float>*, al::PlacementInfo const&) {CRASH}
@@ -193,7 +192,6 @@ bool al::isExistRail(al::IUseRail const*) {CRASH}
 bool al::isGreaterEqualMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isInDeathArea(al::LiveActor const*) {CRASH}
 bool al::isLastKey(al::KeyPoseKeeper const*) {CRASH}
-bool al::isLeftTarget(al::LiveActor const*, sead::Vector3<float> const&) {CRASH}
 bool al::isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isMoveSignKey(al::KeyPoseKeeper const*) {CRASH}
 bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
@@ -219,7 +217,6 @@ void al::moveSyncRail(al::LiveActor*, float) {CRASH}
 void al::moveSyncRailLoop(al::LiveActor*, float) {CRASH}
 void al::moveSyncRailTurn(al::LiveActor*, float) {CRASH}
 void al::multVecInvQuat(sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&) {CRASH}
-void al::multVecPose(sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&) {CRASH}
 void al::nextKeyPose(al::KeyPoseKeeper*) {CRASH}
 bool al::nextRollingCubeKey(al::RollingCubePoseKeeper*) {CRASH}
 void al::offDrawClipping(al::LiveActor*) {CRASH}
@@ -241,9 +238,7 @@ void al::setKeyMoveClippingInfo(al::LiveActor*, sead::Vector3<float>*, al::KeyPo
 void al::setLocalTrans(al::IUseLayout*, sead::Vector2<float> const&) {CRASH}
 void al::setModelProjMtx0(al::ModelKeeper const*, sead::Matrix44<float> const&) {CRASH}
 void al::setPaneStringFormat(al::IUseLayout*, char const*, char const*, ...) {CRASH}
-void al::setQuat(al::LiveActor*, sead::Quat<float> const&) {CRASH}
 void al::setRailClippingInfo(sead::Vector3<float>*, al::LiveActor*, float, float) {CRASH}
-void al::setRotateY(al::LiveActor*, float) {CRASH}
 void al::setSyncRailToCoord(al::LiveActor*, float) {CRASH}
 void al::setSyncRailToNearestPos(al::LiveActor*) {CRASH}
 void al::setTransOffsetLocalDir(al::LiveActor*, sead::Quat<float> const&, sead::Vector3<float> const&, float, int) {CRASH}
@@ -264,7 +259,6 @@ bool al::tryGetLinksMatrixTR(sead::Matrix34<float>*, al::ActorInitInfo const&, c
 bool al::tryGetLinksQuat(sead::Quat<float>*, al::ActorInitInfo const&, char const*) {CRASH}
 bool al::tryGetLinksTrans(sead::Vector3<float>*, al::ActorInitInfo const&, char const*) {CRASH}
 const char* al::tryGetMapPartsSuffix(al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryGetQuatPtr(al::LiveActor*) {CRASH}
 bool al::tryGetStringArg(char const**, al::ActorInitInfo const&, char const*) {CRASH}
 bool al::tryGetStringArg(char const**, al::PlacementInfo const&, char const*) {CRASH}
 bool al::tryHoldSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {CRASH}
@@ -373,7 +367,6 @@ void al::ActionSeCtrl::restartAction() {CRASH}
 void al::HitReactionKeeper::start(char const*, sead::Vector3<float> const*, al::HitSensor const*, al::HitSensor const*) {CRASH}
 void al::addVelocityToFront(al::LiveActor*, float) {CRASH}
 void al::copySklAnim(al::LiveActor*, al::LiveActor const*) {CRASH}
-const sead::Vector3f& al::getFront(al::LiveActor const*) {CRASH}
 void al::initJointControllerKeeper(al::LiveActor const*, int) {CRASH}
 void al::initJointLocalZRotator(al::LiveActor const*, float const*, char const*) {CRASH}
 bool al::isCollidedWall(al::LiveActor const*) {CRASH}
@@ -393,3 +386,22 @@ bool rs::isMsgKouraAttack2D(al::SensorMsg const*) {CRASH}
 bool rs::isMsgPush2D(al::SensorMsg const*) {CRASH}
 bool rs::sendMsgPush2D(al::HitSensor*, al::HitSensor*) {CRASH}
 void rs::snap2DGravity(al::LiveActor*, IUseDimension const*, float) {CRASH}
+
+al::JointSpringControllerHolder::JointSpringControllerHolder() {CRASH}
+void al::JointSpringControllerHolder::init(al::LiveActor*,char const*) {CRASH}
+bool al::calcDirOnPlane(sead::Vector3<float>*,sead::Vector3<float> const&,sead::Vector3<float> const&,sead::Vector3<float> const&) {CRASH}
+void al::calcDirToActor(sead::Vector3<float>*,al::LiveActor const*,al::LiveActor const*) {CRASH}
+void al::faceToTarget(al::LiveActor*,sead::Vector3<float> const&) {CRASH}
+bool al::isInDeathArea(al::IUseAreaObj const*,sead::Vector3<float> const&) {CRASH}
+void al::setEffectFollowMtxPtr(al::IUseEffectKeeper*,const char*,sead::Matrix34<float> const*) {CRASH}
+bool al::tryAddRippleLarge(al::LiveActor const*) {CRASH}
+bool al::tryDeleteEffect(al::IUseEffectKeeper*,char const*) {CRASH}
+void rs::appearPopupShine(Shine*, al::LiveActor const*) {CRASH}
+bool rs::isMsgBossKnuckleFallAttack(al::SensorMsg const*) {CRASH}
+bool rs::isMsgBossKnuckleIceFallToMummy(al::SensorMsg const*) {CRASH}
+bool rs::isMsgBullAttack(al::SensorMsg const*) {CRASH}
+bool rs::isMsgCactusNeedleAttack(al::SensorMsg const*) {CRASH}
+bool rs::isMsgGamaneBulletThrough(al::SensorMsg const*) {CRASH}
+bool rs::isMsgSeedAttack(al::SensorMsg const*) {CRASH}
+bool rs::isMsgSphinxRideAttack(al::SensorMsg const*) {CRASH}
+Shine* rs::tryInitLinkShine(al::ActorInitInfo const&,char const*,int) {CRASH}

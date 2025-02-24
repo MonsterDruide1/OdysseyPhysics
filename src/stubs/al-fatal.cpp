@@ -218,8 +218,7 @@ void al::resetAllCollisionMtx(al::LiveActor*) {
     CRASH
 }
 
-void al::setScale(al::LiveActor*, sead::Vector3<float> const&){
-    CRASH} sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const*, char const*) {
+sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const*, char const*) {
     CRASH
 }
 

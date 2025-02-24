@@ -120,7 +120,6 @@ al::Collider* al::getActorCollider(al::LiveActor const*) {CRASH}
 s32 al::getMaterialIndex(al::LiveActor const*, char const*) {CRASH}
 void al::getObjectName(char const**, al::ActorInitInfo const&) {CRASH}
 const sead::Vector3f& al::getOnGroundNormal(al::LiveActor const*, unsigned int) {CRASH}
-f32 al::getScaleX(al::LiveActor const*) {CRASH}
 al::LiveActor* al::getSensorHost(al::HitSensor const*) {CRASH}
 f32 al::getShadowMaskIntensity(al::LiveActor const*, char const*) {CRASH}
 s32 al::getSubActorNum(al::LiveActor const*) {CRASH}
@@ -161,7 +160,6 @@ bool al::sendMsgPush(al::HitSensor*, al::HitSensor*) {CRASH}
 bool al::sendMsgPushAndKillVelocityToTarget(al::LiveActor*, al::HitSensor*, al::HitSensor*) {CRASH}
 void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilterBase const*) {CRASH}
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
-void al::setFront(al::LiveActor*, sead::Vector3<float> const&) {CRASH}
 void al::setModelMaterialParameterF32(al::LiveActor const*, int, char const*, float) {CRASH}
 void al::setShadowMaskDropLength(al::LiveActor*, float, char const*) {CRASH}
 void al::setShadowMaskIntensity(al::LiveActor const*, char const*, float) {CRASH}
