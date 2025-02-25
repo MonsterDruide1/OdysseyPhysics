@@ -156,6 +156,8 @@ void RaylibActor::initRaylibModel() {
     raylibModel.meshes = (Mesh*)RL_CALLOC(raylibModel.meshCount, sizeof(Mesh));
     raylibModel.meshMaterial = (int*)RL_CALLOC(raylibModel.meshCount, sizeof(int));
 
+    al::ByamlIter prismAttributes;
+    const char* floorCode;
     for (int i = 0; i < coll.getNumInnerKcl(); i++) {
         Mesh& mesh = raylibModel.meshes[i];
         const al::KCPrismHeader* header = coll.getV1Header(i);
@@ -165,6 +167,7 @@ void RaylibActor::initRaylibModel() {
         mesh.vertexCount = mesh.triangleCount * 3;
         mesh.vertices = (float*)MemAlloc(mesh.vertexCount * 3 * sizeof(float));
         mesh.normals = (float*)MemAlloc(mesh.vertexCount * 3 * sizeof(float));
+        mesh.colors = (unsigned char*)MemAlloc(mesh.vertexCount * 4 * sizeof(unsigned char));
 
         for (int j = 0; j < mesh.triangleCount; j++) {
             const al::KCPrismData& prism = coll.getPrismData(j, header);
@@ -178,6 +181,26 @@ void RaylibActor::initRaylibModel() {
                 mesh.normals[j * 9 + k * 3 + 0] = norm.x;
                 mesh.normals[j * 9 + k * 3 + 1] = norm.y;
                 mesh.normals[j * 9 + k * 3 + 2] = norm.z;
+                mesh.colors[j * 12 + k * 4 + 0] = 255;
+                mesh.colors[j * 12 + k * 4 + 1] = 255;
+                mesh.colors[j * 12 + k * 4 + 2] = 255;
+                mesh.colors[j * 12 + k * 4 + 3] = 0;  // alpha = 0 => disabled, use material color
+
+                if (coll.getAttributes(&prismAttributes, &prism) && prismAttributes.tryGetStringByKey(&floorCode, "FloorCode")) {
+                    if(strcmp(floorCode, "Poison") == 0) {
+                        mesh.colors[j * 12 + k * 4 + 0] = 159;
+                        mesh.colors[j * 12 + k * 4 + 1] = 50;
+                        mesh.colors[j * 12 + k * 4 + 2] = 168;
+                        mesh.colors[j * 12 + k * 4 + 3] = 255;
+                    } else if(strcmp(floorCode, "Ground") == 0) {
+                        mesh.colors[j * 12 + k * 4 + 0] = 194;
+                        mesh.colors[j * 12 + k * 4 + 1] = 167;
+                        mesh.colors[j * 12 + k * 4 + 2] = 175;
+                        mesh.colors[j * 12 + k * 4 + 3] = 255;
+                    } else {
+                        printf("Unknown floor code: %s\n", floorCode);
+                    }
+                }
             }
         }
 

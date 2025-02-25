@@ -48,6 +48,11 @@ void main()
 
     float lighting = clamp(0.25+dn*0.5,0.0,1.0);
 
-    finalColor = vec4(vec3(lighting+checker(fragPosition, 100.0)*0.1),1.0) * colDiffuse;
+	vec4 color;
+	if(fragColor.a == 0)
+		color = colDiffuse;
+	else
+		color = fragColor;
+    finalColor = vec4(vec3(lighting+checker(fragPosition, 100.0)*0.1),1.0) * color;
 }
 
