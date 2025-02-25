@@ -73,7 +73,7 @@ void StageScene::init(const char* stageName, int scenario) {
 
         const char* className = nullptr;
         objiter.getIterByKey("UnitConfig").tryGetStringByKey(&className, "ParameterConfigName");
-        if(className) {
+        /*if(className) {
             for (int i=0; i<factory.mNumFactoryEntries; i++) {
                 if(al::isEqualString(factory.mFactoryEntries[i].mName, className)) {
                     if(!factory.mFactoryEntries[i].mCreationFunction) {
@@ -85,7 +85,7 @@ void StageScene::init(const char* stageName, int scenario) {
                     break;
                 }
             }
-        }
+        }*/
 
         if(!liveactor) {
             printf("Unknown class: %s\n", className ?: "nullptr");
