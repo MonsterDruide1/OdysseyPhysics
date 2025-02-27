@@ -37,3 +37,4 @@ build/*
 .direnv/*
 out/*
 *.pyc
+res/mod/*
