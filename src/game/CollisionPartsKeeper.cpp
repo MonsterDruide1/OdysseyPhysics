@@ -34,16 +34,16 @@ void CollisionPartsKeeper::resetToCollisionPartsList(al::CollisionParts*) {
     CRASH
 }
 
-bool CollisionPartsKeeper::checkStrikePoint(al::HitInfo*, const al::CollisionCheckInfoBase&) const {
+s32 CollisionPartsKeeper::checkStrikePoint(al::HitInfo*, const al::CollisionCheckInfoBase&) const {
     CRASH
 }
 
-bool CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer* results, const al::SphereCheckInfo& info,
+s32 CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer* results, const al::SphereCheckInfo& info,
                                              bool a4, const sead::Vector3f& a5) const {
     CRASH
 }
 
-bool CollisionPartsKeeper::checkStrikeArrow(al::ArrowHitResultBuffer* results,
+s32 CollisionPartsKeeper::checkStrikeArrow(al::ArrowHitResultBuffer* results,
                                             const al::ArrowCheckInfo& info) const {
     int numCollisions = 0;
     for (int i = 0; i < mPartsList.size(); i++) {
@@ -55,12 +55,12 @@ bool CollisionPartsKeeper::checkStrikeArrow(al::ArrowHitResultBuffer* results,
     return numCollisions;
 }
 
-bool CollisionPartsKeeper::checkStrikeSphereForPlayer(al::SphereHitResultBuffer*,
+s32 CollisionPartsKeeper::checkStrikeSphereForPlayer(al::SphereHitResultBuffer*,
                                                       const al::SphereCheckInfo&) const {
     CRASH
 }
 
-bool CollisionPartsKeeper::checkStrikeDisk(al::DiskHitResultBuffer*,
+s32 CollisionPartsKeeper::checkStrikeDisk(al::DiskHitResultBuffer*,
                                            const al::DiskCheckInfo&) const {
     CRASH
 }
