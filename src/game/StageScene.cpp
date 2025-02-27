@@ -42,7 +42,7 @@ StageScene::~StageScene() {
 }
 
 void StageScene::init(const char* stageName, int scenario) {
-    std::string szsPath = nlib::util::format("res/%s.szs", stageName);
+    std::string szsPath = nlib::util::format("res/mod/StageData/%s.szs", stageName);
 
     if (!std::filesystem::exists(szsPath)) {
         szsPath = nlib::util::format("%s/StageData/%s.szs", settings::sRomfsPath, stageName);

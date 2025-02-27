@@ -68,11 +68,15 @@ RaylibActor::~RaylibActor() {
 }
 
 void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper* keeper) {
-    std::string szsPath = nlib::util::format("%s/ObjectData/%s.szs", settings::sRomfsPath, mActor->mActorName);
+    std::string szsPath = nlib::util::format("res/mod/ObjectData/%s.szs", mActor->mActorName);
 
     if (!std::filesystem::exists(szsPath)) {
-        printf("File does not exist: %s\n", szsPath.c_str());
-        return;
+        szsPath = nlib::util::format("%s/ObjectData/%s.szs", settings::sRomfsPath, mActor->mActorName);
+
+        if (!std::filesystem::exists(szsPath)) {
+            printf("File does not exist: %s\n", szsPath.c_str());
+            return;
+        }
     }
 
     std::vector<u8> szsData = nlib::util::readFile<u8>(szsPath);
