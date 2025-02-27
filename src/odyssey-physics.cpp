@@ -109,7 +109,7 @@ int main2(int argc, char *argv[]) {
 
         game::StageSceneManager sceneManager{};
         game::StageScene* scene = sceneManager.getScene();
-        sceneManager.init(Stage, 0);
+        sceneManager.init(stage, 0);
 
         if (TASPlayback)
             Input::instance()->setInputProvider(new InputProviderTAS(TASFile));
