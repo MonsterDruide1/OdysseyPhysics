@@ -109,6 +109,8 @@ void setupCameraFollow(game::StageScene* scene, Camera3D& cam) {
     cam.up = raylibVec(scene->mCamera->up());
 }
 
+Model ShineCubeModelGym;
+
 void drawRaylib(game::StageScene* scene, Camera3D& cam) {
     ClearBackground(BLACK);
     BeginMode3D(cam);
@@ -127,6 +129,10 @@ void drawRaylib(game::StageScene* scene, Camera3D& cam) {
         actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
         actor->raylibModel.transform = raylibMtx(mtx);
         DrawModel(actor->raylibModel, {0, 0, 0}, SCALE, WHITE);
+    }
+
+    for (int i = 0; i < scene->mShinesNum; i++) {
+        DrawModel(ShineCubeModelGym, raylibVec(scene->mShinePositions[i]), SCALE, WHITE);
     }
 
     {
@@ -293,6 +299,9 @@ int main(int argc, char* argv[]) {
         BeginTextureMode(renderTarget);
         ClearBackground(BLACK);
         EndTextureMode();
+        
+        ShineCubeModelGym = LoadModelFromMesh(cubeMesh);
+        ShineCubeModelGym.materials[0].maps->color = GOLD;
     }
 
     initializeSead();

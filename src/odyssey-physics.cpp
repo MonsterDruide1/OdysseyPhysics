@@ -1,6 +1,6 @@
 // ----------------------------------
 // Easy configuration stuff
-#define Stage "CloudExStageMap"
+#define Stage "SandWorldMeganeExStageMap"
 #define TASFile "res/beginner_recording.txt"
 #define TASPlayback false
 #define WSL_COMPATIBILITY false
@@ -85,6 +85,8 @@ bool shouldUpdate() {
 
 #define SCALE 0.005f
 
+Model ShineCubeModel;
+
 int main2(int argc, char *argv[]) {
     const char* stage;
     if(argc > 1) {
@@ -100,6 +102,9 @@ int main2(int argc, char *argv[]) {
         if (!WSL_COMPATIBILITY) DisableCursor();
 
         setupRaylibUtil();
+        
+        ShineCubeModel = LoadModelFromMesh(cubeMesh);
+        ShineCubeModel.materials[0].maps->color = GOLD;
     }
 
     initializeSead();
@@ -188,6 +193,8 @@ int main2(int argc, char *argv[]) {
                 Input::instance()->dumpToTASFile("res/out.txt");
             if (IsKeyPressed(KEY_O))
                 camMode = (MyCameraMode)(((int)camMode + 1) % 3);
+            if (IsKeyPressed(KEY_L))
+                TakeScreenshot("screenshot.png");
             scene = sceneManager.getScene();
 
             if (IsKeyPressed(KEY_KP_8) || IsKeyPressedRepeat(KEY_KP_8))
@@ -267,6 +274,17 @@ int main2(int argc, char *argv[]) {
                     actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
                     actor->raylibModel.transform = raylibMtx(mtx);
                     DrawModel(actor->raylibModel, {0, 0, 0}, SCALE, WHITE);
+                }
+
+                for (int i = 0; i < scene->mShinesNum; i++) {
+                    sead::Vector3f pos = scene->mShinePositions[i];
+                    ShineCubeModel.transform = {
+                        1, 0, 0, pos.x,
+                        0, 1, 0, pos.y,
+                        0, 0, 1, pos.z,
+                        0, 0, 0, 1
+                    };
+                    DrawModel(ShineCubeModel, {0, 0, 0}, SCALE, WHITE);
                 }
 
                 {
