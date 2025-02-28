@@ -97,6 +97,18 @@ void setupCameraSandMegane(game::StageScene* scene, Camera3D& cam) {
     cam.up = raylibVec(scene->mCamera->up());
 }
 
+void setupCameraFollow(game::StageScene* scene, Camera3D& cam) {
+    float angleH = 0;
+    float angleV = 60;
+    float distance = 3000.000244140625;
+
+    sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+    scene->mCamera->setup(angleH, angleV, distance, playerPos);
+    cam.position = raylibVec(scene->mCamera->position() * SCALE);
+    cam.target = raylibVec(scene->mCamera->at() * SCALE);
+    cam.up = raylibVec(scene->mCamera->up());
+}
+
 void drawRaylib(game::StageScene* scene, Camera3D& cam) {
     ClearBackground(BLACK);
     BeginMode3D(cam);
@@ -298,6 +310,8 @@ int main(int argc, char* argv[]) {
         cam.projection = CAMERA_PERSPECTIVE;
         if(strcmp("SandWorldMeganeExStageMap", stage) == 0)
             setupCameraSandMegane(scene, cam);
+        else
+            setupCameraFollow(scene, cam);
 
         sead::ClonableExpHeap* prevHeap = sceneManager.mHeap->clone();
 
@@ -336,6 +350,8 @@ int main(int argc, char* argv[]) {
 
                     if(strcmp("SandWorldMeganeExStageMap", stage) == 0)
                         setupCameraSandMegane(scene, cam);
+                    else
+                        setupCameraFollow(scene, cam);
 
                     sendState(scene, serverSocket);
                     
