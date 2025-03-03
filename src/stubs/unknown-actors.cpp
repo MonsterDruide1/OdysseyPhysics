@@ -1,6 +1,8 @@
 #include "Item/Coin.h"
 #include "Item/CoinRotateCalculator.h"
 #include "Library/Area/AreaObjUtil.h"
+#include "Library/Area/AreaShapeCube.h"
+#include "Library/Area/AreaShapeCylinder.h"
 #include "Library/Audio/System/AudioKeeper.h"
 #include "Library/Bgm/BgmLineFunction.h"
 #include "Library/Collision/CollisionUtil.h"
@@ -12,6 +14,7 @@
 #include "Library/Layout/LayoutActor.h"
 #include "Library/Item/ItemUtil.h"
 #include "Library/Camera/CameraUtil.h"
+#include "Library/Area/AreaObjGroup.h"
 #include "Library/Area/SwitchKeepOnAreaGroup.h"
 #include "Library/Area/SwitchOnAreaGroup.h"
 #include "Library/Audio/System/SimpleAudioUser.h"
@@ -55,6 +58,7 @@
 #include "Library/Obj/PartsFunction.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementId.h"
+#include "Library/Player/PlayerUtil.h"
 #include "Library/Rail/RailUtil.h"
 #include "Library/Screen/ScreenFunction.h"
 #include "Library/Se/SeFunction.h"
@@ -79,6 +83,7 @@
 #include "System/GameDataUtil.h"
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/ActorDimensionUtil.h"
+#include "Util/DemoUtil.h"
 #include "Util/ItemUtil.h"
 #include "Util/Hack.h"
 #include "Util/PlayerUtil.h"
@@ -405,3 +410,47 @@ bool rs::isMsgGamaneBulletThrough(al::SensorMsg const*) {CRASH}
 bool rs::isMsgSeedAttack(al::SensorMsg const*) {CRASH}
 bool rs::isMsgSphinxRideAttack(al::SensorMsg const*) {CRASH}
 Shine* rs::tryInitLinkShine(al::ActorInitInfo const&,char const*,int) {CRASH}
+
+al::AreaObj* al::AreaObjGroup::getAreaObj(int) const {CRASH}
+bool al::AreaShapeCube::calcLocalBoundingBox(sead::BoundBox3<float>*) const {CRASH}
+bool al::AreaShapeCube::calcNearestEdgePoint(sead::Vector3<float>*, sead::Vector3<float> const&) const {CRASH}
+bool al::AreaShapeCube::checkArrowCollision(sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&) const {CRASH}
+bool al::AreaShapeCube::isInVolumeOffset(sead::Vector3<float> const&, float) const {CRASH}
+bool al::AreaShapeCylinder::calcLocalBoundingBox(sead::BoundBox3<float>*) const {CRASH}
+bool al::AreaShapeCylinder::calcNearestEdgePoint(sead::Vector3<float>*, sead::Vector3<float> const&) const {CRASH}
+bool al::AreaShapeCylinder::checkArrowCollision(sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&) const {CRASH}
+bool al::AreaShapeCylinder::isInVolume(sead::Vector3<float> const&) const {CRASH}
+bool al::AreaShapeCylinder::isInVolumeOffset(sead::Vector3<float> const&, float) const {CRASH}
+al::ActorCameraTarget* al::createActorCameraTarget(al::LiveActor const*, float) {CRASH}
+al::AreaObjGroup* al::createLinkAreaGroup(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*, char const*) {CRASH}
+void al::endCamera(al::IUseCamera const*, al::CameraTicket*, int, bool) {CRASH}
+bool al::getArg(float*, al::ActorInitInfo const&, char const*) {CRASH}
+bool al::getArg(int*, al::ActorInitInfo const&, char const*) {CRASH}
+f32 al::getSensorRadius(al::LiveActor const*, char const*) {CRASH}
+void al::initJointLocalYRotator(al::LiveActor const*, float const*, char const*) {CRASH}
+al::CameraTicket* al::initObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
+void al::invalidateHitSensor(al::LiveActor*, char const*) {CRASH}
+bool al::isInAreaObj(al::AreaObjGroup const*, sead::Vector3<float> const&) {CRASH}
+bool al::isMsgPush(al::SensorMsg const*) {CRASH}
+bool al::isSensorPlayerAll(al::HitSensor const*) {CRASH}
+bool al::isSensorPlayerAttack(al::HitSensor const*) {CRASH}
+void al::resetCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
+bool al::sendMsgPlayerHipDropKnockDown(al::HitSensor*, al::HitSensor*) {CRASH}
+void al::setCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
+void al::setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {CRASH}
+void al::setSensorRadius(al::LiveActor*, char const*, float) {CRASH}
+void al::startCamera(al::IUseCamera const*, al::CameraTicket*, int) {CRASH}
+bool al::tryFindNearestPlayerPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
+bool al::tryGetFront(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
+bool al::tryGetSide(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
+bool al::tryGetUp(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
+bool al::tryNormalizeOrDirZ(sead::Vector3<float>*) {CRASH}
+void rs::appearPopupShineWithoutDemo(Shine*) {CRASH}
+bool rs::isEndAppearShine(Shine const*) {CRASH}
+bool rs::isMsgHosuiAttack(al::SensorMsg const*) {CRASH}
+bool rs::isPlayerHackKuriboAny(al::LiveActor const*) {CRASH}
+bool rs::isPlayerHackTank(al::LiveActor const*) {CRASH}
+void rs::requestEndDemoNormal(al::LiveActor const*) {CRASH}
+bool rs::requestStartDemoNormal(al::LiveActor*, bool) {CRASH}
+bool rs::sendMsgKuriboGirlAttack(al::HitSensor*, al::HitSensor*) {CRASH}
+bool rs::sendMsgKuriboGirlLove(al::HitSensor*, al::HitSensor*) {CRASH}
