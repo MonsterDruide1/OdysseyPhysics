@@ -133,7 +133,14 @@ void drawRaylib(game::StageScene* scene, Camera3D& cam) {
     }
 
     for (int i = 0; i < scene->mShinesNum; i++) {
-        DrawModel(ShineCubeModelGym, raylibVec(scene->mShinePositions[i]), SCALE, WHITE);
+        sead::Vector3f pos = scene->mShinePositions[i];
+        ShineCubeModelGym.transform = {
+            1, 0, 0, pos.x,
+            0, 1, 0, pos.y,
+            0, 0, 1, pos.z,
+            0, 0, 0, 1
+        };
+        DrawModel(ShineCubeModelGym, {0, 0, 0}, SCALE, WHITE);
     }
 
     {
