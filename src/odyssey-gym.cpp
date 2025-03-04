@@ -55,9 +55,10 @@ static_assert(sizeof(DataPacket) == 0x42a+1);
 struct __attribute__((packed)) ResetPacket {
     bool isOverridePosition;   // 0x000
     sead::Vector3f playerPos;  // 0x001
+    bool isExportScript;       // 0x00d
 };
 #pragma pack()
-static_assert(sizeof(ResetPacket) == 0xd);
+static_assert(sizeof(ResetPacket) == 0xe);
 
 struct InputProviderGym : public InputProvider {
     FrameInput frame;
@@ -256,6 +257,8 @@ void sendRender(RenderTexture2D tex, int sock) {
     UnloadImage(img);
 }
 
+bool exportScript = false;
+
 int main(int argc, char* argv[]) {
     if (argc < 5) {
         printf("Usage: %s <stage> <scenario> <path to romfs> <socket-file> [display?]\n", argv[0]);
@@ -369,6 +372,9 @@ int main(int argc, char* argv[]) {
                         drawRaylib(scene, cam);
                         EndDrawing();
                     }
+
+                    if(exportScript)
+                        Input::instance()->dumpToTASFile("script.txt");
                     break;
                 case COMMAND_IN_RESET:
                     delete sceneManager.mHeap;
@@ -381,6 +387,7 @@ int main(int argc, char* argv[]) {
                         scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(reset_packet.playerPos);
                         rs::resetCollision(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
                     }
+                    exportScript = reset_packet.isExportScript;
 
                     sendState(scene, serverSocket);
                     break;
