@@ -124,6 +124,6 @@ public:
 
 public:
     sead::TList<TASFrame> mFrames = {};
-    int mCurrentFrame = 0;
+    int mCurrentFrame = -1;
     bool mPlaying = true;
 };
