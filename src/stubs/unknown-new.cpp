@@ -2,34 +2,48 @@
 #include "Enemy/EnemyStateSwoon.h"
 #include "Enemy/GamaneHackState.h"
 #include "Enemy/HackerDepthShadowMapCtrl.h"
+#include "Enemy/Pecho.h"
 #include "Item/Coin2D.h"
+#include "Item/Coin2DCityDirector.h"
 #include "Item/LifeUpItem.h"
 #include "Item/LifeUpItem2D.h"
+#include "Library/Camera/CameraUtil.h"
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Demo/DemoDirector.h"
+#include "Library/Demo/DemoFunction.h"
 #include "Library/Execute/ExecuteRequestKeeper.h"
 #include "Library/Execute/ExecuteTableHolderDraw.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
 #include "Library/Item/ItemUtil.h"
+#include "Library/Joint/JointControllerKeeper.h"
 #include "Library/KeyPose/KeyPoseKeeper.h"
+#include "Library/KeyPose/KeyPoseKeeperUtil.h"
 #include "Library/Layout/LayoutActor.h"
 #include "Library/LiveActor/ActorActionFunction.h"
 #include "Library/LiveActor/ActorAreaFunction.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
+#include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorSceneInfo.h"
+#include "Library/LiveActor/ActorSensorMsgFunction.h"
 #include "Library/LiveActor/ActorMovementFunction.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/ActorSensorMsgFunction.h"
 #include "Library/LiveActor/ActorSensorFunction.h"
 #include "Library/LiveActor/SubActorKeeper.h"
 #include "Library/Math/MathUtil.h"
+#include "Library/Movement/AnimScaleController.h"
 #include "Library/Nature/NatureUtil.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Player/PlayerUtil.h"
+#include "Library/Rail/RailUtil.h"
 #include "Library/Se/SeFunction.h"
 #include "Library/Shadow/ActorShadowUtil.h"
+#include "Library/Stage/StageSwitchKeeper.h"
 #include "Library/Stage/StageSwitchUtil.h"
+#include "Project/Joint/KeyPose.h"
+#include "MapObj/AppearSwitchSave.h"
+#include "MapObj/AppearSwitchTimer.h"
 #include "MapObj/Doshi.h"
 #include "Player/HackerJudge.h"
 #include "Player/PlayerCollider.h"
@@ -41,6 +55,7 @@
 #include "Util/AreaUtil.h"
 #include "Util/DemoUtil.h"
 #include "Util/Hack.h"
+#include "Util/ItemGenerator.h"
 #include "Util/ItemUtil.h"
 #include "Util/SensorMsgFunction.h"
 #include "Util/ShadowUtil.h"
@@ -98,7 +113,6 @@ void al::ExecuteTableHolderUpdate::tryRegisterActor(al::LiveActor*, char const*)
 void al::ExecuteTableHolderUpdate::tryRegisterFunctor(al::FunctorBase const&, char const*) {CRASH}
 void al::ExecuteTableHolderUpdate::tryRegisterLayout(al::LayoutActor*, char const*) {CRASH}
 void al::ExecuteTableHolderUpdate::tryRegisterUser(al::IUseExecutor*, char const*) {CRASH}
-void al::KeyPoseKeeper::setMoveTypeStop() {CRASH}
 void al::LayoutActor::initExecuteInfo(al::LayoutExecuteInfo*) {CRASH}
 void al::addVelocityToGravityFittedGround(al::LiveActor*, float, unsigned int) {CRASH}
 void al::addVelocityToGravityNaturalOrFittedGround(al::LiveActor*, float) {CRASH}
@@ -149,7 +163,7 @@ bool al::isValidSwitchStart(al::IUseStageSwitch const*) {CRASH}
 void al::offDepthShadowModel(al::LiveActor*) {CRASH}
 void al::onDepthShadowModel(al::LiveActor*) {CRASH}
 void al::onStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
-void al::reboundVelocityFromCollision(al::LiveActor*, float, float, float) {CRASH}
+bool al::reboundVelocityFromCollision(al::LiveActor*, float, float, float) {CRASH}
 void al::rotateVectorDegreeY(sead::Vector3<float>*, float) {CRASH}
 void al::rotateVectorQuat(sead::Vector3<float>*, sead::Quat<float> const&) {CRASH}
 void al::scaleVelocityDirection(al::LiveActor*, sead::Vector3<float> const&, float) {CRASH}
@@ -252,3 +266,65 @@ void HackerJudgeNormalFall::reset() {CRASH}
 void HackerJudgeNormalFall::update() {CRASH}
 bool HackerJudgeNormalFall::judge() const {CRASH}
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
+
+void AppearSwitchSave::onSwitchDemo() {CRASH}
+AppearSwitchTimer::AppearSwitchTimer() : al::NerveExecutor("") {CRASH}
+void AppearSwitchTimer::init(al::ActorInitInfo const&,al::IUseAudioKeeper const*,al::IUseStageSwitch*,al::IUseCamera*,al::LiveActor*) {CRASH}
+bool AppearSwitchTimer::isSwitchOn() {CRASH}
+void AppearSwitchTimer::onSwitch() {CRASH}
+ItemGenerator::ItemGenerator(al::LiveActor*,al::ActorInitInfo const&) {CRASH}
+void ItemGenerator::generate(sead::Vector3<float> const&,sead::Vector3<float> const&) {CRASH}
+bool ItemGenerator::isNone() const {CRASH}
+al::AnimScaleController::AnimScaleController(al::AnimScaleParam const*) : al::NerveExecutor("") {CRASH}
+void al::AnimScaleController::startAndSetScaleVelocityY(float) {CRASH}
+void al::AnimScaleController::startAndSetScaleY(float) {CRASH}
+void al::AnimScaleController::stopAndReset() {CRASH}
+void al::AnimScaleController::update() {CRASH}
+al::KeyPose::KeyPose() {CRASH}
+void al::KeyPose::init(al::PlacementInfo const&) {CRASH}
+void al::addDemoActorFromAddDemoInfo(al::LiveActor const*,al::AddDemoInfo const*) {CRASH}
+bool al::calcDirH(sead::Vector3<float>*,sead::Vector3<float> const&,sead::Vector3<float> const&) {CRASH}
+f32 al::calcDistanceV(sead::Vector3<float> const&,al::HitSensor const*,al::HitSensor const*) {CRASH}
+void al::calcJointScale(sead::Vector3<float>*,al::LiveActor const*,char const*) {CRASH}
+void al::calcKeyMoveClippingInfo(sead::Vector3<float>*,float*,al::KeyPoseKeeper const*,float) {CRASH}
+s32 al::calcLinkNestNum(al::PlacementInfo const&,char const*) {CRASH}
+f32 al::calcQuatUpY(sead::Quat<float> const&) {CRASH}
+f32 al::calcRailTotalRate(al::IUseRail const*) {CRASH}
+void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
+const sead::Vector3f& al::getActorVelocity(al::HitSensor const*) {CRASH}
+const al::PlacementInfo* al::getPlacementInfo(al::ActorInitInfo const&) {CRASH}
+const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {CRASH}
+void al::getRandomDirH(sead::Vector3<float>*,sead::Vector3<float> const&) {CRASH}
+void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quat<float> const*,char const*) {CRASH}
+bool al::isMsgEnemyAttackNeedle(al::SensorMsg const*) {CRASH}
+bool al::isMsgEnemyTouch(al::SensorMsg const*) {CRASH}
+bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
+bool al::listenStageSwitchOff(al::IUseStageSwitch*,char const*,al::FunctorBase const&) {CRASH}
+void al::offStageSwitch(al::IUseStageSwitch*,char const*) {CRASH}
+al::AddDemoInfo* al::registDemoRequesterToAddDemoInfo(al::LiveActor const*,al::ActorInitInfo const&,int) {CRASH}
+void al::rotateQuatMoment(sead::Quat<float>*,sead::Quat<float> const&,sead::Vector3<float> const&) {CRASH}
+void al::rotateQuatYDirRandomDegree(al::LiveActor*) {CRASH}
+bool al::sendMsgEnemyAttackFire(al::HitSensor*,al::HitSensor*,char const*) {CRASH}
+bool al::sendMsgRestart(al::LiveActor*) {CRASH}
+void al::setAppearItemOffset(al::LiveActor const*,sead::Vector3<float> const&) {CRASH}
+void al::setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3<float>*,al::KeyPoseKeeper const*) {CRASH}
+bool al::tryGetArg(float*,al::PlacementInfo const&,char const*) {CRASH}
+bool rs::isMsgBubbleAttackToPecho(al::SensorMsg const*) {CRASH}
+bool rs::isMsgBubbleGroundTouchTrigger(al::SensorMsg const*) {CRASH}
+bool rs::isMsgCapHipDrop(al::SensorMsg const*) {CRASH}
+bool rs::isMsgFrogHackTrample(al::SensorMsg const*) {CRASH}
+bool rs::isMsgPlayerAndCapObjHipDropReflectAll(al::SensorMsg const*) {CRASH}
+
+void al::addVelocityDampToTarget(al::LiveActor*, sead::Vector3<float> const&, float, float) {CRASH}
+void al::calcMomentRollBall(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+void al::getLinksInfo(al::PlacementInfo*, al::PlacementInfo const&, char const*) {CRASH}
+al::CameraTicket* al::initDemoObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
+bool al::isNear(sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+f32 al::lerpValue(float, float, float, float, float) {CRASH}
+bool al::pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
+void al::rotateQuatYDirDegree(sead::Quat<float>*, sead::Quat<float> const&, float) {CRASH}
+
+Coin2DCityDirector::Coin2DCityDirector(char const*) : al::LiveActor("") {CRASH}
+void Coin2DCityDirector::init(const al::ActorInitInfo& initInfo) {CRASH}
+void Coin2DCityDirector::initAfterPlacement() {CRASH}
+void Coin2DCityDirector::control() {CRASH}

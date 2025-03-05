@@ -133,24 +133,17 @@ bool al::appearItemTiming(al::LiveActor const*, char const*) {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, bool) {CRASH}
 void al::calcCameraFront(sead::Vector3<float>*, al::IUseCamera const*, int) {CRASH}
 void al::calcCurrentKeyQT(sead::Quat<float>*, sead::Vector3<float>*, al::RollingCubePoseKeeper const*, sead::Quat<float> const&, sead::Vector3<float> const&, float) {CRASH}
-f32 al::calcDistanceNextKeyTrans(al::KeyPoseKeeper const*) {CRASH}
 void al::calcJointPos(sead::Vector3<float>*, al::LiveActor const*, char const*) {CRASH}
-void al::calcKeyMoveClippingInfo(sead::Vector3<float>*, float*, al::KeyPoseKeeper const*, float) {CRASH}
-s32 al::calcKeyMoveMoveTime(al::KeyPoseKeeper const*) {CRASH}
-s32 al::calcKeyMoveWaitTime(al::KeyPoseKeeper const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2<float>*, al::IUseCamera const*, sead::Vector3<float> const&) {CRASH}
-void al::calcLerpKeyTrans(sead::Vector3<float>*, al::KeyPoseKeeper const*, float) {CRASH}
 s32 al::calcLinkChildNum(al::ActorInitInfo const&, char const*) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34<float>*, al::RollingCubePoseKeeper const*, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
 al::Axis al::calcNearVecFromAxis3(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Quat<float> const&) {CRASH}
 void al::calcQuatLocalAxis(sead::Vector3<float>*, sead::Quat<float> const&, int) {CRASH}
 void al::calcQuatSide(sead::Vector3<float>*, sead::Quat<float> const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3<float>*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
-void al::calcSlerpKeyQuat(sead::Quat<float>*, al::KeyPoseKeeper const*, float) {CRASH}
 void al::calcViewModel(al::LiveActor*) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
-al::KeyPoseKeeper* al::createKeyPoseKeeper(al::ActorInitInfo const&) {CRASH}
 al::LiveActor* al::createLinksActorFromFactory(al::ActorInitInfo const&, char const*, int) {CRASH}
 al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
 al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(sead::BoundBox3<float> const&, al::ActorInitInfo const&) {CRASH}
@@ -160,9 +153,6 @@ void al::fittingToCurrentKeyBoundingBox(sead::Quat<float>*, sead::Vector3<float>
 void al::forceApplyCubeMap(al::LiveActor*, char const*) {CRASH}
 f32 al::getClippingRadius(al::LiveActor const*) {CRASH}
 const al::PlacementInfo& al::getCurrentKeyPlacementInfo(al::RollingCubePoseKeeper const*) {CRASH}
-const sead::Quatf& al::getCurrentKeyQuat(al::KeyPoseKeeper const*) {CRASH}
-const sead::Vector3f& al::getCurrentKeyTrans(al::KeyPoseKeeper const*) {CRASH}
-s32 al::getKeyPoseCount(al::KeyPoseKeeper const*) {CRASH}
 void al::getLinksInfo(al::PlacementInfo*, al::ActorInitInfo const&, char const*) {CRASH}
 f32 al::getRailCoord(al::IUseRail const*) {CRASH}
 void al::getStringArg(char const**, al::ActorInitInfo const&, char const*) {CRASH}
@@ -196,15 +186,11 @@ bool al::isExistModel(al::LiveActor const*) {CRASH}
 bool al::isExistRail(al::IUseRail const*) {CRASH}
 bool al::isGreaterEqualMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isInDeathArea(al::LiveActor const*) {CRASH}
-bool al::isLastKey(al::KeyPoseKeeper const*) {CRASH}
 bool al::isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
-bool al::isMoveSignKey(al::KeyPoseKeeper const*) {CRASH}
 bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
 bool al::isObjectName(al::ActorInitInfo const&, char const*) {CRASH}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {CRASH}
-bool al::isRestart(al::KeyPoseKeeper const*) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
-bool al::isStop(al::KeyPoseKeeper const*) {CRASH}
 bool al::isValidStageSwitch(al::IUseStageSwitch const*, char const*) {CRASH}
 bool al::isValidSwitchAppear(al::IUseStageSwitch const*) {CRASH}
 bool al::isValidSwitchKill(al::IUseStageSwitch const*) {CRASH}
@@ -218,11 +204,10 @@ bool al::listenStageSwitchOnStop(al::IUseStageSwitch*, al::FunctorBase const&) {
 void al::makeMapPartsModelName(sead::BufferedSafeStringBase<char>*, sead::BufferedSafeStringBase<char>*, al::ActorInitInfo const&) {CRASH}
 void al::makeMtxProj(sead::Matrix44<float>*, sead::Vector2<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 f32 al::modf(float, float) {CRASH}
-void al::moveSyncRail(al::LiveActor*, float) {CRASH}
-void al::moveSyncRailLoop(al::LiveActor*, float) {CRASH}
-void al::moveSyncRailTurn(al::LiveActor*, float) {CRASH}
+bool al::moveSyncRail(al::LiveActor*, float) {CRASH}
+bool al::moveSyncRailLoop(al::LiveActor*, float) {CRASH}
+bool al::moveSyncRailTurn(al::LiveActor*, float) {CRASH}
 void al::multVecInvQuat(sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&) {CRASH}
-void al::nextKeyPose(al::KeyPoseKeeper*) {CRASH}
 bool al::nextRollingCubeKey(al::RollingCubePoseKeeper*) {CRASH}
 void al::offDrawClipping(al::LiveActor*) {CRASH}
 void al::onDrawClipping(al::LiveActor*) {CRASH}
@@ -230,8 +215,6 @@ void al::registActorToDemoInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::registSupportFreezeSyncGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::registerAreaHostMtx(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::registerSubActorSyncClipping(al::LiveActor*, al::LiveActor*) {CRASH}
-void al::resetKeyPose(al::KeyPoseKeeper*) {CRASH}
-void al::restartKeyPose(al::KeyPoseKeeper*, sead::Vector3<float>*, sead::Quat<float>*) {CRASH}
 void al::rotateQuatLocalDirDegree(al::LiveActor*, int, float) {CRASH}
 void al::rotateQuatLocalDirDegree(al::LiveActor*, sead::Quat<float> const&, int, float) {CRASH}
 void al::rotateQuatRadian(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, float) {CRASH}
@@ -239,7 +222,6 @@ void al::scaleVelocity(al::LiveActor*, float) {CRASH}
 void al::scaleVelocityHV(al::LiveActor*, float, float) {CRASH}
 void al::setClippingInfo(al::LiveActor*, float, sead::Vector3<float> const*) {CRASH}
 void al::setEffectAllScale(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const&) {CRASH}
-void al::setKeyMoveClippingInfo(al::LiveActor*, sead::Vector3<float>*, al::KeyPoseKeeper const*) {CRASH}
 void al::setLocalTrans(al::IUseLayout*, sead::Vector2<float> const&) {CRASH}
 void al::setModelProjMtx0(al::ModelKeeper const*, sead::Matrix44<float> const&) {CRASH}
 void al::setPaneStringFormat(al::IUseLayout*, char const*, char const*, ...) {CRASH}
