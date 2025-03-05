@@ -306,7 +306,6 @@ f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
 void al::holdSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {CRASH}
 bool al::isExistDitherAnimator(al::LiveActor const*) {CRASH}
 bool al::isInWater(al::LiveActor const*) {CRASH}
-bool al::isMsgScreenPointInvalidCollisionParts(al::SensorMsg const*) {CRASH}
 bool al::isPlaced(al::ActorInitInfo const&) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3<float> const&) {CRASH}
 bool al::listenStageSwitchOnAppear(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
@@ -368,10 +367,6 @@ f32 alAnimFunction::getAllAnimFrameRate(al::LiveActor const*, int) {CRASH}
 const char* alAnimFunction::getAllAnimName(al::LiveActor const*) {CRASH}
 bool alAnimFunction::isAllAnimEnd(al::LiveActor const*, int) {CRASH}
 void rs::createAndSetFilter2DOnly(al::LiveActor*) {CRASH}
-bool rs::isMsgBlockUpperPunch2D(al::SensorMsg const*) {CRASH}
-bool rs::isMsgKouraAttack2D(al::SensorMsg const*) {CRASH}
-bool rs::isMsgPush2D(al::SensorMsg const*) {CRASH}
-bool rs::sendMsgPush2D(al::HitSensor*, al::HitSensor*) {CRASH}
 void rs::snap2DGravity(al::LiveActor*, IUseDimension const*, float) {CRASH}
 
 al::JointSpringControllerHolder::JointSpringControllerHolder() {CRASH}
@@ -384,13 +379,6 @@ void al::setEffectFollowMtxPtr(al::IUseEffectKeeper*,const char*,sead::Matrix34<
 bool al::tryAddRippleLarge(al::LiveActor const*) {CRASH}
 bool al::tryDeleteEffect(al::IUseEffectKeeper*,char const*) {CRASH}
 void rs::appearPopupShine(Shine*, al::LiveActor const*) {CRASH}
-bool rs::isMsgBossKnuckleFallAttack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgBossKnuckleIceFallToMummy(al::SensorMsg const*) {CRASH}
-bool rs::isMsgBullAttack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCactusNeedleAttack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgGamaneBulletThrough(al::SensorMsg const*) {CRASH}
-bool rs::isMsgSeedAttack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgSphinxRideAttack(al::SensorMsg const*) {CRASH}
 Shine* rs::tryInitLinkShine(al::ActorInitInfo const&,char const*,int) {CRASH}
 
 al::AreaObj* al::AreaObjGroup::getAreaObj(int) const {CRASH}
@@ -413,11 +401,9 @@ void al::initJointLocalYRotator(al::LiveActor const*, float const*, char const*)
 al::CameraTicket* al::initObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 void al::invalidateHitSensor(al::LiveActor*, char const*) {CRASH}
 bool al::isInAreaObj(al::AreaObjGroup const*, sead::Vector3<float> const&) {CRASH}
-bool al::isMsgPush(al::SensorMsg const*) {CRASH}
 bool al::isSensorPlayerAll(al::HitSensor const*) {CRASH}
 bool al::isSensorPlayerAttack(al::HitSensor const*) {CRASH}
 void al::resetCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
-bool al::sendMsgPlayerHipDropKnockDown(al::HitSensor*, al::HitSensor*) {CRASH}
 void al::setCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
 void al::setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {CRASH}
 void al::setSensorRadius(al::LiveActor*, char const*, float) {CRASH}
@@ -429,10 +415,7 @@ bool al::tryGetUp(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
 bool al::tryNormalizeOrDirZ(sead::Vector3<float>*) {CRASH}
 void rs::appearPopupShineWithoutDemo(Shine*) {CRASH}
 bool rs::isEndAppearShine(Shine const*) {CRASH}
-bool rs::isMsgHosuiAttack(al::SensorMsg const*) {CRASH}
 bool rs::isPlayerHackKuriboAny(al::LiveActor const*) {CRASH}
 bool rs::isPlayerHackTank(al::LiveActor const*) {CRASH}
 void rs::requestEndDemoNormal(al::LiveActor const*) {CRASH}
 bool rs::requestStartDemoNormal(al::LiveActor*, bool) {CRASH}
-bool rs::sendMsgKuriboGirlAttack(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgKuriboGirlLove(al::HitSensor*, al::HitSensor*) {CRASH}

@@ -149,11 +149,6 @@ bool al::isFallNextMove(al::LiveActor const*, sead::Vector3<float> const&, float
 bool al::isFallOrDamageCodeNextMove(al::LiveActor const*, sead::Vector3<float> const&, float, float) {CRASH}
 bool al::isHalfProbability() {CRASH}
 bool al::isInWaterArea(al::LiveActor const*) {CRASH}
-bool al::isMsgEnemyAttackFire(al::SensorMsg const*) {CRASH}
-bool al::isMsgPlayerFireBallAttack(al::SensorMsg const*) {CRASH}
-bool al::isMsgPlayerTouch(al::SensorMsg const*) {CRASH}
-bool al::isMsgPlayerTrample(al::SensorMsg const*) {CRASH}
-bool al::isMsgPlayerTrampleReflect(al::SensorMsg const*) {CRASH}
 bool al::isMtxConnectorConnecting(al::MtxConnector const*) {CRASH}
 bool al::isNearPlayer(al::LiveActor const*, float) {CRASH}
 bool al::isOnStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
@@ -168,10 +163,6 @@ void al::rotateVectorDegreeY(sead::Vector3<float>*, float) {CRASH}
 void al::rotateVectorQuat(sead::Vector3<float>*, sead::Quat<float> const&) {CRASH}
 void al::scaleVelocityDirection(al::LiveActor*, sead::Vector3<float> const&, float) {CRASH}
 void al::scaleVelocityParallelVertical(al::LiveActor*, sead::Vector3<float> const&, float, float) {CRASH}
-bool al::sendMsgEnemyAttack(al::HitSensor*, al::HitSensor*) {CRASH}
-bool al::sendMsgEnemyAttackNeedle(al::HitSensor*, al::HitSensor*) {CRASH}
-bool al::sendMsgPush(al::HitSensor*, al::HitSensor*) {CRASH}
-bool al::sendMsgPushAndKillVelocityToTarget(al::LiveActor*, al::HitSensor*, al::HitSensor*) {CRASH}
 void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilterBase const*) {CRASH}
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
 void al::setModelMaterialParameterF32(al::LiveActor const*, int, char const*, float) {CRASH}
@@ -203,27 +194,7 @@ void rs::hideShadowHackCap(IUsePlayerHack*) {CRASH}
 void rs::initHackShadow(al::LiveActor*) {CRASH}
 bool rs::isHackStartDemoEnterMario(IUsePlayerHack const*) {CRASH}
 bool rs::isInLowGravityArea(al::LiveActor const*) {CRASH}
-bool rs::isMsgBlowDown(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapAttackCollide(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapEnableLockOn(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapReflect(al::SensorMsg const*) {CRASH}
-bool rs::isMsgConductLightning(al::SensorMsg const*) {CRASH}
-bool rs::isMsgDamageBallAttack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgDonsukeAttack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgGamaneBullet(al::SensorMsg const*) {CRASH}
-bool rs::isMsgHackMarioCheckpointFlagWarp(al::SensorMsg const*) {CRASH}
-bool rs::isMsgKillByHomeDemo(al::SensorMsg const*) {CRASH}
-bool rs::isMsgKillByShineGet(al::SensorMsg const*) {CRASH}
-bool rs::isMsgNpcScareByEnemy(al::SensorMsg const*) {CRASH}
-bool rs::isMsgPechoSpot(al::SensorMsg const*) {CRASH}
-bool rs::isMsgPressDown(al::SensorMsg const*) {CRASH}
-bool rs::isMsgSeedTouch(al::SensorMsg const*) {CRASH}
-bool rs::isMsgSenobiTrample(al::SensorMsg const*) {CRASH}
-bool rs::isMsgStartHack(al::SensorMsg const*) {CRASH}
-bool rs::isMsgTargetMarkerPosition(al::SensorMsg const*) {CRASH}
-bool rs::isMsgTimerAthleticDemoStart(al::SensorMsg const*) {CRASH}
 void rs::requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {CRASH}
-bool rs::sendMsgPushToPlayer(al::HitSensor*, al::HitSensor*) {CRASH}
 void rs::setAppearItemFactorAndOffsetByMsg(al::LiveActor const*, al::SensorMsg const*, al::HitSensor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
 void rs::setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3<float> const&) {CRASH}
@@ -296,24 +267,15 @@ const al::PlacementInfo* al::getPlacementInfo(al::ActorInitInfo const&) {CRASH}
 const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {CRASH}
 void al::getRandomDirH(sead::Vector3<float>*,sead::Vector3<float> const&) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quat<float> const*,char const*) {CRASH}
-bool al::isMsgEnemyAttackNeedle(al::SensorMsg const*) {CRASH}
-bool al::isMsgEnemyTouch(al::SensorMsg const*) {CRASH}
 bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
 bool al::listenStageSwitchOff(al::IUseStageSwitch*,char const*,al::FunctorBase const&) {CRASH}
 void al::offStageSwitch(al::IUseStageSwitch*,char const*) {CRASH}
 al::AddDemoInfo* al::registDemoRequesterToAddDemoInfo(al::LiveActor const*,al::ActorInitInfo const&,int) {CRASH}
 void al::rotateQuatMoment(sead::Quat<float>*,sead::Quat<float> const&,sead::Vector3<float> const&) {CRASH}
 void al::rotateQuatYDirRandomDegree(al::LiveActor*) {CRASH}
-bool al::sendMsgEnemyAttackFire(al::HitSensor*,al::HitSensor*,char const*) {CRASH}
-bool al::sendMsgRestart(al::LiveActor*) {CRASH}
 void al::setAppearItemOffset(al::LiveActor const*,sead::Vector3<float> const&) {CRASH}
 void al::setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3<float>*,al::KeyPoseKeeper const*) {CRASH}
 bool al::tryGetArg(float*,al::PlacementInfo const&,char const*) {CRASH}
-bool rs::isMsgBubbleAttackToPecho(al::SensorMsg const*) {CRASH}
-bool rs::isMsgBubbleGroundTouchTrigger(al::SensorMsg const*) {CRASH}
-bool rs::isMsgCapHipDrop(al::SensorMsg const*) {CRASH}
-bool rs::isMsgFrogHackTrample(al::SensorMsg const*) {CRASH}
-bool rs::isMsgPlayerAndCapObjHipDropReflectAll(al::SensorMsg const*) {CRASH}
 
 void al::addVelocityDampToTarget(al::LiveActor*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::calcMomentRollBall(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
