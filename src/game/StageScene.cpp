@@ -75,13 +75,13 @@ void StageScene::init(const char* stageName, int scenario) {
         objiter.getIterByKey("UnitConfig").tryGetStringByKey(&className, "ParameterConfigName");
         /*if(className) {
             for (int i=0; i<factory.mNumFactoryEntries; i++) {
-                if(al::isEqualString(factory.mFactoryEntries[i].mName, className)) {
-                    if(!factory.mFactoryEntries[i].mCreationFunction) {
+                if(al::isEqualString(factory.mFactoryEntries[i].name, className)) {
+                    if(!factory.mFactoryEntries[i].creationFunction) {
                         printf("No creation function for class: %s\n", className);
                         break;
                     }
 
-                    liveactor = factory.mFactoryEntries[i].mCreationFunction(className);
+                    liveactor = factory.mFactoryEntries[i].creationFunction(className);
                     break;
                 }
             }
