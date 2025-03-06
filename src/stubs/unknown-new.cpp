@@ -7,6 +7,7 @@
 #include "Item/Coin2DCityDirector.h"
 #include "Item/LifeUpItem.h"
 #include "Item/LifeUpItem2D.h"
+#include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraUtil.h"
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Demo/DemoDirector.h"
@@ -22,13 +23,13 @@
 #include "Library/LiveActor/ActorActionFunction.h"
 #include "Library/LiveActor/ActorAreaFunction.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
+#include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorSceneInfo.h"
-#include "Library/LiveActor/ActorSensorMsgFunction.h"
+#include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/LiveActor/ActorMovementFunction.h"
 #include "Library/LiveActor/ActorModelFunction.h"
-#include "Library/LiveActor/ActorSensorMsgFunction.h"
 #include "Library/LiveActor/ActorSensorFunction.h"
 #include "Library/LiveActor/SubActorKeeper.h"
 #include "Library/Math/MathUtil.h"
@@ -132,7 +133,6 @@ void al::faceToDirection(al::LiveActor*, sead::Vector3<float> const&) {CRASH}
 void al::faceToTarget(al::LiveActor*, al::LiveActor const*) {CRASH}
 al::Collider* al::getActorCollider(al::LiveActor const*) {CRASH}
 s32 al::getMaterialIndex(al::LiveActor const*, char const*) {CRASH}
-void al::getObjectName(char const**, al::ActorInitInfo const&) {CRASH}
 const sead::Vector3f& al::getOnGroundNormal(al::LiveActor const*, unsigned int) {CRASH}
 al::LiveActor* al::getSensorHost(al::HitSensor const*) {CRASH}
 f32 al::getShadowMaskIntensity(al::LiveActor const*, char const*) {CRASH}
@@ -183,7 +183,6 @@ void al::turnToDirection(al::LiveActor*, sead::Vector3<float> const&, float) {CR
 void al::turnToTarget(al::LiveActor*, sead::Vector3<float> const&, float) {CRASH}
 void al::updateDepthShadowMapCtrlShapeVisible(al::LiveActor*) {CRASH}
 void al::validateDepthShadowMap(al::LiveActor*) {CRASH}
-bool alPlacementFunction::tryGetModelName(char const**, al::ActorInitInfo const&) {CRASH}
 void rs::addDemoActor(al::LiveActor*, bool) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoNoWriteSaveDataInSameWorldResetMiniGame(al::ActorInitInfo const&) {CRASH}
 void rs::endHack(IUsePlayerHack**) {CRASH}
@@ -258,7 +257,6 @@ bool al::calcDirH(sead::Vector3<float>*,sead::Vector3<float> const&,sead::Vector
 f32 al::calcDistanceV(sead::Vector3<float> const&,al::HitSensor const*,al::HitSensor const*) {CRASH}
 void al::calcJointScale(sead::Vector3<float>*,al::LiveActor const*,char const*) {CRASH}
 void al::calcKeyMoveClippingInfo(sead::Vector3<float>*,float*,al::KeyPoseKeeper const*,float) {CRASH}
-s32 al::calcLinkNestNum(al::PlacementInfo const&,char const*) {CRASH}
 f32 al::calcQuatUpY(sead::Quat<float> const&) {CRASH}
 f32 al::calcRailTotalRate(al::IUseRail const*) {CRASH}
 void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
@@ -275,11 +273,9 @@ void al::rotateQuatMoment(sead::Quat<float>*,sead::Quat<float> const&,sead::Vect
 void al::rotateQuatYDirRandomDegree(al::LiveActor*) {CRASH}
 void al::setAppearItemOffset(al::LiveActor const*,sead::Vector3<float> const&) {CRASH}
 void al::setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3<float>*,al::KeyPoseKeeper const*) {CRASH}
-bool al::tryGetArg(float*,al::PlacementInfo const&,char const*) {CRASH}
 
 void al::addVelocityDampToTarget(al::LiveActor*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::calcMomentRollBall(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
-void al::getLinksInfo(al::PlacementInfo*, al::PlacementInfo const&, char const*) {CRASH}
 al::CameraTicket* al::initDemoObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 bool al::isNear(sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
@@ -290,3 +286,7 @@ Coin2DCityDirector::Coin2DCityDirector(char const*) : al::LiveActor("") {CRASH}
 void Coin2DCityDirector::init(const al::ActorInitInfo& initInfo) {CRASH}
 void Coin2DCityDirector::initAfterPlacement() {CRASH}
 void Coin2DCityDirector::control() {CRASH}
+
+void al::initActorPoseTRSV(LiveActor *actor) {CRASH}
+void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
+bool al::isMatchString(const char *, const MatchStr &) {CRASH}

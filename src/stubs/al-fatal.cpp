@@ -16,7 +16,7 @@
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
-#include "Library/LiveActor/ActorSensorMsgFunction.h"
+#include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/Model/ModelKeeper.h"
 #include "Library/Placement/PlacementFunction.h"
@@ -237,8 +237,6 @@ bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) {
 void al::registerSubActor(al::LiveActor*, al::LiveActor*) {
     CRASH
 }
-
-void al::getLinksInfoByIndex(al::PlacementInfo*, al::PlacementInfo const&, char const*, int){CRASH}
 
 sead::Matrix34f* al::ModelKeeper::getBaseMtx(){CRASH}
 

@@ -33,12 +33,12 @@
 #include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/ActorMovementFunction.h"
-#include "Library/LiveActor/ActorSensorMsgFunction.h"
+#include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/HitReactionKeeper.h"
 #include "Library/Demo/DemoFunction.h"
 #include "Library/Layout/LayoutInitInfo.h"
-#include "Library/LiveActor/ActorSensorMsgFunction.h"
+#include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/LiveActor/SubActorKeeper.h"
 #include "Library/MapObj/ClockMapParts.h"
 #include "Library/MapObj/ConveyerMapParts.h"
@@ -135,7 +135,6 @@ void al::calcCameraFront(sead::Vector3<float>*, al::IUseCamera const*, int) {CRA
 void al::calcCurrentKeyQT(sead::Quat<float>*, sead::Vector3<float>*, al::RollingCubePoseKeeper const*, sead::Quat<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::calcJointPos(sead::Vector3<float>*, al::LiveActor const*, char const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2<float>*, al::IUseCamera const*, sead::Vector3<float> const&) {CRASH}
-s32 al::calcLinkChildNum(al::ActorInitInfo const&, char const*) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34<float>*, al::RollingCubePoseKeeper const*, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
 al::Axis al::calcNearVecFromAxis3(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Quat<float> const&) {CRASH}
 void al::calcQuatLocalAxis(sead::Vector3<float>*, sead::Quat<float> const&, int) {CRASH}
@@ -153,11 +152,8 @@ void al::fittingToCurrentKeyBoundingBox(sead::Quat<float>*, sead::Vector3<float>
 void al::forceApplyCubeMap(al::LiveActor*, char const*) {CRASH}
 f32 al::getClippingRadius(al::LiveActor const*) {CRASH}
 const al::PlacementInfo& al::getCurrentKeyPlacementInfo(al::RollingCubePoseKeeper const*) {CRASH}
-void al::getLinksInfo(al::PlacementInfo*, al::ActorInitInfo const&, char const*) {CRASH}
 f32 al::getRailCoord(al::IUseRail const*) {CRASH}
-void al::getStringArg(char const**, al::ActorInitInfo const&, char const*) {CRASH}
 al::LiveActor* al::getSubActor(al::LiveActor const*, int) {CRASH}
-void al::getTrans(sead::Vector3<float>*, al::PlacementInfo const&) {CRASH}
 void al::hideModel(al::LiveActor*) {CRASH}
 void al::hideSilhouetteModel(al::LiveActor*) {CRASH}
 void al::initActor(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
@@ -188,7 +184,6 @@ bool al::isGreaterEqualMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isInDeathArea(al::LiveActor const*) {CRASH}
 bool al::isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
-bool al::isObjectName(al::ActorInitInfo const&, char const*) {CRASH}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
 bool al::isValidStageSwitch(al::IUseStageSwitch const*, char const*) {CRASH}
@@ -237,17 +232,7 @@ bool al::tryAddDisplayOffset(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
 al::SwitchKeepOnAreaGroup* al::tryCreateSwitchKeepOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 al::SwitchOnAreaGroup* al::tryCreateSwitchOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-bool al::tryGetArg(bool*, al::PlacementInfo const&, char const*) {CRASH}
-bool al::tryGetArg(float*, al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryGetArg(int*, al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryGetArg(int*, al::PlacementInfo const&, char const*) {CRASH}
-bool al::tryGetBoolArgOrFalse(al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryGetLinksMatrixTR(sead::Matrix34<float>*, al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryGetLinksQuat(sead::Quat<float>*, al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryGetLinksTrans(sead::Vector3<float>*, al::ActorInitInfo const&, char const*) {CRASH}
 const char* al::tryGetMapPartsSuffix(al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryGetStringArg(char const**, al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryGetStringArg(char const**, al::PlacementInfo const&, char const*) {CRASH}
 bool al::tryHoldSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {CRASH}
 void al::tryKillEmitterAndParticleAll(al::IUseEffectKeeper*) {CRASH}
 bool al::tryListenStageSwitchKill(al::LiveActor*) {CRASH}
@@ -306,7 +291,6 @@ f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
 void al::holdSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {CRASH}
 bool al::isExistDitherAnimator(al::LiveActor const*) {CRASH}
 bool al::isInWater(al::LiveActor const*) {CRASH}
-bool al::isPlaced(al::ActorInitInfo const&) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3<float> const&) {CRASH}
 bool al::listenStageSwitchOnAppear(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
 bool al::listenStageSwitchOnKill(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
@@ -317,7 +301,6 @@ void al::setEffectNamedMtxPtr(al::IUseEffectKeeper*, char const*, sead::Matrix34
 void al::setModelMaterialParameterF32(al::LiveActor const*, char const*, char const*, float) {CRASH}
 void al::stopDitherAnimAutoCtrl(al::LiveActor*) {CRASH}
 bool al::tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<float>*) {CRASH}
-bool al::tryGetDisplayOffset(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
 const char* rs::getStageCoinCollectArchiveName(al::LiveActor const*) {CRASH}
 const char* rs::getStageCoinCollectEmptyArchiveName(al::LiveActor const*) {CRASH}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {CRASH}
@@ -394,8 +377,6 @@ bool al::AreaShapeCylinder::isInVolumeOffset(sead::Vector3<float> const&, float)
 al::ActorCameraTarget* al::createActorCameraTarget(al::LiveActor const*, float) {CRASH}
 al::AreaObjGroup* al::createLinkAreaGroup(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*, char const*) {CRASH}
 void al::endCamera(al::IUseCamera const*, al::CameraTicket*, int, bool) {CRASH}
-bool al::getArg(float*, al::ActorInitInfo const&, char const*) {CRASH}
-bool al::getArg(int*, al::ActorInitInfo const&, char const*) {CRASH}
 f32 al::getSensorRadius(al::LiveActor const*, char const*) {CRASH}
 void al::initJointLocalYRotator(al::LiveActor const*, float const*, char const*) {CRASH}
 al::CameraTicket* al::initObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
@@ -409,9 +390,6 @@ void al::setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> co
 void al::setSensorRadius(al::LiveActor*, char const*, float) {CRASH}
 void al::startCamera(al::IUseCamera const*, al::CameraTicket*, int) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
-bool al::tryGetFront(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
-bool al::tryGetSide(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
-bool al::tryGetUp(sead::Vector3<float>*, al::ActorInitInfo const&) {CRASH}
 bool al::tryNormalizeOrDirZ(sead::Vector3<float>*) {CRASH}
 void rs::appearPopupShineWithoutDemo(Shine*) {CRASH}
 bool rs::isEndAppearShine(Shine const*) {CRASH}

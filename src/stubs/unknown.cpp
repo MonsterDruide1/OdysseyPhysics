@@ -11,7 +11,7 @@
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorSensorFunction.h"
-#include "Library/LiveActor/ActorSensorMsgFunction.h"
+#include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/LiveActor.h"
@@ -101,19 +101,6 @@ void al::initChildActorWithArchiveNameNoPlacementInfo(al::LiveActor*, al::ActorI
                                                       sead::SafeStringBase<char> const&,
                                                       char const*) {
     WARN_UNIMPL;
-}
-
-void al::getTrans(sead::Vector3f* vec, const al::ActorInitInfo& info) {
-    if (!al::tryGetByamlV3f(vec, info.getPlacementInfo().getPlacementIter(), "Translate"))
-        CRASH
-}
-
-void al::getQuat(sead::Quatf* q, const al::ActorInitInfo& info) {
-    sead::Vector3f rot;
-    if (!al::tryGetByamlV3f(&rot, info.getPlacementInfo().getPlacementIter(), "Rotate"))
-        CRASH
-    q->setRPY(sead::Mathf::deg2rad(rot.x), sead::Mathf::deg2rad(rot.y),
-              sead::Mathf::deg2rad(rot.z));
 }
 
 al::MtxConnector* al::createCollisionPartsConnector(al::LiveActor const*,
