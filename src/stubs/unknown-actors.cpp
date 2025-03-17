@@ -3,7 +3,6 @@
 #include "Library/Area/AreaObjUtil.h"
 #include "Library/Area/AreaShapeCube.h"
 #include "Library/Area/AreaShapeCylinder.h"
-#include "Library/Audio/System/AudioKeeper.h"
 #include "Library/Bgm/BgmLineFunction.h"
 #include "Library/Collision/CollisionUtil.h"
 #include "Library/Collision/KCollisionServer.h"
@@ -17,7 +16,6 @@
 #include "Library/Area/AreaObjGroup.h"
 #include "Library/Area/SwitchKeepOnAreaGroup.h"
 #include "Library/Area/SwitchOnAreaGroup.h"
-#include "Library/Audio/System/SimpleAudioUser.h"
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Joint/JointSpringControllerHolder.h"
 #include "Library/Layout/LayoutActorUtil.h"
@@ -107,26 +105,18 @@ s32 GameDataFunction::getCoinCollectNumMax(GameDataHolderAccessor) {CRASH}
 const char* GameDataFunction::getCurrentStageName(GameDataHolderAccessor) {CRASH}
 s32 GameDataFunction::getScenarioNo(al::LiveActor const*) {CRASH}
 bool GameDataFunction::isGotCoinCollect(GameDataHolderAccessor, al::ActorInitInfo const&) {CRASH}
-void al::AudioKeeper::appear() {CRASH}
 bool al::CollisionPartsFilterActor::isInvalidParts(CollisionParts*) {CRASH}
 al::ConveyerKeyKeeper::ConveyerKeyKeeper() {CRASH}
 void al::ConveyerKeyKeeper::calcClippingSphere(sead::Vector3<float>*, float*, float) const {CRASH}
 void al::ConveyerKeyKeeper::calcPosAndQuat(sead::Vector3<float>*, sead::Quat<float>*, int*, float) const {CRASH}
 const al::ConveyerKey* al::ConveyerKeyKeeper::getConveyerKey(int) const {CRASH}
 void al::ConveyerKeyKeeper::init(al::ActorInitInfo const&) {CRASH}
-al::LayoutActor::LayoutActor(char const*) {CRASH}
-void al::LayoutActor::calcAnim(bool) {CRASH}
-void al::LayoutActor::initNerve(al::Nerve const*, int) {CRASH}
-void al::LayoutActor::kill() {CRASH}
-void al::LayoutActor::movement() {CRASH}
 void al::ModelKeeper::setDitherAnimator(al::DitherAnimator*) {CRASH}
 bool al::PlacementId::isEqual(al::PlacementId const&) const {CRASH}
 void al::RippleCtrl::init(al::ActorInitInfo const&) {CRASH}
 al::RippleCtrl* al::RippleCtrl::tryCreate(al::LiveActor*) {CRASH}
 void al::RippleCtrl::update() {CRASH}
 void al::RollingCubePoseKeeper::setStart() {CRASH}
-al::SimpleAudioUser::SimpleAudioUser(char const*, al::ActorInitInfo const&) {CRASH}
-al::AudioKeeper* al::SimpleAudioUser::getAudioKeeper() const {CRASH}
 void al::SwitchKeepOnAreaGroup::update(sead::Vector3<float> const&) {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3<float> const&) {CRASH}
 bool al::appearItemTiming(al::LiveActor const*, char const*) {CRASH}
@@ -226,23 +216,17 @@ void al::setSyncRailToNearestPos(al::LiveActor*) {CRASH}
 void al::setTransOffsetLocalDir(al::LiveActor*, sead::Quat<float> const&, sead::Vector3<float> const&, float, int) {CRASH}
 void al::showModel(al::LiveActor*) {CRASH}
 bool al::startAction(al::IUseLayoutAction*, char const*, char const*) {CRASH}
-void al::startBgmSituation(al::IUseAudioKeeper const*, char const*, bool, bool) {CRASH}
-void al::startSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {CRASH}
 bool al::tryAddDisplayOffset(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
 al::SwitchKeepOnAreaGroup* al::tryCreateSwitchKeepOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 al::SwitchOnAreaGroup* al::tryCreateSwitchOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 const char* al::tryGetMapPartsSuffix(al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryHoldSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {CRASH}
 void al::tryKillEmitterAndParticleAll(al::IUseEffectKeeper*) {CRASH}
 bool al::tryListenStageSwitchKill(al::LiveActor*) {CRASH}
 bool al::tryOffStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
 bool al::tryOnStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
 bool al::tryOnSwitchDeadOn(al::IUseStageSwitch*) {CRASH}
 bool al::trySetEffectNamedMtxPtr(al::IUseEffectKeeper*, char const*, sead::Matrix34<float> const*) {CRASH}
-bool al::tryStartSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {CRASH}
-bool al::tryStartSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {CRASH}
-bool al::tryStopSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, int, char const*) {CRASH}
 bool al::trySyncStageSwitchAppear(al::LiveActor*) {CRASH}
 bool al::trySyncStageSwitchAppearAndKill(al::LiveActor*) {CRASH}
 void al::turnQuatYDirRate(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, float) {CRASH}
@@ -288,7 +272,6 @@ al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {CRASH}
 f32 al::easeByType(float, int) {CRASH}
 void al::expandClippingRadiusByShadowLength(al::LiveActor*, sead::Vector3<float>*, float) {CRASH}
 f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
-void al::holdSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {CRASH}
 bool al::isExistDitherAnimator(al::LiveActor const*) {CRASH}
 bool al::isInWater(al::LiveActor const*) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3<float> const&) {CRASH}
