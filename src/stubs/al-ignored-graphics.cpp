@@ -11,6 +11,12 @@
 
 namespace al {
 
+void tryInitFixedModelGpuBuffer(LiveActor*) {}
+
+void showModel(al::LiveActor*) {}
+
+void validateDitherAnim(al::LiveActor*) {}
+
 void setModelAlphaMask(LiveActor*, float) {}
 
 bool isHideModel(LiveActor const*) {

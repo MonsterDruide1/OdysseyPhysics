@@ -78,10 +78,6 @@ void al::ActorPrePassLightKeeper::initAfterPlacement() {
     CRASH
 }
 
-void al::tryInitFixedModelGpuBuffer(LiveActor*) {
-    CRASH
-}
-
 void al::ModelKeeper::update() {
     CRASH
 }
