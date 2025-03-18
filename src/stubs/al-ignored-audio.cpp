@@ -19,5 +19,9 @@ void holdSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {}
 
 void ActionSeCtrl::resetAction(bool) {}
 void ActionSeCtrl::restartAction() {}
+
+bool isEnableRhythmAnim(al::IUseAudioKeeper const*, char const*) {return false;}
+f32 getCurBeat(al::IUseAudioKeeper const*) {return 0.0f;}
+f32 getCurBeatOnMeasure(al::IUseAudioKeeper const*) {return 0.0f;}
     
 }

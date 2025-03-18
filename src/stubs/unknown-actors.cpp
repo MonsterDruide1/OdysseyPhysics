@@ -83,6 +83,7 @@
 #include "MapObj/CapSwitch.h"
 #include "MapObj/Doshi.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
+#include "Util/PlayerCollisionUtil.h"
 #include "math/seadMathCalcCommon.h"
 #include "Player/CapTargetInfo.h"
 #include "Player/HackerJudge.h"
@@ -156,6 +157,7 @@ void al::initActorPoseTQSV(al::LiveActor*) {CRASH}
 void al::initActorSRT(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initActorSceneInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initCreateActorWithPlacementInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
+void al::initCreateActorWithPlacementInfo(al::LiveActor*, al::ActorInitInfo const&, al::PlacementInfo const&) {CRASH}
 void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initExecutorWatchObj(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initGroupClipping(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
@@ -222,16 +224,11 @@ void al::turnQuatYDirRate(sead::Quat<float>*, sead::Quat<float> const&, sead::Ve
 void al::validateCollisionParts(al::LiveActor*) {CRASH}
 bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3<float>*, al::Triangle*, sead::Vector3<float> const&, sead::Vector3<float> const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 void alPadRumbleFunction::startPadRumble(al::LiveActor const*, char const*, float, float, int) {CRASH}
-CapTargetInfo* rs::createCapTargetInfo(al::LiveActor*, char const*) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoWriteSaveData(al::ActorInitInfo const&) {CRASH}
 const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {CRASH}
 void rs::onSaveObjInfo(SaveObjInfo*) {CRASH}
 void rs::requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, sead::Vector3<float> const&) {CRASH}
-void rs::requestLockOnCapHitReaction(al::LiveActor const*, CapTargetInfo const*, char const*) {CRASH}
-bool rs::tryGetFlyingCapPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
-bool rs::tryReceiveMsgInitCapTargetAndSetCapTargetInfo(al::SensorMsg const*, CapTargetInfo const*) {CRASH}
-bool rs::tryShowCapMsgCollectCoinGetFirst(al::IUseSceneObjHolder const*) {CRASH}
 void rs::updateDimensionKeeper(ActorDimensionKeeper*) {CRASH}
 template <>
 s32 sead::Mathi::lcm(int, int) {CRASH}
@@ -416,8 +413,6 @@ bool al::isOnStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
 bool al::isOnSwitchStart(al::IUseStageSwitch const*) {CRASH}
 bool al::isSensorEnemyBody(al::HitSensor const*) {CRASH}
 bool al::isValidSwitchStart(al::IUseStageSwitch const*) {CRASH}
-void al::offDepthShadowModel(al::LiveActor*) {CRASH}
-void al::onDepthShadowModel(al::LiveActor*) {CRASH}
 void al::onStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
 bool al::reboundVelocityFromCollision(al::LiveActor*, float, float, float) {CRASH}
 void al::rotateVectorDegreeY(sead::Vector3<float>*, float) {CRASH}
@@ -426,17 +421,11 @@ void al::scaleVelocityDirection(al::LiveActor*, sead::Vector3<float> const&, flo
 void al::scaleVelocityParallelVertical(al::LiveActor*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilterBase const*) {CRASH}
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
-void al::setModelMaterialParameterF32(al::LiveActor const*, int, char const*, float) {CRASH}
-void al::setShadowMaskDropLength(al::LiveActor*, float, char const*) {CRASH}
-void al::setShadowMaskIntensity(al::LiveActor const*, char const*, float) {CRASH}
 void al::setVelocityBlowAttackAndTurnToTarget(al::LiveActor*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::setVelocityToDirection(al::LiveActor*, sead::Vector3<float> const&, float) {CRASH}
 void al::setVelocityY(al::LiveActor*, float) {CRASH}
-void al::showShadowMask(al::LiveActor*) {CRASH}
-void al::showSilhouetteModelIfHide(al::LiveActor*) {CRASH}
 void al::startActionSubActor(al::LiveActor const*, char const*, char const*) {CRASH}
 void al::startSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {CRASH}
-bool al::tryAddRippleMiddle(al::LiveActor const*) {CRASH}
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
 bool al::tryNormalizeOrDirZ(sead::Vector3<float>*, sead::Vector3<float> const&) {CRASH}
 bool al::tryReceiveMsgPushAndAddVelocity(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
@@ -446,21 +435,11 @@ void al::updateDepthShadowMapCtrlShapeVisible(al::LiveActor*) {CRASH}
 void al::validateDepthShadowMap(al::LiveActor*) {CRASH}
 void rs::addDemoActor(al::LiveActor*, bool) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoNoWriteSaveDataInSameWorldResetMiniGame(al::ActorInitInfo const&) {CRASH}
-void rs::endHack(IUsePlayerHack**) {CRASH}
-void rs::endHackShadow(al::LiveActor*) {CRASH}
-void rs::endHackStartDemo(IUsePlayerHack*, al::LiveActor*) {CRASH}
-const char* rs::getSpecialPurposeName2DOnly() {CRASH}
-void rs::hideShadowHackCap(IUsePlayerHack*) {CRASH}
-void rs::initHackShadow(al::LiveActor*) {CRASH}
-bool rs::isHackStartDemoEnterMario(IUsePlayerHack const*) {CRASH}
 bool rs::isInLowGravityArea(al::LiveActor const*) {CRASH}
 void rs::requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {CRASH}
 void rs::setAppearItemFactorAndOffsetByMsg(al::LiveActor const*, al::SensorMsg const*, al::HitSensor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
 void rs::setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3<float> const&) {CRASH}
-void rs::setupHackShadow(al::LiveActor*) {CRASH}
-IUsePlayerHack* rs::startHack(al::HitSensor*, al::HitSensor*, al::LiveActor*) {CRASH}
-IUsePlayerHack* rs::startHackStartDemo(IUsePlayerHack*, al::LiveActor*) {CRASH}
 bool rs::tryAppearMultiCoinFromObj(al::LiveActor*, al::HitSensor*, int, float) {CRASH}
 bool rs::tryReceiveMsgNpcScareByEnemyIgnoreTargetHack(al::SensorMsg const*, CapTargetInfo const*) {CRASH}
 
@@ -539,11 +518,4 @@ void al::initActorPoseTRSV(LiveActor *actor) {CRASH}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
 
-al::AreaObj* rs::tryFind2DAreaObj(al::LiveActor const*, sead::Vector3<float>*, sead::Vector3<float>*) {CRASH}
-void rs::calc2DAreaLockDir(sead::Vector3<float>*, al::AreaObj const*, sead::Vector3<float> const&) {CRASH}
-
-void al::initCreateActorWithPlacementInfo(al::LiveActor*, al::ActorInitInfo const&, al::PlacementInfo const&) {CRASH}
-bool rs::isMsgPlayerItemGet2D(al::SensorMsg const*) {CRASH}
-f32 al::getCurBeat(al::IUseAudioKeeper const*) {CRASH}
-f32 al::getCurBeatOnMeasure(al::IUseAudioKeeper const*) {CRASH}
-bool al::isEnableRhythmAnim(al::IUseAudioKeeper const*, char const*) {CRASH}
+bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}

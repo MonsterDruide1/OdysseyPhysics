@@ -1,18 +1,5 @@
 #include "PlayerUtil.h"
 
-PlayerJudgeLongFall::PlayerJudgeLongFall(al::LiveActor const*, PlayerConst const*,
-                                         IUsePlayerFallDistanceCheck const*,
-                                         PlayerHackKeeper const*, PlayerBindKeeper const*,
-                                         IPlayerModelChanger const*) {
-    WARN_UNIMPL;
-}
-
-PlayerJudgeSlopeSlide::PlayerJudgeSlopeSlide(al::LiveActor const*, PlayerConst const*,
-                                             PlayerInput const*, IUsePlayerCollision const*,
-                                             IPlayerModelChanger const*) {
-    WARN_UNIMPL;
-}
-
 PlayerJudgeWallCatchInputDir::PlayerJudgeWallCatchInputDir(
     al::LiveActor const*, PlayerConst const*, PlayerInput const*, IUsePlayerCollision const*,
     IPlayerModelChanger const*, PlayerCarryKeeper const*, PlayerExternalVelocity const*,

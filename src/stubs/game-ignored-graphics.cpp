@@ -31,6 +31,10 @@ void startHitReactionHipDropLand(al::LiveActor*, bool) {}
 
 f32 setShadowDropLength(al::LiveActor*, al::ActorInitInfo const&, char const*) {return 0.0f;}
 
+void calcOffsetAllRoot(sead::Vector3<float>* a1, PlayerModelHolder const*) {
+    *a1 = sead::Vector3f::zero;
+}
+
 }  // namespace rs
 
 bool PlayerFunction::isInvisibleCap(PlayerCostumeInfo const*) {

@@ -3,6 +3,17 @@
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
 
+namespace rs {
+
+
+CapTargetInfo* createCapTargetInfo(al::LiveActor*, char const*) {}
+void requestLockOnCapHitReaction(al::LiveActor const*, CapTargetInfo const*, char const*) {}
+bool tryGetFlyingCapPos(sead::Vector3<float>*, al::LiveActor const*) {return false;}
+bool tryReceiveMsgInitCapTargetAndSetCapTargetInfo(al::SensorMsg const*, CapTargetInfo const*) {return false;}
+bool tryShowCapMsgCollectCoinGetFirst(al::IUseSceneObjHolder const*) {return false;}
+
+}
+
 HackCap::HackCap(al::LiveActor const*, char const*, PlayerInput const*, PlayerAreaChecker const*,
                  PlayerWallActionHistory const*, PlayerCapActionHistory const*,
                  PlayerEyeSensorHitHolder const*, PlayerSeparateCapFlag const*,

@@ -1,15 +1,11 @@
 #include "Library/Area/AreaObjDirector.h"
+#include "Library/Area/AreaObjUtil.h"
 #include "Library/stuff.h"
 #include "Player/PlayerJudgeInvalidateInputFall.h"
 #include "PlayerUtil.h"
 #include "Stuff.h"
+#include "Util/AreaUtil.h"
 #include "playerUtil.h"
-
-PlayerAreaChecker::PlayerAreaChecker(al::LiveActor const*, PlayerModelHolder const*) {}
-
-al::AreaObj* PlayerAreaChecker::tryFindInvalidateInputFall(const sead::Vector3f&) const {
-    return nullptr;
-}
 
 al::AreaObj* al::tryFindAreaObj(al::IUseAreaObj const*, char const*, sead::Vector3<float> const&) {
     return nullptr;
@@ -24,6 +20,10 @@ bool al::isInAreaObj(al::IUseAreaObj const*, char const*) {
 }
 
 bool al::isInAreaObj(al::IUseAreaObj const*, char const*, const sead::Vector3f&) {
+    return false;
+}
+
+bool al::tryGetAreaObjArg(float*, al::AreaObj const*, char const*) {
     return false;
 }
 
@@ -43,6 +43,10 @@ void rs::calcSnapVelocitySnapMoveArea(sead::Vector3<float>* result, al::LiveActo
                                       IUsePlayerCollision const*, sead::Vector3<float> const& vel,
                                       float) {
     *result = vel;
+}
+
+bool rs::tryFindForceRecoveryArea(sead::Vector3<float>*, sead::Vector3<float>*, al::AreaObj const**, al::IUseAreaObj const*, sead::Vector3<float> const&) {
+    return false;
 }
 
 PlayerJudgeStartRise::PlayerJudgeStartRise(al::LiveActor const*, PlayerAreaChecker const*,

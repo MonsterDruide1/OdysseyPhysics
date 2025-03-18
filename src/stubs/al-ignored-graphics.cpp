@@ -39,7 +39,21 @@ void setClippingInfo(al::LiveActor*, float, sead::Vector3<float> const*) {}
 
 void validateClipping(al::LiveActor*) {}
 
+void showShadowMask(al::LiveActor*) {}
+
+void showSilhouetteModelIfHide(al::LiveActor*) {}
+
 void setModelProjMtx0(al::ModelKeeper const*, sead::Matrix44<float> const&) {}
+
+void setModelMaterialParameterF32(al::LiveActor const*, int, char const*, float) {}
+
+void setShadowMaskDropLength(al::LiveActor*, float, char const*) {}
+
+void setShadowMaskIntensity(al::LiveActor const*, char const*, float) {}
+
+void offDepthShadowModel(al::LiveActor*) {}
+
+void onDepthShadowModel(al::LiveActor*) {}
 
 bool isHideModel(LiveActor const*) {
     return false;

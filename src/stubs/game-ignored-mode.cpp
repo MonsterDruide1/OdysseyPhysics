@@ -67,6 +67,24 @@ void createAndSetFilter2DOnly(al::LiveActor*) {}
 
 void snap2DGravity(al::LiveActor*, IUseDimension const*, float) {}
 
+al::AreaObj* tryFind2DAreaObj(al::LiveActor const*, sead::Vector3<float>*, sead::Vector3<float>*) {WARN_UNIMPL;return nullptr;}
+
+void calc2DAreaLockDir(sead::Vector3<float>*, al::AreaObj const*, sead::Vector3<float> const&) {}
+
+bool isMsgPlayerItemGet2D(al::SensorMsg const*) {return false;}
+
+void endHack(IUsePlayerHack**) {}
+void endHackShadow(al::LiveActor*) {}
+void endHackStartDemo(IUsePlayerHack*, al::LiveActor*) {}
+const char* getSpecialPurposeName2DOnly() {return "";}
+void hideShadowHackCap(IUsePlayerHack*) {}
+void initHackShadow(al::LiveActor*) {}
+bool isHackStartDemoEnterMario(IUsePlayerHack const*) {return false;}
+void setupHackShadow(al::LiveActor*) {CRASH}
+IUsePlayerHack* startHack(al::HitSensor*, al::HitSensor*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
+IUsePlayerHack* startHackStartDemo(IUsePlayerHack*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
+
+
 }  // namespace rs
 
 PlayerDemoActionFlag::PlayerDemoActionFlag() {}
