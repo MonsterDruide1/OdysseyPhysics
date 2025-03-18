@@ -39,6 +39,10 @@ bool isPlayerHack(al::LiveActor const*) {
     return false;
 }
 
+bool isPlayerEnableToSeeOddSpace(al::LiveActor const*) {
+    return false;
+}
+
 al::CollisionPartsFilterOnlySpecialPurpose* createCollisionPartsFilter2DOnly() {
     return nullptr;
 }
@@ -52,6 +56,12 @@ bool isModeE3MovieRom() {
 }
 
 void addPlayerThrowCapCount(const al::LiveActor*) {}
+
+void snap2D(al::LiveActor*, IUseDimension const*, float) {}
+
+void snap2DParallelizeFront(al::LiveActor*, IUseDimension const*, float) {}
+
+void syncCoin2DAnimFrame(al::LiveActor*, char const*) {}
 
 }  // namespace rs
 

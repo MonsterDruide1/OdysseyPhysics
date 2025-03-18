@@ -1,18 +1,23 @@
 #include <prim/seadSafeString.h>
 #include "Library/Audio/System/AudioKeeper.h"
 #include "Library/Audio/System/SimpleAudioUser.h"
+#include "Project/Action/ActionSeCtrl.h"
 
 namespace al {
 
+AudioKeeper* SimpleAudioUser::getAudioKeeper() const {WARN_UNIMPL;return nullptr;}
+
 void AudioKeeper::appear() {}
 SimpleAudioUser::SimpleAudioUser(char const*, ActorInitInfo const&) {}
-AudioKeeper* SimpleAudioUser::getAudioKeeper() const {}
 void startBgmSituation(al::IUseAudioKeeper const*, char const*, bool, bool) {}
 void startSe(al::IUseAudioKeeper const*, sead::SafeString const&) {}
-bool tryStartSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {}
-bool tryStartSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {}
-bool tryStopSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, int, char const*) {}
-bool tryHoldSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {}
+bool tryStartSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {return false;}
+bool tryStartSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {return false;}
+bool tryStopSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, int, char const*) {return false;}
+bool tryHoldSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {return false;}
 void holdSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {}
+
+void ActionSeCtrl::resetAction(bool) {}
+void ActionSeCtrl::restartAction() {}
     
 }
