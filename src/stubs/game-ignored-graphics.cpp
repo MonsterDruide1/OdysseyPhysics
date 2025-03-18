@@ -29,6 +29,8 @@ void startHitReactionLandIfLanding(al::LiveActor const*, IUsePlayerCollision con
 
 void startHitReactionHipDropLand(al::LiveActor*, bool) {}
 
+f32 setShadowDropLength(al::LiveActor*, al::ActorInitInfo const&, char const*) {return 0.0f;}
+
 }  // namespace rs
 
 bool PlayerFunction::isInvisibleCap(PlayerCostumeInfo const*) {

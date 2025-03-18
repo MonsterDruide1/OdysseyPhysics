@@ -15,9 +15,31 @@ void tryInitFixedModelGpuBuffer(LiveActor*) {}
 
 void showModel(al::LiveActor*) {}
 
+void hideModel(al::LiveActor*) {}
+
+void hideSilhouetteModel(al::LiveActor*) {}
+
 void validateDitherAnim(al::LiveActor*) {}
 
 void setModelAlphaMask(LiveActor*, float) {}
+
+void setModelMaterialParameterF32(al::LiveActor const*, char const*, char const*, float) {}
+
+void stopDitherAnimAutoCtrl(al::LiveActor*) {}
+
+bool tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<float>*) {return false;}
+
+void offDrawClipping(al::LiveActor*) {}
+
+void onDrawClipping(al::LiveActor*) {}
+
+void setRailClippingInfo(sead::Vector3<float>*, al::LiveActor*, float, float) {}
+
+void setClippingInfo(al::LiveActor*, float, sead::Vector3<float> const*) {}
+
+void validateClipping(al::LiveActor*) {}
+
+void setModelProjMtx0(al::ModelKeeper const*, sead::Matrix44<float> const&) {}
 
 bool isHideModel(LiveActor const*) {
     return false;
@@ -57,6 +79,8 @@ FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
 void ModelCtrl::recreateDisplayList() {}
 
 void ModelKeeper::createMatAnimForProgram(int) {}
+
+void ModelKeeper::setDitherAnimator(al::DitherAnimator*) {}
 
 void ModelKeeper::calc(sead::Matrix34<float> const&, sead::Vector3<float> const&) {}
 

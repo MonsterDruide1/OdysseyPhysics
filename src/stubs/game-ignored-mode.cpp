@@ -63,6 +63,10 @@ void snap2DParallelizeFront(al::LiveActor*, IUseDimension const*, float) {}
 
 void syncCoin2DAnimFrame(al::LiveActor*, char const*) {}
 
+void createAndSetFilter2DOnly(al::LiveActor*) {}
+
+void snap2DGravity(al::LiveActor*, IUseDimension const*, float) {}
+
 }  // namespace rs
 
 PlayerDemoActionFlag::PlayerDemoActionFlag() {}
