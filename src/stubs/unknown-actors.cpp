@@ -3,15 +3,6 @@
 #include "Enemy/GamaneHackState.h"
 #include "Enemy/HackerDepthShadowMapCtrl.h"
 #include "Enemy/Pecho.h"
-#include "Item/Coin2D.h"
-#include "Item/Coin2DCityDirector.h"
-#include "Item/Coin.h"
-#include "Item/CoinCollectHolder.h"
-#include "Item/CoinRotateCalculator.h"
-#include "Item/LifeMaxUpItem2D.h"
-#include "Item/LifeMaxUpItem.h"
-#include "Item/LifeUpItem2D.h"
-#include "Item/LifeUpItem.h"
 #include "Library/Area/AreaObjGroup.h"
 #include "Library/Area/AreaObjUtil.h"
 #include "Library/Area/AreaShapeCube.h"
@@ -30,7 +21,6 @@
 #include "Library/Execute/ExecuteRequestKeeper.h"
 #include "Library/Execute/ExecuteTableHolderDraw.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
-#include "Library/Fluid/RippleCtrl.h"
 #include "Library/Item/ItemUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
 #include "Library/Joint/JointSpringControllerHolder.h"
@@ -55,7 +45,6 @@
 #include "Library/MapObj/ClockMapParts.h"
 #include "Library/MapObj/ConveyerMapParts.h"
 #include "Library/MapObj/GateMapParts.h"
-#include "Library/MapObj/KeyMoveMapParts.h"
 #include "Library/MapObj/RollingCubeMapParts.h"
 #include "Library/MapObj/WheelMapParts.h"
 #include "Library/Math/MathUtil.h"
@@ -266,8 +255,6 @@ void al::copySklAnim(al::LiveActor*, al::LiveActor const*) {CRASH}
 void al::initJointControllerKeeper(al::LiveActor const*, int) {CRASH}
 void al::initJointLocalZRotator(al::LiveActor const*, float const*, char const*) {CRASH}
 bool al::isCollidedWall(al::LiveActor const*) {CRASH}
-bool al::isSensorEnemyAttack(al::HitSensor const*) {CRASH}
-bool al::isSensorPlayer(al::HitSensor const*) {CRASH}
 void al::rotateQuatMomentDegree(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
 void al::setVelocityToFront(al::LiveActor*, float) {CRASH}
 void al::turnFront(al::LiveActor*, float) {CRASH}
@@ -304,19 +291,13 @@ void al::initJointLocalYRotator(al::LiveActor const*, float const*, char const*)
 al::CameraTicket* al::initObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 void al::invalidateHitSensor(al::LiveActor*, char const*) {CRASH}
 bool al::isInAreaObj(al::AreaObjGroup const*, sead::Vector3<float> const&) {CRASH}
-bool al::isSensorPlayerAll(al::HitSensor const*) {CRASH}
-bool al::isSensorPlayerAttack(al::HitSensor const*) {CRASH}
 void al::resetCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
 void al::setCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
-void al::setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {CRASH}
-void al::setSensorRadius(al::LiveActor*, char const*, float) {CRASH}
 void al::startCamera(al::IUseCamera const*, al::CameraTicket*, int) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
 bool al::tryNormalizeOrDirZ(sead::Vector3<float>*) {CRASH}
 void rs::appearPopupShineWithoutDemo(Shine*) {CRASH}
 bool rs::isEndAppearShine(Shine const*) {CRASH}
-bool rs::isPlayerHackKuriboAny(al::LiveActor const*) {CRASH}
-bool rs::isPlayerHackTank(al::LiveActor const*) {CRASH}
 void rs::requestEndDemoNormal(al::LiveActor const*) {CRASH}
 bool rs::requestStartDemoNormal(al::LiveActor*, bool) {CRASH}
 
@@ -337,8 +318,6 @@ bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
 HackerDepthShadowMapCtrl::HackerDepthShadowMapCtrl(al::LiveActor*, char const*, float, float, float) {CRASH}
 void HackerDepthShadowMapCtrl::update(PlayerCollider*) {CRASH}
 HackerJudgeNormalFall::HackerJudgeNormalFall(al::LiveActor const*, int) : HackerJudge(nullptr) {CRASH}
-LifeUpItem2D::LifeUpItem2D(char const*) : al::LiveActor("") {CRASH}
-LifeUpItem::LifeUpItem(char const*) : al::LiveActor("") {CRASH}
 PlayerHackStartShaderCtrl::PlayerHackStartShaderCtrl(al::LiveActor*, PlayerHackStartShaderParam*) {CRASH}
 void PlayerHackStartShaderCtrl::end() {CRASH}
 void PlayerHackStartShaderCtrl::start() {CRASH}
@@ -395,12 +374,8 @@ const sead::Vector3f& al::getOnGroundNormal(al::LiveActor const*, unsigned int) 
 al::LiveActor* al::getSensorHost(al::HitSensor const*) {CRASH}
 f32 al::getShadowMaskIntensity(al::LiveActor const*, char const*) {CRASH}
 s32 al::getSubActorNum(al::LiveActor const*) {CRASH}
-void al::hideShadowMask(al::LiveActor*) {CRASH}
-void al::hideSilhouetteModelIfShow(al::LiveActor*) {CRASH}
-void al::invalidateDepthShadowMap(al::LiveActor*) {CRASH}
 bool al::isCollidedFloorCode(al::LiveActor const*, char const*) {CRASH}
 bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
-bool al::isExistDepthShadowMapCtrl(al::LiveActor*) {CRASH}
 bool al::isExistSubActorKeeper(al::LiveActor const*) {CRASH}
 bool al::isFaceToTargetDegreeH(al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 bool al::isFallNextMove(al::LiveActor const*, sead::Vector3<float> const&, float, float) {CRASH}
@@ -443,14 +418,6 @@ void rs::setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3<float> c
 bool rs::tryAppearMultiCoinFromObj(al::LiveActor*, al::HitSensor*, int, float) {CRASH}
 bool rs::tryReceiveMsgNpcScareByEnemyIgnoreTargetHack(al::SensorMsg const*, CapTargetInfo const*) {CRASH}
 
-void LifeUpItem::init(const al::ActorInitInfo& initInfo) {CRASH}
-void LifeUpItem::initAfterPlacement() {CRASH}
-bool LifeUpItem::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
-void LifeUpItem::control() {CRASH}
-void LifeUpItem2D::init(const al::ActorInitInfo& initInfo) {CRASH}
-bool LifeUpItem2D::receiveMsg(const al::SensorMsg* message, al::HitSensor* other,
-                al::HitSensor* self) {CRASH}
-ActorDimensionKeeper* LifeUpItem2D::getActorDimensionKeeper() const {CRASH}
 void Doshi::init(const al::ActorInitInfo& initInfo) {CRASH}
 void Doshi::attackSensor(al::HitSensor* self, al::HitSensor* other) {CRASH}
 bool Doshi::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
@@ -508,14 +475,12 @@ void al::setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3<float>*,al::KeyPose
 
 void al::addVelocityDampToTarget(al::LiveActor*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::calcMomentRollBall(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+void al::initActorPoseTRSV(LiveActor *actor) {CRASH}
 al::CameraTicket* al::initDemoObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
+void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
+bool al::isMatchString(const char *, const MatchStr &) {CRASH}
 bool al::isNear(sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
 bool al::pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
 void al::rotateQuatYDirDegree(sead::Quat<float>*, sead::Quat<float> const&, float) {CRASH}
-
-void al::initActorPoseTRSV(LiveActor *actor) {CRASH}
-void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
-bool al::isMatchString(const char *, const MatchStr &) {CRASH}
-
 bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}

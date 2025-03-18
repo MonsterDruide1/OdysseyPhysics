@@ -55,6 +55,14 @@ void offDepthShadowModel(al::LiveActor*) {}
 
 void onDepthShadowModel(al::LiveActor*) {}
 
+void hideShadowMask(al::LiveActor*) {}
+
+void hideSilhouetteModelIfShow(al::LiveActor*) {}
+
+void invalidateDepthShadowMap(al::LiveActor*) {}
+
+bool isExistDepthShadowMapCtrl(al::LiveActor*) {return false;}
+
 bool isHideModel(LiveActor const*) {
     return false;
 }

@@ -83,7 +83,8 @@ bool isHackStartDemoEnterMario(IUsePlayerHack const*) {return false;}
 void setupHackShadow(al::LiveActor*) {CRASH}
 IUsePlayerHack* startHack(al::HitSensor*, al::HitSensor*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
 IUsePlayerHack* startHackStartDemo(IUsePlayerHack*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
-
+bool isPlayerHackKuriboAny(al::LiveActor const*) {return false;}
+bool isPlayerHackTank(al::LiveActor const*) {return false;}
 
 }  // namespace rs
 

@@ -6,12 +6,18 @@ namespace al {
 void invalidateHitSensors(LiveActor*) {}
 void validateHitSensor(al::LiveActor*, char const*) {}
 void validateHitSensors(al::LiveActor*) {}
-bool calcDirBetweenSensorsH(sead::Vector3<float>*, al::HitSensor const*, al::HitSensor const*) {}
+bool calcDirBetweenSensorsH(sead::Vector3<float>*, al::HitSensor const*, al::HitSensor const*) {return false;}
 const sead::Vector3f& getActorTrans(al::HitSensor const*) {return const_cast<sead::Vector3f&>(sead::Vector3f::zero);}
 const sead::Vector3f& getSensorPos(al::HitSensor const*) {return const_cast<sead::Vector3f&>(sead::Vector3f::zero);}
 bool isSensorMapObj(al::HitSensor const*) {return false;}
+bool isSensorPlayerAll(al::HitSensor const*) {return false;}
+bool isSensorPlayerAttack(al::HitSensor const*) {return false;}
+bool isSensorEnemyAttack(al::HitSensor const*) {return false;}
+bool isSensorPlayer(al::HitSensor const*) {return false;}
 bool isSensorName(al::HitSensor const*, char const*) {return false;}
 bool isMySensor(HitSensor const*, LiveActor const*) { return false; }
+void setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {}
+void setSensorRadius(al::LiveActor*, char const*, float) {}
 
 bool isMsgAskSafetyPoint(SensorMsg const*) { return false; }
 bool isMsgEnemyFloorTouch(SensorMsg const*) { return false; }

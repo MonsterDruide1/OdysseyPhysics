@@ -2,6 +2,8 @@
 #include "Item/CoinRotateCalculator.h"
 #include "Item/LifeMaxUpItem.h"
 #include "Item/LifeMaxUpItem2D.h"
+#include "Item/LifeUpItem.h"
+#include "Item/LifeUpItem2D.h"
 #include "System/GameDataFunction.h"
 #include "Util/ItemUtil.h"
 
@@ -39,3 +41,15 @@ void LifeMaxUpItem::initAfterPlacement() {}
 bool LifeMaxUpItem::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {return false;}
 void LifeMaxUpItem::appear() {}
 void LifeMaxUpItem::control() {}
+
+LifeUpItem::LifeUpItem(char const*) : al::LiveActor("") {}
+void LifeUpItem::init(const al::ActorInitInfo& initInfo) {}
+void LifeUpItem::initAfterPlacement() {}
+bool LifeUpItem::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {return false;}
+void LifeUpItem::control() {}
+
+LifeUpItem2D::LifeUpItem2D(char const*) : al::LiveActor("") {}
+void LifeUpItem2D::init(const al::ActorInitInfo& initInfo) {}
+bool LifeUpItem2D::receiveMsg(const al::SensorMsg* message, al::HitSensor* other,
+                al::HitSensor* self) {return false;}
+ActorDimensionKeeper* LifeUpItem2D::getActorDimensionKeeper() const {WARN_UNIMPL;return nullptr;}
