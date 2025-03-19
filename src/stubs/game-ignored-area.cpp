@@ -27,6 +27,10 @@ bool al::tryGetAreaObjArg(float*, al::AreaObj const*, char const*) {
     return false;
 }
 
+bool rs::isInLowGravityArea(al::LiveActor const*) {
+    return false;
+}
+
 bool rs::tryFindSnapMoveAreaDir(sead::Vector3<float>*, al::LiveActor const*,
                                 IUsePlayerCollision const*) {
     return false;

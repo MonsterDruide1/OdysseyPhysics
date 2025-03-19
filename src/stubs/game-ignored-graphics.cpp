@@ -35,6 +35,8 @@ void calcOffsetAllRoot(sead::Vector3<float>* a1, PlayerModelHolder const*) {
     *a1 = sead::Vector3f::zero;
 }
 
+void tryUpdateWaterSurfaceCoinShadow(WaterSurfaceShadow*, al::LiveActor*, float) {}
+
 }  // namespace rs
 
 bool PlayerFunction::isInvisibleCap(PlayerCostumeInfo const*) {

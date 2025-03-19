@@ -1,5 +1,10 @@
 
+#include "Enemy/GamaneHackState.h"
+#include "Enemy/HackerDepthShadowMapCtrl.h"
 #include "Library/Collision/CollisionDirector.h"
+#include "Library/Demo/DemoDirector.h"
+#include "Player/HackerJudge.h"
+#include "Player/PlayerHackStartShaderCtrl.h"
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
 #include "Util/ActorDimensionKeeper.h"
@@ -80,13 +85,41 @@ const char* getSpecialPurposeName2DOnly() {return "";}
 void hideShadowHackCap(IUsePlayerHack*) {}
 void initHackShadow(al::LiveActor*) {}
 bool isHackStartDemoEnterMario(IUsePlayerHack const*) {return false;}
-void setupHackShadow(al::LiveActor*) {CRASH}
+void setupHackShadow(al::LiveActor*) {}
 IUsePlayerHack* startHack(al::HitSensor*, al::HitSensor*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
 IUsePlayerHack* startHackStartDemo(IUsePlayerHack*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
 bool isPlayerHackKuriboAny(al::LiveActor const*) {return false;}
 bool isPlayerHackTank(al::LiveActor const*) {return false;}
+void requestEndDemoNormal(al::LiveActor const*) {}
+bool requestStartDemoNormal(al::LiveActor*, bool) {return false;}
 
 }  // namespace rs
+
+GamaneHackState::GamaneHackState(al::LiveActor*a) : al::ActorStateBase("", a) {}
+void GamaneHackState::attackSensor(al::HitSensor*, al::HitSensor*) {}
+void GamaneHackState::initialize(al::ActorInitInfo const&) {}
+bool GamaneHackState::isHackEnd() const {return false;}
+bool GamaneHackState::receiveMsg(al::SensorMsg const*, al::HitSensor*, al::HitSensor*) {return false;}
+void GamaneHackState::appear() {}
+void GamaneHackState::kill() {}
+
+void HackerJudge::reset() {}
+void HackerJudge::update() {}
+bool HackerJudge::judge() const {return false;}
+
+HackerDepthShadowMapCtrl::HackerDepthShadowMapCtrl(al::LiveActor*, char const*, float, float, float) {}
+void HackerDepthShadowMapCtrl::update(PlayerCollider*) {}
+HackerJudgeNormalFall::HackerJudgeNormalFall(al::LiveActor const*, int) : HackerJudge(nullptr) {}
+void HackerJudgeNormalFall::reset() {}
+void HackerJudgeNormalFall::update() {}
+bool HackerJudgeNormalFall::judge() const {return false;}
+PlayerHackStartShaderCtrl::PlayerHackStartShaderCtrl(al::LiveActor*, PlayerHackStartShaderParam*) {}
+void PlayerHackStartShaderCtrl::end() {}
+void PlayerHackStartShaderCtrl::start() {}
+void PlayerHackStartShaderCtrl::update() {}
+void al::DemoDirector::addDemoActor(al::LiveActor*) {}
+void al::DemoDirector::requestEndDemo(char const*) {}
+bool al::DemoDirector::requestStartDemo(char const*) {return false;}
 
 PlayerDemoActionFlag::PlayerDemoActionFlag() {}
 

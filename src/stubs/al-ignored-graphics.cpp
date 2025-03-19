@@ -95,6 +95,22 @@ void onSyncHideSubActor(al::LiveActor*, al::LiveActor const*) {}
 
 void onSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) {}
 
+s32 getMaterialIndex(al::LiveActor const*, char const*) {
+    return 0;
+}
+
+f32 getShadowMaskIntensity(al::LiveActor const*, char const*) {
+    return 0.0f;
+}
+
+bool blinkModel(al::LiveActor*, int, int, int) {
+    return false;
+}
+
+void updateDepthShadowMapCtrlShapeVisible(al::LiveActor*) {}
+
+void validateDepthShadowMap(al::LiveActor*) {}
+
 FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
                                  al::FootPrintServer*) {}
 

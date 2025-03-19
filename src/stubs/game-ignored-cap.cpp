@@ -1,3 +1,4 @@
+#include "Player/CapTargetInfo.h"
 #include "Player/PlayerConst.h"
 #include "Player/PlayerInput.h"
 #include "PlayerUtil.h"
@@ -13,6 +14,8 @@ bool tryReceiveMsgInitCapTargetAndSetCapTargetInfo(al::SensorMsg const*, CapTarg
 bool tryShowCapMsgCollectCoinGetFirst(al::IUseSceneObjHolder const*) {return false;}
 
 }
+
+void CapTargetInfo::setFollowLockOnMtx(char const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 
 HackCap::HackCap(al::LiveActor const*, char const*, PlayerInput const*, PlayerAreaChecker const*,
                  PlayerWallActionHistory const*, PlayerCapActionHistory const*,

@@ -7,5 +7,6 @@ void LayoutActor::calcAnim(bool) {}
 void LayoutActor::initNerve(al::Nerve const*, int) {}
 void LayoutActor::kill() {}
 void LayoutActor::movement() {}
+void LayoutActor::initExecuteInfo(al::LayoutExecuteInfo*) {}
 
 }
