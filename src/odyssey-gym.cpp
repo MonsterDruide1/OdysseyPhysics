@@ -266,7 +266,7 @@ void sendRender(RenderTexture2D tex, int sock) {
 
 bool exportScript = false;
 
-int main(int argc, char* argv[]) {
+int main2(int argc, char* argv[]) {
     if (argc < 5) {
         printf("Usage: %s <stage> <scenario> <path to romfs> <socket-file> [display?]\n", argv[0]);
         return 1;

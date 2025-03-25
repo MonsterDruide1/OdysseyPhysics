@@ -87,7 +87,7 @@ bool shouldUpdate() {
 
 Model ShineCubeModel;
 
-int main2(int argc, char *argv[]) {
+int main(int argc, char *argv[]) {
     const char* stage;
     if(argc > 1) {
         stage = argv[1];
