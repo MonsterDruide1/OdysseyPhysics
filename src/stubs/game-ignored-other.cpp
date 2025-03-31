@@ -50,12 +50,6 @@ bool PlayerJudgeSandSink::judge() const {
     return false;
 }
 
-void alPadRumbleFunction::startPadRumbleLoopNo3D(al::LiveActor const*, char const*,
-                                                 sead::Vector3<float> const*, int) {}
-
-void alPadRumbleFunction::stopPadRumbleLoop(al::LiveActor const*, char const*,
-                                            sead::Vector3<float> const*, int) {}
-
 PlayerJudgePoleClimb::PlayerJudgePoleClimb(al::LiveActor const*, PlayerConst const*,
                                            IUsePlayerCollision const*, IPlayerModelChanger const*,
                                            PlayerCarryKeeper const*, PlayerExternalVelocity const*,

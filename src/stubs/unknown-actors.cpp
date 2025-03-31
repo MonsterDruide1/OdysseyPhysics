@@ -9,7 +9,7 @@
 #include "Library/Collision/CollisionUtil.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/PartsConnector.h"
-#include "Library/Controller/PadRumbleFunction.h"
+#include "Library/Controller/PadRumbleDirector.h"
 #include "Library/Execute/ExecuteRequestKeeper.h"
 #include "Library/Execute/ExecuteTableHolderDraw.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
@@ -150,16 +150,8 @@ bool al::isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
-bool al::isValidStageSwitch(al::IUseStageSwitch const*, char const*) {CRASH}
-bool al::isValidSwitchAppear(al::IUseStageSwitch const*) {CRASH}
-bool al::isValidSwitchKill(al::IUseStageSwitch const*) {CRASH}
 bool al::isVelocitySlowH(al::LiveActor const*, float) {CRASH}
 bool al::isViewDependentModel(al::LiveActor const*) {CRASH}
-bool al::listenStageSwitchOn(al::IUseStageSwitch*, char const*, al::FunctorBase const&) {CRASH}
-bool al::listenStageSwitchOnOff(al::IUseStageSwitch*, char const*, al::FunctorBase const&, al::FunctorBase const&) {CRASH}
-bool al::listenStageSwitchOnOffStart(al::IUseStageSwitch*, al::FunctorBase const&, al::FunctorBase const&) {CRASH}
-bool al::listenStageSwitchOnStart(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
-bool al::listenStageSwitchOnStop(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
 void al::makeMapPartsModelName(sead::BufferedSafeStringBase<char>*, sead::BufferedSafeStringBase<char>*, al::ActorInitInfo const&) {CRASH}
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 f32 al::modf(float, float) {CRASH}
@@ -185,15 +177,11 @@ al::SwitchKeepOnAreaGroup* al::tryCreateSwitchKeepOnAreaGroup(al::LiveActor*, al
 al::SwitchOnAreaGroup* al::tryCreateSwitchOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 const char* al::tryGetMapPartsSuffix(al::ActorInitInfo const&, char const*) {CRASH}
 bool al::tryListenStageSwitchKill(al::LiveActor*) {CRASH}
-bool al::tryOffStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
-bool al::tryOnStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
-bool al::tryOnSwitchDeadOn(al::IUseStageSwitch*) {CRASH}
 bool al::trySyncStageSwitchAppear(al::LiveActor*) {CRASH}
 bool al::trySyncStageSwitchAppearAndKill(al::LiveActor*) {CRASH}
 void al::turnQuatYDirRate(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::validateCollisionParts(al::LiveActor*) {CRASH}
 bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3f*, al::Triangle*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
-void alPadRumbleFunction::startPadRumble(al::LiveActor const*, char const*, float, float, int) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoWriteSaveData(al::ActorInitInfo const&) {CRASH}
 const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {CRASH}
@@ -213,8 +201,6 @@ void al::expandClippingRadiusByShadowLength(al::LiveActor*, sead::Vector3f*, flo
 f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
 bool al::isExistDitherAnimator(al::LiveActor const*) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3f const&) {CRASH}
-bool al::listenStageSwitchOnAppear(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
-bool al::listenStageSwitchOnKill(al::IUseStageSwitch*, al::FunctorBase const&) {CRASH}
 void al::rotateQuatLocalDirDegree(sead::Quatf*, sead::Quatf const&, int, float) {CRASH}
 void al::rotateQuatYDirDegree(al::LiveActor*, float) {CRASH}
 void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
@@ -324,11 +310,7 @@ bool al::isFallOrDamageCodeNextMove(al::LiveActor const*, sead::Vector3f const&,
 bool al::isHalfProbability() {CRASH}
 bool al::isMtxConnectorConnecting(al::MtxConnector const*) {CRASH}
 bool al::isNearPlayer(al::LiveActor const*, float) {CRASH}
-bool al::isOnStageSwitch(const al::IUseStageSwitch*, char const*) {CRASH}
-bool al::isOnSwitchStart(al::IUseStageSwitch const*) {CRASH}
 bool al::isSensorEnemyBody(al::HitSensor const*) {CRASH}
-bool al::isValidSwitchStart(al::IUseStageSwitch const*) {CRASH}
-void al::onStageSwitch(al::IUseStageSwitch*, char const*) {CRASH}
 bool al::reboundVelocityFromCollision(al::LiveActor*, float, float, float) {CRASH}
 void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
 void al::rotateVectorQuat(sead::Vector3f*, sead::Quatf const&) {CRASH}
@@ -378,8 +360,6 @@ const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {CRASH}
 void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
 bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
-bool al::listenStageSwitchOff(al::IUseStageSwitch*,char const*,al::FunctorBase const&) {CRASH}
-void al::offStageSwitch(al::IUseStageSwitch*,char const*) {CRASH}
 void al::rotateQuatMoment(sead::Quatf*,sead::Quatf const&,sead::Vector3f const&) {CRASH}
 void al::rotateQuatYDirRandomDegree(al::LiveActor*) {CRASH}
 void al::setAppearItemOffset(al::LiveActor const*,sead::Vector3f const&) {CRASH}
@@ -396,3 +376,7 @@ f32 al::lerpValue(float, float, float, float, float) {CRASH}
 bool al::pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
 void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {CRASH}
 bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}
+
+bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
+s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
+s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
