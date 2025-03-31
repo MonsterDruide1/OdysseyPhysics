@@ -61,6 +61,7 @@ bool isMsgSphinxRideAttack(al::SensorMsg const*) {return false;}
 bool isMsgBlockUpperPunch2D(al::SensorMsg const*) {return false;}
 bool isMsgKouraAttack2D(al::SensorMsg const*) {return false;}
 bool isMsgPush2D(al::SensorMsg const*) {return false;}
+bool isMsgPlayerAndCapObjHipDropAll(al::SensorMsg const*) {return false;}
 
 bool sendMsgEnemyAttack2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgTouchFireDrum2D(al::HitSensor*, al::HitSensor*) {return false;}

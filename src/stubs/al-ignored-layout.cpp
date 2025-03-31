@@ -9,7 +9,7 @@ bool isActionEnd(al::IUseLayoutAction const*, char const*) {return false;}
 void initLayoutActor(al::LayoutActor*, al::LayoutInitInfo const&, char const*, char const*) {}
 void initLayoutPartsActor(al::LayoutActor*, al::LayoutActor*, al::LayoutInitInfo const&, char const*, char const*) {}
 void updateLayoutPaneRecursive(al::LayoutActor*) {}
-bool startAction(al::IUseLayoutAction*, char const*, char const*) {return false;}
+void startAction(al::IUseLayoutAction*, char const*, char const*) {}
 void setPaneStringFormat(al::IUseLayout*, char const*, char const*, ...) {}
     
 }
