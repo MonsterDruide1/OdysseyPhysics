@@ -7,12 +7,12 @@
 #include "System/GameDataFunction.h"
 #include "Util/ItemUtil.h"
 
-CoinCollectHolder* rs::createCoinCollectHolder(al::IUseSceneObjHolder const*) {WARN_UNIMPL;return nullptr;}
-const char* rs::getStageCoinCollectArchiveName(al::LiveActor const*) {return "";}
-const char* rs::getStageCoinCollectEmptyArchiveName(al::LiveActor const*) {return "";}
-const char* rs::getStageCoinCollect2DArchiveName(al::LiveActor const*) {return "";}
-const char* rs::getStageCoinCollect2DEmptyArchiveName(al::LiveActor const*) {return "";}
+const char* GameDataHolder::getCoinCollect2DEmptyArchiveName(int) const {return "";}
+const char* GameDataHolder::getCoinCollect2DArchiveName(int) const {return "";}
+const char* GameDataHolder::getCoinCollectEmptyArchiveName(int) const {return "";}
+const char* GameDataHolder::getCoinCollectArchiveName(int) const {return "";}
 
+CoinCollectHolder* rs::createCoinCollectHolder(al::IUseSceneObjHolder const*) {WARN_UNIMPL;return nullptr;}
 void CoinCollectHolder::registerCoinCollect2D(CoinCollect2D*) {}
 void CoinCollectHolder::registerHintObj(CoinCollectHintObj*) {}
 void CoinCollectHolder::registerCoinCollect(CoinCollect*) {}

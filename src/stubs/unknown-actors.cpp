@@ -129,6 +129,7 @@ void al::initActorSRT(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initActorSceneInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initCreateActorWithPlacementInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initCreateActorWithPlacementInfo(al::LiveActor*, al::ActorInitInfo const&, al::PlacementInfo const&) {CRASH}
+void al::initCreateActorNoPlacementInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initExecutorWatchObj(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initGroupClipping(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
@@ -222,8 +223,6 @@ bool al::isCollidedWall(al::LiveActor const*) {CRASH}
 void al::rotateQuatMomentDegree(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 void al::setVelocityToFront(al::LiveActor*, float) {CRASH}
 void al::turnFront(al::LiveActor*, float) {CRASH}
-void rs::appearPopupShine(Shine*, al::LiveActor const*) {CRASH}
-Shine* rs::tryInitLinkShine(al::ActorInitInfo const&,char const*,int) {CRASH}
 
 al::ActorCameraTarget* al::createActorCameraTarget(al::LiveActor const*, float) {CRASH}
 al::AreaObjGroup* al::createLinkAreaGroup(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*, char const*) {CRASH}
@@ -237,8 +236,6 @@ void al::setCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
 void al::startCamera(al::IUseCamera const*, al::CameraTicket*, int) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 bool al::tryNormalizeOrDirZ(sead::Vector3f*) {CRASH}
-void rs::appearPopupShineWithoutDemo(Shine*) {CRASH}
-bool rs::isEndAppearShine(Shine const*) {CRASH}
 
 Doshi::Doshi(char const*) : al::LiveActor("") {CRASH}
 void Doshi::init(const al::ActorInitInfo& initInfo) {CRASH}
@@ -330,10 +327,8 @@ void al::turnToTarget(al::LiveActor*, sead::Vector3f const&, float) {CRASH}
 void rs::addDemoActor(al::LiveActor*, bool) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoNoWriteSaveDataInSameWorldResetMiniGame(al::ActorInitInfo const&) {CRASH}
 void rs::requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {CRASH}
-void rs::setAppearItemFactorAndOffsetByMsg(al::LiveActor const*, al::SensorMsg const*, al::HitSensor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
 void rs::setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {CRASH}
-bool rs::tryAppearMultiCoinFromObj(al::LiveActor*, al::HitSensor*, int, float) {CRASH}
 bool rs::tryReceiveMsgNpcScareByEnemyIgnoreTargetHack(al::SensorMsg const*, CapTargetInfo const*) {CRASH}
 
 void AppearSwitchSave::onSwitchDemo() {CRASH}
@@ -341,9 +336,6 @@ AppearSwitchTimer::AppearSwitchTimer() : al::NerveExecutor("") {CRASH}
 void AppearSwitchTimer::init(al::ActorInitInfo const&,al::IUseAudioKeeper const*,al::IUseStageSwitch*,al::IUseCamera*,al::LiveActor*) {CRASH}
 bool AppearSwitchTimer::isSwitchOn() {CRASH}
 void AppearSwitchTimer::onSwitch() {CRASH}
-ItemGenerator::ItemGenerator(al::LiveActor*,al::ActorInitInfo const&) {CRASH}
-void ItemGenerator::generate(sead::Vector3f const&,sead::Vector3f const&) {CRASH}
-bool ItemGenerator::isNone() const {CRASH}
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 al::KeyPose::KeyPose() {CRASH}
 void al::KeyPose::init(al::PlacementInfo const&) {CRASH}
@@ -381,3 +373,4 @@ bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
 s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
 u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
+bool al::isPercentProbability(float) {CRASH}

@@ -20,18 +20,6 @@ bool PlayerJudgeOutInWater::judge() const {
     return false;
 }
 
-PlayerJudgeStartWaterSurfaceRun::PlayerJudgeStartWaterSurfaceRun(al::LiveActor const*,
-                                                                 al::WaterSurfaceFinder const*,
-                                                                 PlayerCounterForceRun const*) {}
-
-void PlayerJudgeStartWaterSurfaceRun::update() {}
-
-void PlayerJudgeStartWaterSurfaceRun::reset() {}
-
-bool PlayerJudgeStartWaterSurfaceRun::judge() const {
-    return false;
-}
-
 PlayerJudgeInWater::PlayerJudgeInWater(al::LiveActor const*, PlayerConst const*,
                                        IUsePlayerCollision const*, PlayerAreaChecker const*,
                                        al::WaterSurfaceFinder const*, IUsePlayerHeightCheck const*,
@@ -47,18 +35,6 @@ bool PlayerJudgeInWater::judge() const {
 
 PlayerRippleGenerator::PlayerRippleGenerator(al::LiveActor const*, al::LiveActor const*,
                                              PlayerModelHolder const*) {}
-
-PlayerJudgeDiveInWater::PlayerJudgeDiveInWater(al::LiveActor const*, PlayerConst const*,
-                                               IUsePlayerHeightCheck const*,
-                                               IUsePlayerFallDistanceCheck const*) {}
-
-void PlayerJudgeDiveInWater::update() {}
-
-void PlayerJudgeDiveInWater::reset() {}
-
-bool PlayerJudgeDiveInWater::judge() const {
-    return false;
-}
 
 PlayerJudgeCameraInWater::PlayerJudgeCameraInWater(al::LiveActor const*, IJudge const*,
                                                    al::WaterSurfaceFinder const*) {}
@@ -79,18 +55,6 @@ void PlayerJudgeTalkSwim::update() {}
 void PlayerJudgeTalkSwim::reset() {}
 
 bool PlayerJudgeTalkSwim::judge() const {
-    return false;
-}
-
-PlayerJudgeWaterSurfaceRun::PlayerJudgeWaterSurfaceRun(al::LiveActor const*, PlayerConst const*,
-                                                       al::WaterSurfaceFinder const*,
-                                                       PlayerCounterForceRun const*) {}
-
-void PlayerJudgeWaterSurfaceRun::update() {}
-
-void PlayerJudgeWaterSurfaceRun::reset() {}
-
-bool PlayerJudgeWaterSurfaceRun::judge() const {
     return false;
 }
 

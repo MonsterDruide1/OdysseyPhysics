@@ -11,6 +11,10 @@
 
 namespace al {
 
+const char* getModelName(al::LiveActor const*) {
+    return "";
+}
+
 void tryInitFixedModelGpuBuffer(LiveActor*) {}
 
 void showModel(al::LiveActor*) {}
@@ -27,7 +31,9 @@ void setModelMaterialParameterF32(al::LiveActor const*, char const*, char const*
 
 void stopDitherAnimAutoCtrl(al::LiveActor*) {}
 
-bool tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<float>*) {return false;}
+bool tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<float>*) {
+    return false;
+}
 
 void offDrawClipping(al::LiveActor*) {}
 
@@ -61,7 +67,9 @@ void hideSilhouetteModelIfShow(al::LiveActor*) {}
 
 void invalidateDepthShadowMap(al::LiveActor*) {}
 
-bool isExistDepthShadowMapCtrl(al::LiveActor*) {return false;}
+bool isExistDepthShadowMapCtrl(al::LiveActor*) {
+    return false;
+}
 
 bool isHideModel(LiveActor const*) {
     return false;
