@@ -166,7 +166,7 @@ void StageScene::init(const char* stageName, int scenario) {
                       nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     al::ActorSceneInfo* sceneInfo =
         new al::ActorSceneInfo();  // allocate on heap to ensure persistence
-    memcpy(sceneInfo, &actorInfo.mActorSceneInfo, sizeof(al::ActorSceneInfo));
+    memcpy(sceneInfo, &actorInfo.actorSceneInfo, sizeof(al::ActorSceneInfo));
     player->initSceneInfo(sceneInfo);
     sead::Vector3f playerTrans;
     al::getTrans(&playerTrans, actorInfo);

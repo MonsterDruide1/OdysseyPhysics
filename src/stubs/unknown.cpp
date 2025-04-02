@@ -93,7 +93,7 @@ const char* rs::getInitCapTypeName(PlayerInitInfo const&) {
 
 void al::initActorWithArchiveName(al::LiveActor* actor, al::ActorInitInfo const& info,
                                   sead::SafeStringBase<char> const&, char const*) {
-    game::RaylibActor::apply(actor, info.getPlacementInfo().getPlacementIter());
+    game::RaylibActor::apply(actor, info.placementInfo->getPlacementIter());
     WARN_UNIMPL;
 }
 

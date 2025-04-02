@@ -380,3 +380,4 @@ bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision con
 bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
 s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
+u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
