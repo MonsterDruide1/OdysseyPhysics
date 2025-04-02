@@ -18,6 +18,7 @@ bool isSensorName(al::HitSensor const*, char const*) {return false;}
 bool isMySensor(HitSensor const*, LiveActor const*) { return false; }
 void setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {}
 void setSensorRadius(al::LiveActor*, char const*, float) {}
+bool isMsgPlayerTrampleForCrossoverSensor(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {return false;}
 
 bool isMsgAskSafetyPoint(SensorMsg const*) { return false; }
 bool isMsgEnemyFloorTouch(SensorMsg const*) { return false; }

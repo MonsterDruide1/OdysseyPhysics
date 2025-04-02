@@ -6,6 +6,7 @@
 #include "Library/Base/StringUtil.h"
 #include "Library/Bgm/BgmLineFunction.h"
 #include "Library/Camera/CameraUtil.h"
+#include "Library/Collision/CollisionPartsKeeperUtil.h"
 #include "Library/Collision/CollisionUtil.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/PartsConnector.h"
@@ -242,15 +243,6 @@ void Doshi::init(const al::ActorInitInfo& initInfo) {CRASH}
 void Doshi::attackSensor(al::HitSensor* self, al::HitSensor* other) {CRASH}
 bool Doshi::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
 void Doshi::control() {CRASH}
-EnemyStateSwoon::EnemyStateSwoon(al::LiveActor*a, char const*, char const*, char const*, bool, bool) : al::ActorStateBase("", a) {CRASH}
-void EnemyStateSwoon::initParams(EnemyStateSwoonInitParam const&) {CRASH}
-bool EnemyStateSwoon::requestTrampled() {CRASH}
-bool EnemyStateSwoon::tryReceiveMsgEnableLockOn(al::SensorMsg const*) {CRASH}
-bool EnemyStateSwoon::tryReceiveMsgEndSwoon(al::SensorMsg const*) {CRASH}
-bool EnemyStateSwoon::tryReceiveMsgStartHack(al::SensorMsg const*) {CRASH}
-bool EnemyStateSwoon::tryReceiveMsgStartLockOn(al::SensorMsg const*) {CRASH}
-void EnemyStateSwoon::appear() {CRASH}
-void EnemyStateSwoon::control() {CRASH}
 bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
 al::ExecuteRequestKeeper::ExecuteRequestKeeper(int) {CRASH}
 void al::ExecuteRequestKeeper::executeRequestActorDrawAllOff() {CRASH}
@@ -369,8 +361,10 @@ bool al::pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor 
 void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {CRASH}
 bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}
 
-bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
+const sead::Vector3f& al::getActorGravity(al::HitSensor const*) {CRASH}
+u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
 s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
-u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
 bool al::isPercentProbability(float) {CRASH}
+bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
+bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}

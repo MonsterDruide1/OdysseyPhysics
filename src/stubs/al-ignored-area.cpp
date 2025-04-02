@@ -9,6 +9,7 @@ namespace al {
 bool isInDeathArea(al::IUseAreaObj const*,sead::Vector3<float> const&) {return false;}
 bool isInWaterArea(al::LiveActor const*) {return false;}
 bool isInAreaObj(al::AreaObjGroup const*, sead::Vector3<float> const&) {return false;}
+bool isInAreaObj(al::LiveActor const*, char const*) {return false;}
 
 al::AreaObj* al::AreaObjGroup::getAreaObj(int) const {WARN_UNIMPL;return nullptr;}
 bool al::AreaShapeCube::calcLocalBoundingBox(sead::BoundBox3<float>*) const {return false;}
