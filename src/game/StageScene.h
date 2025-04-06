@@ -1,12 +1,13 @@
 #pragma once
 
 #include <cstdio>
+#include "Library/Scene/Scene.h"
 #include "game/Camera.h"
 #include "game/RaylibActor.h"
 
 namespace game {
 
-class StageScene {
+class StageScene : public al::Scene {
 public:
     StageScene();
     ~StageScene();

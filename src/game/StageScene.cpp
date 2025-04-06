@@ -4,9 +4,11 @@
 #include "Library/Collision/CollisionDirector.h"
 #include "Library/Execute/ExecuteDirector.h"
 #include "Library/LiveActor/ActorInitInfo.h"
+#include "Library/LiveActor/LiveActorKit.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerHolder.h"
+#include "Library/Scene/SceneUtil.h"
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
 #include "Library/Yaml/ByamlUtil.h"
@@ -23,12 +25,15 @@
 
 namespace game {
 
-StageScene::StageScene() {
+StageScene::StageScene() : al::Scene("") {
     Input::createInstance();  // create here to allocate on heap of Scene
     mActors = new RaylibActor*[mActorsMax];
     mCamera = new Camera();
     mPartsKeeper = new CollisionPartsKeeper();
     mShinePositions = new sead::Vector3f[mShinesMax];
+
+    //mLiveActorKit = new al::LiveActorKit(5120, 4);
+    //mLiveActorKit->init(2);
 }
 
 StageScene::~StageScene() {
@@ -94,9 +99,7 @@ void StageScene::init(const char* stageName, int scenario) {
         /*al::PlacementInfo placement;
         placement.set(objiter, nullptr);
         al::ActorInitInfo info;
-        info.initNew(&placement, nullptr, nullptr, &factory, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-            nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-            nullptr, nullptr, nullptr);
+        al::initActorInitInfo(&info, this, &placement, nullptr, &factory, nullptr, nullptr);
         liveactor->init(info);*/
         RaylibActor::apply(liveactor, objiter);
         RaylibActor* actor = new RaylibActor(liveactor);
