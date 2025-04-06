@@ -16,8 +16,8 @@ sead::Vector2f PlayerInputFunction::getMoveInputStick(const al::LiveActor*, int,
     return Input::instance()->getStickLeft();
 }
 
-const sead::Matrix34f* PlayerFunction::getPlayerViewMtx(const al::LiveActor* actor) {
-    return ((PlayerActorBase*)actor)->getViewMtx();
+const sead::Matrix34f& PlayerFunction::getPlayerViewMtx(const al::LiveActor* actor) {
+    return *((PlayerActorBase*)actor)->getViewMtx();
 }
 
 bool PlayerInput::isHoldSquat() const {

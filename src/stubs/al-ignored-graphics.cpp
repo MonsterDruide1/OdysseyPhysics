@@ -15,6 +15,16 @@ const char* getModelName(al::LiveActor const*) {
     return "";
 }
 
+s32 getMaterialCount(al::LiveActor const*) {
+    return 0;
+}
+
+const char* getMaterialName(al::LiveActor const*, int) {
+    return "";
+}
+
+void setModelMaterialParameterV4F(al::LiveActor const*, char const*, char const*, sead::Vector4<float> const&) {}
+
 void tryInitFixedModelGpuBuffer(LiveActor*) {}
 
 void showModel(al::LiveActor*) {}

@@ -1,8 +1,10 @@
 #include "controller/nin/seadNinJoyNpadDevice.h"
 #include "framework/seadCalculateTask.h"
 #include "framework/seadTaskMgr.h"
+#include "gfx/seadProjection.h"
 #include "heap/seadExpHeap.h"
 #include "prim/seadStringUtil.h"
+#include "stream/seadStream.h"
 
 s32 sead::StringUtil::vsnprintf(char* s, size_t n, const char* format, va_list arg) {
     return std::vsnprintf(s, n, format, arg);
@@ -131,3 +133,21 @@ void sead::NinJoyNpadDevice::calc() {
 char16* sead::StringUtil::wcs16cpy(char16_t*, unsigned long, char16_t const*) {
     CRASH
 }
+
+void sead::WriteStream::writeF32(float) {CRASH}
+void sead::WriteStream::writeMemBlock(void const*, unsigned int) {CRASH}
+void sead::WriteStream::writeS32(int) {CRASH}
+void sead::WriteStream::writeS64(long) {CRASH}
+void sead::WriteStream::writeU16(unsigned short) {CRASH}
+void sead::WriteStream::writeU32(unsigned int) {CRASH}
+void sead::WriteStream::writeU64(unsigned long) {CRASH}
+void sead::WriteStream::writeU8(unsigned char) {CRASH}
+
+f32 sead::PerspectiveProjection::getNear() const {CRASH}
+f32 sead::PerspectiveProjection::getFar() const {CRASH}
+f32 sead::PerspectiveProjection::getAspect() const {CRASH}
+f32 sead::PerspectiveProjection::getFovy() const {CRASH}
+f32 sead::PerspectiveProjection::getTop() const {CRASH}
+f32 sead::PerspectiveProjection::getBottom() const {CRASH}
+f32 sead::PerspectiveProjection::getLeft() const {CRASH}
+f32 sead::PerspectiveProjection::getRight() const {CRASH}

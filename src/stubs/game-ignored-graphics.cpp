@@ -4,6 +4,7 @@
 #include "Library/Math/MathUtil.h"
 #include "Player/Player.h"
 #include "PlayerUtil.h"
+#include "Util/PlayerUtil.h"
 
 PlayerCostumeInfo* PlayerFunction::initMarioModelActor(al::LiveActor*, al::ActorInitInfo const&,
                                                        char const*, char const*, al::AudioKeeper*,
@@ -36,6 +37,12 @@ void calcOffsetAllRoot(sead::Vector3<float>* a1, PlayerModelHolder const*) {
 }
 
 void tryUpdateWaterSurfaceCoinShadow(WaterSurfaceShadow*, al::LiveActor*, float) {}
+
+bool tryCalcPlayerModelHeadJointFront(sead::Vector3<float>*, al::LiveActor const*) {return false;}
+bool tryCalcPlayerModelHeadJointPos(sead::Vector3<float>*, al::LiveActor const*) {return false;}
+bool tryCalcPlayerModelHeadJointSide(sead::Vector3<float>*, al::LiveActor const*) {return false;}
+bool tryCalcPlayerModelHeadJointUp(sead::Vector3<float>*, al::LiveActor const*) {return false;}
+bool tryCalcPlayerModelNoseJointMtx(sead::Matrix34<float>*, al::LiveActor const*) {return false;}
 
 }  // namespace rs
 

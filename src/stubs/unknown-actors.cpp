@@ -1,10 +1,10 @@
 #include "Enemy/EnemyStateSwoon.h"
 #include "Enemy/Gamane.h"
 #include "Enemy/Pecho.h"
-#include "Library/Area/SwitchKeepOnAreaGroup.h"
 #include "Library/Area/SwitchOnAreaGroup.h"
 #include "Library/Base/StringUtil.h"
 #include "Library/Bgm/BgmLineFunction.h"
+#include "Library/Camera/CameraDirector.h"
 #include "Library/Camera/CameraUtil.h"
 #include "Library/Collision/CollisionPartsKeeperUtil.h"
 #include "Library/Collision/CollisionUtil.h"
@@ -52,15 +52,18 @@
 #include "Library/Placement/PlacementId.h"
 #include "Library/Player/PlayerUtil.h"
 #include "Library/Rail/RailUtil.h"
+#include "Library/Resource/ResourceHolder.h"
 #include "Library/Screen/ScreenFunction.h"
 #include "Library/Shadow/ActorShadowUtil.h"
 #include "Library/Stage/StageSwitchKeeper.h"
 #include "Library/Stage/StageSwitchUtil.h"
+#include "Library/Yaml/Writer/ByamlWriterData.h"
 #include "MapObj/AnagramAlphabet.h"
 #include "MapObj/AppearSwitchSave.h"
 #include "MapObj/AppearSwitchTimer.h"
 #include "MapObj/Doshi.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
+#include "Npc/Bird.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "math/seadMathCalcCommon.h"
 #include "Player/PlayerCollider.h"
@@ -82,6 +85,7 @@
 #include "Util/ItemUtil.h"
 #include "Util/PlayerUtil.h"
 #include "Util/SensorMsgFunction.h"
+#include "Util/ScenePlayerCapFunction.h"
 
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
@@ -98,7 +102,6 @@ const al::ConveyerKey* al::ConveyerKeyKeeper::getConveyerKey(int) const {CRASH}
 void al::ConveyerKeyKeeper::init(al::ActorInitInfo const&) {CRASH}
 bool al::PlacementId::isEqual(al::PlacementId const&) const {CRASH}
 void al::RollingCubePoseKeeper::setStart() {CRASH}
-void al::SwitchKeepOnAreaGroup::update(sead::Vector3f const&) {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3f const&) {CRASH}
 bool al::appearItemTiming(al::LiveActor const*, char const*) {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, bool) {CRASH}
@@ -361,10 +364,14 @@ bool al::pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor 
 void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {CRASH}
 bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}
 
+al::Resource* al::findOrCreateResourceSystemData(char const*, char const*) {CRASH}
 const sead::Vector3f& al::getActorGravity(al::HitSensor const*) {CRASH}
+u8* al::getByml(al::Resource const*, sead::SafeStringBase<char> const&) {CRASH}
+const char* al::getLinksActorDisplayName(al::ActorInitInfo const&, char const*, int) {CRASH}
 u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
 s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
+f32 al::CameraDirector::getSceneFovyDegree() {CRASH}
 bool al::isPercentProbability(float) {CRASH}
 bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
 bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}

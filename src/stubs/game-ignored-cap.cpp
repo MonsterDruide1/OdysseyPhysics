@@ -3,6 +3,7 @@
 #include "Player/PlayerInput.h"
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
+#include "Util/ScenePlayerCapFunction.h"
 
 namespace rs {
 
@@ -14,6 +15,8 @@ bool tryReceiveMsgInitCapTargetAndSetCapTargetInfo(al::SensorMsg const*, CapTarg
 bool tryShowCapMsgCollectCoinGetFirst(al::IUseSceneObjHolder const*) {return false;}
 
 }
+
+bool PlayerCapFunction::isEnableBirdLandPlayerCapOn(al::LiveActor const*) {CRASH}
 
 void CapTargetInfo::setFollowLockOnMtx(char const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 
