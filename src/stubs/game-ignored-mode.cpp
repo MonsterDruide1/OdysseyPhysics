@@ -2,7 +2,7 @@
 #include "Enemy/GamaneHackState.h"
 #include "Enemy/HackerDepthShadowMapCtrl.h"
 #include "Library/Collision/CollisionDirector.h"
-#include "Library/Demo/DemoDirector.h"
+#include "Library/Scene/DemoDirector.h"
 #include "Player/HackerJudge.h"
 #include "Player/PlayerHackStartShaderCtrl.h"
 #include "PlayerUtil.h"
