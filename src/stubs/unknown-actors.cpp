@@ -102,6 +102,7 @@
 #include "Util/SensorMsgFunction.h"
 #include "Util/ScenePlayerCapFunction.h"
 
+// HIGH PRIORITY
 void al::initActorActionKeeper(al::LiveActor*, al::ActorResource const*, char const*, char const*) {WARN_UNIMPL;}
 void al::initActorCollisionWithResource(al::LiveActor*, al::Resource const*, sead::SafeStringBase<char> const&, al::HitSensor*, sead::Matrix34<float> const*, char const*) {WARN_UNIMPL;}
 void al::initActorEffectKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL;}
@@ -131,6 +132,7 @@ void al::ActorInitInfo::initViewIdHost(al::PlacementInfo const* a2, al::ActorIni
 al::ActorResource* al::findOrCreateActorResource(al::ActorResourceHolder*, char const*, char const*) {WARN_UNIMPL; return new ActorResource("", nullptr, nullptr);}
 al::ActorResource::ActorResource(sead::SafeStringBase<char> const&, al::Resource*, al::Resource*) {WARN_UNIMPL;}
 
+// NORMAL PRIORITY
 al::ActorResource::~ActorResource() {CRASH}
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
