@@ -11,15 +11,20 @@
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Controller/PadRumbleDirector.h"
+#include "Library/Draw/GraphicsSystemInfo.h"
+#include "Library/Effect/EffectSystemInfo.h"
+#include "Library/Effect/PartsEffectGroup.h"
 #include "Library/Execute/ExecuteRequestKeeper.h"
 #include "Library/Execute/ExecuteTableHolderDraw.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
+#include "Library/HitSensor/SensorFunction.h"
 #include "Library/Item/ItemUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
 #include "Library/Joint/JointSpringControllerHolder.h"
 #include "Library/KeyPose/KeyPoseKeeper.h"
 #include "Library/KeyPose/KeyPoseKeeperUtil.h"
 #include "Library/Layout/LayoutActor.h"
+#include "Library/Light/ModelMaterialCategory.h"
 #include "Library/LiveActor/ActorActionFunction.h"
 #include "Library/LiveActor/ActorAnimFunction.h"
 #include "Library/LiveActor/ActorAreaFunction.h"
@@ -30,6 +35,7 @@
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/ActorMovementFunction.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
+#include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorSceneInfo.h"
 #include "Library/LiveActor/ActorSensorFunction.h"
 #include "Library/LiveActor/ActorSensorUtil.h"
@@ -43,17 +49,24 @@
 #include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
 #include "Library/Model/ModelKeeper.h"
+#include "Library/Model/ModelLodCtrl.h"
+#include "Library/Model/ModelOcclusionQuery.h"
 #include "Library/Model/ModelShapeUtil.h"
 #include "Library/Movement/WheelMovement.h"
 #include "Library/Nature/NatureUtil.h"
 #include "Library/Nerve/NerveUtil.h"
+#include "Library/Obj/ActorDitherAnimator.h"
+#include "Library/Obj/FarDistanceDitherAnimator.h"
 #include "Library/Obj/PartsFunction.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementId.h"
+#include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerUtil.h"
 #include "Library/Rail/RailUtil.h"
+#include "Library/Resource/Resource.h"
 #include "Library/Resource/ResourceHolder.h"
 #include "Library/Screen/ScreenFunction.h"
+#include "Library/Se/SeFunction.h"
 #include "Library/Shadow/ActorShadowUtil.h"
 #include "Library/Stage/StageSwitchKeeper.h"
 #include "Library/Stage/StageSwitchUtil.h"
@@ -64,7 +77,9 @@
 #include "MapObj/Doshi.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
 #include "Npc/Bird.h"
+#include "Project/HitSensor/HitSensor.h"
 #include "Util/PlayerCollisionUtil.h"
+#include "game/RaylibActor.h"
 #include "math/seadMathCalcCommon.h"
 #include "Player/PlayerCollider.h"
 #include "PlayerUtil.h"
@@ -87,6 +102,36 @@
 #include "Util/SensorMsgFunction.h"
 #include "Util/ScenePlayerCapFunction.h"
 
+void al::initActorActionKeeper(al::LiveActor*, al::ActorResource const*, char const*, char const*) {WARN_UNIMPL;}
+void al::initActorCollisionWithResource(al::LiveActor*, al::Resource const*, sead::SafeStringBase<char> const&, al::HitSensor*, sead::Matrix34<float> const*, char const*) {WARN_UNIMPL;}
+void al::initActorEffectKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL;}
+void al::initActorSRT(al::LiveActor* actor, al::ActorInitInfo const& info) {WARN_UNIMPL;}
+void al::initActorPoseTFGSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTFGSV();}
+void al::initActorPoseTFSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTFSV();}
+void al::initActorPoseTFUSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTFUSV();}
+void al::initActorPoseTQGMSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTQGMSV();}
+void al::initActorPoseTQGSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTRGMSV();}
+void al::initActorPoseTRGMSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTRGMSV();}
+void al::initActorPoseTRMSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTRMSV();}
+void al::initExecutorDraw(al::LiveActor*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL;}
+void al::initExecutorModelUpdate(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
+void al::initHitReactionKeeper(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL;}
+void al::initScreenPointKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL;}
+void al::initSubActorKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*, int) {WARN_UNIMPL;}
+void al::initStageSwitch(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
+bool al::tryGetActorInitFileIter(al::ByamlIter* iter, al::Resource const*, char const* x, char const*) {WARN_UNIMPL;return false;}
+void al::initActorParamHolder(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL;}
+void al::initActorItemKeeper(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&) {WARN_UNIMPL;}
+void al::initActorSceneInfo(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
+void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
+void al::setColliderRadius(al::LiveActor*, float) {WARN_UNIMPL;}
+const char* al::Resource::getArchiveName() const {WARN_UNIMPL;return "";}
+void al::ActorInitInfo::initNoViewId(al::PlacementInfo const* a2, al::ActorInitInfo const& a3) {*this = a3; placementInfo = a2;}
+void al::ActorInitInfo::initViewIdHost(al::PlacementInfo const* a2, al::ActorInitInfo const& a3) {*this = a3; placementInfo = a2;}
+al::ActorResource* al::findOrCreateActorResource(al::ActorResourceHolder*, char const*, char const*) {WARN_UNIMPL; return new ActorResource("", nullptr, nullptr);}
+al::ActorResource::ActorResource(sead::SafeStringBase<char> const&, al::Resource*, al::Resource*) {WARN_UNIMPL;}
+
+al::ActorResource::~ActorResource() {CRASH}
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
 AppearSwitchSave::AppearSwitchSave(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
@@ -117,7 +162,6 @@ void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePos
 void al::calcViewModel(al::LiveActor*) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
-al::LiveActor* al::createLinksActorFromFactory(al::ActorInitInfo const&, char const*, int) {CRASH}
 al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
 al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(sead::BoundBox3f const&, al::ActorInitInfo const&) {CRASH}
 void al::fittingToCurrentKeyBoundingBox(sead::Quatf*, sead::Vector3f*, al::RollingCubePoseKeeper const*) {CRASH}
@@ -126,28 +170,15 @@ f32 al::getClippingRadius(al::LiveActor const*) {CRASH}
 const al::PlacementInfo& al::getCurrentKeyPlacementInfo(al::RollingCubePoseKeeper const*) {CRASH}
 f32 al::getRailCoord(al::IUseRail const*) {CRASH}
 al::LiveActor* al::getSubActor(al::LiveActor const*, int) {CRASH}
-void al::initActor(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initActorClipping(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initActorPoseTQSV(al::LiveActor*) {CRASH}
-void al::initActorSRT(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-void al::initActorSceneInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-void al::initCreateActorWithPlacementInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-void al::initCreateActorWithPlacementInfo(al::LiveActor*, al::ActorInitInfo const&, al::PlacementInfo const&) {CRASH}
-void al::initCreateActorNoPlacementInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initExecutorWatchObj(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initGroupClipping(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-void al::initLinksActor(al::LiveActor*, al::ActorInitInfo const&, char const*, int) {CRASH}
-void al::initMapPartsActor(al::LiveActor*, al::ActorInitInfo const&, char const*) {CRASH}
-void al::initMapPartsActorWithArchiveName(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
-void al::initMaterialCode(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-void al::initNerveAction(al::LiveActor*, char const*, alNerveFunction::NerveActionCollector*, int) {CRASH}
-void al::initStageSwitch(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initSubActorKeeperNoFile(al::LiveActor*, al::ActorInitInfo const&, int) {CRASH}
 void al::invalidateCollisionParts(al::LiveActor*) {CRASH}
 void al::invalidateDitherAnim(al::LiveActor*) {CRASH}
 bool al::isExistCollisionParts(al::LiveActor const*) {CRASH}
-bool al::isExistModel(al::LiveActor const*) {CRASH}
 bool al::isExistRail(al::IUseRail const*) {CRASH}
 bool al::isGreaterEqualMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isInDeathArea(al::LiveActor const*) {CRASH}
@@ -156,7 +187,6 @@ bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
 bool al::isViewDependentModel(al::LiveActor const*) {CRASH}
-void al::makeMapPartsModelName(sead::BufferedSafeStringBase<char>*, sead::BufferedSafeStringBase<char>*, al::ActorInitInfo const&) {CRASH}
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 f32 al::modf(float, float) {CRASH}
 bool al::moveSyncRail(al::LiveActor*, float) {CRASH}
@@ -170,14 +200,9 @@ void al::registerSubActorSyncClipping(al::LiveActor*, al::LiveActor*) {CRASH}
 void al::rotateQuatRadian(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::setSyncRailToCoord(al::LiveActor*, float) {CRASH}
 void al::setSyncRailToNearestPos(al::LiveActor*) {CRASH}
-bool al::tryAddDisplayOffset(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
 al::SwitchKeepOnAreaGroup* al::tryCreateSwitchKeepOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 al::SwitchOnAreaGroup* al::tryCreateSwitchOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-const char* al::tryGetMapPartsSuffix(al::ActorInitInfo const&, char const*) {CRASH}
-bool al::tryListenStageSwitchKill(al::LiveActor*) {CRASH}
-bool al::trySyncStageSwitchAppear(al::LiveActor*) {CRASH}
-bool al::trySyncStageSwitchAppearAndKill(al::LiveActor*) {CRASH}
 void al::turnQuatYDirRate(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::validateCollisionParts(al::LiveActor*) {CRASH}
 bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3f*, al::Triangle*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
@@ -310,7 +335,6 @@ f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
 f32 al::calcRailTotalRate(al::IUseRail const*) {CRASH}
 void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
 const sead::Vector3f& al::getActorVelocity(al::HitSensor const*) {CRASH}
-const al::PlacementInfo* al::getPlacementInfo(al::ActorInitInfo const&) {CRASH}
 const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {CRASH}
 void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
@@ -333,7 +357,6 @@ bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision con
 al::Resource* al::findOrCreateResourceSystemData(char const*, char const*) {CRASH}
 const sead::Vector3f& al::getActorGravity(al::HitSensor const*) {CRASH}
 u8* al::getByml(al::Resource const*, sead::SafeStringBase<char> const&) {CRASH}
-const char* al::getLinksActorDisplayName(al::ActorInitInfo const&, char const*, int) {CRASH}
 u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
 s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
@@ -342,6 +365,7 @@ bool al::isPercentProbability(float) {CRASH}
 bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
 bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 
+void al::ActorInitInfo::initViewIdSelf(al::PlacementInfo const*, al::ActorInitInfo const&) {CRASH}
 void al::calcCollidedNormalSum(al::LiveActor const*, sead::Vector3<float>*) {CRASH}
 void al::calcColliderPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
 bool al::calcDirBetweenSensors(sead::Vector3<float>*, al::HitSensor const*, al::HitSensor const*) {CRASH}
@@ -355,6 +379,8 @@ bool al::isCollided(al::LiveActor const*) {CRASH}
 bool al::isCollidedCeiling(al::LiveActor const*) {CRASH}
 bool al::isNearAngleDegree(sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 bool al::isNearAngleDegreeHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
+f32 al::getColliderOffsetY(al::LiveActor const*) {CRASH}
+f32 al::getColliderRadius(al::LiveActor const*) {CRASH}
 void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::limitVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::rotateQuatXDirDegree(sead::Quat<float>*, sead::Quat<float> const&, float) {CRASH}
@@ -362,3 +388,5 @@ void al::rotateQuatZDirDegree(sead::Quat<float>*, sead::Quat<float> const&, floa
 void al::scaleVectorDirection(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::scaleVectorExceptDirection(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
+u8* al::tryGetMapPartsResourceYaml(al::ActorInitInfo const&, char const*) {CRASH}
+al::HitSensorType alSensorFunction::findSensorTypeByName(char const*) {CRASH}

@@ -177,8 +177,8 @@ void StageScene::init(const char* stageName, int scenario) {
     al::getQuat(&playerQuat, actorInfo);
     PlayerInitInfo initInfo = {
         nullptr, mCamera->getViewMtxPtr(), 0, "", "", playerTrans, playerQuat, 0};
+    RaylibActor::apply(player, playerlist.getIterByIndex(0));
     player->initPlayer(actorInfo, initInfo);
-    // RaylibActor::apply(player, playerlist.getIterByIndex(0));
     mPlayer = new RaylibActor(player);
     mPlayer->initRaylibModel();
     mPlayer->initAfterPlacement();

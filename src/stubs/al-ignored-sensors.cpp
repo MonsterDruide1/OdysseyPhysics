@@ -1,7 +1,19 @@
 #include "Library/LiveActor/ActorSensorFunction.h"
 #include "Library/LiveActor/ActorSensorUtil.h"
+#include "Project/HitSensor/HitSensor.h"
 
 namespace al {
+
+al::HitSensor::HitSensor(al::LiveActor*, char const*, unsigned int, float, unsigned short, sead::Vector3<float> const*, sead::Matrix34<float> const*, sead::Vector3<float> const&) {CRASH}
+void al::HitSensor::invalidateBySystem() {}
+bool al::HitSensor::trySensorSort() {return true;}
+void al::HitSensor::update() {}
+void al::HitSensor::validateBySystem() {}
+
+al::HitSensor* addHitSensor(al::LiveActor*, al::ActorInitInfo const&, char const*, unsigned int, float, unsigned short, sead::Vector3<float> const&) {
+    WARN_UNIMPL;
+    return nullptr;
+}
 
 void invalidateHitSensors(LiveActor*) {}
 void validateHitSensor(al::LiveActor*, char const*) {}
@@ -17,6 +29,7 @@ bool isSensorPlayer(al::HitSensor const*) {return false;}
 bool isSensorName(al::HitSensor const*, char const*) {return false;}
 bool isMySensor(HitSensor const*, LiveActor const*) { return false; }
 void setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {}
+void setHitSensorJointMtx(al::LiveActor*, char const*, char const*) {CRASH}
 void setSensorRadius(al::LiveActor*, char const*, float) {}
 bool isMsgPlayerTrampleForCrossoverSensor(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {return false;}
 

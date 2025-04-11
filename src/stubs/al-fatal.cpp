@@ -90,10 +90,6 @@ void al::EffectKeeper::update() {
     CRASH
 }
 
-void al::HitSensorKeeper::update() {
-    CRASH
-}
-
 void al::ActorActionKeeper::updatePost() {
     CRASH
 }
@@ -169,15 +165,7 @@ void al::SeKeeper::resetPosition() {
     CRASH
 }
 
-void al::HitSensorKeeper::attackSensor() {
-    CRASH
-}
-
 void al::updateMaterialCodePuddle(al::LiveActor*) {
-    CRASH
-}
-
-void al::setMaterialCode(al::LiveActor*, char const*) {
     CRASH
 }
 

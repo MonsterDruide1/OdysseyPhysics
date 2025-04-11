@@ -1,15 +1,61 @@
 #include "Library/Anim/AnimPlayerSkl.h"
+#include "Library/Draw/GraphicsSystemInfo.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
 #include "Library/Layout/LayoutInitInfo.h"
+#include "Library/Light/ModelMaterialCategory.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/Model/ModelCtrl.h"
 #include "Library/Model/ModelKeeper.h"
+#include "Library/Model/ModelLodCtrl.h"
+#include "Library/Model/ModelOcclusionQuery.h"
+#include "Library/Obj/ActorDitherAnimator.h"
+#include "Library/Obj/FarDistanceDitherAnimator.h"
 #include "Library/Shadow/ShadowMaskCtrl.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
 #include "playerUtil.h"
 
 namespace al {
+
+void initDepthShadowMapCtrl(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {}
+void initPartialSklAnim(al::LiveActor*, int, int, int) {}
+void initShadowMaskCtrl(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&, char const*) {}
+void initActorOcclusionKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {}
+void invalidateShadowMaskIntensityAll(al::LiveActor*) {}
+void setClippingNearDistance(al::LiveActor*, float) {}
+void setClippingObb(al::LiveActor*, sead::BoundBox3<float> const&) {}
+void setFixedModelFlag(al::LiveActor*) {}
+void setIgnoreUpdateDrawClipping(al::LiveActor*, bool) {}
+void calcModelBoundingBox(sead::BoundBox3<float>*, al::LiveActor const*) {}
+f32 calcModelBoundingSphereRadius(al::LiveActor const*) {}
+void createUniqueShader(al::LiveActor*) {}
+void initActorModelKeeper(al::LiveActor*, al::ActorInitInfo const&, al::ActorResource const*, int) {}
+bool initActorPrePassLightKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {return false;}
+bool isExistModel(al::LiveActor const*) {return false;}
+s32 getLodModelCount(al::LiveActor const*) {return 1;}
+
+void al::ModelKeeper::setDisplayRootJointMtxPtr(sead::Matrix34<float> const*) {}
+void al::ModelKeeper::setModelLodCtrl(al::ModelLodCtrl*) {}
+void al::ModelLodAllCtrl::registerLodCtrl(al::ModelLodCtrl*) {}
+al::ModelLodCtrl::ModelLodCtrl(al::IUseCamera*, sead::Vector3<float> const*, sead::Matrix34<float> const*, sead::Vector3<float> const*, sead::BoundBox3<float> const&, int) {}
+void al::ModelLodCtrl::init(al::ByamlIter const&) {}
+void al::ModelMaterialCategory::tryCreate(al::ModelCtrl*, al::Resource const*, char const*, al::MaterialCategoryKeeper*) {}
+al::ModelOcclusionQuery* al::ModelOcclusionQuery::tryCreate(al::LiveActor*, al::Resource*, char const*) {
+    WARN_UNIMPL;
+    return nullptr;
+}
+al::ActorDitherAnimator* al::ActorDitherAnimator::tryCreate(al::LiveActor*, al::Resource const*, char const*) {
+    WARN_UNIMPL;
+    return nullptr;
+}
+al::FarDistanceDitherAnimator* al::FarDistanceDitherAnimator::tryCreate(al::LiveActor*, al::Resource const*, char const*) {
+    WARN_UNIMPL;
+    return nullptr;
+}
+agl::DrawContext* al::GraphicsSystemInfo::getDrawContext() const {
+    WARN_UNIMPL;
+    return nullptr;
+}
 
 const char* getModelName(al::LiveActor const*) {
     return "";
@@ -100,10 +146,6 @@ void offSyncHideSubActor(al::LiveActor*, al::LiveActor const*) {}
 void onSyncAppearSubActor(al::LiveActor*, al::LiveActor const*) {}
 
 void invalidateClipping(al::LiveActor*) {}
-
-const al::LayoutInitInfo* getLayoutInitInfo(al::ActorInitInfo const&) {
-    return nullptr;
-}
 
 void setMaterialProgrammable(al::LiveActor*) {}
 
