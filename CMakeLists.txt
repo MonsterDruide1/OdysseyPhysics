@@ -8,7 +8,7 @@ set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
 project(OdysseyPhysics)
 
-add_compile_options(-O3)
+add_compile_options(-O0 -g)
 #add_compile_options(-stdlib=libc++)
 #add_link_options(-stdlib=libc++)
 
