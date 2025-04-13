@@ -254,7 +254,6 @@ void al::resetCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
 void al::setCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
 void al::startCamera(al::IUseCamera const*, al::CameraTicket*, int) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
-bool al::tryNormalizeOrDirZ(sead::Vector3f*) {CRASH}
 
 Doshi::Doshi(char const*) : al::LiveActor("") {CRASH}
 void Doshi::init(const al::ActorInitInfo& initInfo) {CRASH}
@@ -312,7 +311,6 @@ void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilte
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
 void al::startActionSubActor(al::LiveActor const*, char const*, char const*) {CRASH}
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
-bool al::tryNormalizeOrDirZ(sead::Vector3f*, sead::Vector3f const&) {CRASH}
 bool al::tryReceiveMsgPushAndAddVelocity(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
 void rs::addDemoActor(al::LiveActor*, bool) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoNoWriteSaveDataInSameWorldResetMiniGame(al::ActorInitInfo const&) {CRASH}
@@ -350,7 +348,6 @@ void al::initActorPoseTRSV(LiveActor *actor) {CRASH}
 al::CameraTicket* al::initDemoObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
-bool al::isNear(sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
 bool al::pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
 void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {CRASH}
@@ -379,8 +376,8 @@ const sead::Vector3f& al::getCollidedGroundNormal(al::LiveActor const*) {CRASH}
 const sead::Vector3f& al::getCollidedWallNormal(al::LiveActor const*) {CRASH}
 bool al::isCollided(al::LiveActor const*) {CRASH}
 bool al::isCollidedCeiling(al::LiveActor const*) {CRASH}
+bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 bool al::isNearAngleDegree(sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
-bool al::isNearAngleDegreeHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 f32 al::getColliderOffsetY(al::LiveActor const*) {CRASH}
 f32 al::getColliderRadius(al::LiveActor const*) {CRASH}
 void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
