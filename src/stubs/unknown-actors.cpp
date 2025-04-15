@@ -1,5 +1,6 @@
 #include "Enemy/EnemyStateSwoon.h"
 #include "Enemy/Gamane.h"
+#include "Enemy/KaronWingStateHack.h"
 #include "Enemy/Pecho.h"
 #include "Library/Area/SwitchOnAreaGroup.h"
 #include "Library/Base/StringUtil.h"
@@ -14,6 +15,7 @@
 #include "Library/Draw/GraphicsSystemInfo.h"
 #include "Library/Effect/EffectSystemInfo.h"
 #include "Library/Effect/PartsEffectGroup.h"
+#include "Library/Event/EventFlowUtil.h"
 #include "Library/Execute/ExecuteRequestKeeper.h"
 #include "Library/Execute/ExecuteTableHolderDraw.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
@@ -78,6 +80,7 @@
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
 #include "Npc/Bird.h"
 #include "Project/HitSensor/HitSensor.h"
+#include "Util/NpcEventFlowUtil.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "game/RaylibActor.h"
 #include "math/seadMathCalcCommon.h"
@@ -88,6 +91,7 @@
 #include "Project/Joint/KeyPose.h"
 #include "Project/Joint/RollingCubePoseKeeper.h"
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
+#include "Scene/GuidePosInfoHolder.h"
 #include "System/GameDataFunction.h"
 #include "System/GameDataHolderAccessor.h"
 #include "System/GameDataUtil.h"
@@ -98,6 +102,7 @@
 #include "Util/Hack.h"
 #include "Util/ItemGenerator.h"
 #include "Util/ItemUtil.h"
+#include "Util/NpcAnimUtil.h"
 #include "Util/PlayerUtil.h"
 #include "Util/SensorMsgFunction.h"
 #include "Util/ScenePlayerCapFunction.h"
@@ -389,3 +394,58 @@ void al::scaleVectorExceptDirection(sead::Vector3<float>*, sead::Vector3<float> 
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
 u8* al::tryGetMapPartsResourceYaml(al::ActorInitInfo const&, char const*) {CRASH}
 al::HitSensorType alSensorFunction::findSensorTypeByName(char const*) {CRASH}
+
+KaronWingStateHack::KaronWingStateHack(al::LiveActor*, al::ActorInitInfo const&, IUsePlayerHack**) : al::ActorStateBase("", nullptr) {CRASH}
+void KaronWingStateHack::attackSensor(al::HitSensor*, al::HitSensor*) {CRASH}
+bool KaronWingStateHack::isEndCancel() const {CRASH}
+bool KaronWingStateHack::isEndDamage() const {CRASH}
+bool KaronWingStateHack::isEndReset() const {CRASH}
+bool KaronWingStateHack::receiveMsg(al::SensorMsg const*, al::HitSensor*, al::HitSensor*) {CRASH}
+void KaronWingStateHack::resetFlyLimit(sead::Vector3<float> const&) {CRASH}
+void KaronWingStateHack::updateCollider() {CRASH}
+PlayerCollider* KaronWingStateHack::getPlayerCollider() const {CRASH}
+void al::calcCameraLookDir(sead::Vector3<float>*, al::IUseCamera const*, int) {CRASH}
+al::ActorMatrixCameraTarget* al::createActorMatrixCameraTarget(al::LiveActor const*, sead::Matrix34<float> const*) {CRASH}
+f32 al::getModelAlphaMask(al::LiveActor const*) {CRASH}
+const sead::Vector3f& al::getSensorPos(al::LiveActor const*, char const*) {CRASH}
+al::JointLocalAxisRotator* al::initJointLocalAxisRotator(al::LiveActor const*, sead::Vector3<float> const&, float const*, char const*, bool) {CRASH}
+void al::initJointLocalXRotator(al::LiveActor const*, float const*, char const*) {CRASH}
+bool al::isActive(al::EventFlowExecutor const*) {CRASH}
+bool al::isActiveCamera(al::CameraTicket const*) {CRASH}
+bool al::isActiveCameraTarget(al::CameraTargetBase const*) {CRASH}
+bool al::isMsgKickStoneAttackReflect(al::SensorMsg const*) {CRASH}
+void al::makeQuatRotationRate(sead::Quat<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+void al::offSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) {CRASH}
+void al::offSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) {CRASH}
+void al::requestStopCameraVerticalAbsorb(al::IUseCamera*) {CRASH}
+void al::stopSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, int, char const*) {CRASH}
+bool al::updateSyncHostVisible(bool*, al::LiveActor*, al::LiveActor const*, bool) {CRASH}
+CapTargetInfo* rs::createCapTargetInfoWithPlayerCollider(al::LiveActor*, IUsePlayerCollision*, char const*) {CRASH}
+void rs::endHackAirVelocity(IUsePlayerHack**, sead::Vector3<float> const&, sead::Quat<float> const&, sead::Vector3<float> const&, int) {CRASH}
+void rs::endHackDir(IUsePlayerHack**, sead::Vector3<float> const&) {CRASH}
+void rs::endHackTargetQuat(IUsePlayerHack**, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
+const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
+al::EventFlowExecutor* rs::initEventFlow(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
+bool rs::isMsgCancelHack(al::SensorMsg const*) {CRASH}
+bool rs::isMsgEnableMapCheckPointWarp(al::SensorMsg const*) {CRASH}
+bool rs::isMsgHackMarioDead(al::SensorMsg const*) {CRASH}
+bool rs::isMsgHackMarioDemo(al::SensorMsg const*) {CRASH}
+bool rs::isMsgHackSyncDamageVisibility(al::SensorMsg const*) {CRASH}
+bool rs::isMsgHackerDamageAndCancel(al::SensorMsg const*) {CRASH}
+bool rs::isMsgHammerBrosHammerHackAttack(al::SensorMsg const*) {CRASH}
+bool rs::isMsgMotorcycleDashAttack(al::SensorMsg const*) {CRASH}
+bool rs::isMsgRadishReflect(al::SensorMsg const*) {CRASH}
+bool rs::isMsgSeedReflect(al::SensorMsg const*) {CRASH}
+bool rs::isMsgTankExplosion(al::SensorMsg const*) {CRASH}
+bool rs::isSequenceTimeBalloonOrRace(al::LiveActor const*) {CRASH}
+bool rs::isTriggerHackSwing(IUsePlayerHack const*) {CRASH}
+bool rs::receiveMsgRequestTransferHack(al::SensorMsg const*, IUsePlayerHack*, al::HitSensor*) {CRASH}
+bool rs::requestDamage(IUsePlayerHack*) {CRASH}
+void rs::resetRouteHeadGuidePosPtr(al::IUseSceneObjHolder const*) {CRASH}
+bool rs::sendMsgHackerNoReaction(IUsePlayerHack const*, al::HitSensor*, al::HitSensor*) {CRASH}
+void rs::setNpcMaterialAnimFromPlacementInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
+void rs::setRouteHeadGuidePosPtr(al::IUseSceneObjHolder const*, sead::Vector3<float> const*) {CRASH}
+void rs::startEventFlow(al::EventFlowExecutor*, char const*) {CRASH}
+void rs::syncDamageVisibility(al::LiveActor*, IUsePlayerHack const*) {CRASH}
+bool rs::tryEndHackStartDemo(IUsePlayerHack*, al::LiveActor*) {CRASH}
+bool rs::updateEventFlow(al::EventFlowExecutor*) {CRASH}
