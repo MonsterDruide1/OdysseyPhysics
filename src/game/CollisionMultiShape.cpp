@@ -261,7 +261,7 @@ void CollisionMultiShape::callbackFromServer(al::KCPrismData const* data,
         f32 v74 = 0.0f;
         u8 v73 = 0;
         dbg_printf("KCHitSphereForPlayer(%p(%d), %p, (%.02f, %.02f, %.02f), %f, %f)\n", data,
-               data->mTriIndex, header, v75.x, v75.y, v75.z, sphere->mBoundingRadiusWorld * unk6,
+               data->triIndex, header, v75.x, v75.y, v75.z, sphere->mBoundingRadiusWorld * unk6,
                unk6);
         bool hitsphere = mParts->mKCollisionServer->KCHitSphereForPlayer(
             data, header, &v75, sphere->mBoundingRadiusWorld * unk6, unk6, &v74, &v73);
