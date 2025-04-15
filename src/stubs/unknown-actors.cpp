@@ -49,7 +49,6 @@
 #include "MapObj/AppearSwitchTimer.h"
 #include "MapObj/Doshi.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
-#include "Project/HitSensor/HitSensor.h"
 #include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
 #include "Util/PlayerCollisionUtil.h"
@@ -67,8 +66,6 @@
 #include "Util/AreaUtil.h"
 #include "Util/NpcAnimUtil.h"
 #include "Util/PlayerUtil.h"
-#include "Util/SensorMsgFunction.h"
-#include "Util/ScenePlayerCapFunction.h"
 
 // HIGH PRIORITY
 void al::initActorActionKeeper(al::LiveActor*, al::ActorResource const*, char const*, char const*) {WARN_UNIMPL;}
@@ -186,20 +183,16 @@ bool rs::isNearPlayerH(al::LiveActor const*, float) {CRASH}
 al::JointSpringControllerHolder::JointSpringControllerHolder() {CRASH}
 void al::JointSpringControllerHolder::init(al::LiveActor*,char const*) {CRASH}
 bool al::calcDirOnPlane(sead::Vector3f*,sead::Vector3f const&,sead::Vector3f const&,sead::Vector3f const&) {CRASH}
+al::AreaObjGroup* al::createLinkAreaGroup(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*, char const*) {CRASH}
 void al::initJointControllerKeeper(al::LiveActor const*, int) {CRASH}
+al::JointLocalAxisRotator* al::initJointLocalAxisRotator(al::LiveActor const*, sead::Vector3<float> const&, float const*, char const*, bool) {CRASH}
+void al::initJointLocalXRotator(al::LiveActor const*, float const*, char const*) {CRASH}
+void al::initJointLocalYRotator(al::LiveActor const*, float const*, char const*) {CRASH}
 void al::initJointLocalZRotator(al::LiveActor const*, float const*, char const*) {CRASH}
 bool al::isCollidedWall(al::LiveActor const*) {CRASH}
 void al::rotateQuatMomentDegree(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
-
-al::AreaObjGroup* al::createLinkAreaGroup(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*, char const*) {CRASH}
-void al::initJointLocalYRotator(al::LiveActor const*, float const*, char const*) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
-Doshi::Doshi(char const*) : al::LiveActor("") {CRASH}
-void Doshi::init(const al::ActorInitInfo& initInfo) {CRASH}
-void Doshi::attackSensor(al::HitSensor* self, al::HitSensor* other) {CRASH}
-bool Doshi::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
-void Doshi::control() {CRASH}
 bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
 al::CollisionParts* al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, float, float) {CRASH}
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
@@ -283,8 +276,6 @@ void al::scaleVectorExceptDirection(sead::Vector3<float>*, sead::Vector3<float> 
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
 u8* al::tryGetMapPartsResourceYaml(al::ActorInitInfo const&, char const*) {CRASH}
 
-al::JointLocalAxisRotator* al::initJointLocalAxisRotator(al::LiveActor const*, sead::Vector3<float> const&, float const*, char const*, bool) {CRASH}
-void al::initJointLocalXRotator(al::LiveActor const*, float const*, char const*) {CRASH}
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
 void al::makeQuatRotationRate(sead::Quat<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
