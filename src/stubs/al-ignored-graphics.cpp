@@ -45,6 +45,13 @@ void offSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) {}
 void offSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) {}
 bool updateSyncHostVisible(bool*, al::LiveActor*, al::LiveActor const*, bool) {return false;}
 f32 getModelAlphaMask(al::LiveActor const*) {return 1.0f;}
+void calcViewModel(al::LiveActor*) {}
+void forceApplyCubeMap(al::LiveActor*, char const*) {}
+f32 getClippingRadius(al::LiveActor const*) {return 1.0f;}
+bool isViewDependentModel(al::LiveActor const*) {return false;}
+bool isGreaterEqualMaxLodLevelNoClamp(al::ModelKeeper const*) {return false;}
+bool isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {return false;}
+void expandClippingRadiusByShadowLength(al::LiveActor*, sead::Vector3f*, float) {}
 
 void al::ModelKeeper::setDisplayRootJointMtxPtr(sead::Matrix34<float> const*) {}
 void al::ModelKeeper::setModelLodCtrl(al::ModelLodCtrl*) {}

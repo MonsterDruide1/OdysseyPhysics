@@ -90,6 +90,7 @@ bool isPlayerHackKuriboAny(al::LiveActor const*) {return false;}
 bool isPlayerHackTank(al::LiveActor const*) {return false;}
 void requestEndDemoNormal(al::LiveActor const*) {}
 bool requestStartDemoNormal(al::LiveActor*, bool) {return false;}
+void addDemoActor(al::LiveActor*, bool) {}
 void syncDamageVisibility(al::LiveActor*, IUsePlayerHack const*) {}
 bool tryEndHackStartDemo(IUsePlayerHack*, al::LiveActor*) {return false;}
 void endHackAirVelocity(IUsePlayerHack**, sead::Vector3<float> const&, sead::Quat<float> const&, sead::Vector3<float> const&, int) {}

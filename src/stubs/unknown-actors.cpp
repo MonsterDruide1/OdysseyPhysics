@@ -1,36 +1,18 @@
-#include "Enemy/EnemyStateSwoon.h"
-#include "Enemy/Gamane.h"
-#include "Enemy/KaronWingStateHack.h"
-#include "Enemy/Pecho.h"
+#include "Boss/BarrierField.h"
 #include "Library/Area/SwitchOnAreaGroup.h"
 #include "Library/Base/StringUtil.h"
-#include "Library/Bgm/BgmLineFunction.h"
-#include "Library/Camera/CameraDirector.h"
-#include "Library/Camera/CameraUtil.h"
 #include "Library/Collision/CollisionPartsKeeperUtil.h"
 #include "Library/Collision/CollisionUtil.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Controller/PadRumbleDirector.h"
-#include "Library/Draw/GraphicsSystemInfo.h"
-#include "Library/Effect/EffectSystemInfo.h"
-#include "Library/Effect/PartsEffectGroup.h"
 #include "Library/Event/EventFlowUtil.h"
-#include "Library/Execute/ExecuteRequestKeeper.h"
-#include "Library/Execute/ExecuteTableHolderDraw.h"
-#include "Library/Execute/ExecuteTableHolderUpdate.h"
-#include "Library/HitSensor/SensorFunction.h"
-#include "Library/Item/ItemUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
 #include "Library/Joint/JointSpringControllerHolder.h"
 #include "Library/KeyPose/KeyPoseKeeper.h"
 #include "Library/KeyPose/KeyPoseKeeperUtil.h"
-#include "Library/Layout/LayoutActor.h"
-#include "Library/Light/ModelMaterialCategory.h"
 #include "Library/LiveActor/ActorActionFunction.h"
-#include "Library/LiveActor/ActorAnimFunction.h"
 #include "Library/LiveActor/ActorAreaFunction.h"
-#include "Library/LiveActor/ActorClippingFunction.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
 #include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorInitUtil.h"
@@ -39,9 +21,6 @@
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorSceneInfo.h"
-#include "Library/LiveActor/ActorSensorFunction.h"
-#include "Library/LiveActor/ActorSensorUtil.h"
-#include "Library/LiveActor/HitReactionKeeper.h"
 #include "Library/LiveActor/SubActorKeeper.h"
 #include "Library/MapObj/ClockMapParts.h"
 #include "Library/MapObj/ConveyerMapParts.h"
@@ -50,15 +29,8 @@
 #include "Library/MapObj/WheelMapParts.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
-#include "Library/Model/ModelKeeper.h"
-#include "Library/Model/ModelLodCtrl.h"
-#include "Library/Model/ModelOcclusionQuery.h"
-#include "Library/Model/ModelShapeUtil.h"
 #include "Library/Movement/WheelMovement.h"
 #include "Library/Nature/NatureUtil.h"
-#include "Library/Nerve/NerveUtil.h"
-#include "Library/Obj/ActorDitherAnimator.h"
-#include "Library/Obj/FarDistanceDitherAnimator.h"
 #include "Library/Obj/PartsFunction.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementId.h"
@@ -68,7 +40,6 @@
 #include "Library/Resource/Resource.h"
 #include "Library/Resource/ResourceHolder.h"
 #include "Library/Screen/ScreenFunction.h"
-#include "Library/Se/SeFunction.h"
 #include "Library/Shadow/ActorShadowUtil.h"
 #include "Library/Stage/StageSwitchKeeper.h"
 #include "Library/Stage/StageSwitchUtil.h"
@@ -78,16 +49,12 @@
 #include "MapObj/AppearSwitchTimer.h"
 #include "MapObj/Doshi.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
-#include "Npc/Bird.h"
 #include "Project/HitSensor/HitSensor.h"
+#include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
 #include "Util/PlayerCollisionUtil.h"
-#include "game/RaylibActor.h"
-#include "math/seadMathCalcCommon.h"
 #include "Player/PlayerCollider.h"
 #include "PlayerUtil.h"
-#include "Project/Action/ActionAnimCtrl.h"
-#include "Project/Action/ActionSeCtrl.h"
 #include "Project/Joint/KeyPose.h"
 #include "Project/Joint/RollingCubePoseKeeper.h"
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
@@ -98,10 +65,6 @@
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/ActorDimensionUtil.h"
 #include "Util/AreaUtil.h"
-#include "Util/DemoUtil.h"
-#include "Util/Hack.h"
-#include "Util/ItemGenerator.h"
-#include "Util/ItemUtil.h"
 #include "Util/NpcAnimUtil.h"
 #include "Util/PlayerUtil.h"
 #include "Util/SensorMsgFunction.h"
@@ -156,7 +119,6 @@ bool al::PlacementId::isEqual(al::PlacementId const&) const {CRASH}
 void al::RollingCubePoseKeeper::setStart() {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3f const&) {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, bool) {CRASH}
-void al::calcCameraFront(sead::Vector3f*, al::IUseCamera const*, int) {CRASH}
 void al::calcCurrentKeyQT(sead::Quatf*, sead::Vector3f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::calcJointPos(sead::Vector3f*, al::LiveActor const*, char const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead::Vector3f const&) {CRASH}
@@ -165,14 +127,11 @@ al::Axis al::calcNearVecFromAxis3(sead::Vector3f*, sead::Vector3f const&, sead::
 void al::calcQuatLocalAxis(sead::Vector3f*, sead::Quatf const&, int) {CRASH}
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
-void al::calcViewModel(al::LiveActor*) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
 al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
 al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(sead::BoundBox3f const&, al::ActorInitInfo const&) {CRASH}
 void al::fittingToCurrentKeyBoundingBox(sead::Quatf*, sead::Vector3f*, al::RollingCubePoseKeeper const*) {CRASH}
-void al::forceApplyCubeMap(al::LiveActor*, char const*) {CRASH}
-f32 al::getClippingRadius(al::LiveActor const*) {CRASH}
 const al::PlacementInfo& al::getCurrentKeyPlacementInfo(al::RollingCubePoseKeeper const*) {CRASH}
 f32 al::getRailCoord(al::IUseRail const*) {CRASH}
 al::LiveActor* al::getSubActor(al::LiveActor const*, int) {CRASH}
@@ -183,12 +142,9 @@ void al::initSubActorKeeperNoFile(al::LiveActor*, al::ActorInitInfo const&, int)
 void al::invalidateCollisionParts(al::LiveActor*) {CRASH}
 bool al::isExistCollisionParts(al::LiveActor const*) {CRASH}
 bool al::isExistRail(al::IUseRail const*) {CRASH}
-bool al::isGreaterEqualMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
-bool al::isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {CRASH}
 bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
-bool al::isViewDependentModel(al::LiveActor const*) {CRASH}
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 f32 al::modf(float, float) {CRASH}
 bool al::moveSyncRail(al::LiveActor*, float) {CRASH}
@@ -221,14 +177,12 @@ void al::WheelMovement::update(al::LiveActor*) {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {CRASH}
 f32 al::easeByType(float, int) {CRASH}
-void al::expandClippingRadiusByShadowLength(al::LiveActor*, sead::Vector3f*, float) {CRASH}
 f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3f const&) {CRASH}
 void al::rotateQuatLocalDirDegree(sead::Quatf*, sead::Quatf const&, int, float) {CRASH}
 void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {CRASH}
 
-void al::HitReactionKeeper::start(char const*, sead::Vector3f const*, al::HitSensor const*, al::HitSensor const*) {CRASH}
 al::JointSpringControllerHolder::JointSpringControllerHolder() {CRASH}
 void al::JointSpringControllerHolder::init(al::LiveActor*,char const*) {CRASH}
 bool al::calcDirOnPlane(sead::Vector3f*,sead::Vector3f const&,sead::Vector3f const&,sead::Vector3f const&) {CRASH}
@@ -237,14 +191,8 @@ void al::initJointLocalZRotator(al::LiveActor const*, float const*, char const*)
 bool al::isCollidedWall(al::LiveActor const*) {CRASH}
 void al::rotateQuatMomentDegree(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 
-al::ActorCameraTarget* al::createActorCameraTarget(al::LiveActor const*, float) {CRASH}
 al::AreaObjGroup* al::createLinkAreaGroup(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*, char const*) {CRASH}
-void al::endCamera(al::IUseCamera const*, al::CameraTicket*, int, bool) {CRASH}
 void al::initJointLocalYRotator(al::LiveActor const*, float const*, char const*) {CRASH}
-al::CameraTicket* al::initObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
-void al::resetCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
-void al::setCameraTarget(al::IUseCamera*, al::CameraTargetBase*) {CRASH}
-void al::startCamera(al::IUseCamera const*, al::CameraTicket*, int) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
 Doshi::Doshi(char const*) : al::LiveActor("") {CRASH}
@@ -253,42 +201,12 @@ void Doshi::attackSensor(al::HitSensor* self, al::HitSensor* other) {CRASH}
 bool Doshi::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
 void Doshi::control() {CRASH}
 bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
-al::ExecuteRequestKeeper::ExecuteRequestKeeper(int) {CRASH}
-void al::ExecuteRequestKeeper::executeRequestActorDrawAllOff() {CRASH}
-void al::ExecuteRequestKeeper::executeRequestActorDrawAllOn() {CRASH}
-void al::ExecuteRequestKeeper::executeRequestActorMovementAllOff() {CRASH}
-void al::ExecuteRequestKeeper::executeRequestActorMovementAllOn() {CRASH}
-void al::ExecuteRequestKeeper::request(al::LiveActor*, al::ExecuteRequestKeeper::Request) {CRASH}
-al::ExecuteTableHolderDraw::ExecuteTableHolderDraw() {CRASH}
-void al::ExecuteTableHolderDraw::createExecutorListTable() {CRASH}
-void al::ExecuteTableHolderDraw::execute() const {CRASH}
-void al::ExecuteTableHolderDraw::executeList(char const*) const {CRASH}
-void al::ExecuteTableHolderDraw::init(char const*, al::ExecuteSystemInitInfo const&, al::ExecuteOrder const*, int) {CRASH}
-bool al::ExecuteTableHolderDraw::isActive() const {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterActor(al::LiveActor*, char const*) {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterActorModel(al::LiveActor*, char const*) {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterFunctor(al::FunctorBase const&, char const*) {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterLayout(al::LayoutActor*, char const*) {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterUser(al::IUseExecutor*, char const*) {CRASH}
-al::ExecuteTableHolderDraw::~ExecuteTableHolderDraw() {CRASH}
-al::ExecuteTableHolderUpdate::ExecuteTableHolderUpdate() {CRASH}
-void al::ExecuteTableHolderUpdate::createExecutorListTable() {CRASH}
-void al::ExecuteTableHolderUpdate::execute() const {CRASH}
-void al::ExecuteTableHolderUpdate::executeList(char const*) const {CRASH}
-void al::ExecuteTableHolderUpdate::init(char const*, al::ExecuteSystemInitInfo const&, al::ExecuteOrder const*, int) {CRASH}
-void al::ExecuteTableHolderUpdate::tryRegisterActor(al::LiveActor*, char const*) {CRASH}
-void al::ExecuteTableHolderUpdate::tryRegisterFunctor(al::FunctorBase const&, char const*) {CRASH}
-void al::ExecuteTableHolderUpdate::tryRegisterLayout(al::LayoutActor*, char const*) {CRASH}
-void al::ExecuteTableHolderUpdate::tryRegisterUser(al::IUseExecutor*, char const*) {CRASH}
-al::ExecuteTableHolderUpdate::~ExecuteTableHolderUpdate() {CRASH}
-bool al::appearItem(al::LiveActor const*) {CRASH}
 al::CollisionParts* al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, float, float) {CRASH}
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 void al::calcQuatGravity(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 al::Collider* al::getActorCollider(al::LiveActor const*) {CRASH}
 const sead::Vector3f& al::getOnGroundNormal(al::LiveActor const*, unsigned int) {CRASH}
-al::LiveActor* al::getSensorHost(al::HitSensor const*) {CRASH}
 s32 al::getSubActorNum(al::LiveActor const*) {CRASH}
 bool al::isCollidedFloorCode(al::LiveActor const*, char const*) {CRASH}
 bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
@@ -296,20 +214,14 @@ bool al::isExistSubActorKeeper(al::LiveActor const*) {CRASH}
 bool al::isHalfProbability() {CRASH}
 bool al::isMtxConnectorConnecting(al::MtxConnector const*) {CRASH}
 bool al::isNearPlayer(al::LiveActor const*, float) {CRASH}
-bool al::isSensorEnemyBody(al::HitSensor const*) {CRASH}
 void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
 void al::rotateVectorQuat(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilterBase const*) {CRASH}
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
 void al::startActionSubActor(al::LiveActor const*, char const*, char const*) {CRASH}
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
-bool al::tryReceiveMsgPushAndAddVelocity(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
-void rs::addDemoActor(al::LiveActor*, bool) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoNoWriteSaveDataInSameWorldResetMiniGame(al::ActorInitInfo const&) {CRASH}
-void rs::requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
-void rs::setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {CRASH}
-bool rs::tryReceiveMsgNpcScareByEnemyIgnoreTargetHack(al::SensorMsg const*, CapTargetInfo const*) {CRASH}
 
 void AppearSwitchSave::onSwitchDemo() {CRASH}
 AppearSwitchTimer::AppearSwitchTimer() : al::NerveExecutor("") {CRASH}
@@ -320,12 +232,10 @@ bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* coll
 al::KeyPose::KeyPose() {CRASH}
 void al::KeyPose::init(al::PlacementInfo const&) {CRASH}
 bool al::calcDirH(sead::Vector3f*,sead::Vector3f const&,sead::Vector3f const&) {CRASH}
-f32 al::calcDistanceV(sead::Vector3f const&,al::HitSensor const*,al::HitSensor const*) {CRASH}
 void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH}
 f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
 f32 al::calcRailTotalRate(al::IUseRail const*) {CRASH}
 void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
-const sead::Vector3f& al::getActorVelocity(al::HitSensor const*) {CRASH}
 const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {CRASH}
 void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
@@ -334,21 +244,17 @@ void al::rotateQuatMoment(sead::Quatf*,sead::Quatf const&,sead::Vector3f const&)
 
 void al::calcMomentRollBall(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 void al::initActorPoseTRSV(LiveActor *actor) {CRASH}
-al::CameraTicket* al::initDemoObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
-bool al::pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
 void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {CRASH}
 bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}
 
 al::Resource* al::findOrCreateResourceSystemData(char const*, char const*) {CRASH}
-const sead::Vector3f& al::getActorGravity(al::HitSensor const*) {CRASH}
 u8* al::getByml(al::Resource const*, sead::SafeStringBase<char> const&) {CRASH}
 u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
 s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
-f32 al::CameraDirector::getSceneFovyDegree() {CRASH}
 bool al::isPercentProbability(float) {CRASH}
 bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
 bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
@@ -356,7 +262,6 @@ bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*
 void al::ActorInitInfo::initViewIdSelf(al::PlacementInfo const*, al::ActorInitInfo const&) {CRASH}
 void al::calcCollidedNormalSum(al::LiveActor const*, sead::Vector3<float>*) {CRASH}
 void al::calcColliderPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
-bool al::calcDirBetweenSensors(sead::Vector3<float>*, al::HitSensor const*, al::HitSensor const*) {CRASH}
 void al::calcJumpInertia(sead::Vector3<float>*, al::LiveActor*, sead::Vector3<float> const&, float) {CRASH}
 void al::calcVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 al::Triangle* al::Collider::getPlane(int) {CRASH}
@@ -377,18 +282,11 @@ void al::scaleVectorDirection(sead::Vector3<float>*, sead::Vector3<float> const&
 void al::scaleVectorExceptDirection(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
 u8* al::tryGetMapPartsResourceYaml(al::ActorInitInfo const&, char const*) {CRASH}
-al::HitSensorType alSensorFunction::findSensorTypeByName(char const*) {CRASH}
 
-void al::calcCameraLookDir(sead::Vector3<float>*, al::IUseCamera const*, int) {CRASH}
-al::ActorMatrixCameraTarget* al::createActorMatrixCameraTarget(al::LiveActor const*, sead::Matrix34<float> const*) {CRASH}
-const sead::Vector3f& al::getSensorPos(al::LiveActor const*, char const*) {CRASH}
 al::JointLocalAxisRotator* al::initJointLocalAxisRotator(al::LiveActor const*, sead::Vector3<float> const&, float const*, char const*, bool) {CRASH}
 void al::initJointLocalXRotator(al::LiveActor const*, float const*, char const*) {CRASH}
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
-bool al::isActiveCamera(al::CameraTicket const*) {CRASH}
-bool al::isActiveCameraTarget(al::CameraTargetBase const*) {CRASH}
 void al::makeQuatRotationRate(sead::Quat<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
-void al::requestStopCameraVerticalAbsorb(al::IUseCamera*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
 al::EventFlowExecutor* rs::initEventFlow(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 bool rs::isSequenceTimeBalloonOrRace(al::LiveActor const*) {CRASH}

@@ -2,6 +2,8 @@
 
 namespace al {
 
+bool appearItem(al::LiveActor const*) {return false;}
+
 bool appearItem(al::LiveActor const*, sead::Vector3<float> const&, sead::Quat<float> const&,
                 al::HitSensor const*) {
     return false;

@@ -7,6 +7,7 @@ class SensorMsg;
 namespace rs {
 
 void requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, sead::Vector3f const&) {}
+void requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {}
 
 bool isMsgCapCancelLockOn(al::SensorMsg const*) {return false;}
 bool isMsgCapIgnoreCancelLockOn(al::SensorMsg const*) {return false;}
@@ -79,8 +80,10 @@ bool isMsgSeedReflect(al::SensorMsg const*) {return false;}
 bool isMsgTankExplosion(al::SensorMsg const*) {return false;}
 
 bool isVisibleChameleon(al::SensorMsg const*) {return false;}
+void setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {}
 bool tryGetAirExplosionForce(sead::Vector3f*, al::SensorMsg const*) {return false;}
 bool tryGetByugoBlowForce(sead::Vector3f*, al::SensorMsg const*) {return false;}
+bool tryReceiveMsgNpcScareByEnemyIgnoreTargetHack(al::SensorMsg const*, CapTargetInfo const*) {return false;}
 
 bool sendMsgEnemyAttack2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgTouchFireDrum2D(al::HitSensor*, al::HitSensor*) {return false;}
