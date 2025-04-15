@@ -6,6 +6,8 @@ class SensorMsg;
 
 namespace rs {
 
+void requestHitReactionToAttacker(al::SensorMsg const*, al::HitSensor const*, sead::Vector3f const&) {}
+
 bool isMsgCapCancelLockOn(al::SensorMsg const*) {return false;}
 bool isMsgCapIgnoreCancelLockOn(al::SensorMsg const*) {return false;}
 bool isMsgCapKeepLockOn(al::SensorMsg const*) {return false;}
@@ -64,6 +66,21 @@ bool isMsgPush2D(al::SensorMsg const*) {return false;}
 bool isMsgPlayerAndCapObjHipDropAll(al::SensorMsg const*) {return false;}
 bool isMsgAttackDirect(al::SensorMsg const*) {return false;}
 bool isMsgPlayerObjLeapFrog(al::SensorMsg const*) {return false;}
+bool isMsgCancelHack(al::SensorMsg const*) {return false;}
+bool isMsgEnableMapCheckPointWarp(al::SensorMsg const*) {return false;}
+bool isMsgHackMarioDead(al::SensorMsg const*) {return false;}
+bool isMsgHackMarioDemo(al::SensorMsg const*) {return false;}
+bool isMsgHackSyncDamageVisibility(al::SensorMsg const*) {return false;}
+bool isMsgHackerDamageAndCancel(al::SensorMsg const*) {return false;}
+bool isMsgHammerBrosHammerHackAttack(al::SensorMsg const*) {return false;}
+bool isMsgMotorcycleDashAttack(al::SensorMsg const*) {return false;}
+bool isMsgRadishReflect(al::SensorMsg const*) {return false;}
+bool isMsgSeedReflect(al::SensorMsg const*) {return false;}
+bool isMsgTankExplosion(al::SensorMsg const*) {return false;}
+
+bool isVisibleChameleon(al::SensorMsg const*) {return false;}
+bool tryGetAirExplosionForce(sead::Vector3f*, al::SensorMsg const*) {return false;}
+bool tryGetByugoBlowForce(sead::Vector3f*, al::SensorMsg const*) {return false;}
 
 bool sendMsgEnemyAttack2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgTouchFireDrum2D(al::HitSensor*, al::HitSensor*) {return false;}

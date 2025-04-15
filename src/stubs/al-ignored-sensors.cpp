@@ -18,6 +18,7 @@ al::HitSensor* addHitSensor(al::LiveActor*, al::ActorInitInfo const&, char const
 void invalidateHitSensors(LiveActor*) {}
 void validateHitSensor(al::LiveActor*, char const*) {}
 void validateHitSensors(al::LiveActor*) {}
+void invalidateHitSensor(al::LiveActor*, char const*) {}
 bool calcDirBetweenSensorsH(sead::Vector3<float>*, al::HitSensor const*, al::HitSensor const*) {return false;}
 const sead::Vector3f& getActorTrans(al::HitSensor const*) {return const_cast<sead::Vector3f&>(sead::Vector3f::zero);}
 const sead::Vector3f& getSensorPos(al::HitSensor const*) {return const_cast<sead::Vector3f&>(sead::Vector3f::zero);}
@@ -31,6 +32,7 @@ bool isMySensor(HitSensor const*, LiveActor const*) { return false; }
 void setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {}
 void setHitSensorJointMtx(al::LiveActor*, char const*, char const*) {CRASH}
 void setSensorRadius(al::LiveActor*, char const*, float) {}
+f32 getSensorRadius(al::LiveActor const*, char const*) {return 1.0f;}
 bool isMsgPlayerTrampleForCrossoverSensor(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {return false;}
 
 bool isMsgAskSafetyPoint(SensorMsg const*) { return false; }
@@ -60,6 +62,7 @@ bool isMsgPlayerTrampleReflect(al::SensorMsg const*) { return false; }
 bool isMsgPlayerObjUpperPunch(al::SensorMsg const*) { return false; }
 bool isMsgPlayerRollingAttack(al::SensorMsg const*) { return false; }
 bool isMsgPlayerObjRollingAttack(al::SensorMsg const*) { return false; }
+bool isMsgKickStoneAttackReflect(al::SensorMsg const*) { return false; }
 
 bool sendMsgExplosion(al::HitSensor*, al::HitSensor*, al::ComboCounter*) { return false; }
 bool sendMsgPlayerHipDropKnockDown(al::HitSensor*, al::HitSensor*) { return false; }

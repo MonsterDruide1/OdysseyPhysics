@@ -20,6 +20,7 @@ void holdSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&) {}
 bool checkIsPlayingSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, char const*) {return true;}
 void startSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, float, char const*) {}
 bool isExistSeKeeper(al::IUseAudioKeeper const*) {return false;}
+void stopSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, int, char const*) {}
 
 void ActionSeCtrl::resetAction(bool) {}
 void ActionSeCtrl::restartAction() {}

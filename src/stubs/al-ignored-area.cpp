@@ -7,6 +7,7 @@
 namespace al {
 
 bool isInDeathArea(al::IUseAreaObj const*,sead::Vector3<float> const&) {return false;}
+bool isInDeathArea(al::LiveActor const*) {return false;}
 bool isInWaterArea(al::LiveActor const*) {return false;}
 bool isInAreaObj(al::AreaObjGroup const*, sead::Vector3<float> const&) {return false;}
 bool isInAreaObj(al::LiveActor const*, char const*) {return false;}

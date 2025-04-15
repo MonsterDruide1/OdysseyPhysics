@@ -1,6 +1,7 @@
 #include "Library/Anim/AnimPlayerSkl.h"
 #include "Library/Draw/GraphicsSystemInfo.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
+#include "Library/KeyPose/KeyPoseKeeper.h"
 #include "Library/Layout/LayoutInitInfo.h"
 #include "Library/Light/ModelMaterialCategory.h"
 #include "Library/LiveActor/ActorModelFunction.h"
@@ -33,6 +34,17 @@ void initActorModelKeeper(al::LiveActor*, al::ActorInitInfo const&, al::ActorRes
 bool initActorPrePassLightKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {return false;}
 bool isExistModel(al::LiveActor const*) {return false;}
 s32 getLodModelCount(al::LiveActor const*) {return 1;}
+void initActorClipping(al::LiveActor*, al::ActorInitInfo const&) {}
+void initGroupClipping(al::LiveActor*, al::ActorInitInfo const&) {}
+void invalidateDitherAnim(al::LiveActor*) {}
+void registerSubActorSyncClipping(al::LiveActor*, al::LiveActor*) {}
+bool isExistDitherAnimator(al::LiveActor const*) {}
+void setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3f*,al::KeyPoseKeeper const*) {}
+void calcKeyMoveClippingInfo(sead::Vector3f*,float*,al::KeyPoseKeeper const*,float) {}
+void offSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) {}
+void offSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) {}
+bool updateSyncHostVisible(bool*, al::LiveActor*, al::LiveActor const*, bool) {return false;}
+f32 getModelAlphaMask(al::LiveActor const*) {return 1.0f;}
 
 void al::ModelKeeper::setDisplayRootJointMtxPtr(sead::Matrix34<float> const*) {}
 void al::ModelKeeper::setModelLodCtrl(al::ModelLodCtrl*) {}

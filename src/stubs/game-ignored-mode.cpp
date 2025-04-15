@@ -90,6 +90,15 @@ bool isPlayerHackKuriboAny(al::LiveActor const*) {return false;}
 bool isPlayerHackTank(al::LiveActor const*) {return false;}
 void requestEndDemoNormal(al::LiveActor const*) {}
 bool requestStartDemoNormal(al::LiveActor*, bool) {return false;}
+void syncDamageVisibility(al::LiveActor*, IUsePlayerHack const*) {}
+bool tryEndHackStartDemo(IUsePlayerHack*, al::LiveActor*) {return false;}
+void endHackAirVelocity(IUsePlayerHack**, sead::Vector3<float> const&, sead::Quat<float> const&, sead::Vector3<float> const&, int) {}
+void endHackDir(IUsePlayerHack**, sead::Vector3<float> const&) {}
+void endHackTargetQuat(IUsePlayerHack**, sead::Quat<float> const&, sead::Vector3<float> const&) {}
+bool isTriggerHackSwing(IUsePlayerHack const*) {}
+bool receiveMsgRequestTransferHack(al::SensorMsg const*, IUsePlayerHack*, al::HitSensor*) {return false;}
+bool requestDamage(IUsePlayerHack*) {return false;}
+bool sendMsgHackerNoReaction(IUsePlayerHack const*, al::HitSensor*, al::HitSensor*) {return false;}
 
 }  // namespace rs
 
