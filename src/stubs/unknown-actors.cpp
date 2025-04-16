@@ -40,6 +40,7 @@
 #include "Library/Resource/Resource.h"
 #include "Library/Resource/ResourceHolder.h"
 #include "Library/Screen/ScreenFunction.h"
+#include "Library/Screen/ScreenPointKeeper.h"
 #include "Library/Shadow/ActorShadowUtil.h"
 #include "Library/Stage/StageSwitchKeeper.h"
 #include "Library/Stage/StageSwitchUtil.h"
@@ -276,8 +277,16 @@ void al::scaleVectorExceptDirection(sead::Vector3<float>*, sead::Vector3<float> 
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
 u8* al::tryGetMapPartsResourceYaml(al::ActorInitInfo const&, char const*) {CRASH}
 
+void al::ScreenPointKeeper::invalidateBySystem() {CRASH}
+void al::ScreenPointKeeper::validateBySystem() {CRASH}
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
 void al::makeQuatRotationRate(sead::Quat<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+void al::invalidateCollisionPartsBySystem(al::LiveActor*) {CRASH}
+void al::validateCollisionPartsBySystem(al::LiveActor*) {CRASH}
+void alSubActorFunction::trySyncAlive(al::SubActorKeeper*) {CRASH}
+void alSubActorFunction::trySyncClippingEnd(al::SubActorKeeper*) {CRASH}
+void alSubActorFunction::trySyncClippingStart(al::SubActorKeeper*) {CRASH}
+void alSubActorFunction::trySyncDead(al::SubActorKeeper*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
 al::EventFlowExecutor* rs::initEventFlow(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 bool rs::isSequenceTimeBalloonOrRace(al::LiveActor const*) {CRASH}

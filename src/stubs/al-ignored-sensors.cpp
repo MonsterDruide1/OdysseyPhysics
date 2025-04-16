@@ -18,6 +18,7 @@ al::HitSensor* addHitSensor(al::LiveActor*, al::ActorInitInfo const&, char const
 
 void al::HitReactionKeeper::start(char const*, sead::Vector3f const*, al::HitSensor const*, al::HitSensor const*) {}
 
+void updateHitSensorsAll(al::LiveActor*) {}
 void invalidateHitSensors(LiveActor*) {}
 void validateHitSensor(al::LiveActor*, char const*) {}
 void validateHitSensors(al::LiveActor*) {}
@@ -90,5 +91,7 @@ bool sendMsgPushAndKillVelocityToTarget(al::LiveActor*, al::HitSensor*, al::HitS
 namespace alSensorFunction {
 
 al::HitSensorType findSensorTypeByName(char const*) {return al::HitSensorType::CollisionParts;}
+void clearHitSensors(al::LiveActor*) {}
+void updateHitSensorsAll(al::LiveActor*) {}
 
 }

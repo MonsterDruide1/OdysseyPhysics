@@ -11,9 +11,12 @@
 #include "Library/Model/ModelOcclusionQuery.h"
 #include "Library/Obj/ActorDitherAnimator.h"
 #include "Library/Obj/FarDistanceDitherAnimator.h"
+#include "Library/Shader/ActorOcclusionKeeper.h"
 #include "Library/Shadow/ShadowMaskCtrl.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
+#include "Project/Clipping/ClippingFunction.h"
+#include "Project/Light/ActorPrepassLightKeeper.h"
 #include "playerUtil.h"
 
 namespace al {
@@ -52,7 +55,19 @@ bool isViewDependentModel(al::LiveActor const*) {return false;}
 bool isGreaterEqualMaxLodLevelNoClamp(al::ModelKeeper const*) {return false;}
 bool isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {return false;}
 void expandClippingRadiusByShadowLength(al::LiveActor*, sead::Vector3f*, float) {}
+void hideShadow(al::LiveActor*) {}
+void setNeedSetBaseMtxAndCalcAnimFlag(al::LiveActor*, bool) {}
 
+void ActorOcclusionKeeper::appear(bool) {}
+void ActorOcclusionKeeper::hideModel() {}
+void ActorOcclusionKeeper::requestKill() {}
+void ActorOcclusionKeeper::updateAndRequest() {}
+void ActorPrePassLightKeeper::appear(bool) {}
+void ActorPrePassLightKeeper::hideModel() {}
+void ActorPrePassLightKeeper::requestKill() {}
+
+void al::ModelKeeper::hide() {}
+void al::ModelKeeper::show() {}
 void al::ModelKeeper::setDisplayRootJointMtxPtr(sead::Matrix34<float> const*) {}
 void al::ModelKeeper::setModelLodCtrl(al::ModelLodCtrl*) {}
 void al::ModelLodAllCtrl::registerLodCtrl(al::ModelLodCtrl*) {}
@@ -295,3 +310,6 @@ void ShadowMaskCtrl::validate() {}
 void ShadowMaskCtrl::invalidate() {}
 
 }  // namespace al
+
+void alClippingFunction::addToClippingTarget(al::LiveActor*) {}
+void alClippingFunction::removeFromClippingTarget(al::LiveActor*) {}

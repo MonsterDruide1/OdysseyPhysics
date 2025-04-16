@@ -39,8 +39,8 @@ void RaylibActor::apply(al::LiveActor* actor, const al::ByamlIter& data) {
     if (!al::tryGetByamlString(&modelName, data, "ModelName"))
         al::tryGetByamlString(&modelName, data, "UnitConfigName");
 
-    actor->mActorName = new char[strlen(modelName) + 1];
-    strcpy((char*)actor->mActorName, modelName);
+    actor->mName = new char[strlen(modelName) + 1];
+    strcpy((char*)actor->mName, modelName);
 
     actor->mFlags->isDead = false;
 }
@@ -58,7 +58,7 @@ RaylibActor::~RaylibActor() {
         RL_FREE(raylibModel.meshMaterial);
     }
     delete mActor->mPoseKeeper;
-    delete[] mActor->mActorName;
+    delete[] mActor->mName;
     if (mActor->mCollisionParts)
         delete mActor->mCollisionParts;
     if (kclData)
@@ -68,10 +68,10 @@ RaylibActor::~RaylibActor() {
 }
 
 void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper* keeper) {
-    std::string szsPath = nlib::util::format("res/mod/ObjectData/%s.szs", mActor->mActorName);
+    std::string szsPath = nlib::util::format("res/mod/ObjectData/%s.szs", mActor->mName);
 
     if (!std::filesystem::exists(szsPath)) {
-        szsPath = nlib::util::format("%s/ObjectData/%s.szs", settings::sRomfsPath, mActor->mActorName);
+        szsPath = nlib::util::format("%s/ObjectData/%s.szs", settings::sRomfsPath, mActor->mName);
 
         if (!std::filesystem::exists(szsPath)) {
             printf("File does not exist: %s\n", szsPath.c_str());

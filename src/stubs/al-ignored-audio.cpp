@@ -9,6 +9,10 @@ namespace al {
 AudioKeeper* SimpleAudioUser::getAudioKeeper() const {WARN_UNIMPL;return nullptr;}
 
 void AudioKeeper::appear() {}
+void AudioKeeper::endClipped() {}
+void AudioKeeper::kill() {}
+void AudioKeeper::startClipped() {}
+
 SimpleAudioUser::SimpleAudioUser(char const*, ActorInitInfo const&) {}
 void startBgmSituation(al::IUseAudioKeeper const*, char const*, bool, bool) {}
 void startSe(al::IUseAudioKeeper const*, sead::SafeString const&) {}

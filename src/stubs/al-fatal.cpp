@@ -102,14 +102,6 @@ void alScreenPointFunction::updateScreenPointAll(al::LiveActor*) {
     CRASH
 }
 
-void alSensorFunction::updateHitSensorsAll(al::LiveActor*) {
-    CRASH
-}
-
-void alSensorFunction::clearHitSensors(al::LiveActor*) {
-    CRASH
-}
-
 void al::ActionFlagCtrl::initPost() {
     CRASH
 }

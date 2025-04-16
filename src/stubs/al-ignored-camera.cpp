@@ -1,5 +1,6 @@
 #include "Library/Camera/CameraDirector.h"
 #include "Library/Camera/CameraUtil.h"
+#include "Project/Action/ActionPadAndCameraCtrl.h"
 
 namespace al {
 
@@ -19,5 +20,8 @@ void calcCameraFront(sead::Vector3f*, al::IUseCamera const*, int) {}
 
 f32 CameraDirector::getSceneFovyDegree() {return 45.0f;}
 
+void ActionPadAndCameraCtrl::notifyActorDead() {}
+void ActionPadAndCameraCtrl::notifyActorEndClipped() {}
+void ActionPadAndCameraCtrl::notifyActorStartClipped() {}
 
 }
