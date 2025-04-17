@@ -212,11 +212,11 @@ void CollisionMultiShape::callbackFromServer(al::KCPrismData const* data,
         const CollisionShapeInfoArrow* arrow =
             mCollisionShapeKeeper->getShapeInfoArrow(mCurrentShapeIndex);
         al::ArrowHitInfo info = {};
-        info.hitInfo->mTriangle.fillData(*mParts, data, header);
+        info.hitInfo->triangle.fillData(*mParts, data, header);
 
         /*if ( v12->someCounter && !v12->mIsMoving
             || al::isNearZero(&this->unk3, 0.001)
-            || (v13 = al::Triangle::getFaceNormal(&info.mTriangle),
+            || (v13 = al::Triangle::getFaceNormal(&info.triangle),
                 (float)((float)((float)(v13->x * this->unk3.x) + (float)(v13->y * this->unk3.y)) +
            (float)(v13->z * this->unk3.z)) <= 0.0) )
         */
@@ -233,9 +233,9 @@ void CollisionMultiShape::callbackFromServer(al::KCPrismData const* data,
 
         sead::Vector3f v17 = (arrow->vec5 /*+ unk4*/) + (a3a * arrow->vec6);
         f32 v20 = (1.0f - a3a) * arrow->vec4.length();
-        info.hitInfo->mCollisionLocation = (al::CollisionLocation)v87;
-        info.hitInfo->unk = v20;
-        info.hitInfo->mCollisionHitPos.setMul(mParts->mBaseMtx, v17);
+        info.hitInfo->collisionLocation = (al::CollisionLocation)v87;
+        info.hitInfo->_70 = v20;
+        info.hitInfo->collisionHitPos.setMul(mParts->mBaseMtx, v17);
 
         // something if moving
 
@@ -252,7 +252,7 @@ void CollisionMultiShape::callbackFromServer(al::KCPrismData const* data,
             mCollisionShapeKeeper->registerCollideResult(result);
     } else if (mCollisionShapeKeeper->isShapeSphere(mCurrentShapeIndex)) {
         al::SphereHitInfo info = {};
-        info.hitInfo->mTriangle.fillData(*mParts, data, header);
+        info.hitInfo->triangle.fillData(*mParts, data, header);
 
         const CollisionShapeInfoSphere* sphere =
             mCollisionShapeKeeper->getShapeInfoSphere(mCurrentShapeIndex);
@@ -274,10 +274,10 @@ void CollisionMultiShape::callbackFromServer(al::KCPrismData const* data,
         sead::Vector3f v72;
         alKCollisionFunc::calcSphereHitPos(&v72, mParts->mKCollisionServer, a3a, *data, header,
                                            v73);
-        info.hitInfo->unk3.setMul(mParts->mBaseMtx, a3a);
-        info.hitInfo->mCollisionLocation = (al::CollisionLocation) v73;
-        info.hitInfo->unk = v35 * v74;
-        info.hitInfo->mCollisionHitPos.setMul(mParts->mBaseMtx, v72);
+        info.hitInfo->_80.setMul(mParts->mBaseMtx, a3a);
+        info.hitInfo->collisionLocation = (al::CollisionLocation) v73;
+        info.hitInfo->_70 = v35 * v74;
+        info.hitInfo->collisionHitPos.setMul(mParts->mBaseMtx, v72);
 
         CollidedShapeResult result = {sphere};
         result.setSphereHitInfo(info);
