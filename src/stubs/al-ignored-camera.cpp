@@ -18,7 +18,11 @@ al::ActorCameraTarget* createActorCameraTarget(al::LiveActor const*, float) {WAR
 void endCamera(al::IUseCamera const*, al::CameraTicket*, int, bool) {}
 void calcCameraFront(sead::Vector3f*, al::IUseCamera const*, int) {}
 
+al::CameraDirector::CameraDirector(int) {}
+al::CameraDirector::~CameraDirector() {}
 f32 CameraDirector::getSceneFovyDegree() {return 45.0f;}
+void al::CameraDirector::endInit(al::PlayerHolder const*) {}
+void al::CameraDirector::execute() {}
 
 void ActionPadAndCameraCtrl::notifyActorDead() {}
 void ActionPadAndCameraCtrl::notifyActorEndClipped() {}

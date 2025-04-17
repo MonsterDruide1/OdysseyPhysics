@@ -35,6 +35,11 @@ bool isSensorEnemyAttack(al::HitSensor const*) {return false;}
 bool isSensorEnemyBody(al::HitSensor const*) {return false;}
 bool isSensorPlayer(al::HitSensor const*) {return false;}
 bool isSensorName(al::HitSensor const*, char const*) {return false;}
+bool isSensorEye(al::HitSensor const*) {return false;}
+bool isSensorLookAt(al::HitSensor const*) {return false;}
+bool isSensorPlayerEye(al::HitSensor const*) {return false;}
+bool isSensorRide(al::HitSensor const*) {return false;}
+bool isSensorSimple(al::HitSensor const*) {return false;}
 bool isMySensor(HitSensor const*, LiveActor const*) { return false; }
 void setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {}
 void setHitSensorJointMtx(al::LiveActor*, char const*, char const*) {}
@@ -47,6 +52,7 @@ bool pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor cons
 const sead::Vector3f& getActorVelocity(al::HitSensor const*) {return sead::Vector3f::zero;}
 const sead::Vector3f& getActorGravity(al::HitSensor const*) {return sead::Vector3f::zero;}
 const sead::Vector3f& getSensorPos(al::LiveActor const*, char const*) {return sead::Vector3f::zero;}
+void registSupportFreezeSyncGroup(al::LiveActor*, al::ActorInitInfo const&) {}
 
 bool isMsgAskSafetyPoint(SensorMsg const*) { return false; }
 bool isMsgEnemyFloorTouch(SensorMsg const*) { return false; }

@@ -1,5 +1,7 @@
 
 
+#include "Item/CoinCollectHolder.h"
+#include "Item/CoinCollectWatcher.h"
 #include "Library/Anim/AnimPlayerSkl.h"
 #include "Library/Area/AreaObjDirector.h"
 #include "Library/Base/StringUtil.h"
@@ -65,6 +67,12 @@ al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
         dbg_printf("Returning nullptr for GameDataHolderAccessor from getSceneObj!\n");
         return nullptr;
     }  // GameDataHolderAccessor => ?
+    if (index == 7) {
+        return new CoinCollectHolder();
+    }
+    if (index == 8) {
+        return new CoinCollectWatcher();
+    }
     CRASH
 }
 

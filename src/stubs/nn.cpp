@@ -49,7 +49,8 @@ bool nn::os::TryLockMutex(MutexType*) {
 void nn::os::UnlockMutex(MutexType*) {}  // TODO not even warn here due to heavy spam
 
 u64 nn::os::GetSystemTick() {
-    CRASH
+    WARN_UNIMPL;
+    return 0;
 }
 
 void nn::os::FreeMemoryBlock(u64, u64){CRASH} nn::TimeSpan nn::os::ConvertToTimeSpan(Tick ticks){

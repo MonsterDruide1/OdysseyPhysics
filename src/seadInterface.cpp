@@ -2,6 +2,7 @@
 
 #include "heap/seadExpHeap.h"
 #include "heap/seadHeapMgr.h"
+#include "random/seadGlobalRandom.h"
 #include "thread/seadThread.h"
 
 void sead::system::HaltWithDetail(const char* file, int line, const char* message, ...) {
@@ -43,6 +44,7 @@ void initializeSead() {
     sead::ThreadMgr::createInstance(threadMgrHeap);
     sead::HeapMgr::instance()->setCurrentHeap_(threadMgrHeap);
     // sead::ThreadMgr::instance()->initialize(threadMgrHeap);
+    sead::GlobalRandom::createInstance(threadMgrHeap);
 }
 
 void unloadSead() {

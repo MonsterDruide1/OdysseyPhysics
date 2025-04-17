@@ -8,6 +8,8 @@
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerHolder.h"
+#include "Library/Scene/ISceneObj.h"
+#include "Library/Scene/SceneObjHolder.h"
 #include "Library/Scene/SceneUtil.h"
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
@@ -46,7 +48,15 @@ StageScene::~StageScene() {
     delete[] mShinePositions;
 }
 
+al::ISceneObj* dummySceneObjCreatorFunc(s32 index) {
+    static al::ISceneObj dummySceneObj;
+    return &dummySceneObj;
+}
+
 void StageScene::init(const char* stageName, int scenario) {
+    mLiveActorKit = new al::LiveActorKit(5120, 4);
+    mSceneObjHolder = new al::SceneObjHolder(&dummySceneObjCreatorFunc, 74);
+
     std::string szsPath = nlib::util::format("res/mod/StageData/%s.szs", stageName);
 
     if (!std::filesystem::exists(szsPath)) {
@@ -100,6 +110,7 @@ void StageScene::init(const char* stageName, int scenario) {
         placement.set(objiter, nullptr);
         al::ActorInitInfo info;
         al::initActorInitInfo(&info, this, &placement, nullptr, &factory, nullptr, nullptr);
+        info.actorSceneInfo.sceneObjHolder = mSceneObjHolder;
         liveactor->init(info);*/
         RaylibActor::apply(liveactor, objiter);
         RaylibActor* actor = new RaylibActor(liveactor);

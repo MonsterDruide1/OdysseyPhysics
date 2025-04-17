@@ -6,20 +6,29 @@
 #include "Library/Light/ModelMaterialCategory.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/Model/ModelCtrl.h"
+#include "Library/Model/ModelDisplayListController.h"
+#include "Library/Model/ModelDrawBufferUpdater.h"
+#include "Library/Model/ModelGroup.h"
 #include "Library/Model/ModelKeeper.h"
 #include "Library/Model/ModelLodCtrl.h"
 #include "Library/Model/ModelOcclusionQuery.h"
 #include "Library/Obj/ActorDitherAnimator.h"
 #include "Library/Obj/FarDistanceDitherAnimator.h"
 #include "Library/Shader/ActorOcclusionKeeper.h"
+#include "Library/Shader/ForwardRendering/ShaderHolder.h"
+#include "Library/Shadow/ShadowDirector.h"
 #include "Library/Shadow/ShadowMaskCtrl.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
+#include "Project/Clipping/ClippingDirector.h"
 #include "Project/Clipping/ClippingFunction.h"
 #include "Project/Light/ActorPrepassLightKeeper.h"
 #include "playerUtil.h"
 
 namespace al {
+
+SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
+ShaderHolder::ShaderHolder() {}
 
 void initDepthShadowMapCtrl(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {}
 void initPartialSklAnim(al::LiveActor*, int, int, int) {}
@@ -31,7 +40,7 @@ void setClippingObb(al::LiveActor*, sead::BoundBox3<float> const&) {}
 void setFixedModelFlag(al::LiveActor*) {}
 void setIgnoreUpdateDrawClipping(al::LiveActor*, bool) {}
 void calcModelBoundingBox(sead::BoundBox3<float>*, al::LiveActor const*) {}
-f32 calcModelBoundingSphereRadius(al::LiveActor const*) {}
+f32 calcModelBoundingSphereRadius(al::LiveActor const*) {return 0.0f;}
 void createUniqueShader(al::LiveActor*) {}
 void initActorModelKeeper(al::LiveActor*, al::ActorInitInfo const&, al::ActorResource const*, int) {}
 bool initActorPrePassLightKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {return false;}
@@ -65,6 +74,30 @@ void ActorOcclusionKeeper::updateAndRequest() {}
 void ActorPrePassLightKeeper::appear(bool) {}
 void ActorPrePassLightKeeper::hideModel() {}
 void ActorPrePassLightKeeper::requestKill() {}
+
+al::ClippingDirector::ClippingDirector(int, al::AreaObjDirector const*, al::PlayerHolder const*, al::SceneCameraInfo const*) {}
+void al::ClippingDirector::endInit(al::AreaObjDirector const*) {}
+al::ClippingDirector::~ClippingDirector() {}
+void al::ClippingDirector::execute() {}
+
+al::GraphicsSystemInfo::GraphicsSystemInfo() : mInitArg(nullptr, nullptr) {}
+void al::GraphicsSystemInfo::clearGraphicsRequest() {}
+void al::GraphicsSystemInfo::endInit() {}
+void al::GraphicsSystemInfo::init(al::GraphicsInitArg const&, al::AreaObjDirector*, al::ExecuteDirector*, al::EffectSystem*, al::PlayerHolder*, al::SceneCameraInfo*, al::ShaderHolder*) {}
+void al::GraphicsSystemInfo::initAfterPlacement() {}
+void al::GraphicsSystemInfo::preDrawGraphics(al::SceneCameraInfo*) {}
+void al::GraphicsSystemInfo::updateGraphics() {}
+al::GraphicsSystemInfo::~GraphicsSystemInfo() {}
+
+al::GraphicsInitArg::GraphicsInitArg(agl::DrawContext*, sead::FrameBuffer*) {}
+
+al::ModelDisplayListController::ModelDisplayListController(al::ModelGroup*) {}
+al::ModelDrawBufferUpdater::ModelDrawBufferUpdater(al::ExecuteDirector const*) {}
+al::ModelDrawBufferUpdater::~ModelDrawBufferUpdater() {}
+al::ModelGroup::ModelGroup(int) {}
+al::ModelGroup::~ModelGroup() {}
+
+void al::ShadowDirector::endInit() {}
 
 void al::ModelKeeper::hide() {}
 void al::ModelKeeper::show() {}

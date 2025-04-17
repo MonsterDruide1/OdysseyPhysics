@@ -1,5 +1,8 @@
 #include "Boss/BarrierField.h"
+#include "Item/CoinCollectHolder.h"
+#include "Library/Area/AreaObjDirector.h"
 #include "Library/Area/SwitchOnAreaGroup.h"
+#include "Library/Area/AreaObjMtxConnecter.h"
 #include "Library/Base/StringUtil.h"
 #include "Library/Collision/CollisionPartsKeeperUtil.h"
 #include "Library/Collision/CollisionUtil.h"
@@ -37,9 +40,11 @@
 #include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerUtil.h"
 #include "Library/Rail/RailUtil.h"
+#include "Library/Resource/ActorResourceHolder.h"
 #include "Library/Resource/Resource.h"
 #include "Library/Resource/ResourceHolder.h"
 #include "Library/Screen/ScreenFunction.h"
+#include "Library/Screen/ScreenPointDirector.h"
 #include "Library/Screen/ScreenPointKeeper.h"
 #include "Library/Shadow/ActorShadowUtil.h"
 #include "Library/Stage/StageSwitchKeeper.h"
@@ -50,6 +55,7 @@
 #include "MapObj/AppearSwitchTimer.h"
 #include "MapObj/Doshi.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
+#include "Project/Gravity/GravityHolder.h"
 #include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
 #include "Util/PlayerCollisionUtil.h"
@@ -89,7 +95,7 @@ void al::initStageSwitch(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;
 bool al::tryGetActorInitFileIter(al::ByamlIter* iter, al::Resource const*, char const* x, char const*) {WARN_UNIMPL;return false;}
 void al::initActorParamHolder(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL;}
 void al::initActorItemKeeper(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&) {WARN_UNIMPL;}
-void al::initActorSceneInfo(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
+void al::initActorSceneInfo(al::LiveActor* actor, al::ActorInitInfo const& info) {ActorSceneInfo* sceneInfo = new ActorSceneInfo(); *sceneInfo = info.actorSceneInfo; actor->initSceneInfo(sceneInfo);}
 void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
 void al::setColliderRadius(al::LiveActor*, float) {WARN_UNIMPL;}
 const char* al::Resource::getArchiveName() const {WARN_UNIMPL;return "";}
@@ -97,6 +103,17 @@ void al::ActorInitInfo::initNoViewId(al::PlacementInfo const* a2, al::ActorInitI
 void al::ActorInitInfo::initViewIdHost(al::PlacementInfo const* a2, al::ActorInitInfo const& a3) {*this = a3; placementInfo = a2;}
 al::ActorResource* al::findOrCreateActorResource(al::ActorResourceHolder*, char const*, char const*) {WARN_UNIMPL; return new ActorResource("", nullptr, nullptr);}
 al::ActorResource::ActorResource(sead::SafeStringBase<char> const&, al::Resource*, al::Resource*) {WARN_UNIMPL;}
+CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
+const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
+al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
+al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {WARN_UNIMPL;return nullptr;}
+void al::registerAreaHostMtx(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
+void al::rotateQuatLocalDirDegree(sead::Quatf*, sead::Quatf const&, int, float) {WARN_UNIMPL;}
+void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
+f32 al::modf(float a, float b) {return fmodf(a, b);}
+bool al::isHalfProbability() {return getRandom() < 0.5f;}
+void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {WARN_UNIMPL;}
+bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 
 // NORMAL PRIORITY
 al::ActorResource::~ActorResource() {CRASH}
@@ -115,7 +132,10 @@ const al::ConveyerKey* al::ConveyerKeyKeeper::getConveyerKey(int) const {CRASH}
 void al::ConveyerKeyKeeper::init(al::ActorInitInfo const&) {CRASH}
 bool al::PlacementId::isEqual(al::PlacementId const&) const {CRASH}
 void al::RollingCubePoseKeeper::setStart() {CRASH}
+al::SwitchOnAreaGroup::SwitchOnAreaGroup(al::AreaObjGroup*) {CRASH}
+void al::SwitchOnAreaGroup::update(sead::Vector3f const*, int) {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3f const&) {CRASH}
+bool al::SwitchOnAreaGroup::isExternalCondition() const {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, bool) {CRASH}
 void al::calcCurrentKeyQT(sead::Quatf*, sead::Vector3f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::calcJointPos(sead::Vector3f*, al::LiveActor const*, char const*) {CRASH}
@@ -123,7 +143,6 @@ void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead:
 void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 al::Axis al::calcNearVecFromAxis3(sead::Vector3f*, sead::Vector3f const&, sead::Quatf const&) {CRASH}
 void al::calcQuatLocalAxis(sead::Vector3f*, sead::Quatf const&, int) {CRASH}
-void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
@@ -144,18 +163,14 @@ bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
-f32 al::modf(float, float) {CRASH}
 bool al::moveSyncRail(al::LiveActor*, float) {CRASH}
 bool al::moveSyncRailLoop(al::LiveActor*, float) {CRASH}
 bool al::moveSyncRailTurn(al::LiveActor*, float) {CRASH}
 void al::multVecInvQuat(sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&) {CRASH}
 bool al::nextRollingCubeKey(al::RollingCubePoseKeeper*) {CRASH}
-void al::registSupportFreezeSyncGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-void al::registerAreaHostMtx(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::rotateQuatRadian(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::setSyncRailToCoord(al::LiveActor*, float) {CRASH}
 void al::setSyncRailToNearestPos(al::LiveActor*) {CRASH}
-al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
 al::SwitchKeepOnAreaGroup* al::tryCreateSwitchKeepOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 al::SwitchOnAreaGroup* al::tryCreateSwitchOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::turnQuatYDirRate(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
@@ -166,20 +181,15 @@ const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {CRASH}
 void rs::onSaveObjInfo(SaveObjInfo*) {CRASH}
 void rs::updateDimensionKeeper(ActorDimensionKeeper*) {CRASH}
-template <>
-s32 sead::Mathi::lcm(int, int) {CRASH}
 
 bool al::WheelMovement::receiveMsg(al::LiveActor*, al::SensorMsg const*, al::HitSensor*, al::HitSensor*) {CRASH}
 void al::WheelMovement::reset(al::LiveActor*) {CRASH}
 void al::WheelMovement::update(al::LiveActor*) {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
-al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {CRASH}
 f32 al::easeByType(float, int) {CRASH}
 f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3f const&) {CRASH}
-void al::rotateQuatLocalDirDegree(sead::Quatf*, sead::Quatf const&, int, float) {CRASH}
 void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
-bool rs::isNearPlayerH(al::LiveActor const*, float) {CRASH}
 
 al::JointSpringControllerHolder::JointSpringControllerHolder() {CRASH}
 void al::JointSpringControllerHolder::init(al::LiveActor*,char const*) {CRASH}
@@ -205,7 +215,6 @@ s32 al::getSubActorNum(al::LiveActor const*) {CRASH}
 bool al::isCollidedFloorCode(al::LiveActor const*, char const*) {CRASH}
 bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
 bool al::isExistSubActorKeeper(al::LiveActor const*) {CRASH}
-bool al::isHalfProbability() {CRASH}
 bool al::isMtxConnectorConnecting(al::MtxConnector const*) {CRASH}
 bool al::isNearPlayer(al::LiveActor const*, float) {CRASH}
 void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
@@ -241,7 +250,6 @@ void al::initActorPoseTRSV(LiveActor *actor) {CRASH}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
-void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {CRASH}
 bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}
 
 al::Resource* al::findOrCreateResourceSystemData(char const*, char const*) {CRASH}
@@ -295,3 +303,40 @@ void rs::setNpcMaterialAnimFromPlacementInfo(al::LiveActor*, al::ActorInitInfo c
 void rs::setRouteHeadGuidePosPtr(al::IUseSceneObjHolder const*, sead::Vector3<float> const*) {CRASH}
 void rs::startEventFlow(al::EventFlowExecutor*, char const*) {CRASH}
 bool rs::updateEventFlow(al::EventFlowExecutor*) {CRASH}
+
+al::ActorResourceHolder::ActorResourceHolder(int) {CRASH}
+al::AreaObjMtxConnecterHolder::AreaObjMtxConnecterHolder(int) {CRASH}
+bool al::AreaObjMtxConnecterHolder::tryAddArea(al::AreaObj*, al::PlacementInfo const&) {CRASH}
+void al::AreaObjMtxConnecterHolder::update() {CRASH}
+al::GravityHolder::GravityHolder() {CRASH}
+void al::GravityHolder::init() {CRASH}
+al::NatureDirector::NatureDirector() {CRASH}
+void al::NatureDirector::init() {CRASH}
+al::PadRumbleDirector::PadRumbleDirector(al::PlayerHolder const*, al::CameraDirector const*) {CRASH}
+void al::PadRumbleDirector::update() {CRASH}
+al::ScreenPointDirector::ScreenPointDirector() {CRASH}
+
+
+// Done, but not merged yet
+template <>
+s32 sead::Mathi::gcd(s32 x, s32 y)
+{
+    if (x == 0 || y == 0)
+        return 0;
+
+    while (x != y)
+    {
+        if (x > y)
+            x -= y;
+        else
+            y -= x;
+    }
+
+    return x;
+}
+template <>
+s32 sead::Mathi::lcm(int x, int y) {
+    if (x == 0 || y == 0)
+        return 0;
+    return x / gcd(x, y) * y;
+}

@@ -1,32 +1,43 @@
 #include "Library/Execute/ExecuteRequestKeeper.h"
+#include "Library/Execute/ExecuteSystemInitInfo.h"
 #include "Library/Execute/ExecuteTableHolderDraw.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
+#include "Project/Execute/ExecuteAsyncExecutor.h"
 
-al::ExecuteRequestKeeper::ExecuteRequestKeeper(int) {CRASH}
-void al::ExecuteRequestKeeper::executeRequestActorDrawAllOff() {CRASH}
-void al::ExecuteRequestKeeper::executeRequestActorDrawAllOn() {CRASH}
-void al::ExecuteRequestKeeper::executeRequestActorMovementAllOff() {CRASH}
-void al::ExecuteRequestKeeper::executeRequestActorMovementAllOn() {CRASH}
-void al::ExecuteRequestKeeper::request(al::LiveActor*, al::ExecuteRequestKeeper::Request) {CRASH}
-al::ExecuteTableHolderDraw::ExecuteTableHolderDraw() {CRASH}
-void al::ExecuteTableHolderDraw::createExecutorListTable() {CRASH}
-void al::ExecuteTableHolderDraw::execute() const {CRASH}
-void al::ExecuteTableHolderDraw::executeList(char const*) const {CRASH}
-void al::ExecuteTableHolderDraw::init(char const*, al::ExecuteSystemInitInfo const&, al::ExecuteOrder const*, int) {CRASH}
-bool al::ExecuteTableHolderDraw::isActive() const {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterActor(al::LiveActor*, char const*) {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterActorModel(al::LiveActor*, char const*) {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterFunctor(al::FunctorBase const&, char const*) {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterLayout(al::LayoutActor*, char const*) {CRASH}
-void al::ExecuteTableHolderDraw::tryRegisterUser(al::IUseExecutor*, char const*) {CRASH}
-al::ExecuteTableHolderDraw::~ExecuteTableHolderDraw() {CRASH}
-al::ExecuteTableHolderUpdate::ExecuteTableHolderUpdate() {CRASH}
-void al::ExecuteTableHolderUpdate::createExecutorListTable() {CRASH}
-void al::ExecuteTableHolderUpdate::execute() const {CRASH}
-void al::ExecuteTableHolderUpdate::executeList(char const*) const {CRASH}
-void al::ExecuteTableHolderUpdate::init(char const*, al::ExecuteSystemInitInfo const&, al::ExecuteOrder const*, int) {CRASH}
-void al::ExecuteTableHolderUpdate::tryRegisterActor(al::LiveActor*, char const*) {CRASH}
-void al::ExecuteTableHolderUpdate::tryRegisterFunctor(al::FunctorBase const&, char const*) {CRASH}
-void al::ExecuteTableHolderUpdate::tryRegisterLayout(al::LayoutActor*, char const*) {CRASH}
-void al::ExecuteTableHolderUpdate::tryRegisterUser(al::IUseExecutor*, char const*) {CRASH}
-al::ExecuteTableHolderUpdate::~ExecuteTableHolderUpdate() {CRASH}
+al::ExecuteRequestKeeper::ExecuteRequestKeeper(int) {}
+void al::ExecuteRequestKeeper::executeRequestActorDrawAllOff() {}
+void al::ExecuteRequestKeeper::executeRequestActorDrawAllOn() {}
+void al::ExecuteRequestKeeper::executeRequestActorMovementAllOff() {}
+void al::ExecuteRequestKeeper::executeRequestActorMovementAllOn() {}
+void al::ExecuteRequestKeeper::request(al::LiveActor*, al::ExecuteRequestKeeper::Request) {}
+al::ExecuteTableHolderDraw::ExecuteTableHolderDraw() {}
+void al::ExecuteTableHolderDraw::createExecutorListTable() {}
+void al::ExecuteTableHolderDraw::execute() const {}
+void al::ExecuteTableHolderDraw::executeList(char const*) const {}
+void al::ExecuteTableHolderDraw::init(char const*, al::ExecuteSystemInitInfo const&, al::ExecuteOrder const*, int) {}
+bool al::ExecuteTableHolderDraw::isActive() const {return false;}
+void al::ExecuteTableHolderDraw::tryRegisterActor(al::LiveActor*, char const*) {}
+void al::ExecuteTableHolderDraw::tryRegisterActorModel(al::LiveActor*, char const*) {}
+void al::ExecuteTableHolderDraw::tryRegisterFunctor(al::FunctorBase const&, char const*) {}
+void al::ExecuteTableHolderDraw::tryRegisterLayout(al::LayoutActor*, char const*) {}
+void al::ExecuteTableHolderDraw::tryRegisterUser(al::IUseExecutor*, char const*) {}
+al::ExecuteTableHolderDraw::~ExecuteTableHolderDraw() {}
+al::ExecuteTableHolderUpdate::ExecuteTableHolderUpdate() {}
+void al::ExecuteTableHolderUpdate::createExecutorListTable() {}
+void al::ExecuteTableHolderUpdate::execute() const {}
+void al::ExecuteTableHolderUpdate::executeList(char const*) const {}
+void al::ExecuteTableHolderUpdate::init(char const*, al::ExecuteSystemInitInfo const&, al::ExecuteOrder const*, int) {}
+void al::ExecuteTableHolderUpdate::tryRegisterActor(al::LiveActor*, char const*) {}
+void al::ExecuteTableHolderUpdate::tryRegisterFunctor(al::FunctorBase const&, char const*) {}
+void al::ExecuteTableHolderUpdate::tryRegisterLayout(al::LayoutActor*, char const*) {}
+void al::ExecuteTableHolderUpdate::tryRegisterUser(al::IUseExecutor*, char const*) {}
+al::ExecuteTableHolderUpdate::~ExecuteTableHolderUpdate() {}
+
+al::ExecuteAsyncExecutor::ExecuteAsyncExecutor(al::ExecuteDirector const*, char const*, sead::CoreId) {}
+al::ExecuteAsyncExecutor::~ExecuteAsyncExecutor() {}
+void al::ExecuteAsyncExecutor::executeAsync() {}
+
+al::ExecuteAsyncExecutorUpdate::~ExecuteAsyncExecutorUpdate() {}
+void al::ExecuteAsyncExecutorUpdate::execute() {}
+
+al::ExecuteSystemInitInfo::ExecuteSystemInitInfo() {}
