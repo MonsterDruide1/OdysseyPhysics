@@ -1,5 +1,6 @@
 #include <prim/seadSafeString.h>
 #include "Library/Audio/System/AudioKeeper.h"
+#include "Library/Audio/AudioDirector.h"
 #include "Library/Audio/System/SimpleAudioUser.h"
 #include "Library/LiveActor/LiveActor.h"
 #include "Project/Action/ActionSeCtrl.h"
@@ -12,6 +13,11 @@ void AudioKeeper::appear() {}
 void AudioKeeper::endClipped() {}
 void AudioKeeper::kill() {}
 void AudioKeeper::startClipped() {}
+
+void AudioDirector::finalize() {CRASH}
+void AudioDirector::initAfterInitPlacement() {CRASH}
+void AudioDirector::updatePost() {CRASH}
+void AudioDirector::updatePre() {CRASH}
 
 SimpleAudioUser::SimpleAudioUser(char const*, ActorInitInfo const&) {}
 void startBgmSituation(al::IUseAudioKeeper const*, char const*, bool, bool) {}

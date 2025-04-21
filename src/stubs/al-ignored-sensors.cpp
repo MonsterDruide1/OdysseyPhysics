@@ -82,6 +82,8 @@ bool isMsgPlayerObjUpperPunch(al::SensorMsg const*) { return false; }
 bool isMsgPlayerRollingAttack(al::SensorMsg const*) { return false; }
 bool isMsgPlayerObjRollingAttack(al::SensorMsg const*) { return false; }
 bool isMsgKickStoneAttackReflect(al::SensorMsg const*) { return false; }
+bool isMsgPushStrong(al::SensorMsg const*) { return false; }
+bool isMsgPushVeryStrong(al::SensorMsg const*) { return false;}
 
 bool sendMsgExplosion(al::HitSensor*, al::HitSensor*, al::ComboCounter*) { return false; }
 bool sendMsgPlayerHipDropKnockDown(al::HitSensor*, al::HitSensor*) { return false; }

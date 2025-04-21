@@ -6,10 +6,6 @@
 #include "Util/ObjUtil.h"
 #include "Util/PlayerCollisionUtil.h"
 
-bool PlayerActorBase::checkDeathArea() {
-    CRASH
-}
-
 bool rs::isPlayerOnGround(al::LiveActor const* actor) {
     CRASH
 }

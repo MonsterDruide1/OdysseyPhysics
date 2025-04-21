@@ -10,6 +10,7 @@
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Controller/PadRumbleDirector.h"
 #include "Library/Event/EventFlowUtil.h"
+#include "Library/File/FileUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
 #include "Library/Joint/JointSpringControllerHolder.h"
 #include "Library/KeyPose/KeyPoseKeeper.h"
@@ -24,7 +25,7 @@
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorSceneInfo.h"
-#include "Library/LiveActor/SubActorKeeper.h"
+#include "Library/LiveActor/LiveActorFunction.h"
 #include "Library/MapObj/ClockMapParts.h"
 #include "Library/MapObj/ConveyerMapParts.h"
 #include "Library/MapObj/GateMapParts.h"
@@ -43,6 +44,9 @@
 #include "Library/Resource/ActorResourceHolder.h"
 #include "Library/Resource/Resource.h"
 #include "Library/Resource/ResourceHolder.h"
+#include "Library/Scene/SceneMsg.h"
+#include "Library/Scene/SceneMsgCtrl.h"
+#include "Library/Scene/SceneUtil.h"
 #include "Library/Screen/ScreenFunction.h"
 #include "Library/Screen/ScreenPointDirector.h"
 #include "Library/Screen/ScreenPointKeeper.h"
@@ -63,6 +67,7 @@
 #include "PlayerUtil.h"
 #include "Project/Joint/KeyPose.h"
 #include "Project/Joint/RollingCubePoseKeeper.h"
+#include "Project/Joint/RollingCubePoseKeeperUtil.h"
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
 #include "Scene/GuidePosInfoHolder.h"
 #include "System/GameDataFunction.h"
@@ -73,6 +78,7 @@
 #include "Util/AreaUtil.h"
 #include "Util/NpcAnimUtil.h"
 #include "Util/PlayerUtil.h"
+#include "resource/seadArchiveRes.h"
 
 // HIGH PRIORITY
 void al::initActorActionKeeper(al::LiveActor*, al::ActorResource const*, char const*, char const*) {WARN_UNIMPL;}
@@ -98,7 +104,6 @@ void al::initActorItemKeeper(al::LiveActor*, al::ActorInitInfo const&, al::Byaml
 void al::initActorSceneInfo(al::LiveActor* actor, al::ActorInitInfo const& info) {ActorSceneInfo* sceneInfo = new ActorSceneInfo(); *sceneInfo = info.actorSceneInfo; actor->initSceneInfo(sceneInfo);}
 void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
 void al::setColliderRadius(al::LiveActor*, float) {WARN_UNIMPL;}
-const char* al::Resource::getArchiveName() const {WARN_UNIMPL;return "";}
 void al::ActorInitInfo::initNoViewId(al::PlacementInfo const* a2, al::ActorInitInfo const& a3) {*this = a3; placementInfo = a2;}
 void al::ActorInitInfo::initViewIdHost(al::PlacementInfo const* a2, al::ActorInitInfo const& a3) {*this = a3; placementInfo = a2;}
 al::ActorResource* al::findOrCreateActorResource(al::ActorResourceHolder*, char const*, char const*) {WARN_UNIMPL; return new ActorResource("", nullptr, nullptr);}
@@ -314,7 +319,18 @@ al::NatureDirector::NatureDirector() {CRASH}
 void al::NatureDirector::init() {CRASH}
 al::PadRumbleDirector::PadRumbleDirector(al::PlayerHolder const*, al::CameraDirector const*) {CRASH}
 void al::PadRumbleDirector::update() {CRASH}
+al::SceneMsgCtrl::SceneMsgCtrl() {CRASH}
+al::SceneMsg::SceneMsg() {CRASH}
 al::ScreenPointDirector::ScreenPointDirector() {CRASH}
+
+void al::calcRailPosAtCoord(sead::Vector3<float>*, al::IUseRail const*, float) {CRASH}
+al::Resource* al::findOrCreateResource(sead::SafeStringBase<char> const&, char const*) {CRASH}
+s32 al::getRailPointNum(al::IUseRail const*) {CRASH}
+bool al::isExistArchive(sead::SafeStringBase<char> const&) {CRASH}
+bool al::isLoopRail(al::IUseRail const*) {CRASH}
+sead::ArchiveRes* al::loadArchive(sead::SafeStringBase<char> const&) {CRASH}
+bool al::tryGetPlacementInfo(al::PlacementInfo*, al::StageInfo const*, char const*) {CRASH}
+
 
 
 // Done, but not merged yet

@@ -1,6 +1,7 @@
 #include "Library/Layout/LayoutActionFunction.h"
 #include "Library/Layout/LayoutActorUtil.h"
 #include "Library/Layout/LayoutInitInfo.h"
+#include "Library/Layout/LayoutSystem.h"
 
 namespace al {
 
@@ -12,4 +13,11 @@ void updateLayoutPaneRecursive(al::LayoutActor*) {}
 void startAction(al::IUseLayoutAction*, char const*, char const*) {}
 void setPaneStringFormat(al::IUseLayout*, char const*, char const*, ...) {}
     
+
+LayoutKit::LayoutKit(al::FontHolder*) {}
+LayoutKit::~LayoutKit() {}
+void LayoutKit::endInit() {}
+void LayoutKit::setDrawContext(agl::DrawContext*) {}
+void LayoutKit::setLayoutSystem(al::LayoutSystem*) {}
+
 }

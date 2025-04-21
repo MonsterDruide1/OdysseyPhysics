@@ -14,8 +14,6 @@ void PlayerPushReceiver::calcPushedVelocityWithCollide(sead::Vector3<float>*,
                                                        sead::Vector3<float> const&,
                                                        IUsePlayerCollision const*, float) {}
 
-bool PlayerActorBase::receivePushMsg(al::SensorMsg const*, al::HitSensor*, al::HitSensor*, float) {}
-
 PlayerExternalVelocity::PlayerExternalVelocity(al::LiveActor const*, IUsePlayerCollision const*,
                                                sead::Vector3<float> const*) {}
 

@@ -1,3 +1,4 @@
+#include "Util/ObjUtil.h"
 #include "Util/SensorMsgFunction.h"
 
 namespace al {
@@ -78,6 +79,7 @@ bool isMsgMotorcycleDashAttack(al::SensorMsg const*) {return false;}
 bool isMsgRadishReflect(al::SensorMsg const*) {return false;}
 bool isMsgSeedReflect(al::SensorMsg const*) {return false;}
 bool isMsgTankExplosion(al::SensorMsg const*) {return false;}
+bool isMsgPushToPlayer(al::SensorMsg const*) {return false;}
 
 bool isVisibleChameleon(al::SensorMsg const*) {return false;}
 void setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {}
@@ -91,5 +93,7 @@ bool sendMsgPushToPlayer(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgPush2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgKuriboGirlAttack(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgKuriboGirlLove(al::HitSensor*, al::HitSensor*) {return false;}
+
+void sendPlayerCollisionTouchMsg(al::LiveActor const*, al::HitSensor*, IUsePlayerCollision const*) {}
 
 }

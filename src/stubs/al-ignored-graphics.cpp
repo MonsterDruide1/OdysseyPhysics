@@ -5,15 +5,20 @@
 #include "Library/Layout/LayoutInitInfo.h"
 #include "Library/Light/ModelMaterialCategory.h"
 #include "Library/LiveActor/ActorModelFunction.h"
+#include "Library/LiveActor/LiveActorKit.h"
 #include "Library/Model/ModelCtrl.h"
 #include "Library/Model/ModelDisplayListController.h"
 #include "Library/Model/ModelDrawBufferUpdater.h"
 #include "Library/Model/ModelGroup.h"
 #include "Library/Model/ModelKeeper.h"
 #include "Library/Model/ModelLodCtrl.h"
+#include "Library/Model/ModelOcclusionCullingDirector.h"
 #include "Library/Model/ModelOcclusionQuery.h"
+#include "Library/Model/SkyDirector.h"
 #include "Library/Obj/ActorDitherAnimator.h"
 #include "Library/Obj/FarDistanceDitherAnimator.h"
+#include "Library/Rail/RailUtil.h"
+#include "Library/Scene/SceneUtil.h"
 #include "Library/Shader/ActorOcclusionKeeper.h"
 #include "Library/Shader/ForwardRendering/ShaderHolder.h"
 #include "Library/Shadow/ShadowDirector.h"
@@ -30,6 +35,12 @@ namespace al {
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}
 
+void calcRailClippingInfo(sead::Vector3<float>*, float*, al::IUseRail const*, float, float) {}
+void executeUpdateDrawBuffer(al::LiveActorKit const*) {}
+agl::DrawContext* getSceneDrawContext(al::Scene const*) {WARN_UNIMPL; return nullptr;}
+void incrementDrawBufferCounter(al::LiveActorKit const*) {}
+void waitUpdateCalcView(al::LiveActorKit const*) {}
+void waitUpdateDrawBuffer(al::LiveActorKit const*) {}
 void initDepthShadowMapCtrl(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {}
 void initPartialSklAnim(al::LiveActor*, int, int, int) {}
 void initShadowMaskCtrl(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&, char const*) {}
@@ -98,6 +109,10 @@ al::ModelGroup::ModelGroup(int) {}
 al::ModelGroup::~ModelGroup() {}
 
 void al::ShadowDirector::endInit() {}
+void al::SkyDirector::init(al::ActorInitInfo const&) {}
+
+void al::ModelDisplayListController::update() {}
+void al::ModelOcclusionCullingDirector::calc() {}
 
 void al::ModelKeeper::hide() {}
 void al::ModelKeeper::show() {}

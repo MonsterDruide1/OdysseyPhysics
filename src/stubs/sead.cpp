@@ -122,11 +122,27 @@ void sead::TaskBase::pauseDrawChild(bool) {
 void sead::TaskMgr::destroyTaskSync(sead::TaskBase*){CRASH}
 
 sead::NinJoyNpadDevice::NinJoyNpadDevice(sead::ControllerMgr* mgr, sead::Heap*)
-    : sead::ControlDevice(mgr) {
+    : sead::ControlDevice(mgr), mVibrationThread(nullptr) {
     CRASH
 }
 
 void sead::NinJoyNpadDevice::calc() {
+    CRASH
+}
+
+sead::NinJoyNpadDevice::VibrationThread::VibrationThread(sead::Heap*) : sead::Thread(nullptr, nullptr, 0) {
+    CRASH
+}
+
+sead::NinJoyNpadDevice::VibrationThread::~VibrationThread() {
+    CRASH
+}
+
+void sead::NinJoyNpadDevice::VibrationThread::calc_(long) {
+    CRASH
+}
+
+sead::NinJoyNpadDevice::~NinJoyNpadDevice() {
     CRASH
 }
 
