@@ -135,7 +135,6 @@ void al::ConveyerKeyKeeper::calcClippingSphere(sead::Vector3f*, float*, float) c
 void al::ConveyerKeyKeeper::calcPosAndQuat(sead::Vector3f*, sead::Quatf*, int*, float) const {CRASH}
 const al::ConveyerKey* al::ConveyerKeyKeeper::getConveyerKey(int) const {CRASH}
 void al::ConveyerKeyKeeper::init(al::ActorInitInfo const&) {CRASH}
-bool al::PlacementId::isEqual(al::PlacementId const&) const {CRASH}
 void al::RollingCubePoseKeeper::setStart() {CRASH}
 al::SwitchOnAreaGroup::SwitchOnAreaGroup(al::AreaObjGroup*) {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3f const*, int) {CRASH}
@@ -156,7 +155,6 @@ al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(sead::BoundBox3f cons
 void al::fittingToCurrentKeyBoundingBox(sead::Quatf*, sead::Vector3f*, al::RollingCubePoseKeeper const*) {CRASH}
 const al::PlacementInfo& al::getCurrentKeyPlacementInfo(al::RollingCubePoseKeeper const*) {CRASH}
 f32 al::getRailCoord(al::IUseRail const*) {CRASH}
-al::LiveActor* al::getSubActor(al::LiveActor const*, int) {CRASH}
 void al::initActorPoseTQSV(al::LiveActor*) {CRASH}
 void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initExecutorWatchObj(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
@@ -216,17 +214,14 @@ void al::calcQuatGravity(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 al::Collider* al::getActorCollider(al::LiveActor const*) {CRASH}
 const sead::Vector3f& al::getOnGroundNormal(al::LiveActor const*, unsigned int) {CRASH}
-s32 al::getSubActorNum(al::LiveActor const*) {CRASH}
 bool al::isCollidedFloorCode(al::LiveActor const*, char const*) {CRASH}
 bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
-bool al::isExistSubActorKeeper(al::LiveActor const*) {CRASH}
 bool al::isMtxConnectorConnecting(al::MtxConnector const*) {CRASH}
 bool al::isNearPlayer(al::LiveActor const*, float) {CRASH}
 void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
 void al::rotateVectorQuat(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilterBase const*) {CRASH}
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
-void al::startActionSubActor(al::LiveActor const*, char const*, char const*) {CRASH}
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoNoWriteSaveDataInSameWorldResetMiniGame(al::ActorInitInfo const&) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
@@ -296,10 +291,6 @@ bool al::isActive(al::EventFlowExecutor const*) {CRASH}
 void al::makeQuatRotationRate(sead::Quat<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::invalidateCollisionPartsBySystem(al::LiveActor*) {CRASH}
 void al::validateCollisionPartsBySystem(al::LiveActor*) {CRASH}
-void alSubActorFunction::trySyncAlive(al::SubActorKeeper*) {CRASH}
-void alSubActorFunction::trySyncClippingEnd(al::SubActorKeeper*) {CRASH}
-void alSubActorFunction::trySyncClippingStart(al::SubActorKeeper*) {CRASH}
-void alSubActorFunction::trySyncDead(al::SubActorKeeper*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
 al::EventFlowExecutor* rs::initEventFlow(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 bool rs::isSequenceTimeBalloonOrRace(al::LiveActor const*) {CRASH}

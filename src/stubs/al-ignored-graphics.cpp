@@ -64,8 +64,6 @@ void registerSubActorSyncClipping(al::LiveActor*, al::LiveActor*) {}
 bool isExistDitherAnimator(al::LiveActor const*) {}
 void setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3f*,al::KeyPoseKeeper const*) {}
 void calcKeyMoveClippingInfo(sead::Vector3f*,float*,al::KeyPoseKeeper const*,float) {}
-void offSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) {}
-void offSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) {}
 bool updateSyncHostVisible(bool*, al::LiveActor*, al::LiveActor const*, bool) {return false;}
 f32 getModelAlphaMask(al::LiveActor const*) {return 1.0f;}
 void calcViewModel(al::LiveActor*) {}
@@ -221,21 +219,9 @@ u8* getModelResourceYaml(al::LiveActor const*, char const*, char const*) {
     return nullptr;
 }
 
-void offSyncAppearSubActor(al::LiveActor*, al::LiveActor const*) {}
-
-void offSyncHideSubActor(al::LiveActor*, al::LiveActor const*) {}
-
-void onSyncAppearSubActor(al::LiveActor*, al::LiveActor const*) {}
-
 void invalidateClipping(al::LiveActor*) {}
 
 void setMaterialProgrammable(al::LiveActor*) {}
-
-void onSyncClippingSubActor(al::LiveActor*, al::LiveActor const*) {}
-
-void onSyncHideSubActor(al::LiveActor*, al::LiveActor const*) {}
-
-void onSyncAlphaMaskSubActor(al::LiveActor*, al::LiveActor const*) {}
 
 s32 getMaterialIndex(al::LiveActor const*, char const*) {
     return 0;
