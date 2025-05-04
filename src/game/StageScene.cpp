@@ -1,5 +1,6 @@
 #include "game/StageScene.h"
 #include <filesystem>
+#include "Library/Area/AreaObjDirector.h"
 #include "Library/Base/StringUtil.h"
 #include "Library/Collision/CollisionDirector.h"
 #include "Library/Execute/ExecuteDirector.h"
@@ -167,6 +168,7 @@ void StageScene::init(const char* stageName, int scenario) {
     }
     al::ExecuteDirector* executeDirector = new al::ExecuteDirector(512);
     al::CollisionDirector* collDirector = new al::CollisionDirector(executeDirector);
+    al::AreaObjDirector* areaObjDirector = new al::AreaObjDirector();
     collDirector->setPartsKeeper(mPartsKeeper);
     PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
     al::PlacementInfo placementInfo = {};
@@ -174,7 +176,7 @@ void StageScene::init(const char* stageName, int scenario) {
     al::PlayerHolder* playerHolder = new al::PlayerHolder(1);
     playerHolder->registerPlayer(player, nullptr);
     al::ActorInitInfo actorInfo = {};
-    actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+    actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, areaObjDirector, nullptr, nullptr,
                       nullptr, collDirector, nullptr, nullptr, executeDirector, nullptr, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, playerHolder, nullptr, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);

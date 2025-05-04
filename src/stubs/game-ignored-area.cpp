@@ -7,26 +7,6 @@
 #include "Util/AreaUtil.h"
 #include "playerUtil.h"
 
-al::AreaObj* al::tryFindAreaObj(al::IUseAreaObj const*, char const*, sead::Vector3<float> const&) {
-    return nullptr;
-}
-
-al::AreaObjGroup* al::tryFindAreaObjGroup(al::IUseAreaObj const*, char const*) {
-    return nullptr;
-}
-
-bool al::isInAreaObj(al::IUseAreaObj const*, char const*) {
-    return false;
-}
-
-bool al::isInAreaObj(al::IUseAreaObj const*, char const*, const sead::Vector3f&) {
-    return false;
-}
-
-bool al::tryGetAreaObjArg(float*, al::AreaObj const*, char const*) {
-    return false;
-}
-
 bool rs::isInLowGravityArea(al::LiveActor const*) {
     return false;
 }

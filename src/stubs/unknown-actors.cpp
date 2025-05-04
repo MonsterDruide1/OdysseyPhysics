@@ -135,13 +135,11 @@ void al::ConveyerKeyKeeper::calcClippingSphere(sead::Vector3f*, float*, float) c
 void al::ConveyerKeyKeeper::calcPosAndQuat(sead::Vector3f*, sead::Quatf*, int*, float) const {CRASH}
 const al::ConveyerKey* al::ConveyerKeyKeeper::getConveyerKey(int) const {CRASH}
 void al::ConveyerKeyKeeper::init(al::ActorInitInfo const&) {CRASH}
-void al::RollingCubePoseKeeper::setStart() {CRASH}
 al::SwitchOnAreaGroup::SwitchOnAreaGroup(al::AreaObjGroup*) {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3f const*, int) {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3f const&) {CRASH}
 bool al::SwitchOnAreaGroup::isExternalCondition() const {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, bool) {CRASH}
-void al::calcCurrentKeyQT(sead::Quatf*, sead::Vector3f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::calcJointPos(sead::Vector3f*, al::LiveActor const*, char const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead::Vector3f const&) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
@@ -150,10 +148,6 @@ void al::calcQuatLocalAxis(sead::Vector3f*, sead::Quatf const&, int) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
-al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(al::LiveActor const*, al::ActorInitInfo const&) {CRASH}
-al::RollingCubePoseKeeper* al::createRollingCubePoseKeeper(sead::BoundBox3f const&, al::ActorInitInfo const&) {CRASH}
-void al::fittingToCurrentKeyBoundingBox(sead::Quatf*, sead::Vector3f*, al::RollingCubePoseKeeper const*) {CRASH}
-const al::PlacementInfo& al::getCurrentKeyPlacementInfo(al::RollingCubePoseKeeper const*) {CRASH}
 f32 al::getRailCoord(al::IUseRail const*) {CRASH}
 void al::initActorPoseTQSV(al::LiveActor*) {CRASH}
 void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
@@ -162,7 +156,6 @@ void al::initSubActorKeeperNoFile(al::LiveActor*, al::ActorInitInfo const&, int)
 void al::invalidateCollisionParts(al::LiveActor*) {CRASH}
 bool al::isExistCollisionParts(al::LiveActor const*) {CRASH}
 bool al::isExistRail(al::IUseRail const*) {CRASH}
-bool al::isMovementCurrentKeyRotate(al::RollingCubePoseKeeper const*) {CRASH}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
@@ -170,7 +163,6 @@ bool al::moveSyncRail(al::LiveActor*, float) {CRASH}
 bool al::moveSyncRailLoop(al::LiveActor*, float) {CRASH}
 bool al::moveSyncRailTurn(al::LiveActor*, float) {CRASH}
 void al::multVecInvQuat(sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&) {CRASH}
-bool al::nextRollingCubeKey(al::RollingCubePoseKeeper*) {CRASH}
 void al::rotateQuatRadian(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::setSyncRailToCoord(al::LiveActor*, float) {CRASH}
 void al::setSyncRailToNearestPos(al::LiveActor*) {CRASH}
@@ -232,8 +224,6 @@ void AppearSwitchTimer::init(al::ActorInitInfo const&,al::IUseAudioKeeper const*
 bool AppearSwitchTimer::isSwitchOn() {CRASH}
 void AppearSwitchTimer::onSwitch() {CRASH}
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
-al::KeyPose::KeyPose() {CRASH}
-void al::KeyPose::init(al::PlacementInfo const&) {CRASH}
 bool al::calcDirH(sead::Vector3f*,sead::Vector3f const&,sead::Vector3f const&) {CRASH}
 void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH}
 f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
@@ -322,6 +312,11 @@ bool al::isLoopRail(al::IUseRail const*) {CRASH}
 sead::ArchiveRes* al::loadArchive(sead::SafeStringBase<char> const&) {CRASH}
 bool al::tryGetPlacementInfo(al::PlacementInfo*, al::StageInfo const*, char const*) {CRASH}
 
+void al::calcFittingBoxPose(sead::Quat<float>*, sead::BoundBox3<float> const&, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
+void al::calcQuatRotateAxisAndDegree(sead::Vector3<float>*, float*, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
+void al::calcBoxFacePoint(sead::Vector3<float>*, sead::BoundBox3<float> const&, al::Axis, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
+void al::calcQuatLocalAxisAll(sead::Quat<float> const&, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*) {CRASH}
+void al::rotateQuatAndTransDegree(sead::Quat<float>*, sead::Vector3<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 
 
 // Done, but not merged yet
