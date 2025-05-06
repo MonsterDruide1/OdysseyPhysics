@@ -1,6 +1,11 @@
 #include "Npc/Bird.h"
 
-Bird::Bird(char const*) : al::LiveActor("") {WARN_UNIMPL;}
+#include "Library/LiveActor/ActorInitFunction.h"
+#include "Library/LiveActor/ActorInitUtil.h"
+
+Bird::Bird(char const*) : al::LiveActor("") {WARN_UNIMPL;al::initActorPoseTRSV(this);}
+
+void Bird::init(al::ActorInitInfo const& info) {}
 
 Bird* Bird::createBirdGlideDownUfo(char const*, al::ActorInitInfo const&) {return new Bird("");}
 

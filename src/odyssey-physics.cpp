@@ -271,6 +271,7 @@ int main(int argc, char *argv[]) {
                         continue;
 
                     sead::Matrix34f mtx;
+                    actor->mActor->mPoseKeeper->updatePoseQuat(al::getQuat(actor->mActor));
                     actor->mActor->mPoseKeeper->calcBaseMtx(&mtx);
                     actor->raylibModel.transform = raylibMtx(mtx);
                     DrawModel(actor->raylibModel, {0, 0, 0}, SCALE, WHITE);

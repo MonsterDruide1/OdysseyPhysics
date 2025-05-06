@@ -23,12 +23,12 @@ public:
     }
 
     void update() {
-        /*for (int i = 0; i < mActorsNum; i++) {
+        for (int i = 0; i < mActorsNum; i++) {
             auto actor = mActors[i];
             if (!actor)
                 continue;
             actor->update();
-        }*/
+        }
         mPlayer->update();
     }
 

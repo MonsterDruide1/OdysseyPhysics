@@ -89,7 +89,7 @@ void StageScene::init(const char* stageName, int scenario) {
 
         const char* className = nullptr;
         objiter.getIterByKey("UnitConfig").tryGetStringByKey(&className, "ParameterConfigName");
-        /*if(className) {
+        if(className) {
             for (int i=0; i<factory.mNumFactoryEntries; i++) {
                 if(al::isEqualString(factory.mFactoryEntries[i].name, className)) {
                     if(!factory.mFactoryEntries[i].creationFunction) {
@@ -101,24 +101,24 @@ void StageScene::init(const char* stageName, int scenario) {
                     break;
                 }
             }
-        }*/
+        }
 
         if(!liveactor) {
             printf("Unknown class: %s\n", className ?: "nullptr");
             liveactor = new al::LiveActor("LiveActor");
         }
-        /*al::PlacementInfo placement;
+        al::PlacementInfo placement;
         placement.set(objiter, nullptr);
         al::ActorInitInfo info;
         al::initActorInitInfo(&info, this, &placement, nullptr, &factory, nullptr, nullptr);
         info.actorSceneInfo.sceneObjHolder = mSceneObjHolder;
-        liveactor->init(info);*/
+        liveactor->init(info);
         RaylibActor::apply(liveactor, objiter);
         RaylibActor* actor = new RaylibActor(liveactor);
         actor->initCollision(objiter, mPartsKeeper);
         actor->initRaylibModel();
         addObject(actor);
-        //liveactor->initAfterPlacement();
+        liveactor->initAfterPlacement();
         
         const char* unitConfigName;
         const char* itemType = nullptr;

@@ -100,6 +100,7 @@ bool isTriggerHackSwing(IUsePlayerHack const*) {}
 bool receiveMsgRequestTransferHack(al::SensorMsg const*, IUsePlayerHack*, al::HitSensor*) {return false;}
 bool requestDamage(IUsePlayerHack*) {return false;}
 bool sendMsgHackerNoReaction(IUsePlayerHack const*, al::HitSensor*, al::HitSensor*) {return false;}
+void updateDimensionKeeper(ActorDimensionKeeper*) {}
 
 }  // namespace rs
 

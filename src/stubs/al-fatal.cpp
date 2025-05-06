@@ -198,10 +198,6 @@ sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const*, char const*) {
     CRASH
 }
 
-void al::Collider::onInvalidate() {
-    CRASH
-}
-
 void al::calcTouchScreenPos(sead::Vector2f*) {
     CRASH
 }
