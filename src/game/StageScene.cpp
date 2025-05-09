@@ -173,7 +173,7 @@ void StageScene::init(const char* stageName, int scenario) {
     PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
     al::PlacementInfo placementInfo = {};
     placementInfo.set(playerlist.getIterByIndex(0), al::ByamlIter());
-    al::PlayerHolder* playerHolder = new al::PlayerHolder(1);
+    al::PlayerHolder* playerHolder = mLiveActorKit->mPlayerHolder;
     playerHolder->registerPlayer(player, nullptr);
     al::ActorInitInfo actorInfo = {};
     actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, areaObjDirector, nullptr, nullptr,

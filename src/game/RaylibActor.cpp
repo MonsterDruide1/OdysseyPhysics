@@ -6,6 +6,7 @@
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/LiveActor/LiveActorFlag.h"
 #include "Library/Matrix/MatrixUtil.h"
+#include "Library/Model/ModelKeeper.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Yaml/ByamlUtil.h"
 #include "RaylibUtil.h"
@@ -43,6 +44,8 @@ void RaylibActor::apply(al::LiveActor* actor, const al::ByamlIter& data) {
     strcpy((char*)actor->mName, modelName);
 
     actor->mFlags->isDead = false;
+
+    actor->initModelKeeper(new al::ModelKeeper());
 }
 
 RaylibActor::~RaylibActor() {

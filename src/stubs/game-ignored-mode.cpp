@@ -4,6 +4,8 @@
 #include "Library/Collision/CollisionDirector.h"
 #include "Library/Scene/DemoDirector.h"
 #include "Player/HackerJudge.h"
+#include "Player/HackerStateNormalMove.h"
+#include "Player/PlayerActionTurnControl.h"
 #include "Player/PlayerHackStartShaderCtrl.h"
 #include "PlayerUtil.h"
 #include "System/GameDataFunction.h"
@@ -102,7 +104,18 @@ bool requestDamage(IUsePlayerHack*) {return false;}
 bool sendMsgHackerNoReaction(IUsePlayerHack const*, al::HitSensor*, al::HitSensor*) {return false;}
 void updateDimensionKeeper(ActorDimensionKeeper*) {}
 
+void addHackStartDemoActor(IUsePlayerHack*, al::LiveActor*) {}
+void changeHackTutorialText(al::IUseSceneObjHolder const*, char const*) {}
+bool isHackCapSeparateFlying(IUsePlayerHack*) {return false;}
+bool isTriggerHackAnyButton(IUsePlayerHack const*) {return false;}
+bool isTriggerSubjectiveCamera(IUsePlayerHack const*) {return false;}
+void resetHackTutorialText(al::IUseSceneObjHolder const*) {}
+
 }  // namespace rs
+
+HackerStateNormalMove::HackerStateNormalMove(al::LiveActor* x, IUsePlayerHack**, char const*, char const*, char const*) : al::ActorStateBase("", x) {mPlayerActionTurnControl = new PlayerActionTurnControl(x);}
+void HackerStateNormalMove::appear() {}
+void HackerStateNormalMove::usePlayerTurnControl(bool) {}
 
 GamaneHackState::GamaneHackState(al::LiveActor*a) : al::ActorStateBase("", a) {}
 void GamaneHackState::attackSensor(al::HitSensor*, al::HitSensor*) {}

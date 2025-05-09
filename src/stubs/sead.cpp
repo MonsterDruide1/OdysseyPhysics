@@ -167,3 +167,4 @@ f32 sead::PerspectiveProjection::getTop() const {CRASH}
 f32 sead::PerspectiveProjection::getBottom() const {CRASH}
 f32 sead::PerspectiveProjection::getLeft() const {CRASH}
 f32 sead::PerspectiveProjection::getRight() const {CRASH}
+void sead::PerspectiveProjection::set(float, float, float, float) {CRASH}

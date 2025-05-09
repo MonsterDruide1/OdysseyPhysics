@@ -32,6 +32,9 @@ void startSeWithParam(al::IUseAudioKeeper const*, sead::SafeStringBase<char> con
 bool isExistSeKeeper(al::IUseAudioKeeper const*) {return false;}
 void stopSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, int, char const*) {}
 
+void startBgmSituation(al::IUseAudioKeeper const*, char const*, bool) {CRASH}
+void endBgmSituation(al::IUseAudioKeeper const*, char const*, bool) {CRASH}
+
 void ActionSeCtrl::resetAction(bool) {}
 void ActionSeCtrl::restartAction() {}
 
@@ -45,3 +48,5 @@ void initActorBgmKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*) {
 void initActorSeKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*) {}
     
 }
+
+al::AudioKeeper* alAudioKeeperFunction::createAudioKeeper(al::AudioDirector const*, char const*, char const*) {WARN_UNIMPL; return nullptr;}

@@ -21,6 +21,7 @@ void EffectSystem::setGraphicsSystemInfo(al::GraphicsSystemInfo const*) {}
 void EffectSystem::startScene(al::ExecuteDirector*) {}
 
 void deleteEffect(al::IUseEffectKeeper*, char const*) {}
+void deleteEffectAll(al::IUseEffectKeeper*) {}
 void emitEffect(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const*) {}
 void setEffectFollowMtxPtr(al::IUseEffectKeeper*,const char*,sead::Matrix34<float> const*) {}
 void setEffectNamedMtxPtr(al::IUseEffectKeeper*, char const*, sead::Matrix34<float> const*) {}

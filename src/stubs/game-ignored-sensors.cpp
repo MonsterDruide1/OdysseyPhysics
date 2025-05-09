@@ -80,12 +80,17 @@ bool isMsgRadishReflect(al::SensorMsg const*) {return false;}
 bool isMsgSeedReflect(al::SensorMsg const*) {return false;}
 bool isMsgTankExplosion(al::SensorMsg const*) {return false;}
 bool isMsgPushToPlayer(al::SensorMsg const*) {return false;}
+bool isMsgCancelHackByDokan(al::SensorMsg const*) {return false;}
+bool isMsgEnableMapCheckPointWarpCollidedGround(al::SensorMsg const*, al::LiveActor const*) {return false;}
+bool isMsgSphinxRideAttackReflect(al::SensorMsg const*) {return false;}
+bool isMsgThrowObjHitReflect(al::SensorMsg const*) {return false;}
 
 bool isVisibleChameleon(al::SensorMsg const*) {return false;}
 void setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {}
 bool tryGetAirExplosionForce(sead::Vector3f*, al::SensorMsg const*) {return false;}
 bool tryGetByugoBlowForce(sead::Vector3f*, al::SensorMsg const*) {return false;}
 bool tryReceiveMsgNpcScareByEnemyIgnoreTargetHack(al::SensorMsg const*, CapTargetInfo const*) {return false;}
+bool tryGetSandGeyserRaise(al::SensorMsg const*, float*, float*) {return false;}
 
 bool sendMsgEnemyAttack2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgTouchFireDrum2D(al::HitSensor*, al::HitSensor*) {return false;}
@@ -93,6 +98,10 @@ bool sendMsgPushToPlayer(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgPush2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgKuriboGirlAttack(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgKuriboGirlLove(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgHackAttackKick(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgHackAttackMapObj(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgMeganeAttack(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgMeganeHackTrample(al::HitSensor*, al::HitSensor*) {return false;}
 
 void sendPlayerCollisionTouchMsg(al::LiveActor const*, al::HitSensor*, IUsePlayerCollision const*) {}
 

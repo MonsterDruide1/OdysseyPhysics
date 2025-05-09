@@ -78,14 +78,6 @@ void al::ActorPrePassLightKeeper::initAfterPlacement() {
     CRASH
 }
 
-void al::ModelKeeper::update() {
-    CRASH
-}
-
-void al::ModelKeeper::updateLast() {
-    CRASH
-}
-
 void al::EffectKeeper::update() {
     CRASH
 }
@@ -186,10 +178,6 @@ bool al::tryGetActorInitFileName(sead::BufferedSafeStringBase<char>*, al::LiveAc
     CRASH
 }
 
-bool al::isCollidedGround(al::LiveActor const*) {
-    CRASH
-}
-
 void al::resetAllCollisionMtx(al::LiveActor*) {
     CRASH
 }
@@ -209,8 +197,6 @@ bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) {
 void al::registerSubActor(al::LiveActor*, al::LiveActor*) {
     CRASH
 }
-
-sead::Matrix34f* al::ModelKeeper::getBaseMtx(){CRASH}
 
 sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {
     CRASH

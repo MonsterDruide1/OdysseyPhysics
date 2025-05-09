@@ -118,7 +118,7 @@ CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
 const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
 al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {WARN_UNIMPL;return nullptr;}
-void al::registerAreaHostMtx(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
+void al::registerAreaHostMtx(const al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
 f32 al::modf(float a, float b) {return fmodf(a, b);}
 bool al::isHalfProbability() {return getRandom() < 0.5f;}
@@ -139,6 +139,12 @@ bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector
 bool al::isNearPlayer(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 al::Collider* al::getActorCollider(al::LiveActor const*) {WARN_UNIMPL;return nullptr;}
 void al::Collider::onInvalidate() {WARN_UNIMPL;}
+void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilterBase const*) {WARN_UNIMPL;}
+const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {WARN_UNIMPL;return sead::Vector3f::zero;}
+bool al::isNearAngleDegree(sead::Vector3<float> const&, sead::Vector3<float> const&, float) {WARN_UNIMPL;return false;}
+bool al::isCollidedGround(al::LiveActor const*) {WARN_UNIMPL;return false;}
+bool al::isCollidedWall(al::LiveActor const*) {WARN_UNIMPL;return false;}
+bool al::isCollidedCeiling(al::LiveActor const*) {WARN_UNIMPL;return false;}
 
 // NORMAL PRIORITY
 al::ActorResource::~ActorResource() {CRASH}
@@ -173,6 +179,7 @@ void al::invalidateCollisionParts(al::LiveActor*) {CRASH}
 bool al::isExistCollisionParts(al::LiveActor const*) {CRASH}
 bool al::isExistRail(al::IUseRail const*) {CRASH}
 bool al::isSameSign(float, float) {CRASH}
+void al::lerpVec(sead::Vector2<float>*, sead::Vector2<float> const&, sead::Vector2<float> const&, float) {CRASH}
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 bool al::moveSyncRail(al::LiveActor*, float) {CRASH}
 bool al::moveSyncRailLoop(al::LiveActor*, float) {CRASH}
@@ -194,15 +201,7 @@ f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3f const&) {CRASH}
 void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 
-al::JointSpringControllerHolder::JointSpringControllerHolder() {CRASH}
-void al::JointSpringControllerHolder::init(al::LiveActor*,char const*) {CRASH}
 bool al::calcDirOnPlane(sead::Vector3f*,sead::Vector3f const&,sead::Vector3f const&,sead::Vector3f const&) {CRASH}
-void al::initJointControllerKeeper(al::LiveActor const*, int) {CRASH}
-al::JointLocalAxisRotator* al::initJointLocalAxisRotator(al::LiveActor const*, sead::Vector3<float> const&, float const*, char const*, bool) {CRASH}
-void al::initJointLocalXRotator(al::LiveActor const*, float const*, char const*) {CRASH}
-void al::initJointLocalYRotator(al::LiveActor const*, float const*, char const*) {CRASH}
-void al::initJointLocalZRotator(al::LiveActor const*, float const*, char const*) {CRASH}
-bool al::isCollidedWall(al::LiveActor const*) {CRASH}
 void al::rotateQuatMomentDegree(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
@@ -216,7 +215,6 @@ bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
 bool al::isMtxConnectorConnecting(al::MtxConnector const*) {CRASH}
 void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
 void al::rotateVectorQuat(sead::Vector3f*, sead::Quatf const&) {CRASH}
-void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilterBase const*) {CRASH}
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
@@ -232,7 +230,6 @@ void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH
 f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
 f32 al::calcRailTotalRate(al::IUseRail const*) {CRASH}
 void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
-const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {CRASH}
 void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
 bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
@@ -244,6 +241,7 @@ bool al::isMatchString(const char *, const MatchStr &) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
 bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}
 
+void al::faceToPlayer(al::LiveActor*) {CRASH}
 u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
 s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
@@ -260,9 +258,7 @@ const sead::Vector3f& al::getCollidedCeilingNormal(al::LiveActor const*) {CRASH}
 const sead::Vector3f& al::getCollidedGroundNormal(al::LiveActor const*) {CRASH}
 const sead::Vector3f& al::getCollidedWallNormal(al::LiveActor const*) {CRASH}
 bool al::isCollided(al::LiveActor const*) {CRASH}
-bool al::isCollidedCeiling(al::LiveActor const*) {CRASH}
 bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
-bool al::isNearAngleDegree(sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 f32 al::getColliderOffsetY(al::LiveActor const*) {CRASH}
 f32 al::getColliderRadius(al::LiveActor const*) {CRASH}
 void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}

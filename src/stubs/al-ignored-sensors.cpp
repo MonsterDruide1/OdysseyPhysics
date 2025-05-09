@@ -48,6 +48,7 @@ f32 getSensorRadius(al::LiveActor const*, char const*) {return 1.0f;}
 al::LiveActor* getSensorHost(al::HitSensor const*) {WARN_UNIMPL;return nullptr;}
 bool isMsgPlayerTrampleForCrossoverSensor(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {return false;}
 bool tryReceiveMsgPushAndAddVelocity(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
+bool tryReceiveMsgPushAndAddVelocityH(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
 bool pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
 const sead::Vector3f& getActorVelocity(al::HitSensor const*) {return sead::Vector3f::zero;}
 const sead::Vector3f& getActorGravity(al::HitSensor const*) {return sead::Vector3f::zero;}
@@ -83,7 +84,8 @@ bool isMsgPlayerRollingAttack(al::SensorMsg const*) { return false; }
 bool isMsgPlayerObjRollingAttack(al::SensorMsg const*) { return false; }
 bool isMsgKickStoneAttackReflect(al::SensorMsg const*) { return false; }
 bool isMsgPushStrong(al::SensorMsg const*) { return false; }
-bool isMsgPushVeryStrong(al::SensorMsg const*) { return false;}
+bool isMsgPushVeryStrong(al::SensorMsg const*) { return false; }
+bool isMsgPushAll(al::SensorMsg const*) {return false; }
 
 bool sendMsgExplosion(al::HitSensor*, al::HitSensor*, al::ComboCounter*) { return false; }
 bool sendMsgPlayerHipDropKnockDown(al::HitSensor*, al::HitSensor*) { return false; }
@@ -93,6 +95,7 @@ bool sendMsgEnemyAttack(al::HitSensor*, al::HitSensor*) { return false; }
 bool sendMsgEnemyAttackNeedle(al::HitSensor*, al::HitSensor*) { return false; }
 bool sendMsgPush(al::HitSensor*, al::HitSensor*) { return false; }
 bool sendMsgPushAndKillVelocityToTarget(al::LiveActor*, al::HitSensor*, al::HitSensor*) { return false; }
+bool sendMsgPushAndKillVelocityToTargetH(al::LiveActor*, al::HitSensor*, al::HitSensor*) { return false; }
 
 }  // namespace al
 

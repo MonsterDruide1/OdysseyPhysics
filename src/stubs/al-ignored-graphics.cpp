@@ -61,7 +61,7 @@ void initActorClipping(al::LiveActor*, al::ActorInitInfo const&) {}
 void initGroupClipping(al::LiveActor*, al::ActorInitInfo const&) {}
 void invalidateDitherAnim(al::LiveActor*) {}
 void registerSubActorSyncClipping(al::LiveActor*, al::LiveActor*) {}
-bool isExistDitherAnimator(al::LiveActor const*) {}
+bool isExistDitherAnimator(al::LiveActor const*) {return false;}
 void setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3f*,al::KeyPoseKeeper const*) {}
 void calcKeyMoveClippingInfo(sead::Vector3f*,float*,al::KeyPoseKeeper const*,float) {}
 bool updateSyncHostVisible(bool*, al::LiveActor*, al::LiveActor const*, bool) {return false;}
@@ -112,10 +112,6 @@ void al::SkyDirector::init(al::ActorInitInfo const&) {}
 void al::ModelDisplayListController::update() {}
 void al::ModelOcclusionCullingDirector::calc() {}
 
-void al::ModelKeeper::hide() {}
-void al::ModelKeeper::show() {}
-void al::ModelKeeper::setDisplayRootJointMtxPtr(sead::Matrix34<float> const*) {}
-void al::ModelKeeper::setModelLodCtrl(al::ModelLodCtrl*) {}
 void al::ModelLodAllCtrl::registerLodCtrl(al::ModelLodCtrl*) {}
 al::ModelLodCtrl::ModelLodCtrl(al::IUseCamera*, sead::Vector3<float> const*, sead::Matrix34<float> const*, sead::Vector3<float> const*, sead::BoundBox3<float> const&, int) {}
 void al::ModelLodCtrl::init(al::ByamlIter const&) {}
@@ -244,48 +240,42 @@ FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
 
 void ModelCtrl::recreateDisplayList() {}
 
-void ModelKeeper::createMatAnimForProgram(int) {}
-
-void ModelKeeper::setDitherAnimator(al::DitherAnimator*) {}
-
-void ModelKeeper::calc(sead::Matrix34<float> const&, sead::Vector3<float> const&) {}
-
 bool AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*,
-                                 char const*, char const*) {}
+                                 char const*, char const*) {return false;}
 
-bool AnimPlayerSkl::isSklAnimExist(char const*) {}
+bool AnimPlayerSkl::isSklAnimExist(char const*) {return false;}
 
-const char* AnimPlayerSkl::getPlayingSklAnimName(int) {}
+const char* AnimPlayerSkl::getPlayingSklAnimName(int) {return "";}
 
 void AnimPlayerSkl::reset() {}
 
-bool AnimPlayerSkl::isSklAnimEnd(int) {}
+bool AnimPlayerSkl::isSklAnimEnd(int) {return false;}
 
-bool AnimPlayerSkl::isSklAnimOneTime(char const*) {}
+bool AnimPlayerSkl::isSklAnimOneTime(char const*) {return false;}
 
-bool AnimPlayerSkl::isSklAnimOneTime(int) {}
+bool AnimPlayerSkl::isSklAnimOneTime(int) {return false;}
 
-bool AnimPlayerSkl::isSklAnimPlaying(int) {}
+bool AnimPlayerSkl::isSklAnimPlaying(int) {return false;}
 
-f32 AnimPlayerSkl::getSklAnimFrame(int) {}
+f32 AnimPlayerSkl::getSklAnimFrame(int) {return 0.0f;}
 
-f32 AnimPlayerSkl::getSklAnimFrameRate(int) {}
+f32 AnimPlayerSkl::getSklAnimFrameRate(int) {return 0.0f;}
 
-f32 AnimPlayerSkl::getSklAnimFrameMax(int) {}
+f32 AnimPlayerSkl::getSklAnimFrameMax(int) {return 0.0f;}
 
-f32 AnimPlayerSkl::getSklAnimFrameMax(char const*) {}
+f32 AnimPlayerSkl::getSklAnimFrameMax(char const*) {return 0.0f;}
 
 void AnimPlayerSkl::setSklAnimFrame(int, float) {}
 
 void AnimPlayerSkl::setSklAnimFrameRate(int, float) {}
 
-s32 AnimPlayerSkl::getSklAnimBlendNum() {}
+s32 AnimPlayerSkl::getSklAnimBlendNum() {return 0;}
 
-f32 AnimPlayerSkl::getSklAnimBlendWeight(int) {}
+f32 AnimPlayerSkl::getSklAnimBlendWeight(int) {return 0.0f;}
 
-bool AnimPlayerSkl::calcSklAnim() {}
+bool AnimPlayerSkl::calcSklAnim() {return false;}
 
-bool ActionAnimCtrl::isExistAction(char const*) {}
+bool ActionAnimCtrl::isExistAction(char const*) {return false;}
 
 void AnimPlayerSimple::startAnim(char const*) {}
 
@@ -293,27 +283,27 @@ void AnimPlayerSimple::setAnimFrame(float) {}
 
 void AnimPlayerSimple::setAnimFrameRate(float) {}
 
-bool AnimPlayerSimple::isAnimExist(char const*) {}
+bool AnimPlayerSimple::isAnimExist(char const*) {return false;}
 
-const char* AnimPlayerSimple::getPlayingAnimName() {}
+const char* AnimPlayerSimple::getPlayingAnimName() {return "";}
 
 void AnimPlayerSimple::clearAnim() {}
 
-bool AnimPlayerSimple::isAnimEnd() {}
+bool AnimPlayerSimple::isAnimEnd() {return false;}
 
-bool AnimPlayerSimple::isAnimOneTime(char const*) {}
+bool AnimPlayerSimple::isAnimOneTime(char const*) {return false;}
 
-bool AnimPlayerSimple::isAnimOneTime() {}
+bool AnimPlayerSimple::isAnimOneTime() {return false;}
 
-bool AnimPlayerSimple::isAnimPlaying() {}
+bool AnimPlayerSimple::isAnimPlaying() {return false;}
 
-f32 AnimPlayerSimple::getAnimFrame() {}
+f32 AnimPlayerSimple::getAnimFrame() {return 0.0f;}
 
-f32 AnimPlayerSimple::getAnimFrameRate() {}
+f32 AnimPlayerSimple::getAnimFrameRate() {return 0.0f;}
 
-f32 AnimPlayerSimple::getAnimFrameMax() {}
+f32 AnimPlayerSimple::getAnimFrameMax() {return 0.0f;}
 
-f32 AnimPlayerSimple::getAnimFrameMax(char const*) {}
+f32 AnimPlayerSimple::getAnimFrameMax(char const*) {return 0.0f;}
 
 void AnimPlayerSkl::startPartialAnim(char const*, int, int, SklAnimRetargettingInfo const*) {}
 
@@ -321,19 +311,19 @@ void AnimPlayerSkl::prepareAnimInterpDirect(int) {}
 
 void AnimPlayerSkl::clearPartialAnim(int) {}
 
-bool AnimPlayerSkl::isPartialAnimEnd(int) {}
+bool AnimPlayerSkl::isPartialAnimEnd(int) {return false;}
 
-bool AnimPlayerSkl::isPartialAnimOneTime(int) {}
+bool AnimPlayerSkl::isPartialAnimOneTime(int) {return false;}
 
-bool AnimPlayerSkl::isPartialAnimAttached(int) {}
+bool AnimPlayerSkl::isPartialAnimAttached(int) {return false;}
 
-const char* AnimPlayerSkl::getPlayingPartialSklAnimName(int) {}
+const char* AnimPlayerSkl::getPlayingPartialSklAnimName(int) {return "";}
 
-f32 AnimPlayerSkl::getPartialAnimFrame(int) {}
+f32 AnimPlayerSkl::getPartialAnimFrame(int) {return 0.0f;}
 
 void AnimPlayerSkl::setPartialAnimFrame(int, float) {}
 
-f32 AnimPlayerSkl::getPartialAnimFrameRate(int) {}
+f32 AnimPlayerSkl::getPartialAnimFrameRate(int) {return 0.0f;}
 
 void AnimPlayerSkl::setPartialAnimFrameRate(int, float) {}
 
