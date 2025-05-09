@@ -118,15 +118,11 @@ CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
 const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
 al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {WARN_UNIMPL;return nullptr;}
-void al::registerAreaHostMtx(const al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
 f32 al::modf(float a, float b) {return fmodf(a, b);}
 bool al::isHalfProbability() {return getRandom() < 0.5f;}
 void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {WARN_UNIMPL;}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
-al::SwitchKeepOnAreaGroup* al::tryCreateSwitchKeepOnAreaGroup(al::LiveActor* actor, al::ActorInitInfo const& info) {auto g=al::createLinkAreaGroup(actor, info, "AreaSwitchKeepOn", "子供スイッチキープエリアグループ", "子供スイッチキープエリア");if(!g)return nullptr;return new al::SwitchKeepOnAreaGroup(g);}
-al::AreaObjGroup* al::createLinkAreaGroup(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*, char const*) {WARN_UNIMPL;return nullptr;}
-al::SwitchOnAreaGroup* al::tryCreateSwitchOnAreaGroup(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {WARN_UNIMPL;return false;}
 void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
@@ -285,19 +281,12 @@ void rs::setRouteHeadGuidePosPtr(al::IUseSceneObjHolder const*, sead::Vector3<fl
 void rs::startEventFlow(al::EventFlowExecutor*, char const*) {CRASH}
 bool rs::updateEventFlow(al::EventFlowExecutor*) {CRASH}
 
-al::ActorResourceHolder::ActorResourceHolder(int) {CRASH}
-al::AreaObjMtxConnecterHolder::AreaObjMtxConnecterHolder(int) {CRASH}
-bool al::AreaObjMtxConnecterHolder::tryAddArea(al::AreaObj*, al::PlacementInfo const&) {CRASH}
-void al::AreaObjMtxConnecterHolder::update() {CRASH}
 al::GravityHolder::GravityHolder() {CRASH}
 void al::GravityHolder::init() {CRASH}
 al::NatureDirector::NatureDirector() {CRASH}
 void al::NatureDirector::init() {CRASH}
-al::PadRumbleDirector::PadRumbleDirector(al::PlayerHolder const*, al::CameraDirector const*) {CRASH}
-void al::PadRumbleDirector::update() {CRASH}
 al::SceneMsgCtrl::SceneMsgCtrl() {CRASH}
 al::SceneMsg::SceneMsg() {CRASH}
-al::ScreenPointDirector::ScreenPointDirector() {CRASH}
 
 void al::calcRailPosAtCoord(sead::Vector3<float>*, al::IUseRail const*, float) {CRASH}
 al::Resource* al::findOrCreateResource(sead::SafeStringBase<char> const&, char const*) {CRASH}

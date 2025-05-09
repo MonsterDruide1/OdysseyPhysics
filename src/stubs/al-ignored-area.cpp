@@ -6,11 +6,7 @@
 
 namespace al {
 
-bool isInDeathArea(al::LiveActor const*) {return false;}
-bool isInWaterArea(al::LiveActor const*) {return false;}
-bool isInAreaObj(al::LiveActor const*, char const*) {return false;}
 bool isInAreaObj(al::IUseAreaObj const*, char const*) {return false;}
-
 
 bool al::AreaShapeCube::calcLocalBoundingBox(sead::BoundBox3<float>*) const {return false;}
 bool al::AreaShapeCube::calcNearestEdgePoint(sead::Vector3<float>*, sead::Vector3<float> const&) const {return false;}

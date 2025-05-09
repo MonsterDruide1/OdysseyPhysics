@@ -56,6 +56,7 @@ al::ISceneObj* dummySceneObjCreatorFunc(s32 index) {
 
 void StageScene::init(const char* stageName, int scenario) {
     mLiveActorKit = new al::LiveActorKit(5120, 4);
+    mLiveActorKit->init(4);
     mSceneObjHolder = new al::SceneObjHolder(&dummySceneObjCreatorFunc, 74);
 
     std::string szsPath = nlib::util::format("res/mod/StageData/%s.szs", stageName);

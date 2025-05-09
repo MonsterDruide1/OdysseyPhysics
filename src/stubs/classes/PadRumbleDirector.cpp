@@ -2,6 +2,8 @@
 
 namespace al {
 
+PadRumbleDirector::PadRumbleDirector(al::PlayerHolder const*, al::CameraDirector const*) {}
+void PadRumbleDirector::update() {}
 void PadRumbleDirector::changeRumbleLoopVolume(char const*, sead::Vector3<float> const*, float, float, int) {}
 void PadRumbleDirector::startRumble(char const*, sead::Vector3<float> const&, al::PadRumbleParam const&, int) {}
 void PadRumbleDirector::startRumbleNo3D(char const*, al::PadRumbleParam const&, int) {}
