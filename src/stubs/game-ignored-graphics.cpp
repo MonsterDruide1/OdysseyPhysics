@@ -1,14 +1,14 @@
+#include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
-#include "Library/Math/MathUtil.h"
-#include "Library/Math/MathUtil.h"
 #include "Library/Math/MathUtil.h"
 #include "Player/Player.h"
 #include "PlayerUtil.h"
 #include "Util/PlayerUtil.h"
 
-PlayerCostumeInfo* PlayerFunction::initMarioModelActor(al::LiveActor*, al::ActorInitInfo const&,
+PlayerCostumeInfo* PlayerFunction::initMarioModelActor(al::LiveActor* actor, al::ActorInitInfo const& initInfo,
                                                        char const*, char const*, al::AudioKeeper*,
                                                        bool) {
+    al::initActorSceneInfo(actor, initInfo);
     PlayerCostumeInfo* info = new PlayerCostumeInfo();
     info->init(new PlayerBodyCostumeInfo("stub"), new PlayerHeadCostumeInfo("stub"));
     return info;

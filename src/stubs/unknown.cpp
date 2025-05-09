@@ -28,6 +28,7 @@
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerHolder.h"
+#include "Library/Scene/SceneObjHolder.h"
 #include "Library/Scene/SceneUtil.h"
 #include "Library/Thread/FunctorV0M.h"
 #include "Library/Yaml/ByamlUtil.h"
@@ -60,6 +61,7 @@
 namespace al {
 
 al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
+    return holder->getSceneObjHolder()->getObj(index);
     if (index == 15) {
         return nullptr;
     }  // al::FootPrintHolder => graphics

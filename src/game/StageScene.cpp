@@ -19,6 +19,7 @@
 #include "Player/PlayerColliderHakoniwa.h"
 #include "PlayerUtil.h"
 #include "Scene/ProjectActorFactory.h"
+#include "Scene/SceneObjFactory.h"
 #include "game/Input.h"
 #include "heap/seadHeapMgr.h"
 #include "nlib/util.h"
@@ -49,15 +50,11 @@ StageScene::~StageScene() {
     delete[] mShinePositions;
 }
 
-al::ISceneObj* dummySceneObjCreatorFunc(s32 index) {
-    static al::ISceneObj dummySceneObj;
-    return &dummySceneObj;
-}
-
 void StageScene::init(const char* stageName, int scenario) {
     mLiveActorKit = new al::LiveActorKit(5120, 4);
     mLiveActorKit->init(4);
-    mSceneObjHolder = new al::SceneObjHolder(&dummySceneObjCreatorFunc, 74);
+    al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
+    initSceneObjHolder(sceneObjHolder);
 
     std::string szsPath = nlib::util::format("res/mod/StageData/%s.szs", stageName);
 
@@ -179,7 +176,7 @@ void StageScene::init(const char* stageName, int scenario) {
     al::ActorInitInfo actorInfo = {};
     actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, areaObjDirector, nullptr, nullptr,
                       nullptr, collDirector, nullptr, nullptr, executeDirector, nullptr, nullptr, nullptr,
-                      nullptr, nullptr, nullptr, nullptr, playerHolder, nullptr, nullptr, nullptr,
+                      nullptr, nullptr, nullptr, nullptr, playerHolder, mSceneObjHolder, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     al::ActorSceneInfo* sceneInfo =
         new al::ActorSceneInfo();  // allocate on heap to ensure persistence
