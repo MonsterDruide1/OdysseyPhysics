@@ -102,6 +102,7 @@ bool sendMsgHackAttackKick(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgHackAttackMapObj(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgMeganeAttack(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgMeganeHackTrample(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgSwitchOnWithSaveRequest(al::LiveActor*, SaveObjInfo*) {return false;}
 
 void sendPlayerCollisionTouchMsg(al::LiveActor const*, al::HitSensor*, IUsePlayerCollision const*) {}
 

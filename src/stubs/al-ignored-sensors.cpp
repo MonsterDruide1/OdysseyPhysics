@@ -96,6 +96,10 @@ bool sendMsgEnemyAttackNeedle(al::HitSensor*, al::HitSensor*) { return false; }
 bool sendMsgPush(al::HitSensor*, al::HitSensor*) { return false; }
 bool sendMsgPushAndKillVelocityToTarget(al::LiveActor*, al::HitSensor*, al::HitSensor*) { return false; }
 bool sendMsgPushAndKillVelocityToTargetH(al::LiveActor*, al::HitSensor*, al::HitSensor*) { return false; }
+bool sendMsgSwitchKillOn(al::LiveActor*) { return false; }
+bool sendMsgSwitchOffInit(al::LiveActor*) { return false; }
+bool sendMsgSwitchOn(al::LiveActor*) { return false; }
+bool sendMsgSwitchOnInit(al::LiveActor*) { return false; }
 
 }  // namespace al
 

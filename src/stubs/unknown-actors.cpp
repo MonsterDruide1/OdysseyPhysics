@@ -57,7 +57,6 @@
 #include "Library/Stage/StageSwitchUtil.h"
 #include "Library/Yaml/Writer/ByamlWriterData.h"
 #include "MapObj/AnagramAlphabet.h"
-#include "MapObj/AppearSwitchSave.h"
 #include "MapObj/AppearSwitchTimer.h"
 #include "MapObj/Doshi.h"
 #include "MapObj/SubActorLodFixPartsScenarioAction.h"
@@ -215,7 +214,6 @@ void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
 
-void AppearSwitchSave::onSwitchDemo() {CRASH}
 AppearSwitchTimer::AppearSwitchTimer() : al::NerveExecutor("") {CRASH}
 void AppearSwitchTimer::init(al::ActorInitInfo const&,al::IUseAudioKeeper const*,al::IUseStageSwitch*,al::IUseCamera*,al::LiveActor*) {CRASH}
 bool AppearSwitchTimer::isSwitchOn() {CRASH}
