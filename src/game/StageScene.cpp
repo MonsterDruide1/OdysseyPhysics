@@ -12,12 +12,14 @@
 #include "Library/Scene/ISceneObj.h"
 #include "Library/Scene/SceneObjHolder.h"
 #include "Library/Scene/SceneUtil.h"
+#include "Library/System/GameSystemInfo.h"
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
 #include "Library/Yaml/ByamlUtil.h"
 #include "Player/PlayerActorHakoniwa.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "PlayerUtil.h"
+#include "Project/Scene/SceneInitInfo.h"
 #include "Scene/ProjectActorFactory.h"
 #include "Scene/SceneObjFactory.h"
 #include "game/Input.h"
@@ -51,8 +53,10 @@ StageScene::~StageScene() {
 }
 
 void StageScene::init(const char* stageName, int scenario) {
-    mLiveActorKit = new al::LiveActorKit(5120, 4);
-    mLiveActorKit->init(4);
+    al::GameSystemInfo gameSystemInfo = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
+                                         nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
+    al::SceneInitInfo sceneInitInfo = {&gameSystemInfo, nullptr, {}, stageName, (u32)scenario};
+    al::Scene::initLiveActorKitImpl(sceneInitInfo, 5120, 4, 2);
     al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
     initSceneObjHolder(sceneObjHolder);
 
