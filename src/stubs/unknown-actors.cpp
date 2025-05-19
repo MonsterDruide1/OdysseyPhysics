@@ -41,7 +41,6 @@
 #include "Library/Placement/PlacementId.h"
 #include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerUtil.h"
-#include "Library/Rail/RailKeeper.h"
 #include "Library/Rail/RailUtil.h"
 #include "Library/Resource/ActorResourceHolder.h"
 #include "Library/Resource/Resource.h"
@@ -125,7 +124,6 @@ bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {WARN_UNIMPL;return false;}
 void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
-al::RailKeeper* al::tryCreateRailKeeper(al::PlacementInfo const& info, char const* linkName) {PlacementInfo sub;if(!al::tryGetLinksInfo(&sub, info, linkName))return nullptr;return new al::RailKeeper(sub);}
 al::Resource* al::findOrCreateResourceSystemData(char const*, char const*) {WARN_UNIMPL;return nullptr;}
 u8* al::getByml(al::Resource const*, sead::SafeStringBase<char> const&) {WARN_UNIMPL;return nullptr;}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {WARN_UNIMPL;return false;}

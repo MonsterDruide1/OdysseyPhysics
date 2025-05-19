@@ -10,6 +10,14 @@ s32 sead::StringUtil::vsnprintf(char* s, size_t n, const char* format, va_list a
     return std::vsnprintf(s, n, format, arg);
 }
 
+s32 sead::StringUtil::snprintf(char* s, size_t n, const char* format, ...) {
+    va_list arg;
+    va_start(arg, format);
+    s32 ret = sead::StringUtil::vsnprintf(s, n, format, arg);
+    va_end(arg);
+    return ret;
+}
+
 void sead::Heap::makeMetaString_(BufferedSafeString* str) {
     CRASH
 }

@@ -161,10 +161,6 @@ bool al::isExistModelResourceYaml(al::LiveActor const*, char const*, char const*
     CRASH
 }
 
-void al::createFileNameBySuffix(sead::BufferedSafeStringBase<char>*, char const*, char const*) {
-    CRASH
-}
-
 bool al::isExistModelResource(al::LiveActor const*) {
     CRASH
 }
