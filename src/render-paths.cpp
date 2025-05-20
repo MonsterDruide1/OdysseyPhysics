@@ -26,7 +26,6 @@
 #include "rcamera.h"
 #include "rlgl.h"
 #include "seadInterface.h"
-#include "types.h"
 
 #include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraPoserFunction.h"

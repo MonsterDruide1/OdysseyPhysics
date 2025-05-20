@@ -42,7 +42,6 @@
 #include "rcamera.h"
 #include "rlgl.h"
 #include "seadInterface.h"
-#include "types.h"
 #include "PlayerStateGym.h"
 
 #include "Library/Base/StringUtil.h"
