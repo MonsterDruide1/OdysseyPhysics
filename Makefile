@@ -18,18 +18,18 @@ generate:
 	
 
 gdb: build
-	gdb -q build/OdysseyPhysics
+	gdb -q --args build/OdysseyPhysics 0
 
 valgrind: build
-	valgrind --suppressions=valgrind.supp --keep-debuginfo=yes --gen-suppressions=all --log-file=valgrind.log --soname-synonyms=somalloc=nouserintercepts build/OdysseyPhysics
+	valgrind --suppressions=valgrind.supp --keep-debuginfo=yes --gen-suppressions=all --log-file=valgrind.log --soname-synonyms=somalloc=nouserintercepts build/OdysseyPhysics 0
 
 run: build
-	build/OdysseyPhysics
+	build/OdysseyPhysics 0
 
 test_fps: build
-	build/OdysseyPhysics "SandMeganeExStageMap"
-	build/OdysseyPhysics "SandWorldHomeStageMap"
-	build/OdysseyPhysics "CityWorldHomeStageMap"
-	build/OdysseyPhysics "PeachWorldHomeStageMap"
-	build/OdysseyPhysics "SeaWorldHomeStageMap"
-	build/OdysseyPhysics "SeaWorldVibrationStageMap"
+	build/OdysseyPhysics 0 "SandMeganeExStageMap"
+	build/OdysseyPhysics 0 "SandWorldHomeStageMap"
+	build/OdysseyPhysics 0 "CityWorldHomeStageMap"
+	build/OdysseyPhysics 0 "PeachWorldHomeStageMap"
+	build/OdysseyPhysics 0 "SeaWorldHomeStageMap"
+	build/OdysseyPhysics 0 "SeaWorldVibrationStageMap"

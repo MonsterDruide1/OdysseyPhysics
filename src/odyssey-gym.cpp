@@ -266,17 +266,17 @@ void sendRender(RenderTexture2D tex, int sock) {
 
 bool exportScript = false;
 
-int main2(int argc, char* argv[]) {
-    if (argc < 5) {
-        printf("Usage: %s <stage> <scenario> <path to romfs> <socket-file> [display?]\n", argv[0]);
+int odyssey_gym_main(int argc, char* argv[]) {
+    if (argc < 4) {
+        printf("Usage: <stage> <scenario> <path to romfs> <socket-file> [display?]\n");
         return 1;
     }
 
-    const char* stage = argv[1];
-    int scenario = atoi(argv[2]);
-    settings::sRomfsPath = argv[3];
-    const char* socketFile = argv[4];
-    int display_mode = argc >= 6 ? atoi(argv[5]) : 0;
+    const char* stage = argv[0];
+    int scenario = atoi(argv[1]);
+    settings::sRomfsPath = argv[2];
+    const char* socketFile = argv[3];
+    int display_mode = argc >= 5 ? atoi(argv[4]) : 0;
 
     int serverSocket = socket(AF_UNIX, SOCK_STREAM, 0);
     //fcntl(serverSocket, F_SETFL, fcntl(serverSocket, F_GETFL, 0) | O_NONBLOCK);

@@ -86,10 +86,10 @@ bool shouldUpdate() {
 
 Model ShineCubeModel;
 
-int main(int argc, char *argv[]) {
+int odyssey_physics_main(int argc, char *argv[]) {
     const char* stage;
-    if(argc > 1) {
-        stage = argv[1];
+    if(argc > 0) {
+        stage = argv[0];
     } else {
         stage = Stage;
     }
