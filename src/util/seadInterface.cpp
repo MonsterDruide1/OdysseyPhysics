@@ -3,6 +3,9 @@
 #include "heap/seadExpHeap.h"
 #include "heap/seadHeapMgr.h"
 #include "random/seadGlobalRandom.h"
+#include "resource/seadResourceMgr.h"
+#include "resource/seadSZSDecompressor.h"
+#include "resource/seadSharcArchiveRes.h"
 #include "thread/seadThread.h"
 
 void sead::system::HaltWithDetail(const char* file, int line, const char* message, ...) {
@@ -45,6 +48,15 @@ void initializeSead() {
     sead::HeapMgr::instance()->setCurrentHeap_(threadMgrHeap);
     // sead::ThreadMgr::instance()->initialize(threadMgrHeap);
     sead::GlobalRandom::createInstance(threadMgrHeap);
+
+    sead::ResourceMgr::instance()->registerFactory(
+        new sead::DirectResourceFactory<sead::SharcArchiveRes>(), "sarc");
+    sead::ResourceMgr::instance()->registerFactory(
+        new sead::DirectResourceFactory<sead::SharcArchiveRes>(), "aras");
+
+    s32 decompressDestinationSize = 0x400000;
+    u8* decompressDestination = new (0x20) u8[decompressDestinationSize];
+    sead::ResourceMgr::instance()->registerDecompressor(new sead::SZSDecompressor(decompressDestinationSize / 2, decompressDestination), "szs");
 }
 
 void unloadSead() {

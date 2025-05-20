@@ -60,10 +60,10 @@ void StageScene::init(const char* stageName, int scenario) {
     al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
     initSceneObjHolder(sceneObjHolder);
 
-    std::string szsPath = nlib::util::format("res/mod/StageData/%s.szs", stageName);
+    std::string szsPath = (std::string)"res/mod/StageData/" + stageName + ".szs";
 
     if (!std::filesystem::exists(szsPath)) {
-        szsPath = nlib::util::format("%s/StageData/%s.szs", settings::sRomfsPath, stageName);
+        szsPath = (std::string)settings::sRomfsPath + "/StageData/" + stageName + ".szs";
 
         if (!std::filesystem::exists(szsPath)) {
             printf("File does not exist: %s\n", szsPath.c_str());
@@ -74,7 +74,7 @@ void StageScene::init(const char* stageName, int scenario) {
     std::vector<u8> szsData = nlib::util::readFile<u8>(szsPath);
     std::vector<u8> sarcData = oead::yaz0::Decompress(szsData);
     oead::Sarc sarc(sarcData);
-    const auto& file = sarc.GetFile(nlib::util::format("%s.byml", stageName));
+    const auto& file = sarc.GetFile((std::string) stageName + ".byml");
     if (!file.has_value()) {
         printf("File has no value: %s (%s)\n", stageName, szsPath.c_str());
         return;
