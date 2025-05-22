@@ -21,7 +21,7 @@ gdb: build
 	gdb -q --args build/OdysseyPhysics 0
 
 valgrind: build
-	valgrind --suppressions=valgrind.supp --keep-debuginfo=yes --gen-suppressions=all --log-file=valgrind.log --soname-synonyms=somalloc=nouserintercepts build/OdysseyPhysics 0
+	valgrind --suppressions=valgrind.supp --keep-debuginfo=yes --gen-suppressions=all --log-file=valgrind.out --soname-synonyms=somalloc=nouserintercepts build/OdysseyPhysics 0
 
 run: build
 	build/OdysseyPhysics 0

@@ -20,21 +20,21 @@
    wsl1
    Memcheck:Addr4
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
 }
 {
    wsl2
    Memcheck:Cond
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
 }
 {
    wsl3
    Memcheck:Addr8
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
 }
 {
@@ -43,14 +43,14 @@
    ioctl(generic)
    fun:ioctl
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
 }
 {
    wsl5
    Memcheck:Addr2
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
 }
 {
@@ -72,19 +72,27 @@
 {
    wsl8
    Memcheck:Addr16
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    obj:/usr/lib/wsl/lib/libd3d12core.so
 }
 {
    wsl9
    Memcheck:Addr1
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    fun:start_thread
    fun:clone
+}
+{
+   wsl10
+   Memcheck:Addr1
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
+   ...
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
+   obj:/usr/lib/wsl/lib/libd3d12core.so
 }
 
 {
@@ -108,7 +116,7 @@
    Memcheck:Leak
    match-leak-kinds: possible
    fun:malloc
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
 }
 {
@@ -199,7 +207,21 @@
    fun:memalign
    fun:posix_memalign
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
+}
+{
+   libgallium8
+   Memcheck:Addr8
+   fun:memmove
+   obj:/usr/lib/x86_64-linux-gnu/libgallium-24.2.8-1ubuntu1~24.04.1.so
+   ...
+}
+{
+   libgallium2
+   Memcheck:Addr2
+   fun:memmove
+   obj:/usr/lib/x86_64-linux-gnu/libgallium-24.2.8-1ubuntu1~24.04.1.so
+   ...
 }
 
 {
@@ -388,26 +410,26 @@
    unk16
    Memcheck:Free
    fun:free
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
 }
 {
    unk17
    Memcheck:Free
    fun:free
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    obj:/usr/lib/wsl/lib/libd3d12core.so
 }
 {
    unk18
    Memcheck:Free
    fun:_ZdlPv
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    fun:call_destructors
    fun:_dl_catch_exception
    fun:_dl_close_worker.part.0.isra.0
@@ -418,18 +440,18 @@
    match-leak-kinds: definite
    fun:calloc
    fun:pthread_cond_broadcast@GLIBC_2.2.5
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
 }
 {
    unk20
    Memcheck:Leak
    match-leak-kinds: definite
    fun:_Znam
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    fun:call_init.part.0
    fun:call_init
    fun:_dl_init
@@ -455,9 +477,9 @@
    unk22
    Memcheck:Free
    fun:_ZdlPv
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
 }
 {
    unk23
@@ -471,9 +493,38 @@
 {
    unk24
    Memcheck:Addr1
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    ...
-   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_af623d743ca2092d/libnvwgf2umx.so
+   obj:/usr/lib/wsl/drivers/nvmdi.inf_amd64_8de72197f4c7fa03/libnvwgf2umx.so
    obj:/usr/lib/wsl/lib/libd3d12core.so
    obj:/usr/lib/x86_64-linux-gnu/dri/swrast_dri.so
+}
+{
+   dl_free
+   Memcheck:Free
+   fun:_ZdlPvm
+   ...
+   fun:_dlerror_run
+}
+{
+   dlinit_free
+   Memcheck:Free
+   fun:_ZdlPvm
+   ...
+   fun:_dl_init
+   ...
+}
+{
+   libgallium_free
+   Memcheck:Free
+   fun:_ZdlPvm
+   obj:/usr/lib/x86_64-linux-gnu/libgallium-24.2.8-1ubuntu1~24.04.1.so
+   ...
+}
+{
+   libgallium_cond
+   Memcheck:Cond
+   ...
+   obj:/usr/lib/x86_64-linux-gnu/libgallium-24.2.8-1ubuntu1~24.04.1.so
+   ...
 }
