@@ -1,97 +1,77 @@
 #include "yaz0.h"
 
-// modified from
-// https://gist.github.com/khang06/e407b25d86923bb881ff1923a4447667
-
-#include <cstdio>
-#include <cstdint>
-#include <cstring>
-#include <cstdlib>
-#include <iostream>
-#include <fstream>
-#include <vector>
+#include <byteswap.h>
+#include <nn/types.h>
 
 namespace Yaz0 {
-    struct Header {
-        uint16_t magic[4];
-        uint32_t decmp_size;
-        int32_t unknown[2];
-    };
 
-    int GetDecompressedSize(const char *src) {
-        Header header;
+#define __int8 s8
 
-        header = *reinterpret_cast<const Header*>(src);
+void Decompress(const char* src, char* dst) {
+    int v2;               // w6
+    unsigned int v3;      // w4
+    int v4;               // w2
+    char* v5;             // x1
+    unsigned int v6;      // w5
+    int v7;               // t1
+    u8* v8;  // x1
+    int v9;               // w3
+    int v10;              // t1
+    int v11;              // t1
+    unsigned int v12;     // w3
+    unsigned int v13;     // w9
+    int v14;              // w3
+    unsigned int v15;     // w7
+    int v16;              // t1
+    char v17;             // t1
 
-        if (memcmp(&header.magic, "Yaz0", 4)) {
-            throw "Input is not Yaz0!";
-        }
-
-        return header.decmp_size;
-    }
-
-    void Decompress(const char *src, char *dst) {
-        Header header;
-        uint16_t code_byte;
-        uint32_t valid_bit_count = 0;
-        uint32_t src_pos = 16;
-        uint32_t dst_pos = 0;
-
-        uint16_t byte1;
-        uint16_t byte2;
-        uint32_t copy_src;
-        uint32_t copy_len;
-
-        header = *reinterpret_cast<const Header*>(src);
-
-        if (memcmp(&header.magic, "Yaz0", 4)) {
-            throw "Input is not Yaz0!";
-        }
-
-        code_byte = src[16];
-
-        while (dst_pos < header.decmp_size) {
-            if (valid_bit_count == 0) {
-                code_byte = src[src_pos];
-                src_pos++;
-                valid_bit_count = 8;
+    v3 = __bswap_32(*((s32*)src + 1));
+    v4 = v3;
+    v5 = (char*)src + 16;
+    v6 = 0;
+    do {
+        while (1) {
+            v6 >>= 1;
+            if (!v6) {
+                v7 = (u8)*v5++;
+                v2 = v7;
+                v6 = 128;
             }
 
-            if ((code_byte & 0x80) != 0) {
-                dst[dst_pos] = src[src_pos];
-                src_pos++;
-                dst_pos++;
-            }
-            else {
-                byte1 = src[src_pos];
-                src_pos++;
-                byte2 = src[src_pos];
-                src_pos++;
+            if ((v2 & v6) == 0)
+                break;
 
-                copy_src = dst_pos - ((byte1 & 0x0f) << 8 | byte2) - 1;
-                copy_len = byte1 >> 4;
-
-                if (copy_len == 0) {
-                    copy_len = src[src_pos] + 0x12;
-                    src_pos++;
-                }
-                else {
-                    copy_len += 2;
-                }
-
-                for (uint32_t i = 0; i < copy_len; i++) {
-                    if (copy_src > header.decmp_size)
-                        printf("oob copy_src: %08X\n", copy_src);
-                    if (dst_pos > header.decmp_size)
-                        printf("oob dst_pos: %08X\n", dst_pos);
-                    dst[dst_pos] = dst[copy_src];
-                    copy_src++;
-                    dst_pos++;
-                }
-            }
-
-            code_byte <<= 1;
-            valid_bit_count -= 1;
+            v17 = *v5++;
+            --v3;
+            *(u8*)dst = v17;
+            dst = (char*)dst + 1;
+            if (!v3)
+                return;
         }
-    }
+
+        v10 = (u8)*v5;
+        v8 = (u8*)(v5 + 1);
+        v9 = v10;
+        v11 = *v8;
+        v5 = (char*)(v8 + 1);
+        v12 = v11 + (v9 << 8);
+        v13 = v12 >> 12;
+        v14 = (v12 & 0xFFF) + 1;
+        v15 = v13 + 2;
+        if (!v13) {
+            v16 = (u8)*v5++;
+            v15 = v16 + 18;
+        }
+
+        v3 -= v15;
+        do {
+            --v15;
+            *(u8*)dst = *((u8*)dst - v14);
+            dst = (char*)dst + 1;
+        } while (v15);
+    } while (v3);
+
+    return;
 }
+
+}  // namespace Yaz0

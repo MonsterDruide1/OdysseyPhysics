@@ -1,5 +1,6 @@
 #include "seadInterface.h"
 
+#include "filedevice/seadFileDeviceMgr.h"
 #include "heap/seadExpHeap.h"
 #include "heap/seadHeapMgr.h"
 #include "random/seadGlobalRandom.h"
@@ -50,6 +51,7 @@ void initializeSead() {
     // sead::ThreadMgr::instance()->initialize(threadMgrHeap);
     sead::GlobalRandom::createInstance(threadMgrHeap);
 
+    sead::FileDeviceMgr::createInstance(threadMgrHeap);
     sead::ResourceMgr::createInstance(threadMgrHeap);
     sead::ResourceMgr::instance()->registerFactory(
         new sead::DirectResourceFactory<sead::SharcArchiveRes>(), "sarc");

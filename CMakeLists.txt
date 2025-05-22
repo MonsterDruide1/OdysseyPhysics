@@ -13,15 +13,12 @@ add_compile_options(-O0 -g)
 #add_link_options(-stdlib=libc++)
 
 add_subdirectory(lib/raylib)
-add_subdirectory(lib/nlib)
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
 include_directories(src)
 include_directories(src/util)
 include_directories(lib/raylib/src)
-include_directories(lib/nlib/include)
-include_directories(lib/nlib/lib/oead/src/include)
 
 file(GLOB_RECURSE SOURCES_SMO ${PROJECT_SOURCE_DIR}/lib/smo/*.cpp ${PROJECT_SOURCE_DIR}/lib/smo/*.c ${PROJECT_SOURCE_DIR}/lib/smo/*.h ${PROJECT_SOURCE_DIR}/lib/smo/*.hpp)
 file(GLOB_RECURSE SOURCES_APP ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.c ${PROJECT_SOURCE_DIR}/src/*.h ${PROJECT_SOURCE_DIR}/src/*.hpp)
@@ -33,7 +30,6 @@ add_executable(OdysseyPhysics ${SOURCES_APP})
 find_package(Threads REQUIRED)
 target_link_libraries(OdysseyPhysics PRIVATE Threads::Threads)
 target_link_libraries(OdysseyPhysics PUBLIC raylib)
-target_link_libraries(OdysseyPhysics PUBLIC nlib)
 file(COPY res DESTINATION .)
 
 include(ExternalProject)

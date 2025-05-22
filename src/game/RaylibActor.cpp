@@ -2,6 +2,7 @@
 #include <cstdio>
 #include <cstring>
 #include <filesystem>
+#include "Library/Base/StringUtil.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/LiveActor/LiveActorFlag.h"
@@ -10,10 +11,10 @@
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Yaml/ByamlUtil.h"
 #include "RaylibUtil.h"
-#include "nlib/util.h"
-#include "oead/sarc.h"
-#include "oead/yaz0.h"
+#include "filedevice/seadFileDevice.h"
 #include "raylib.h"
+#include "resource/seadArchiveRes.h"
+#include "resource/seadResourceMgr.h"
 #include "settings.h"
 
 namespace game {
@@ -70,25 +71,29 @@ RaylibActor::~RaylibActor() {
         delete[] collisionByml;
 }
 
+static sead::ArchiveRes* loadSarc(const sead::SafeString& path, sead::FileDevice* device) {
+    sead::ResourceMgr::LoadArg loadArg;
+    loadArg.device = device;
+    loadArg.path = path;
+    loadArg.load_data_alignment = 0;
+    loadArg.load_data_buffer_alignment = 0;
+
+    sead::Resource* resource =
+        sead::ResourceMgr::instance()->tryLoad(loadArg, "sarc", nullptr);
+    return sead::DynamicCast<sead::ArchiveRes>(resource);
+}
+
 void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper* keeper) {
-    std::string szsPath = nlib::util::format("res/mod/ObjectData/%s.szs", mActor->mName);
+    sead::ArchiveRes* sarc = loadSarc(((std::string) "ObjectData/"+mActor->mName+".szs").c_str(), nullptr);
 
-    if (!std::filesystem::exists(szsPath)) {
-        szsPath = nlib::util::format("%s/ObjectData/%s.szs", settings::sRomfsPath, mActor->mName);
+    constexpr u32 ENTRIES_NUM = 512;
+    sead::HandleBuffer handle{};
+    sead::DirectoryEntry entries[ENTRIES_NUM];
+    u32 files_num = sarc->readDirectory(&handle, entries, ENTRIES_NUM);
 
-        if (!std::filesystem::exists(szsPath)) {
-            printf("File does not exist: %s\n", szsPath.c_str());
-            return;
-        }
-    }
-
-    std::vector<u8> szsData = nlib::util::readFile<u8>(szsPath);
-    std::vector<u8> sarcData = oead::yaz0::Decompress(szsData);
-    oead::Sarc sarc(sarcData);
     int kclIndex = -1;
-    for (u16 i = 0; i < sarc.GetNumFiles(); i++) {
-        const oead::Sarc::File& file = sarc.GetFile(i);
-        if (file.name.ends_with(".kcl")) {
+    for (u16 i = 0; i < files_num; i++) {
+        if (al::isEndWithString(entries[i].name.cstr(), ".kcl")) {
             kclIndex = i;
             break;
         }
@@ -97,13 +102,12 @@ void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper*
         dbg_printf("Actor has no collision: %s (%s)\n", mActor->mActorName, szsPath.c_str());
         return;
     }
-    const oead::Sarc::File& kclFile = sarc.GetFile(kclIndex);
+    sead::ArchiveRes::FileInfo kclFileInfo;
+    const auto* kclFile = sarc->getFile(entries[kclIndex].name.cstr(), &kclFileInfo);
 
     int byamlIndex = -1;
-    for (u16 i = 0; i < sarc.GetNumFiles(); i++) {
-        const oead::Sarc::File& file = sarc.GetFile(i);
-        if (file.name.compare(std::string(kclFile.name.substr(0, kclFile.name.size() - 4)) +
-                              ("Attribute.byml")) == 0) {
+    for (u16 i = 0; i < files_num; i++) {
+        if (al::isEqualString(entries[i].name.cstr(), (std::string(entries[kclIndex].name.cstr()).substr(0, entries[kclIndex].name.calcLength() - 4) + ("Attribute.byml")).c_str())) {
             byamlIndex = i;
             break;
         }
@@ -112,33 +116,30 @@ void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper*
         dbg_printf("Actor has corrupted collision: %s (%s)\n", mActor->mActorName, szsPath.c_str());
         CRASH
     }
-    const oead::Sarc::File& bymlFile = sarc.GetFile(byamlIndex);
+    sead::ArchiveRes::FileInfo bymlFileInfo;
+    const auto* bymlFile = sarc->getFile(entries[byamlIndex].name.cstr(), &bymlFileInfo);
 
-    try {
-        kclData = new u8[kclFile.data.size()];
-        memcpy(kclData, kclFile.data.data(), kclFile.data.size());
-        collisionByml = new u8[bymlFile.data.size()];
-        memcpy(collisionByml, bymlFile.data.data(), bymlFile.data.size());
+    kclData = new u8[kclFileInfo.mLength];
+    memcpy(kclData, kclFile, kclFileInfo.mLength);
+    collisionByml = new u8[bymlFileInfo.mLength];
+    memcpy(collisionByml, bymlFile, bymlFileInfo.mLength);
 
-        mActor->mCollisionParts = new al::CollisionParts(kclData, collisionByml);
-        sead::Matrix34f mat;
-        // al::makeMtxSRT
-        mActor->mPoseKeeper->calcBaseMtx(&mat);
-        al::preScaleMtx(&mat, *mActor->mPoseKeeper->getScalePtr());
-        // ---
-        if (data.getKeyIndex("Sensor") != -1)
-            dbg_printf("Sensor-attribute exists, but is not implemented! (%s)\n", mActor->mActorName);
-        mActor->mCollisionParts->mConnectedSensor = nullptr;
+    mActor->mCollisionParts = new al::CollisionParts(kclData, collisionByml);
+    sead::Matrix34f mat;
+    // al::makeMtxSRT
+    mActor->mPoseKeeper->calcBaseMtx(&mat);
+    al::preScaleMtx(&mat, *mActor->mPoseKeeper->getScalePtr());
+    // ---
+    if (data.getKeyIndex("Sensor") != -1)
+        dbg_printf("Sensor-attribute exists, but is not implemented! (%s)\n", mActor->mActorName);
+    mActor->mCollisionParts->mConnectedSensor = nullptr;
 
-        mActor->mCollisionParts->initParts(mat);
+    mActor->mCollisionParts->initParts(mat);
 
-        if (data.getKeyIndex("Joint") != -1)
-            dbg_printf("Joint-attribute exists, but is not implemented! (%s)\n", mActor->mActorName);
-        mActor->mCollisionParts->mJointMtx = nullptr;
-        keeper->addCollisionParts(mActor->mCollisionParts);
-    } catch (const nlib::Exception& ex) {
-        dbg_printf("Invalid kcl: %s\n", mActor->mActorName);
-    }
+    if (data.getKeyIndex("Joint") != -1)
+        dbg_printf("Joint-attribute exists, but is not implemented! (%s)\n", mActor->mActorName);
+    mActor->mCollisionParts->mJointMtx = nullptr;
+    keeper->addCollisionParts(mActor->mCollisionParts);
 }
 
 void RaylibActor::initRaylibModel() {

@@ -24,9 +24,8 @@
 #include "Scene/SceneObjFactory.h"
 #include "game/Input.h"
 #include "heap/seadHeapMgr.h"
-#include "nlib/util.h"
-#include "oead/sarc.h"
-#include "oead/yaz0.h"
+#include "resource/seadArchiveRes.h"
+#include "resource/seadResourceMgr.h"
 #include "settings.h"
 
 namespace game {
@@ -52,6 +51,18 @@ StageScene::~StageScene() {
     delete[] mShinePositions;
 }
 
+static sead::ArchiveRes* loadSarc(const sead::SafeString& path, sead::FileDevice* device) {
+    sead::ResourceMgr::LoadArg loadArg;
+    loadArg.device = device;
+    loadArg.path = path;
+    loadArg.load_data_alignment = 0;
+    loadArg.load_data_buffer_alignment = 0;
+
+    sead::Resource* resource =
+        sead::ResourceMgr::instance()->tryLoad(loadArg, "sarc", nullptr);
+    return sead::DynamicCast<sead::ArchiveRes>(resource);
+}
+
 void StageScene::init(const char* stageName, int scenario) {
     al::GameSystemInfo gameSystemInfo = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
                                          nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
@@ -60,27 +71,10 @@ void StageScene::init(const char* stageName, int scenario) {
     al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
     initSceneObjHolder(sceneObjHolder);
 
-    std::string szsPath = (std::string)"res/mod/StageData/" + stageName + ".szs";
+    sead::ArchiveRes* sarc = loadSarc(((std::string) "StageData/"+stageName+".szs").c_str(), nullptr);
+    const auto* file = sarc->getFile(((std::string) stageName + ".byml").c_str());
 
-    if (!std::filesystem::exists(szsPath)) {
-        szsPath = (std::string)settings::sRomfsPath + "/StageData/" + stageName + ".szs";
-
-        if (!std::filesystem::exists(szsPath)) {
-            printf("File does not exist: %s\n", szsPath.c_str());
-            return;
-        }
-    }
-
-    std::vector<u8> szsData = nlib::util::readFile<u8>(szsPath);
-    std::vector<u8> sarcData = oead::yaz0::Decompress(szsData);
-    oead::Sarc sarc(sarcData);
-    const auto& file = sarc.GetFile((std::string) stageName + ".byml");
-    if (!file.has_value()) {
-        printf("File has no value: %s (%s)\n", stageName, szsPath.c_str());
-        return;
-    }
-
-    al::ByamlIter iter = al::ByamlIter(file->data.data());
+    al::ByamlIter iter = al::ByamlIter((const u8*)file);
     al::ByamlIter lists = iter.getIterByIndex(scenario);
     al::ByamlIter objectlist = lists.getIterByKey("ObjectList");
 

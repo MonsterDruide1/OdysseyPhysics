@@ -1,6 +1,3 @@
-[submodule "lib/nlib"]
-	path = lib/nlib
-	url = https://github.com/MonsterDruide1/nlib
 [submodule "lib/raylib"]
 	path = lib/raylib
 	url = https://github.com/raysan5/raylib
