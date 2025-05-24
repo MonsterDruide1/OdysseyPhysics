@@ -92,7 +92,7 @@ f32 ScriptOptimizerSimple::evaluate(const InputList& frames) {
         scene->update();
 
         // stop simulation if player is dead
-        if (rs::isCollisionCodePoisonTouch(player->mPlayerColliderHakoniwa))
+        if (rs::isCollisionCodePoisonTouch(player->mColliderHakoniwa))
             break;
         // stop simulation if player has reached the goal
         if (mDestination.isInside(*playerPos))
@@ -105,7 +105,7 @@ f32 ScriptOptimizerSimple::evaluate(const InputList& frames) {
     // invalid run if the player didn't reach the goal or died in poison
     if (!mDestination.isInside(*playerPos))
         return sead::Mathf::infinity();
-    if (rs::isCollisionCodePoisonTouch(player->mPlayerColliderHakoniwa))
+    if (rs::isCollisionCodePoisonTouch(player->mColliderHakoniwa))
         return sead::Mathf::infinity();
 
     // final score: number of frames + number of button presses

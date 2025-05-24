@@ -185,7 +185,7 @@ void drawRaylib(game::StageScene* scene, Camera3D& cam) {
             ->name,
         0, 0, 40, {255, 0, 0, 255});
     
-    if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
+    if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mColliderHakoniwa)) {
         DrawText("Poison Touch", 0, 50, 40, {255, 0, 0, 255});
     }
 }
@@ -226,8 +226,8 @@ void sendState(game::StageScene* scene, int sock) {
     }
 
     bool isDead = false;
-    isDead |= rs::isCollisionCodePoisonTouch(player->mPlayerColliderHakoniwa);
-    isDead |= rs::isCollisionCodeDamageFireGround(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
+    isDead |= rs::isCollisionCodePoisonTouch(player->mColliderHakoniwa);
+    isDead |= rs::isCollisionCodeDamageFireGround(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mColliderHakoniwa);
     isDead |= scene->mPlayer->mActor->mPoseKeeper->getTrans().y < -2000;
 
     DataPacket p = {
@@ -237,8 +237,8 @@ void sendState(game::StageScene* scene, int sock) {
         al::getQuat(player),
         getPlayerStateBitMap(player),
         {},  // placeholder
-        player->mPlayerContinuousJump->mCount,
-        player->mPlayerCounterQuickTurnJump->mCounter,
+        player->mContinuousJump->mCount,
+        player->mCounterQuickTurnJump->mCounter,
         isTouchingMoon,
         isDead,
     };
@@ -392,7 +392,7 @@ int odyssey_gym_main(int argc, char* argv[]) {
                     }
                     if(reset_packet.isOverridePosition) {
                         scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(reset_packet.playerPos);
-                        rs::resetCollision(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
+                        rs::resetCollision(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mColliderHakoniwa);
                     }
                     exportScript = reset_packet.isExportScript;
 

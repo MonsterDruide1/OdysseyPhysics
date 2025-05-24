@@ -326,8 +326,8 @@ int odyssey_physics_main(int argc, char *argv[]) {
                     0, 0, 40, {255, 0, 0, 255});
                 
                 bool isDead = false;
-                isDead |= rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
-                isDead |= rs::isCollisionCodeDamageFireGround(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa);
+                isDead |= rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mColliderHakoniwa);
+                isDead |= rs::isCollisionCodeDamageFireGround(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mColliderHakoniwa);
                 if(isDead) {
                     DrawText("Dead", 0, 50, 40, {255, 0, 0, 255});
                 }

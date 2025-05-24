@@ -131,7 +131,7 @@ f32 ScriptOptimizerDemo::evaluate(const sead::TList<TASFrame>& frames) {
         Input::instance()->update();
         scene->update();
 
-        if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
+        if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mColliderHakoniwa)) {
             delete heap;
             return sead::Mathf::infinity();
         }
@@ -188,7 +188,7 @@ void ScriptOptimizerDemo::dumpData(int iteration) {
 
         fprintf(posFile, "%f %f %f\n", playerPos->x, playerPos->y, playerPos->z);
 
-        if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mPlayerColliderHakoniwa)) {
+        if(rs::isCollisionCodePoisonTouch(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->mColliderHakoniwa)) {
             break;
         }
         if(mDestination.isInside(*playerPos)) {
