@@ -297,6 +297,8 @@ PlayerStateHack::PlayerStateHack(al::LiveActor*, PlayerHackKeeper*, IPlayerModel
                                  PlayerAnimator*, HackCap*)
     : al::NerveStateBase("") {}
 
+void PlayerStateHack::prepareStageStartHack() {}
+
 PlayerStateEndHack::PlayerStateEndHack(al::LiveActor*, PlayerConst const*,
                                        IUsePlayerCollision const*, PlayerInput const*,
                                        PlayerTrigger*, PlayerAnimator*)
