@@ -77,21 +77,6 @@ al::LiveActor** al::DemoDirector::getDemoActorList() const {CRASH}
 s32 al::DemoDirector::getDemoActorNum() const {CRASH}
 bool al::DemoDirector::isActiveDemo() const {CRASH}
 
-void al::FileLoader::clearAllEntry() {CRASH}
-u32 al::FileLoader::getFileSize(sead::SafeStringBase<char> const&, sead::FileDevice*) const {CRASH}
-bool al::FileLoader::isExistArchive(sead::SafeStringBase<char> const&, sead::FileDevice*) const {CRASH}
-bool al::FileLoader::isExistDirectory(sead::SafeStringBase<char> const&, sead::FileDevice*) const {CRASH}
-bool al::FileLoader::isExistFile(sead::SafeStringBase<char> const&, sead::FileDevice*) const {CRASH}
-sead::ArchiveRes* al::FileLoader::loadArchive(sead::SafeStringBase<char> const&, sead::FileDevice*) {CRASH}
-sead::ArchiveRes* al::FileLoader::loadArchiveWithExt(sead::SafeStringBase<char> const&, char const*, sead::FileDevice*) {CRASH}
-u8* al::FileLoader::loadFile(sead::SafeStringBase<char> const&, int, sead::FileDevice*) {CRASH}
-bool al::FileLoader::loadSoundItem(unsigned int, unsigned int, al::IAudioResourceLoader*) {CRASH}
-void al::FileLoader::requestPreLoadFile(al::ByamlIter const&, sead::Heap*, al::IAudioResourceLoader*) {CRASH}
-void al::FileLoader::setThreadPriority(int) {CRASH}
-bool al::FileLoader::tryLoadFileToBuffer(sead::SafeStringBase<char> const&, unsigned char*, unsigned int, int, sead::FileDevice*) {CRASH}
-bool al::FileLoader::tryRequestLoadArchive(sead::SafeStringBase<char> const&, sead::Heap*, sead::FileDevice*) {CRASH}
-void al::FileLoader::waitLoadDoneAllFile() {CRASH}
-
 void al::GraphicsSystemInfo::initStageResource(al::Resource const*, char const*, char const*) {CRASH}
 
 void al::GravityHolder::createGravity(al::PlacementInfo const&) {CRASH}

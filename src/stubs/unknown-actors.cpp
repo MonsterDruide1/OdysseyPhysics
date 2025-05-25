@@ -135,6 +135,9 @@ bool al::isCollidedGround(al::LiveActor const*) {WARN_UNIMPL;return false;}
 bool al::isCollidedWall(al::LiveActor const*) {WARN_UNIMPL;return false;}
 bool al::isCollidedCeiling(al::LiveActor const*) {WARN_UNIMPL;return false;}
 bool al::tryGetActorInitFileIter(al::ByamlIter*, al::Resource const*, char const*, char const*) {WARN_UNIMPL; return false;}
+s32 al::getPlayerNumMax(al::LiveActor const*) {WARN_UNIMPL; return 1;}
+s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
+bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
 
 // NORMAL PRIORITY
 al::ActorResource::~ActorResource() {CRASH}
@@ -222,13 +225,9 @@ bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
-bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}
 
 void al::faceToPlayer(al::LiveActor*) {CRASH}
-s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
-s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
 bool al::isPercentProbability(float) {CRASH}
-bool al::isPlayerDead(al::LiveActor const*, s32) {CRASH}
 bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 
 void al::calcCollidedNormalSum(al::LiveActor const*, sead::Vector3<float>*) {CRASH}
