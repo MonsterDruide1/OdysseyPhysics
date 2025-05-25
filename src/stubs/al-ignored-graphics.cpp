@@ -25,7 +25,6 @@
 #include "Library/Shadow/ShadowMaskCtrl.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
-#include "Project/Clipping/ClippingDirector.h"
 #include "Project/Clipping/ClippingFunction.h"
 #include "Project/Light/ActorPrepassLightKeeper.h"
 #include "playerUtil.h"
@@ -37,7 +36,6 @@ ShaderHolder::ShaderHolder() {}
 
 void calcRailClippingInfo(sead::Vector3<float>*, float*, al::IUseRail const*, float, float) {}
 void executeUpdateDrawBuffer(al::LiveActorKit const*) {}
-agl::DrawContext* getSceneDrawContext(al::Scene const*) {WARN_UNIMPL; return nullptr;}
 void incrementDrawBufferCounter(al::LiveActorKit const*) {}
 void waitUpdateCalcView(al::LiveActorKit const*) {}
 void waitUpdateDrawBuffer(al::LiveActorKit const*) {}
@@ -83,11 +81,6 @@ void ActorOcclusionKeeper::updateAndRequest() {}
 void ActorPrePassLightKeeper::appear(bool) {}
 void ActorPrePassLightKeeper::hideModel() {}
 void ActorPrePassLightKeeper::requestKill() {}
-
-al::ClippingDirector::ClippingDirector(int, al::AreaObjDirector const*, al::PlayerHolder const*, al::SceneCameraInfo const*) {}
-void al::ClippingDirector::endInit(al::AreaObjDirector const*) {}
-al::ClippingDirector::~ClippingDirector() {}
-void al::ClippingDirector::execute() {}
 
 al::GraphicsSystemInfo::GraphicsSystemInfo() : mInitArg(nullptr, nullptr) {}
 void al::GraphicsSystemInfo::clearGraphicsRequest() {}

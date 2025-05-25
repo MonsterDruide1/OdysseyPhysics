@@ -101,7 +101,6 @@ void al::initHitReactionKeeper(al::LiveActor*, al::Resource const*, char const*)
 void al::initScreenPointKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL;}
 void al::initSubActorKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*, int) {WARN_UNIMPL;}
 void al::initStageSwitch(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
-bool al::tryGetActorInitFileIter(al::ByamlIter* iter, al::Resource const*, char const* x, char const*) {WARN_UNIMPL;return false;}
 void al::initActorParamHolder(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL;}
 void al::initActorItemKeeper(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&) {WARN_UNIMPL;}
 void al::initActorSceneInfo(al::LiveActor* actor, al::ActorInitInfo const& info) {ActorSceneInfo* sceneInfo = new ActorSceneInfo(); *sceneInfo = info.actorSceneInfo; actor->initSceneInfo(sceneInfo);}
@@ -117,9 +116,7 @@ const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
 al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {WARN_UNIMPL;return nullptr;}
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
-f32 al::modf(float a, float b) {return fmodf(a, b);}
 bool al::isHalfProbability() {return getRandom() < 0.5f;}
-void al::rotateQuatYDirDegree(sead::Quatf*, sead::Quatf const&, float) {WARN_UNIMPL;}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {WARN_UNIMPL;return false;}
@@ -134,10 +131,10 @@ al::Collider* al::getActorCollider(al::LiveActor const*) {WARN_UNIMPL;return nul
 void al::Collider::onInvalidate() {WARN_UNIMPL;}
 void al::setColliderFilterCollisionParts(al::LiveActor*, al::CollisionPartsFilterBase const*) {WARN_UNIMPL;}
 const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {WARN_UNIMPL;return sead::Vector3f::zero;}
-bool al::isNearAngleDegree(sead::Vector3<float> const&, sead::Vector3<float> const&, float) {WARN_UNIMPL;return false;}
 bool al::isCollidedGround(al::LiveActor const*) {WARN_UNIMPL;return false;}
 bool al::isCollidedWall(al::LiveActor const*) {WARN_UNIMPL;return false;}
 bool al::isCollidedCeiling(al::LiveActor const*) {WARN_UNIMPL;return false;}
+bool al::tryGetActorInitFileIter(al::ByamlIter*, al::Resource const*, char const*, char const*) {WARN_UNIMPL; return false;}
 
 // NORMAL PRIORITY
 al::ActorResource::~ActorResource() {CRASH}
@@ -193,9 +190,6 @@ void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, 
 f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3f const&) {CRASH}
 void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
-
-bool al::calcDirOnPlane(sead::Vector3f*,sead::Vector3f const&,sead::Vector3f const&,sead::Vector3f const&) {CRASH}
-void al::rotateQuatMomentDegree(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
 bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
@@ -217,7 +211,6 @@ void AppearSwitchTimer::init(al::ActorInitInfo const&,al::IUseAudioKeeper const*
 bool AppearSwitchTimer::isSwitchOn() {CRASH}
 void AppearSwitchTimer::onSwitch() {CRASH}
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
-bool al::calcDirH(sead::Vector3f*,sead::Vector3f const&,sead::Vector3f const&) {CRASH}
 void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH}
 f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
 f32 al::calcRailTotalRate(al::IUseRail const*) {CRASH}
@@ -225,16 +218,13 @@ void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
 void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
 bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
-void al::rotateQuatMoment(sead::Quatf*,sead::Quatf const&,sead::Vector3f const&) {CRASH}
 
-void al::calcMomentRollBall(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
 bool rs::isOnGroundSlopeSlideStart(al::LiveActor const*, IUsePlayerCollision const*, PlayerConst const*) {CRASH}
 
 void al::faceToPlayer(al::LiveActor*) {CRASH}
-u32 al::getMaxAbsElementIndex(const sead::Vector3f&) {CRASH}
 s32 al::getPlayerNumMax(al::LiveActor const*) {CRASH}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {CRASH}
 bool al::isPercentProbability(float) {CRASH}
@@ -255,10 +245,6 @@ f32 al::getColliderOffsetY(al::LiveActor const*) {CRASH}
 f32 al::getColliderRadius(al::LiveActor const*) {CRASH}
 void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::limitVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
-void al::rotateQuatXDirDegree(sead::Quat<float>*, sead::Quat<float> const&, float) {CRASH}
-void al::rotateQuatZDirDegree(sead::Quat<float>*, sead::Quat<float> const&, float) {CRASH}
-void al::scaleVectorDirection(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
-void al::scaleVectorExceptDirection(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
 u8* al::tryGetMapPartsResourceYaml(al::ActorInitInfo const&, char const*) {CRASH}
 
@@ -287,10 +273,7 @@ al::SceneMsg::SceneMsg() {CRASH}
 void al::calcRailPosAtCoord(sead::Vector3<float>*, al::IUseRail const*, float) {CRASH}
 al::Resource* al::findOrCreateResource(sead::SafeStringBase<char> const&, char const*) {CRASH}
 s32 al::getRailPointNum(al::IUseRail const*) {CRASH}
-bool al::isExistArchive(sead::SafeStringBase<char> const&) {CRASH}
 bool al::isLoopRail(al::IUseRail const*) {CRASH}
-sead::ArchiveRes* al::loadArchive(sead::SafeStringBase<char> const&) {CRASH}
-bool al::tryGetPlacementInfo(al::PlacementInfo*, al::StageInfo const*, char const*) {CRASH}
 
 void al::calcFittingBoxPose(sead::Quat<float>*, sead::BoundBox3<float> const&, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
 void al::calcQuatRotateAxisAndDegree(sead::Vector3<float>*, float*, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
@@ -330,55 +313,4 @@ s32 sead::Mathi::lcm(int x, int y) {
     if (x == 0 || y == 0)
         return 0;
     return x / gcd(x, y) * y;
-}
-namespace al {
-f32 easeByType(f32 t, s32 easeType) {
-    switch (easeType) {
-    case EaseType_EaseIn:
-        return easeIn(t);
-    case EaseType_EaseOut:
-        return easeOut(t);
-    case EaseType_EaseInOut:
-        return easeInOut(t);
-    case EaseType_SquareIn:
-        return squareIn(t);
-    case EaseType_SquareOut:
-        return squareOut(t);
-    default:
-        return t;
-    }
-}
-void rotateQuatRadian(sead::Quatf* outQuat, const sead::Quatf& quat, const sead::Vector3f& vec,
-    f32 angle) {
-    f32 cos = sead::Mathf::cos(angle * 0.5f);
-    f32 sin = sead::Mathf::sin(angle * 0.5f);
-
-    sead::Quatf rotation;
-    rotation.w = cos;
-    rotation.x = sin * vec.x;
-    rotation.y = sin * vec.y;
-    rotation.z = sin * vec.z;
-
-    *outQuat = rotation * quat;
-    outQuat->normalize();
-}
-void rotateQuatLocalDirDegree(sead::Quatf* outQuat, const sead::Quatf& quat, s32 axis, f32 angle) {
-    sead::Vector3f vec;
-    switch (axis) {
-    case 0:
-        vec.setRotated(quat, sead::Vector3f::ex);
-        break;
-    case 1:
-        vec.setRotated(quat, sead::Vector3f::ey);
-        break;
-    case 2:
-        vec.setRotated(quat, sead::Vector3f::ez);
-        break;
-    default:
-        return;
-    }
-    vec = {1,1,1};
-
-    rotateQuatRadian(outQuat, quat, vec, sead::Mathf::deg2rad(angle));
-}
 }

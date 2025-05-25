@@ -64,8 +64,10 @@ static sead::ArchiveRes* loadSarc(const sead::SafeString& path, sead::FileDevice
 }
 
 void StageScene::init(const char* stageName, int scenario) {
+    al::DrawSystemInfo drawSystemInfo;
+    mDrawSystemInfo = &drawSystemInfo;
     al::GameSystemInfo gameSystemInfo = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
-                                         nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
+                                         nullptr, &drawSystemInfo, nullptr, nullptr, nullptr, nullptr};
     al::SceneInitInfo sceneInitInfo = {&gameSystemInfo, nullptr, {}, stageName, (u32)scenario};
     al::Scene::initLiveActorKitImpl(sceneInitInfo, 5120, 4, 2);
     al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
