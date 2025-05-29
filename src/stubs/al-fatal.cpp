@@ -35,7 +35,7 @@
 #include "Project/Action/ActionScreenEffectCtrl.h"
 #include "Project/Action/ActionSeCtrl.h"
 #include "Project/Light/ActorPrepassLightKeeper.h"
-#include "Util/In2DAreaMoveControl.h"
+#include "Area/In2DAreaMoveControl.h"
 #include "math/seadQuat.h"
 
 void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {

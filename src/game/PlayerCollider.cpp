@@ -1634,7 +1634,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
     if (!this->mIsValidGroundSupport || a7->getShapeInfoSphere()->isIgnoreGround)
         return;
 
-    if (!this->mCollisionShapeKeeper->someFlag) {
+    if (!this->mCollisionShapeKeeper->mHasShapeArrow) {
         if ((this->someBitField & 1) == 0)
             goto LABEL_33;
 
@@ -1678,7 +1678,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
         goto LABEL_36;
     }
 
-    v94 = al::isNearZeroOrGreater(this->mCollisionShapeKeeper->unk4 +
+    v94 = al::isNearZeroOrGreater(this->mCollisionShapeKeeper->_58 +
                                       gravity.dot(v15->hitInfo->collisionHitPos - this->mCollidedGroundPos),
                                   0.001);
     v15->calcFixVectorNormal(&v96, &v95);

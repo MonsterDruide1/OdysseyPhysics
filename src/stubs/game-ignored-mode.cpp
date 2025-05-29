@@ -11,6 +11,7 @@
 #include "System/GameDataFunction.h"
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/Hack.h"
+#include "Area/In2DAreaMoveControl.h"
 
 PlayerConst* PlayerFunction::createMarioConst(char const*) {
     return new PlayerConst();
@@ -50,7 +51,7 @@ bool isPlayerEnableToSeeOddSpace(al::LiveActor const*) {
     return false;
 }
 
-al::CollisionPartsFilterOnlySpecialPurpose* createCollisionPartsFilter2DOnly() {
+al::CollisionPartsFilterBase* createCollisionPartsFilter2DOnly() {
     return nullptr;
 }
 
@@ -143,11 +144,10 @@ void al::DemoDirector::addDemoActor(al::LiveActor*) {}
 void al::DemoDirector::requestEndDemo(char const*) {}
 bool al::DemoDirector::requestStartDemo(char const*) {return false;}
 
-PlayerDemoActionFlag::PlayerDemoActionFlag() {}
+In2DAreaMoveControl::In2DAreaMoveControl() {}
+void In2DAreaMoveControl::update(const sead::FixedPtrArray<al::AreaObj, 8>&) {}
 
-bool ActorDimensionKeeper::update() {
-    return false;
-}
+PlayerDemoActionFlag::PlayerDemoActionFlag() {}
 
 void GameDataFunction::disableCapByPlacement(al::LiveActor const*) {}
 
