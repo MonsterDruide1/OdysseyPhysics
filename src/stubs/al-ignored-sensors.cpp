@@ -40,6 +40,7 @@ bool isSensorLookAt(al::HitSensor const*) {return false;}
 bool isSensorPlayerEye(al::HitSensor const*) {return false;}
 bool isSensorRide(al::HitSensor const*) {return false;}
 bool isSensorSimple(al::HitSensor const*) {return false;}
+bool isSensorCollision(al::HitSensor const*) {return false;}
 bool isMySensor(HitSensor const*, LiveActor const*) { return false; }
 void setHitSensorPosPtr(al::LiveActor*, char const*, sead::Vector3<float> const*) {}
 void setHitSensorJointMtx(al::LiveActor*, char const*, char const*) {}

@@ -1,15 +1,10 @@
+#include "Library/Execute/ExecutorActorExecuteBase.h"
 #include "Library/Execute/ExecuteRequestKeeper.h"
 #include "Library/Execute/ExecuteSystemInitInfo.h"
 #include "Library/Execute/ExecuteTableHolderDraw.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
 #include "Project/Execute/ExecuteAsyncExecutor.h"
 
-al::ExecuteRequestKeeper::ExecuteRequestKeeper(int) {}
-void al::ExecuteRequestKeeper::executeRequestActorDrawAllOff() {}
-void al::ExecuteRequestKeeper::executeRequestActorDrawAllOn() {}
-void al::ExecuteRequestKeeper::executeRequestActorMovementAllOff() {}
-void al::ExecuteRequestKeeper::executeRequestActorMovementAllOn() {}
-void al::ExecuteRequestKeeper::request(al::LiveActor*, al::ExecuteRequestKeeper::Request) {}
 al::ExecuteTableHolderDraw::ExecuteTableHolderDraw() {}
 void al::ExecuteTableHolderDraw::createExecutorListTable() {}
 void al::ExecuteTableHolderDraw::execute() const {}
@@ -41,3 +36,6 @@ al::ExecuteAsyncExecutorUpdate::~ExecuteAsyncExecutorUpdate() {}
 void al::ExecuteAsyncExecutorUpdate::execute() {}
 
 al::ExecuteSystemInitInfo::ExecuteSystemInitInfo() {}
+
+void al::ExecutorActorExecuteBase::addActor(al::LiveActor*) {}
+void al::ExecutorActorExecuteBase::removeActor(al::LiveActor*) {}

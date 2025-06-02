@@ -1,4 +1,5 @@
 #include "Library/Anim/AnimPlayerSkl.h"
+#include "Library/Clipping/ClippingActorHolder.h"
 #include "Library/Draw/GraphicsSystemInfo.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
 #include "Library/KeyPose/KeyPoseKeeper.h"
@@ -328,5 +329,5 @@ void ShadowMaskCtrl::invalidate() {}
 
 }  // namespace al
 
-void alClippingFunction::addToClippingTarget(al::LiveActor*) {}
-void alClippingFunction::removeFromClippingTarget(al::LiveActor*) {}
+void al::ClippingActorHolder::addToClippingTarget(al::LiveActor*) {}
+void al::ClippingActorHolder::removeFromClippingTarget(al::LiveActor*) {}

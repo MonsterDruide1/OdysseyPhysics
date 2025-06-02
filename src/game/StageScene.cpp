@@ -175,7 +175,7 @@ void StageScene::init(const char* stageName, int scenario) {
     playerHolder->registerPlayer(player, new al::PadRumbleKeeper());
     al::ActorInitInfo actorInfo = {};
     actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, areaObjDirector, nullptr, nullptr,
-                      nullptr, collDirector, nullptr, nullptr, executeDirector, nullptr, nullptr, nullptr,
+                      mLiveActorKit->mClippingDirector, collDirector, nullptr, nullptr, executeDirector, nullptr, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, playerHolder, mSceneObjHolder, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
     al::ActorSceneInfo* sceneInfo =

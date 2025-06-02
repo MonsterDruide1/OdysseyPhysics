@@ -84,6 +84,8 @@ bool isMsgCancelHackByDokan(al::SensorMsg const*) {return false;}
 bool isMsgEnableMapCheckPointWarpCollidedGround(al::SensorMsg const*, al::LiveActor const*) {return false;}
 bool isMsgSphinxRideAttackReflect(al::SensorMsg const*) {return false;}
 bool isMsgThrowObjHitReflect(al::SensorMsg const*) {return false;}
+bool isMsgCapReflectCollide(al::SensorMsg const*) {return false;}
+bool isMsgBreakSignBoard(al::SensorMsg const*) {return false;}
 
 bool isVisibleChameleon(al::SensorMsg const*) {return false;}
 void setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {}
