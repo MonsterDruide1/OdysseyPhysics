@@ -9,6 +9,7 @@
 #include "Library/Collision/CollisionUtil.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/PartsConnector.h"
+#include "Library/Collision/PartsConnectorUtil.h"
 #include "Library/Controller/PadRumbleDirector.h"
 #include "Library/Event/EventFlowUtil.h"
 #include "Library/File/FileUtil.h"
@@ -63,6 +64,7 @@
 #include "System/SaveObjInfo.h"
 #include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
+#include "Util/ObjUtil.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "Player/PlayerCollider.h"
 #include "PlayerUtil.h"
@@ -138,6 +140,8 @@ bool al::tryGetActorInitFileIter(al::ByamlIter*, al::Resource const*, char const
 s32 al::getPlayerNumMax(al::LiveActor const*) {WARN_UNIMPL; return 1;}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
 bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
+void al::attachMtxConnectorToCollisionParts(al::MtxConnector*, al::CollisionParts const*) {WARN_UNIMPL;}
+void al::setConnectorBaseQuatTrans(sead::Quat<float> const&, sead::Vector3<float> const&, al::MtxConnector*) {WARN_UNIMPL;}
 
 // NORMAL PRIORITY
 al::ActorResource::~ActorResource() {CRASH}
@@ -289,6 +293,10 @@ void GameDataFunction::onObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, a
 void GameDataFunction::onObjNoWriteSaveDataInSameScenario(GameDataHolder*, al::PlacementId const*) {CRASH}
 void GameDataFunction::offObjNoWriteSaveData(GameDataHolderWriter, al::PlacementId const*) {CRASH}
 void GameDataFunction::offObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, al::PlacementId const*) {CRASH}
+
+void al::calcConnectTrans(sead::Vector3<float>*, al::MtxConnector const*) {CRASH}
+void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
+bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {CRASH}
 
 // Done, but not merged yet
 template <>

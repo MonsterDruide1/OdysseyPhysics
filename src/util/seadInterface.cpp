@@ -8,7 +8,6 @@
 #include "resource/seadSZSDecompressor.h"
 #include "resource/seadSharcArchiveRes.h"
 #include "thread/seadThread.h"
-#include "yaz0.h"
 
 void sead::system::HaltWithDetail(const char* file, int line, const char* message, ...) {
     printf("HaltWithDetail: %s:%d: ", file, line);
@@ -61,11 +60,6 @@ void initializeSead() {
     s32 decompressDestinationSize = 0x400000;
     u8* decompressDestination = new (0x20) u8[decompressDestinationSize];
     sead::ResourceMgr::instance()->registerDecompressor(new sead::SZSDecompressor(decompressDestinationSize / 2, decompressDestination), "szs");
-}
-
-s32 decodeSZSNxAsm64_(void* dst, const void* src) {
-    Yaz0::Decompress((const char*)src, (char*)dst);
-    return 0;
 }
 
 void unloadSead() {
