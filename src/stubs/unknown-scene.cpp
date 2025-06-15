@@ -30,7 +30,6 @@
 al::ClippingJudge::ClippingJudge(al::ClippingFarAreaObserver const*, al::SceneCameraInfo const*) {WARN_UNIMPL;}
 al::ClippingActorHolder::ClippingActorHolder(int) {WARN_UNIMPL;}
 al::ClippingGroupHolder::ClippingGroupHolder() {WARN_UNIMPL;}
-al::ViewInfoCtrl::ViewInfoCtrl(al::PlayerHolder const*, al::SceneCameraInfo const*) {WARN_UNIMPL;}
 
 Application* Application::sInstance;
 
@@ -67,6 +66,7 @@ void al::ClippingActorHolder::updateFarClipLevel() {CRASH}
 al::ClippingActorHolder::~ClippingActorHolder() {CRASH}
 void al::ClippingActorInfo::initViewGroup(al::ViewIdHolder const*) {CRASH}
 bool al::ClippingActorInfo::isGroupClippingInit() const {CRASH}
+void al::ClippingActorInfo::registerViewGroupFarClipFlag(bool const*) {CRASH}
 void al::ClippingGroupHolder::leave(al::ClippingActorInfo*) {CRASH}
 void al::ClippingGroupHolder::reentry(al::ClippingActorInfo*) {CRASH}
 void al::ClippingGroupHolder::update(al::ClippingJudge const*) {CRASH}
@@ -111,13 +111,6 @@ void al::PostProcessingFilter::incrementPreset() {CRASH}
 al::SimpleCameraPoserFactory::SimpleCameraPoserFactory(char const*) : al::CameraPoserFactory("") {CRASH}
 al::CameraPoserFactory::CameraPoserFactory(char const*) : al::Factory<CameraPoserCreatorFunction>("") {CRASH}
 al::CameraPoserEntrance* al::CameraPoserFactory::createEntranceCameraPoser() const {CRASH}
-
-void al::ViewInfoCtrl::initActorInfo(al::ClippingActorInfo*) {CRASH}
-void al::ViewInfoCtrl::initViewCtrlAreaGroup(al::AreaObjGroup const*) {CRASH}
-void al::ViewInfoCtrl::startCheckByCameraPos() {CRASH}
-void al::ViewInfoCtrl::startCheckByLookAtPos() {CRASH}
-void al::ViewInfoCtrl::startCheckByPlayerPos() {CRASH}
-bool al::ViewInfoCtrl::update() {CRASH}
 
 void al::ViewRenderer::endForwardPlayerScreenFader(int) {CRASH}
 void al::ViewRenderer::startForwardPlayerScreenFader(int, int, float) {CRASH}

@@ -108,9 +108,6 @@ void al::initActorItemKeeper(al::LiveActor*, al::ActorInitInfo const&, al::Byaml
 void al::initActorSceneInfo(al::LiveActor* actor, al::ActorInitInfo const& info) {ActorSceneInfo* sceneInfo = new ActorSceneInfo(); *sceneInfo = info.actorSceneInfo; actor->initSceneInfo(sceneInfo);}
 void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
 void al::setColliderRadius(al::LiveActor*, float) {WARN_UNIMPL;}
-void al::ActorInitInfo::initNoViewId(al::PlacementInfo const* a2, al::ActorInitInfo const& a3) {*this = a3; placementInfo = a2;}
-void al::ActorInitInfo::initViewIdHost(al::PlacementInfo const* a2, al::ActorInitInfo const& a3) {*this = a3; placementInfo = a2;}
-void al::ActorInitInfo::initViewIdSelf(al::PlacementInfo const* a2, al::ActorInitInfo const& a3) {*this = a3; placementInfo = a2;}
 al::ActorResource* al::findOrCreateActorResource(al::ActorResourceHolder*, char const*, char const*) {WARN_UNIMPL; return new ActorResource("", nullptr, nullptr);}
 al::ActorResource::ActorResource(sead::SafeStringBase<char> const&, al::Resource*, al::Resource*) {WARN_UNIMPL;}
 CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}

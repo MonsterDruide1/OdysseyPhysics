@@ -87,6 +87,7 @@ bool isMsgKickStoneAttackReflect(al::SensorMsg const*) { return false; }
 bool isMsgPushStrong(al::SensorMsg const*) { return false; }
 bool isMsgPushVeryStrong(al::SensorMsg const*) { return false; }
 bool isMsgPushAll(al::SensorMsg const*) {return false; }
+bool isMsgChangeAlpha(al::SensorMsg const*) { return false; }
 
 bool sendMsgExplosion(al::HitSensor*, al::HitSensor*, al::ComboCounter*) { return false; }
 bool sendMsgPlayerHipDropKnockDown(al::HitSensor*, al::HitSensor*) { return false; }
@@ -101,6 +102,10 @@ bool sendMsgSwitchKillOn(al::LiveActor*) { return false; }
 bool sendMsgSwitchOffInit(al::LiveActor*) { return false; }
 bool sendMsgSwitchOn(al::LiveActor*) { return false; }
 bool sendMsgSwitchOnInit(al::LiveActor*) { return false; }
+bool sendMsgChangeAlpha(al::LiveActor*, float) { return false; }
+bool sendMsgShowModel(al::LiveActor*) { return false; }
+
+f32 getChangeAlphaValue(al::SensorMsg const*) { return 0.0f; }
 
 }  // namespace al
 
