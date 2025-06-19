@@ -1,88 +1,40 @@
-#include "Boss/BarrierField.h"
 #include "Item/CoinCollectHolder.h"
-#include "Library/Area/AreaObjDirector.h"
-#include "Library/Area/SwitchKeepOnAreaGroup.h"
 #include "Library/Area/SwitchOnAreaGroup.h"
-#include "Library/Area/AreaObjMtxConnecter.h"
-#include "Library/Base/StringUtil.h"
 #include "Library/Collision/CollisionPartsKeeperUtil.h"
-#include "Library/Collision/CollisionUtil.h"
-#include "Library/Collision/KCollisionServer.h"
-#include "Library/Collision/PartsConnector.h"
 #include "Library/Collision/PartsConnectorUtil.h"
-#include "Library/Controller/PadRumbleDirector.h"
 #include "Library/Event/EventFlowUtil.h"
-#include "Library/File/FileUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
-#include "Library/Joint/JointSpringControllerHolder.h"
-#include "Library/KeyPose/KeyPoseKeeper.h"
-#include "Library/KeyPose/KeyPoseKeeperUtil.h"
-#include "Library/LiveActor/ActorActionFunction.h"
-#include "Library/LiveActor/ActorAreaFunction.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
 #include "Library/LiveActor/ActorInitFunction.h"
-#include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/ActorModelFunction.h"
-#include "Library/LiveActor/ActorMovementFunction.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
-#include "Library/LiveActor/ActorSceneInfo.h"
-#include "Library/LiveActor/LiveActorFunction.h"
-#include "Library/MapObj/ClockMapParts.h"
-#include "Library/MapObj/ConveyerMapParts.h"
-#include "Library/MapObj/GateMapParts.h"
-#include "Library/MapObj/RollingCubeMapParts.h"
-#include "Library/MapObj/WheelMapParts.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
 #include "Library/Movement/WheelMovement.h"
 #include "Library/Nature/NatureUtil.h"
 #include "Library/Obj/PartsFunction.h"
-#include "Library/Placement/PlacementFunction.h"
-#include "Library/Placement/PlacementId.h"
-#include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerUtil.h"
 #include "Library/Rail/RailUtil.h"
-#include "Library/Resource/ActorResourceHolder.h"
 #include "Library/Resource/Resource.h"
 #include "Library/Resource/ResourceHolder.h"
-#include "Library/Scene/SceneMsg.h"
 #include "Library/Scene/SceneMsgCtrl.h"
-#include "Library/Scene/SceneUtil.h"
 #include "Library/Screen/ScreenFunction.h"
-#include "Library/Screen/ScreenPointDirector.h"
 #include "Library/Screen/ScreenPointKeeper.h"
-#include "Library/Shadow/ActorShadowUtil.h"
-#include "Library/Stage/StageSwitchKeeper.h"
-#include "Library/Stage/StageSwitchUtil.h"
-#include "Library/Yaml/Writer/ByamlWriterData.h"
 #include "MapObj/AnagramAlphabet.h"
 #include "MapObj/AppearSwitchTimer.h"
-#include "MapObj/Doshi.h"
-#include "MapObj/SubActorLodFixPartsScenarioAction.h"
 #include "Project/Gravity/GravityHolder.h"
-#include "System/SaveObjInfo.h"
 #include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
 #include "Util/ObjUtil.h"
-#include "Util/PlayerCollisionUtil.h"
-#include "Player/PlayerCollider.h"
 #include "PlayerUtil.h"
-#include "Project/Joint/KeyPose.h"
-#include "Project/Joint/RollingCubePoseKeeper.h"
 #include "Project/Joint/RollingCubePoseKeeperUtil.h"
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
 #include "Scene/GuidePosInfoHolder.h"
 #include "System/GameDataFunction.h"
-#include "System/GameDataHolderAccessor.h"
 #include "System/GameDataUtil.h"
-#include "Util/ActorDimensionKeeper.h"
-#include "Util/ActorDimensionUtil.h"
-#include "Util/AreaUtil.h"
 #include "Util/NpcAnimUtil.h"
 #include "Util/PlayerUtil.h"
-#include "basis/seadTypes.h"
-#include "resource/seadArchiveRes.h"
 
 // HIGH PRIORITY
 void al::initActorActionKeeper(al::LiveActor*, al::ActorResource const*, char const*, char const*) {WARN_UNIMPL;}
@@ -294,27 +246,3 @@ void GameDataFunction::offObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, 
 void al::calcConnectTrans(sead::Vector3<float>*, al::MtxConnector const*) {CRASH}
 void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {CRASH}
-
-// Done, but not merged yet
-template <>
-s32 sead::Mathi::gcd(s32 x, s32 y)
-{
-    if (x == 0 || y == 0)
-        return 0;
-
-    while (x != y)
-    {
-        if (x > y)
-            x -= y;
-        else
-            y -= x;
-    }
-
-    return x;
-}
-template <>
-s32 sead::Mathi::lcm(int x, int y) {
-    if (x == 0 || y == 0)
-        return 0;
-    return x / gcd(x, y) * y;
-}
