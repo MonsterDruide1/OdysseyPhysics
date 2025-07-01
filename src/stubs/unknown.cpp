@@ -49,6 +49,7 @@
 #include "PlayerUtil.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
+#include "Project/Memory/Util.h"
 #include "Stuff.h"
 #include "System/GameDataFunction.h"
 #include "Util/ActorDimensionKeeper.h"
@@ -59,6 +60,8 @@
 #include "playerUtil.h"
 
 namespace al {
+
+sead::Heap* getCurrentHeap() {CRASH}
 
 al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
     return holder->getSceneObjHolder()->getObj(index);

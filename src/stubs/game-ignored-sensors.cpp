@@ -86,6 +86,7 @@ bool isMsgSphinxRideAttackReflect(al::SensorMsg const*) {return false;}
 bool isMsgThrowObjHitReflect(al::SensorMsg const*) {return false;}
 bool isMsgCapReflectCollide(al::SensorMsg const*) {return false;}
 bool isMsgBreakSignBoard(al::SensorMsg const*) {return false;}
+bool isMsgPlayerTrample2D(al::SensorMsg const*) {return false;}
 
 bool isVisibleChameleon(al::SensorMsg const*) {return false;}
 void setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {}
@@ -105,6 +106,10 @@ bool sendMsgHackAttackMapObj(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgMeganeAttack(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgMeganeHackTrample(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgSwitchOnWithSaveRequest(al::LiveActor*, SaveObjInfo*) {return false;}
+bool sendMsgKouraItemGet2D(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgKouraAttack2D(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgTimerAthleticDemoStart(al::LiveActor*) {return false;}
+bool sendMsgKillBySwitchTimer(al::LiveActor*) {return false;}
 
 void sendPlayerCollisionTouchMsg(al::LiveActor const*, al::HitSensor*, IUsePlayerCollision const*) {}
 

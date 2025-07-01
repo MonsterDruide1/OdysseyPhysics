@@ -22,7 +22,7 @@
 #include "Library/Screen/ScreenFunction.h"
 #include "Library/Screen/ScreenPointKeeper.h"
 #include "MapObj/AnagramAlphabet.h"
-#include "MapObj/AppearSwitchTimer.h"
+#include "MapObj/RouteGuideDirector.h"
 #include "Project/Gravity/GravityHolder.h"
 #include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
@@ -31,6 +31,7 @@
 #include "Project/Joint/RollingCubePoseKeeperUtil.h"
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
 #include "Scene/GuidePosInfoHolder.h"
+#include "Scene/ProjectAppearSwitchFactory.h"
 #include "System/GameDataFunction.h"
 #include "System/GameDataUtil.h"
 #include "Util/NpcAnimUtil.h"
@@ -162,10 +163,6 @@ void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
 
-AppearSwitchTimer::AppearSwitchTimer() : al::NerveExecutor("") {CRASH}
-void AppearSwitchTimer::init(al::ActorInitInfo const&,al::IUseAudioKeeper const*,al::IUseStageSwitch*,al::IUseCamera*,al::LiveActor*) {CRASH}
-bool AppearSwitchTimer::isSwitchOn() {CRASH}
-void AppearSwitchTimer::onSwitch() {CRASH}
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH}
 f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
@@ -246,3 +243,10 @@ void GameDataFunction::offObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, 
 void al::calcConnectTrans(sead::Vector3<float>*, al::MtxConnector const*) {CRASH}
 void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {CRASH}
+
+bool al::isCollidedGroundFloorCode(al::LiveActor const*, char const*) {CRASH}
+al::HitSensor* al::getCollidedWallSensor(al::LiveActor const*) {CRASH}
+const sead::Vector3f& al::getCollidedWallPos(al::LiveActor const*) {CRASH}
+void rs::offRouteGuideByActor(al::LiveActor*) {CRASH}
+void rs::onRouteGuideByActor(al::LiveActor*) {CRASH}
+const char* ProjectAppearSwitchFactory::convertName(const char*) const {CRASH}

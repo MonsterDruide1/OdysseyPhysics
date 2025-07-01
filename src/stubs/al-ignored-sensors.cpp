@@ -104,6 +104,7 @@ bool sendMsgSwitchOn(al::LiveActor*) { return false; }
 bool sendMsgSwitchOnInit(al::LiveActor*) { return false; }
 bool sendMsgChangeAlpha(al::LiveActor*, float) { return false; }
 bool sendMsgShowModel(al::LiveActor*) { return false; }
+bool sendMsgHideModel(al::LiveActor*) {return false;}
 
 f32 getChangeAlphaValue(al::SensorMsg const*) { return 0.0f; }
 

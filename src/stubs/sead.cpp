@@ -3,6 +3,7 @@
 #include "framework/seadTaskMgr.h"
 #include "gfx/seadProjection.h"
 #include "heap/seadExpHeap.h"
+#include "heap/seadFrameHeap.h"
 #include "prim/seadStringUtil.h"
 #include "stream/seadStream.h"
 
@@ -17,6 +18,8 @@ s32 sead::StringUtil::snprintf(char* s, size_t n, const char* format, ...) {
     va_end(arg);
     return ret;
 }
+
+sead::FrameHeap* sead::FrameHeap::tryCreate(unsigned long, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
 
 void sead::Heap::makeMetaString_(BufferedSafeString* str) {
     CRASH

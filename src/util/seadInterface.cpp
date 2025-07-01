@@ -9,6 +9,11 @@
 #include "resource/seadSharcArchiveRes.h"
 #include "thread/seadThread.h"
 
+void sead::system::Halt() {
+    printf("Halt called\n");
+    DEREF_NULL;
+}
+
 void sead::system::HaltWithDetail(const char* file, int line, const char* message, ...) {
     printf("HaltWithDetail: %s:%d: ", file, line);
     va_list args;

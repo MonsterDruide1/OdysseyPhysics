@@ -111,6 +111,7 @@ bool isHackCapSeparateFlying(IUsePlayerHack*) {return false;}
 bool isTriggerHackAnyButton(IUsePlayerHack const*) {return false;}
 bool isTriggerSubjectiveCamera(IUsePlayerHack const*) {return false;}
 void resetHackTutorialText(al::IUseSceneObjHolder const*) {}
+void calcDimensionGravity(sead::Vector3<float>* x, IUseDimension const*, sead::Vector3<float> const&) {x->set(-sead::Vector3f::ey);}
 
 }  // namespace rs
 

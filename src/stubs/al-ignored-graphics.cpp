@@ -74,6 +74,9 @@ bool isLessMaxLodLevelNoClamp(al::ModelKeeper const*) {return false;}
 void expandClippingRadiusByShadowLength(al::LiveActor*, sead::Vector3f*, float) {}
 void hideShadow(al::LiveActor*) {}
 void setNeedSetBaseMtxAndCalcAnimFlag(al::LiveActor*, bool) {}
+const sead::Vector3f& getClippingCenterPos(al::LiveActor const*) {return sead::Vector3f::zero;}
+bool isInClippingFrustumAllView(al::LiveActor const*, sead::Vector3<float> const&, float, float) {return true;}
+void setDitherAnimMaxAlpha(al::LiveActor*, float) {}
 
 void ActorOcclusionKeeper::appear(bool) {}
 void ActorOcclusionKeeper::hideModel() {}

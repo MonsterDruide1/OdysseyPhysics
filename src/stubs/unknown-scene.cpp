@@ -24,7 +24,6 @@
 #include "Project/File/FileLoader.h"
 #include "Project/Gravity/GravityHolder.h"
 #include "Project/LiveActor/ActorExecuteFunction.h"
-#include "Project/Memory/MemorySystem.h"
 #include "System/Application.h"
 
 al::ClippingJudge::ClippingJudge(al::ClippingFarAreaObserver const*, al::SceneCameraInfo const*) {WARN_UNIMPL;}
@@ -82,23 +81,6 @@ void al::GraphicsSystemInfo::initStageResource(al::Resource const*, char const*,
 void al::GravityHolder::createGravity(al::PlacementInfo const&) {CRASH}
 
 void al::LayoutInitInfo::init(al::ExecuteDirector*, al::EffectSystemInfo const*, al::SceneObjHolder*, al::AudioDirector const*, al::CameraDirector*, al::LayoutSystem const*, al::MessageSystem const*, al::GamePadSystem const*, al::PadRumbleDirector*) {CRASH}
-
-void al::MemorySystem::addNamedHeap(sead::Heap*, char const*) {CRASH}
-void al::MemorySystem::createCourseSelectHeap() {CRASH}
-bool al::MemorySystem::createSceneHeap(char const*, bool) {CRASH}
-void al::MemorySystem::createSceneResourceHeap(char const*, bool) {CRASH}
-void al::MemorySystem::createSequenceHeap() {CRASH}
-void al::MemorySystem::createWorldResourceHeap() {CRASH}
-void al::MemorySystem::destroyCourseSelectHeap() {CRASH}
-void al::MemorySystem::destroySceneHeap() {CRASH}
-void al::MemorySystem::destroySceneResourceHeap() {CRASH}
-void al::MemorySystem::destroyWorldResourceHeap() {CRASH}
-sead::Heap* al::MemorySystem::findNamedHeap(char const*) {CRASH}
-void al::MemorySystem::freeAllPlayerHeap() {CRASH}
-void al::MemorySystem::freeAllSequenceHeap() {CRASH}
-bool al::MemorySystem::printSequenceHeap() {CRASH}
-void al::MemorySystem::removeNamedHeap(char const*) {CRASH}
-sead::Heap* al::MemorySystem::tryFindNamedHeap(char const*) {CRASH}
 
 void al::PadRumbleDirector::endPause() {CRASH}
 void al::PadRumbleDirector::pause() {CRASH}
