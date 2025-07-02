@@ -18,7 +18,6 @@
 #include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/Math/MathUtil.h"
-#include "Library/Model/ModelKeeper.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Scene/ISceneObj.h"
 #include "Library/Scene/SceneUtil.h"
@@ -157,20 +156,7 @@ const char* al::getCollidedFloorMaterialCodeName(al::LiveActor const*) {
     CRASH
 }
 
-bool al::isExistModelResourceYaml(al::LiveActor const*, char const*, char const*) {
-    CRASH
-}
-
-bool al::isExistModelResource(al::LiveActor const*) {
-    CRASH
-}
-
 bool al::isInStack(const void *) {
-    CRASH
-}
-
-bool al::tryGetActorInitFileName(sead::BufferedSafeStringBase<char>*, al::LiveActor const*,
-                                 char const*, char const*) {
     CRASH
 }
 

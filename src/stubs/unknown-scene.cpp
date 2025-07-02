@@ -16,7 +16,7 @@
 #include "Library/Message/MessageHolder.h"
 #include "Library/Play/Camera/SimpleCameraPoserFactory.h"
 #include "Library/PostProcessing/PostProcessingFilter.h"
-#include "Library/Resource/ResourceHolder.h"
+#include "Library/Resource/ResourceFunction.h"
 #include "Library/Scene/DemoDirector.h"
 #include "Library/Se/Function/SeDbFunction.h"
 #include "Library/Se/SeFunction.h"

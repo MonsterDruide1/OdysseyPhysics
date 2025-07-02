@@ -12,3 +12,5 @@ void al::ModelKeeper::calc(sead::Matrix34<float> const&, sead::Vector3<float> co
 sead::Matrix34f* al::ModelKeeper::getBaseMtx(){CRASH}
 void al::ModelKeeper::update() {}
 void al::ModelKeeper::updateLast() {}
+al::Resource* al::ModelKeeper::getAnimResource() const {CRASH}
+al::Resource* al::ModelKeeper::getModelResource() const {CRASH}

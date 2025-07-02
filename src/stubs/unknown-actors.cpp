@@ -16,13 +16,17 @@
 #include "Library/Obj/PartsFunction.h"
 #include "Library/Player/PlayerUtil.h"
 #include "Library/Rail/RailUtil.h"
+#include "Library/Resource/ActorResource.h"
 #include "Library/Resource/Resource.h"
-#include "Library/Resource/ResourceHolder.h"
+#include "Library/Resource/ResourceFunction.h"
 #include "Library/Scene/SceneMsgCtrl.h"
 #include "Library/Screen/ScreenFunction.h"
 #include "Library/Screen/ScreenPointKeeper.h"
+#include "Library/Yaml/ParameterBase.h"
 #include "MapObj/AnagramAlphabet.h"
 #include "MapObj/RouteGuideDirector.h"
+#include "Project/Action/InitResourceDataAction.h"
+#include "Project/Anim/InitResourceDataAnim.h"
 #include "Project/Gravity/GravityHolder.h"
 #include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
@@ -62,7 +66,6 @@ void al::initActorSceneInfo(al::LiveActor* actor, al::ActorInitInfo const& info)
 void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
 void al::setColliderRadius(al::LiveActor*, float) {WARN_UNIMPL;}
 al::ActorResource* al::findOrCreateActorResource(al::ActorResourceHolder*, char const*, char const*) {WARN_UNIMPL; return new ActorResource("", nullptr, nullptr);}
-al::ActorResource::ActorResource(sead::SafeStringBase<char> const&, al::Resource*, al::Resource*) {WARN_UNIMPL;}
 CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
 const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
@@ -86,7 +89,6 @@ const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {WARN_UNIMPL;re
 bool al::isCollidedGround(al::LiveActor const*) {WARN_UNIMPL;return false;}
 bool al::isCollidedWall(al::LiveActor const*) {WARN_UNIMPL;return false;}
 bool al::isCollidedCeiling(al::LiveActor const*) {WARN_UNIMPL;return false;}
-bool al::tryGetActorInitFileIter(al::ByamlIter*, al::Resource const*, char const*, char const*) {WARN_UNIMPL; return false;}
 s32 al::getPlayerNumMax(al::LiveActor const*) {WARN_UNIMPL; return 1;}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
 bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
@@ -94,7 +96,6 @@ void al::attachMtxConnectorToCollisionParts(al::MtxConnector*, al::CollisionPart
 void al::setConnectorBaseQuatTrans(sead::Quat<float> const&, sead::Vector3<float> const&, al::MtxConnector*) {WARN_UNIMPL;}
 
 // NORMAL PRIORITY
-al::ActorResource::~ActorResource() {CRASH}
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
 const char* GameDataFunction::getCurrentStageName(GameDataHolderAccessor) {CRASH}
@@ -195,7 +196,6 @@ f32 al::getColliderRadius(al::LiveActor const*) {CRASH}
 void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
 void al::limitVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
-u8* al::tryGetMapPartsResourceYaml(al::ActorInitInfo const&, char const*) {CRASH}
 
 void al::ScreenPointKeeper::invalidateBySystem() {CRASH}
 void al::ScreenPointKeeper::validateBySystem() {CRASH}
@@ -250,3 +250,9 @@ const sead::Vector3f& al::getCollidedWallPos(al::LiveActor const*) {CRASH}
 void rs::offRouteGuideByActor(al::LiveActor*) {CRASH}
 void rs::onRouteGuideByActor(al::LiveActor*) {CRASH}
 const char* ProjectAppearSwitchFactory::convertName(const char*) const {CRASH}
+
+bool al::isExistResourceYaml(al::Resource const*, char const*, char const*) {CRASH}
+u8* al::findResourceYaml(al::Resource const*, char const*, char const*) {CRASH}
+void al::ParameterBase::tryGetParam(al::ByamlIter const&) {CRASH}
+al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {CRASH}
+al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {CRASH}

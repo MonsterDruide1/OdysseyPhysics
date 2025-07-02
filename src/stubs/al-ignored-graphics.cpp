@@ -11,7 +11,6 @@
 #include "Library/Model/ModelDisplayListController.h"
 #include "Library/Model/ModelDrawBufferUpdater.h"
 #include "Library/Model/ModelGroup.h"
-#include "Library/Model/ModelKeeper.h"
 #include "Library/Model/ModelLodCtrl.h"
 #include "Library/Model/ModelOcclusionCullingDirector.h"
 #include "Library/Model/ModelOcclusionQuery.h"
@@ -207,10 +206,6 @@ bool isHideModel(LiveActor const*) {
 void hideModelIfShow(LiveActor*) {}
 
 void showModelIfHide(LiveActor*) {}
-
-u8* getModelResourceYaml(al::LiveActor const*, char const*, char const*) {
-    return nullptr;
-}
 
 void invalidateClipping(al::LiveActor*) {}
 

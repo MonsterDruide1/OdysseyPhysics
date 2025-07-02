@@ -23,7 +23,6 @@
 #include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
 #include "Library/Model/ModelCtrl.h"
-#include "Library/Model/ModelKeeper.h"
 #include "Library/Nerve/NerveStateBase.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
