@@ -9,6 +9,7 @@
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerHolder.h"
+#include "Library/Resource/ActorResourceHolder.h"
 #include "Library/Scene/ISceneObj.h"
 #include "Library/Scene/SceneObjHolder.h"
 #include "Library/Scene/SceneUtil.h"
@@ -16,6 +17,7 @@
 #include "Library/Yaml/ByamlData.h"
 #include "Library/Yaml/ByamlIter.h"
 #include "Library/Yaml/ByamlUtil.h"
+#include "Project/Controller/PadRumbleKeeper.h"
 #include "Player/PlayerActorHakoniwa.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "PlayerUtil.h"
@@ -172,9 +174,10 @@ void StageScene::init(const char* stageName, int scenario) {
     al::PlacementInfo placementInfo = {};
     placementInfo.set(playerlist.getIterByIndex(0), al::ByamlIter());
     al::PlayerHolder* playerHolder = mLiveActorKit->mPlayerHolder;
-    playerHolder->registerPlayer(player, new al::PadRumbleKeeper());
+    al::ActorResourceHolder* actorResourceHolder = mLiveActorKit->mActorResourceHolder;
+    playerHolder->registerPlayer(player, new al::PadRumbleKeeper(0));
     al::ActorInitInfo actorInfo = {};
-    actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, nullptr, areaObjDirector, nullptr, nullptr,
+    actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, actorResourceHolder, areaObjDirector, nullptr, nullptr,
                       mLiveActorKit->mClippingDirector, collDirector, nullptr, nullptr, executeDirector, nullptr, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, playerHolder, mSceneObjHolder, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);

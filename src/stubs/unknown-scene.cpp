@@ -24,13 +24,12 @@
 #include "Project/File/FileLoader.h"
 #include "Project/Gravity/GravityHolder.h"
 #include "Project/LiveActor/ActorExecuteFunction.h"
+#include "Project/SaveData/SaveDataDirector.h"
 #include "System/Application.h"
 
 al::ClippingJudge::ClippingJudge(al::ClippingFarAreaObserver const*, al::SceneCameraInfo const*) {WARN_UNIMPL;}
 al::ClippingActorHolder::ClippingActorHolder(int) {WARN_UNIMPL;}
 al::ClippingGroupHolder::ClippingGroupHolder() {WARN_UNIMPL;}
-
-Application* Application::sInstance;
 
 al::AudioDirector::AudioDirector() {CRASH}
 void al::AudioDirector::init(al::AudioDirectorInitInfo const&) {CRASH}
@@ -97,8 +96,6 @@ al::CameraPoserEntrance* al::CameraPoserFactory::createEntranceCameraPoser() con
 void al::ViewRenderer::endForwardPlayerScreenFader(int) {CRASH}
 void al::ViewRenderer::startForwardPlayerScreenFader(int, int, float) {CRASH}
 
-void al::addResourceCategory(sead::SafeStringBase<char> const&, int, sead::Heap*) {CRASH}
-void al::createCategoryResourceAll(sead::SafeStringBase<char> const&) {CRASH}
 void al::executeDraw(al::LayoutKit const*, char const*) {CRASH}
 void al::executeDraw(al::LiveActorKit const*, char const*) {CRASH}
 void al::executeDrawList(al::LiveActorKit const*, char const*, char const*) {CRASH}
@@ -106,14 +103,13 @@ void al::executeUpdate(al::LayoutKit*) {CRASH}
 void al::executeUpdate(al::LiveActorKit*, char const*) {CRASH}
 void al::executeUpdateList(al::LiveActorKit*, char const*, char const*) {CRASH}
 void al::executeUpdateTable(al::LiveActorKit*, char const*) {CRASH}
-al::Resource* al::findResource(sead::SafeStringBase<char> const&) {CRASH}
 const char* al::getLanguage() {CRASH}
 al::CameraTicket* al::initFixCamera(al::IUseCamera const*, char const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 void al::makeMtxSideNoSupport(sead::Matrix34<float>*, sead::Vector3<float> const&) {CRASH}
-void al::removeResourceCategory(sead::SafeStringBase<char> const&) {CRASH}
-void al::setCurrentCategoryName(char const*) {CRASH}
 
 void alAudioSystemFunction::setPadRumbleDirectorForSe(al::AudioDirector*, al::PadRumbleDirector*) {CRASH}
 void alEffectSystemFunction::drawEffectDeferred(al::EffectSystem const*, sead::Matrix44<float> const&, sead::Matrix34<float> const&, float, float, float) {CRASH}
 const char* alSeDbFunction::tryFindSceneSeUserName(al::AudioSystemInfo const*, char const*, int) {CRASH}
 void alSeFunction::stopAllSe(al::AudioDirector const*, unsigned int) {CRASH}
+
+al::SaveDataDirector::SaveDataDirector(unsigned int, int) {CRASH}

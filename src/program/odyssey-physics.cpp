@@ -1,5 +1,6 @@
 // ----------------------------------
 // Easy configuration stuff
+#include "System/Application.h"
 #define Stage "SandWorldMeganeExStageMap"
 #define TASFile "res/beginner_recording.txt"
 #define TASPlayback false
@@ -103,6 +104,8 @@ int odyssey_physics_main(int argc, char *argv[]) {
     }
 
     initializeSead();
+    Application::createInstance(nullptr);
+    Application::instance()->init(0, nullptr);
     {
         // context of sead
         MyCameraMode camMode = MyCameraMode::Fixed;

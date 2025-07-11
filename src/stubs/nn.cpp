@@ -108,7 +108,7 @@ void nn::os::SetThreadCoreMask(nn::os::ThreadType*, int, u64 mask) {
 }
 
 void nn::os::InitializeMessageQueue(nn::os::MessageQueueType*, u64* buf, u64 queueCount) {
-    CRASH
+    WARN_UNIMPL;
 }
 
 void nn::os::FinalizeMessageQueue(nn::os::MessageQueueType*) {

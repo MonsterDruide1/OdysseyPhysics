@@ -5,6 +5,7 @@
 #include "heap/seadExpHeap.h"
 #include "heap/seadFrameHeap.h"
 #include "prim/seadStringUtil.h"
+#include "resource/seadParallelSZSDecompressor.h"
 #include "stream/seadStream.h"
 
 s32 sead::StringUtil::vsnprintf(char* s, size_t n, const char* format, va_list arg) {
@@ -179,3 +180,8 @@ f32 sead::PerspectiveProjection::getBottom() const {CRASH}
 f32 sead::PerspectiveProjection::getLeft() const {CRASH}
 f32 sead::PerspectiveProjection::getRight() const {CRASH}
 void sead::PerspectiveProjection::set(float, float, float, float) {CRASH}
+
+sead::ParallelSZSDecompressor::ParallelSZSDecompressor(unsigned int, int, sead::Heap*, unsigned char*, sead::CoreIdMask const&) : sead::Decompressor("") {CRASH}
+sead::ParallelSZSDecompressor::~ParallelSZSDecompressor() {CRASH}
+u8* sead::ParallelSZSDecompressor::tryDecompFromDevice(const ResourceMgr::LoadArg& loadArg, Resource* resource, u32* outSize,
+                            u32* outAllocSize, bool* outAllocated) {CRASH}

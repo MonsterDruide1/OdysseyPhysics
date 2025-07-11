@@ -17,6 +17,7 @@
 #include "Player/PlayerCounterQuickTurnJump.h"
 #include "PlayerStateGym.h"
 #include "PlayerUtil.h"
+#include "System/Application.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "RaylibUtil.h"
 #include "game/Input.h"
@@ -315,6 +316,8 @@ int odyssey_gym_main(int argc, char* argv[]) {
     }
 
     initializeSead();
+    Application::createInstance(nullptr);
+    Application::instance()->init(0, nullptr);
     {
         // context of sead
         game::StageSceneManager sceneManager{};

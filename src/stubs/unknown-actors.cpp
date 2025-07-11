@@ -65,7 +65,6 @@ void al::initActorItemKeeper(al::LiveActor*, al::ActorInitInfo const&, al::Byaml
 void al::initActorSceneInfo(al::LiveActor* actor, al::ActorInitInfo const& info) {ActorSceneInfo* sceneInfo = new ActorSceneInfo(); *sceneInfo = info.actorSceneInfo; actor->initSceneInfo(sceneInfo);}
 void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
 void al::setColliderRadius(al::LiveActor*, float) {WARN_UNIMPL;}
-al::ActorResource* al::findOrCreateActorResource(al::ActorResourceHolder*, char const*, char const*) {WARN_UNIMPL; return new ActorResource("", nullptr, nullptr);}
 CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
 const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
@@ -76,8 +75,6 @@ bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {WARN_UNIMPL;return false;}
 void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
-al::Resource* al::findOrCreateResourceSystemData(char const*, char const*) {WARN_UNIMPL;return nullptr;}
-u8* al::getByml(al::Resource const*, sead::SafeStringBase<char> const&) {WARN_UNIMPL;return nullptr;}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {WARN_UNIMPL;return false;}
 bool al::isCollidedFloorCode(al::LiveActor const*, char const*) {WARN_UNIMPL;return false;}
 bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3f*, al::Triangle*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {WARN_UNIMPL;return false;}
@@ -94,6 +91,7 @@ s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
 bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
 void al::attachMtxConnectorToCollisionParts(al::MtxConnector*, al::CollisionParts const*) {WARN_UNIMPL;}
 void al::setConnectorBaseQuatTrans(sead::Quat<float> const&, sead::Vector3<float> const&, al::MtxConnector*) {WARN_UNIMPL;}
+void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {WARN_UNIMPL;}
 
 // NORMAL PRIORITY
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
@@ -173,7 +171,6 @@ void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
 bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
 
-void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {CRASH}
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
 f32 al::lerpValue(float, float, float, float, float) {CRASH}
 
@@ -220,7 +217,6 @@ al::SceneMsgCtrl::SceneMsgCtrl() {CRASH}
 al::SceneMsg::SceneMsg() {CRASH}
 
 void al::calcRailPosAtCoord(sead::Vector3<float>*, al::IUseRail const*, float) {CRASH}
-al::Resource* al::findOrCreateResource(sead::SafeStringBase<char> const&, char const*) {CRASH}
 s32 al::getRailPointNum(al::IUseRail const*) {CRASH}
 bool al::isLoopRail(al::IUseRail const*) {CRASH}
 
@@ -251,8 +247,6 @@ void rs::offRouteGuideByActor(al::LiveActor*) {CRASH}
 void rs::onRouteGuideByActor(al::LiveActor*) {CRASH}
 const char* ProjectAppearSwitchFactory::convertName(const char*) const {CRASH}
 
-bool al::isExistResourceYaml(al::Resource const*, char const*, char const*) {CRASH}
-u8* al::findResourceYaml(al::Resource const*, char const*, char const*) {CRASH}
 void al::ParameterBase::tryGetParam(al::ByamlIter const&) {CRASH}
 al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {CRASH}
 al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {CRASH}

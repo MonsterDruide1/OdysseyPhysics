@@ -7,10 +7,10 @@
 #include "System/GameDataFunction.h"
 #include "Util/ItemUtil.h"
 
-const char* GameDataHolder::getCoinCollect2DEmptyArchiveName(int) const {return "";}
-const char* GameDataHolder::getCoinCollect2DArchiveName(int) const {return "";}
-const char* GameDataHolder::getCoinCollectEmptyArchiveName(int) const {return "";}
-const char* GameDataHolder::getCoinCollectArchiveName(int) const {return "";}
+const char* GameDataHolder::getCoinCollect2DEmptyArchiveName(int) const {return "CoinCollectEmpty2D_A";}
+const char* GameDataHolder::getCoinCollect2DArchiveName(int) const {return "CoinCollect2D";}
+const char* GameDataHolder::getCoinCollectEmptyArchiveName(int) const {return "CoinCollectEmptyA";}
+const char* GameDataHolder::getCoinCollectArchiveName(int) const {return "CoinCollect";}
 
 CoinCollectHolder* rs::createCoinCollectHolder(al::IUseSceneObjHolder const*) {WARN_UNIMPL;return nullptr;}
 void CoinCollectHolder::registerCoinCollect2D(CoinCollect2D*) {}
