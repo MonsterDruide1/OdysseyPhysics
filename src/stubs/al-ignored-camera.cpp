@@ -3,6 +3,7 @@
 #include "Library/Camera/CameraPoserFunction.h"
 #include "Library/Camera/CameraTargetAreaLimitter.h"
 #include "Library/Camera/CameraUtil.h"
+#include "Library/Camera/SceneCameraInfo.h"
 #include "Library/Camera/SnapShotCameraCtrl.h"
 #include "Library/Play/Camera/CameraPoserSubjective.h"
 #include "Library/Play/Camera/CameraVerticalAbsorber.h"
@@ -36,7 +37,7 @@ void CameraPoserSubjective::endSnapShotMode() {}
 bool CameraPoserSubjective::isZooming() const {return false;}
 bool CameraPoserSubjective::isEnableRotateByPad() const {return false;}
 
-al::CameraDirector::CameraDirector(int) {}
+al::CameraDirector::CameraDirector(int) { mSceneCameraInfo = new SceneCameraInfo(1); }
 al::CameraDirector::~CameraDirector() {}
 f32 CameraDirector::getSceneFovyDegree() {return 45.0f;}
 void al::CameraDirector::endInit(al::PlayerHolder const*) {}

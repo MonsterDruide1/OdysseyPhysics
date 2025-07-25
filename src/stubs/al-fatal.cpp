@@ -21,7 +21,6 @@
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Scene/ISceneObj.h"
 #include "Library/Scene/SceneUtil.h"
-#include "Library/Screen/ScreenPointKeeper.h"
 #include "Library/Se/SeKeeper.h"
 #include "Library/Shadow/DepthShadowMapCtrl.h"
 #include "Library/Shadow/ShadowMaskCtrl.h"
@@ -82,14 +81,6 @@ void al::EffectKeeper::update() {
 }
 
 void al::ActorActionKeeper::updatePost() {
-    CRASH
-}
-
-void al::ScreenPointKeeper::update() {
-    CRASH
-}
-
-void alScreenPointFunction::updateScreenPointAll(al::LiveActor*) {
     CRASH
 }
 
@@ -169,10 +160,6 @@ sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const*, char const*) {
 }
 
 void al::calcTouchScreenPos(sead::Vector2f*) {
-    CRASH
-}
-
-bool al::sendMsgPlayerReleaseEquipment(al::HitSensor*, al::HitSensor*) {
     CRASH
 }
 

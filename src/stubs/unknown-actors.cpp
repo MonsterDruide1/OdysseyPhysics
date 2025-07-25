@@ -21,6 +21,7 @@
 #include "Library/Resource/ResourceFunction.h"
 #include "Library/Scene/SceneMsgCtrl.h"
 #include "Library/Screen/ScreenFunction.h"
+#include "Library/Screen/ScreenPointDirector.h"
 #include "Library/Screen/ScreenPointKeeper.h"
 #include "Library/Yaml/ParameterBase.h"
 #include "MapObj/AnagramAlphabet.h"
@@ -99,11 +100,6 @@ void AnagramAlphabet::init(const al::ActorInitInfo&) {}
 const char* GameDataFunction::getCurrentStageName(GameDataHolderAccessor) {CRASH}
 s32 GameDataFunction::getScenarioNo(al::LiveActor const*) {CRASH}
 bool al::CollisionPartsFilterActor::isInvalidParts(CollisionParts*) {CRASH}
-al::ConveyerKeyKeeper::ConveyerKeyKeeper() {CRASH}
-void al::ConveyerKeyKeeper::calcClippingSphere(sead::Vector3f*, float*, float) const {CRASH}
-void al::ConveyerKeyKeeper::calcPosAndQuat(sead::Vector3f*, sead::Quatf*, int*, float) const {CRASH}
-const al::ConveyerKey* al::ConveyerKeyKeeper::getConveyerKey(int) const {CRASH}
-void al::ConveyerKeyKeeper::init(al::ActorInitInfo const&) {CRASH}
 al::SwitchOnAreaGroup::SwitchOnAreaGroup(al::AreaObjGroup*) {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3f const*, int) {CRASH}
 void al::SwitchOnAreaGroup::update(sead::Vector3f const&) {CRASH}
@@ -194,8 +190,6 @@ void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float>
 void al::limitVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
 
-void al::ScreenPointKeeper::invalidateBySystem() {CRASH}
-void al::ScreenPointKeeper::validateBySystem() {CRASH}
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
 void al::makeQuatRotationRate(sead::Quat<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::invalidateCollisionPartsBySystem(al::LiveActor*) {CRASH}
@@ -248,5 +242,20 @@ void rs::onRouteGuideByActor(al::LiveActor*) {CRASH}
 const char* ProjectAppearSwitchFactory::convertName(const char*) const {CRASH}
 
 void al::ParameterBase::tryGetParam(al::ByamlIter const&) {CRASH}
+bool al::ParameterBase::copyLerp(al::ParameterBase const&, al::ParameterBase const&, float) {CRASH}
+bool al::ParameterBase::copy(al::ParameterBase const&) {CRASH}
+bool al::ParameterBase::isEqual(al::ParameterBase const&) const {CRASH}
+void al::ParameterBase::afterGetParam() {CRASH}
+void al::ParameterBase::initialize(const sead::SafeString& name, const sead::SafeString& label,
+                                   const sead::SafeString& meta, bool e) {CRASH}
+void al::ParameterBase::initializeListNode(const sead::SafeString& name,
+                                           const sead::SafeString& label,
+                                           const sead::SafeString& meta, al::ParameterObj* obj,
+                                           bool e) {CRASH}
 al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {CRASH}
 al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {CRASH}
+
+void al::calcSphereMargeSpheres(sead::Vector3<float>*, float*, sead::Vector3<float> const&, float, sead::Vector3<float> const&, float) {CRASH}
+void al::ScreenPointDirector::setCheckGroup(al::ScreenPointTarget*) {CRASH}
+void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
+void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}

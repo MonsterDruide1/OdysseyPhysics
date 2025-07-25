@@ -47,7 +47,6 @@ void setHitSensorJointMtx(al::LiveActor*, char const*, char const*) {}
 void setSensorRadius(al::LiveActor*, char const*, float) {}
 f32 getSensorRadius(al::LiveActor const*, char const*) {return 1.0f;}
 al::LiveActor* getSensorHost(al::HitSensor const*) {WARN_UNIMPL;return nullptr;}
-bool isMsgPlayerTrampleForCrossoverSensor(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*) {return false;}
 bool tryReceiveMsgPushAndAddVelocity(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
 bool tryReceiveMsgPushAndAddVelocityH(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
 bool pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
@@ -56,57 +55,10 @@ const sead::Vector3f& getActorGravity(al::HitSensor const*) {return sead::Vector
 const sead::Vector3f& getSensorPos(al::LiveActor const*, char const*) {return sead::Vector3f::zero;}
 void registSupportFreezeSyncGroup(al::LiveActor*, al::ActorInitInfo const&) {}
 
-bool isMsgAskSafetyPoint(SensorMsg const*) { return false; }
-bool isMsgEnemyFloorTouch(SensorMsg const*) { return false; }
-bool isMsgExplosion(SensorMsg const*) { return false; }
-bool isMsgFloorTouch(SensorMsg const*) { return false; }
-bool isMsgHideModel(SensorMsg const*) { return false; }
-bool isMsgIsNerveSupportFreeze(SensorMsg const*) { return false; }
-bool isMsgOffSyncSupportFreeze(SensorMsg const*) { return false; }
-bool isMsgOnSyncSupportFreeze(SensorMsg const*) { return false; }
-bool isMsgPlayerDisregard(SensorMsg const*) { return false; }
-bool isMsgPlayerFloorTouch(SensorMsg const*) { return false; }
-bool isMsgPlayerHipDropAll(SensorMsg const*) { return false; }
-bool isMsgPlayerObjTouch(SensorMsg const*) { return false; }
-bool isMsgRestart(SensorMsg const*) { return false; }
-bool isMsgShowModel(SensorMsg const*) { return false; }
-bool isMsgTouchAssist(SensorMsg const*) { return false; }
-bool isMsgScreenPointInvalidCollisionParts(al::SensorMsg const*) { return false; }
-bool isMsgPush(al::SensorMsg const*) { return false; }
-bool isMsgEnemyAttackNeedle(al::SensorMsg const*) { return false; }
-bool isMsgEnemyTouch(al::SensorMsg const*) { return false; }
-bool isMsgEnemyAttackFire(al::SensorMsg const*) { return false; }
-bool isMsgPlayerFireBallAttack(al::SensorMsg const*) { return false; }
-bool isMsgPlayerTouch(al::SensorMsg const*) { return false; }
-bool isMsgPlayerTrample(al::SensorMsg const*) { return false; }
-bool isMsgPlayerTrampleReflect(al::SensorMsg const*) { return false; }
-bool isMsgPlayerObjUpperPunch(al::SensorMsg const*) { return false; }
-bool isMsgPlayerRollingAttack(al::SensorMsg const*) { return false; }
-bool isMsgPlayerObjRollingAttack(al::SensorMsg const*) { return false; }
-bool isMsgKickStoneAttackReflect(al::SensorMsg const*) { return false; }
-bool isMsgPushStrong(al::SensorMsg const*) { return false; }
-bool isMsgPushVeryStrong(al::SensorMsg const*) { return false; }
-bool isMsgPushAll(al::SensorMsg const*) {return false; }
-bool isMsgChangeAlpha(al::SensorMsg const*) { return false; }
-
-bool sendMsgExplosion(al::HitSensor*, al::HitSensor*, al::ComboCounter*) { return false; }
-bool sendMsgPlayerHipDropKnockDown(al::HitSensor*, al::HitSensor*) { return false; }
-bool sendMsgEnemyAttackFire(al::HitSensor*,al::HitSensor*,char const*) { return false; }
-bool sendMsgRestart(al::LiveActor*) { return false; }
-bool sendMsgEnemyAttack(al::HitSensor*, al::HitSensor*) { return false; }
-bool sendMsgEnemyAttackNeedle(al::HitSensor*, al::HitSensor*) { return false; }
-bool sendMsgPush(al::HitSensor*, al::HitSensor*) { return false; }
-bool sendMsgPushAndKillVelocityToTarget(al::LiveActor*, al::HitSensor*, al::HitSensor*) { return false; }
-bool sendMsgPushAndKillVelocityToTargetH(al::LiveActor*, al::HitSensor*, al::HitSensor*) { return false; }
-bool sendMsgSwitchKillOn(al::LiveActor*) { return false; }
-bool sendMsgSwitchOffInit(al::LiveActor*) { return false; }
-bool sendMsgSwitchOn(al::LiveActor*) { return false; }
-bool sendMsgSwitchOnInit(al::LiveActor*) { return false; }
-bool sendMsgChangeAlpha(al::LiveActor*, float) { return false; }
-bool sendMsgShowModel(al::LiveActor*) { return false; }
-bool sendMsgHideModel(al::LiveActor*) {return false;}
-
 f32 getChangeAlphaValue(al::SensorMsg const*) { return 0.0f; }
+
+HitSensor* tryGetCollidedGroundSensor(al::LiveActor const*) { return nullptr; }
+HitSensor* tryGetCollidedCeilingSensor(al::LiveActor const*) { return nullptr; }
 
 }  // namespace al
 
@@ -115,5 +67,12 @@ namespace alSensorFunction {
 al::HitSensorType findSensorTypeByName(char const*) {return al::HitSensorType::CollisionParts;}
 void clearHitSensors(al::LiveActor*) {}
 void updateHitSensorsAll(al::LiveActor*) {}
+
+}
+
+namespace alActorSensorFunction {
+
+bool sendMsgSensorToSensor(al::SensorMsg const&, al::HitSensor*, al::HitSensor*) { return false; }
+bool sendMsgToActorUnusedSensor(al::SensorMsg const&, al::LiveActor*) { return false; }
 
 }

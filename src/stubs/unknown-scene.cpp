@@ -27,7 +27,6 @@
 #include "Project/SaveData/SaveDataDirector.h"
 #include "System/Application.h"
 
-al::ClippingJudge::ClippingJudge(al::ClippingFarAreaObserver const*, al::SceneCameraInfo const*) {WARN_UNIMPL;}
 al::ClippingActorHolder::ClippingActorHolder(int) {WARN_UNIMPL;}
 al::ClippingGroupHolder::ClippingGroupHolder() {WARN_UNIMPL;}
 
@@ -68,7 +67,6 @@ void al::ClippingActorInfo::registerViewGroupFarClipFlag(bool const*) {CRASH}
 void al::ClippingGroupHolder::leave(al::ClippingActorInfo*) {CRASH}
 void al::ClippingGroupHolder::reentry(al::ClippingActorInfo*) {CRASH}
 void al::ClippingGroupHolder::update(al::ClippingJudge const*) {CRASH}
-void al::ClippingJudge::update() {CRASH}
 
 const char* al::DemoDirector::getActiveDemoName() const {CRASH}
 al::LiveActor** al::DemoDirector::getDemoActorList() const {CRASH}
