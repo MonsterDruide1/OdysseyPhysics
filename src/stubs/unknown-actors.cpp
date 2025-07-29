@@ -93,6 +93,7 @@ bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
 void al::attachMtxConnectorToCollisionParts(al::MtxConnector*, al::CollisionParts const*) {WARN_UNIMPL;}
 void al::setConnectorBaseQuatTrans(sead::Quat<float> const&, sead::Vector3<float> const&, al::MtxConnector*) {WARN_UNIMPL;}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {WARN_UNIMPL;}
+bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
 
 // NORMAL PRIORITY
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
@@ -232,7 +233,6 @@ void GameDataFunction::offObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, 
 
 void al::calcConnectTrans(sead::Vector3<float>*, al::MtxConnector const*) {CRASH}
 void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
-bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {CRASH}
 
 bool al::isCollidedGroundFloorCode(al::LiveActor const*, char const*) {CRASH}
 al::HitSensor* al::getCollidedWallSensor(al::LiveActor const*) {CRASH}
