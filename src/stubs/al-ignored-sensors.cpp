@@ -27,7 +27,6 @@ bool calcDirBetweenSensors(sead::Vector3<float>*, al::HitSensor const*, al::HitS
 bool calcDirBetweenSensorsH(sead::Vector3<float>*, al::HitSensor const*, al::HitSensor const*) {return false;}
 f32 calcDistanceV(sead::Vector3f const&,al::HitSensor const*,al::HitSensor const*) {return 0.0f;}
 const sead::Vector3f& getActorTrans(al::HitSensor const*) {return const_cast<sead::Vector3f&>(sead::Vector3f::zero);}
-const sead::Vector3f& getSensorPos(al::HitSensor const*) {return const_cast<sead::Vector3f&>(sead::Vector3f::zero);}
 bool isSensorMapObj(al::HitSensor const*) {return false;}
 bool isSensorPlayerAll(al::HitSensor const*) {return false;}
 bool isSensorPlayerAttack(al::HitSensor const*) {return false;}

@@ -61,9 +61,6 @@ al::ClippingActorInfo* al::ClippingActorHolder::registerActor(al::LiveActor*) {C
 void al::ClippingActorHolder::update(al::ClippingJudge const*) {CRASH}
 void al::ClippingActorHolder::updateFarClipLevel() {CRASH}
 al::ClippingActorHolder::~ClippingActorHolder() {CRASH}
-void al::ClippingActorInfo::initViewGroup(al::ViewIdHolder const*) {CRASH}
-bool al::ClippingActorInfo::isGroupClippingInit() const {CRASH}
-void al::ClippingActorInfo::registerViewGroupFarClipFlag(bool const*) {CRASH}
 void al::ClippingGroupHolder::leave(al::ClippingActorInfo*) {CRASH}
 void al::ClippingGroupHolder::reentry(al::ClippingActorInfo*) {CRASH}
 void al::ClippingGroupHolder::update(al::ClippingJudge const*) {CRASH}
