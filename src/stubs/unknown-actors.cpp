@@ -101,10 +101,6 @@ void AnagramAlphabet::init(const al::ActorInitInfo&) {}
 const char* GameDataFunction::getCurrentStageName(GameDataHolderAccessor) {CRASH}
 s32 GameDataFunction::getScenarioNo(al::LiveActor const*) {CRASH}
 bool al::CollisionPartsFilterActor::isInvalidParts(CollisionParts*) {CRASH}
-al::SwitchOnAreaGroup::SwitchOnAreaGroup(al::AreaObjGroup*) {CRASH}
-void al::SwitchOnAreaGroup::update(sead::Vector3f const*, int) {CRASH}
-void al::SwitchOnAreaGroup::update(sead::Vector3f const&) {CRASH}
-bool al::SwitchOnAreaGroup::isExternalCondition() const {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, bool) {CRASH}
 void al::calcJointPos(sead::Vector3f*, al::LiveActor const*, char const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead::Vector3f const&) {CRASH}
