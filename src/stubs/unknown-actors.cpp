@@ -136,19 +136,12 @@ void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, s
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
-f32 al::getRailCoord(al::IUseRail const*) {CRASH}
 void al::initActorPoseTQSV(al::LiveActor*) {CRASH}
 void al::initExecutorWatchObj(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void al::initSubActorKeeperNoFile(al::LiveActor*, al::ActorInitInfo const&, int) {CRASH}
 void al::invalidateCollisionParts(al::LiveActor*) {CRASH}
 bool al::isExistCollisionParts(al::LiveActor const*) {CRASH}
-bool al::isExistRail(al::IUseRail const*) {CRASH}
-bool al::moveSyncRail(al::LiveActor*, float) {CRASH}
-bool al::moveSyncRailLoop(al::LiveActor*, float) {CRASH}
-bool al::moveSyncRailTurn(al::LiveActor*, float) {CRASH}
 void al::multVecInvQuat(sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&) {CRASH}
-void al::setSyncRailToCoord(al::LiveActor*, float) {CRASH}
-void al::setSyncRailToNearestPos(al::LiveActor*) {CRASH}
 void al::validateCollisionParts(al::LiveActor*) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoWriteSaveData(al::ActorInitInfo const&) {CRASH}
 const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
@@ -158,8 +151,6 @@ bool al::WheelMovement::receiveMsg(al::LiveActor*, al::SensorMsg const*, al::Hit
 void al::WheelMovement::reset(al::LiveActor*) {CRASH}
 void al::WheelMovement::update(al::LiveActor*) {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
-f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
-bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3f const&) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
 bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
@@ -175,7 +166,6 @@ void rs::setBossBarrierField(BarrierField*) {CRASH}
 
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH}
-f32 al::calcRailTotalRate(al::IUseRail const*) {CRASH}
 void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
 bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
@@ -215,10 +205,6 @@ al::NatureDirector::NatureDirector() {CRASH}
 void al::NatureDirector::init() {CRASH}
 al::SceneMsgCtrl::SceneMsgCtrl() {CRASH}
 al::SceneMsg::SceneMsg() {CRASH}
-
-void al::calcRailPosAtCoord(sead::Vector3<float>*, al::IUseRail const*, float) {CRASH}
-s32 al::getRailPointNum(al::IUseRail const*) {CRASH}
-bool al::isLoopRail(al::IUseRail const*) {CRASH}
 
 bool GameDataFunction::isOnObjNoWriteSaveData(GameDataHolderAccessor, al::PlacementId const*) {CRASH}
 bool GameDataFunction::isOnObjNoWriteSaveDataInSameScenario(GameDataHolder const*, al::PlacementId const*) {CRASH}

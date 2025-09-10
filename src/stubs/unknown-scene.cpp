@@ -28,7 +28,6 @@
 #include "System/Application.h"
 
 al::ClippingActorHolder::ClippingActorHolder(int) {WARN_UNIMPL;}
-al::ClippingGroupHolder::ClippingGroupHolder() {WARN_UNIMPL;}
 
 al::AudioDirector::AudioDirector() {CRASH}
 void al::AudioDirector::init(al::AudioDirectorInitInfo const&) {CRASH}
@@ -61,9 +60,6 @@ al::ClippingActorInfo* al::ClippingActorHolder::registerActor(al::LiveActor*) {C
 void al::ClippingActorHolder::update(al::ClippingJudge const*) {CRASH}
 void al::ClippingActorHolder::updateFarClipLevel() {CRASH}
 al::ClippingActorHolder::~ClippingActorHolder() {CRASH}
-void al::ClippingGroupHolder::leave(al::ClippingActorInfo*) {CRASH}
-void al::ClippingGroupHolder::reentry(al::ClippingActorInfo*) {CRASH}
-void al::ClippingGroupHolder::update(al::ClippingJudge const*) {CRASH}
 
 const char* al::DemoDirector::getActiveDemoName() const {CRASH}
 al::LiveActor** al::DemoDirector::getDemoActorList() const {CRASH}

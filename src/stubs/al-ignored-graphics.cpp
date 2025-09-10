@@ -34,7 +34,6 @@ namespace al {
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}
 
-void calcRailClippingInfo(sead::Vector3<float>*, float*, al::IUseRail const*, float, float) {}
 void executeUpdateDrawBuffer(al::LiveActorKit const*) {}
 void incrementDrawBufferCounter(al::LiveActorKit const*) {}
 void waitUpdateCalcView(al::LiveActorKit const*) {}
@@ -166,8 +165,6 @@ bool tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<float>*)
 void offDrawClipping(al::LiveActor*) {}
 
 void onDrawClipping(al::LiveActor*) {}
-
-void setRailClippingInfo(sead::Vector3<float>*, al::LiveActor*, float, float) {}
 
 void setClippingInfo(al::LiveActor*, float, sead::Vector3<float> const*) {}
 
