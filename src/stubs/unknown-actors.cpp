@@ -70,8 +70,6 @@ CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
 const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
 al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {WARN_UNIMPL;return nullptr;}
-void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
-bool al::isHalfProbability() {return getRandom() < 0.5f;}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {WARN_UNIMPL;return false;}
@@ -95,6 +93,36 @@ void al::setConnectorBaseQuatTrans(sead::Quat<float> const&, sead::Vector3<float
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {WARN_UNIMPL;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
 
+// MathUtil.o
+void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
+bool al::isHalfProbability() {return getRandom() < 0.5f;}
+al::Axis al::calcNearVecFromAxis3(sead::Vector3f*, sead::Vector3f const&, sead::Quatf const&) {CRASH}
+void al::calcQuatLocalAxis(sead::Vector3f*, sead::Quatf const&, int) {CRASH}
+bool al::isSameSign(float, float) {CRASH}
+void al::lerpVec(sead::Vector2<float>*, sead::Vector2<float> const&, sead::Vector2<float> const&, float) {CRASH}
+void al::turnQuatYDirRate(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
+void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
+void al::calcQuatGravity(sead::Vector3f*, sead::Quatf const&) {CRASH}
+void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
+void al::limitVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
+bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
+void al::calcVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
+bool al::isPercentProbability(float) {CRASH}
+f32 al::lerpValue(float, float, float, float, float) {CRASH}
+void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
+void al::rotateVectorQuat(sead::Vector3f*, sead::Quatf const&) {CRASH}
+f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
+void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
+void al::makeQuatRotationRate(sead::Quat<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+void al::calcFittingBoxPose(sead::Quat<float>*, sead::BoundBox3<float> const&, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
+void al::calcQuatRotateAxisAndDegree(sead::Vector3<float>*, float*, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
+void al::calcBoxFacePoint(sead::Vector3<float>*, sead::BoundBox3<float> const&, al::Axis, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
+void al::calcQuatLocalAxisAll(sead::Quat<float> const&, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*) {CRASH}
+void al::rotateQuatAndTransDegree(sead::Quat<float>*, sead::Vector3<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+void al::calcSphereMargeSpheres(sead::Vector3<float>*, float*, sead::Vector3<float> const&, float, sead::Vector3<float> const&, float) {CRASH}
+// MtxUtil.o
+void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
+
 // NORMAL PRIORITY
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
@@ -105,8 +133,6 @@ void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, 
 void al::calcJointPos(sead::Vector3f*, al::LiveActor const*, char const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead::Vector3f const&) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
-al::Axis al::calcNearVecFromAxis3(sead::Vector3f*, sead::Vector3f const&, sead::Quatf const&) {CRASH}
-void al::calcQuatLocalAxis(sead::Vector3f*, sead::Quatf const&, int) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
@@ -117,16 +143,12 @@ void al::initSubActorKeeperNoFile(al::LiveActor*, al::ActorInitInfo const&, int)
 void al::invalidateCollisionParts(al::LiveActor*) {CRASH}
 bool al::isExistCollisionParts(al::LiveActor const*) {CRASH}
 bool al::isExistRail(al::IUseRail const*) {CRASH}
-bool al::isSameSign(float, float) {CRASH}
-void al::lerpVec(sead::Vector2<float>*, sead::Vector2<float> const&, sead::Vector2<float> const&, float) {CRASH}
-void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 bool al::moveSyncRail(al::LiveActor*, float) {CRASH}
 bool al::moveSyncRailLoop(al::LiveActor*, float) {CRASH}
 bool al::moveSyncRailTurn(al::LiveActor*, float) {CRASH}
 void al::multVecInvQuat(sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&) {CRASH}
 void al::setSyncRailToCoord(al::LiveActor*, float) {CRASH}
 void al::setSyncRailToNearestPos(al::LiveActor*) {CRASH}
-void al::turnQuatYDirRate(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::validateCollisionParts(al::LiveActor*) {CRASH}
 SaveObjInfo* rs::createSaveObjInfoWriteSaveData(al::ActorInitInfo const&) {CRASH}
 const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
@@ -138,43 +160,34 @@ void al::WheelMovement::update(al::LiveActor*) {CRASH}
 void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 f32 al::getRailTotalLength(al::IUseRail const*) {CRASH}
 bool al::isRailPlusDir(al::IUseRail const*, sead::Vector3f const&) {CRASH}
-void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
 bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
 al::CollisionParts* al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, float, float) {CRASH}
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
-void al::calcQuatGravity(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 const sead::Vector3f& al::getOnGroundNormal(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
 bool al::isMtxConnectorConnecting(al::MtxConnector const*) {CRASH}
-void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
-void al::rotateVectorQuat(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
 
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH}
-f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
 f32 al::calcRailTotalRate(al::IUseRail const*) {CRASH}
 void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
-void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
 bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
 
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
-f32 al::lerpValue(float, float, float, float, float) {CRASH}
 
 void al::faceToPlayer(al::LiveActor*) {CRASH}
-bool al::isPercentProbability(float) {CRASH}
 bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 
 void al::calcCollidedNormalSum(al::LiveActor const*, sead::Vector3<float>*) {CRASH}
 void al::calcColliderPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
 void al::calcJumpInertia(sead::Vector3<float>*, al::LiveActor*, sead::Vector3<float> const&, float) {CRASH}
-void al::calcVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 al::Triangle* al::Collider::getPlane(int) {CRASH}
 const sead::Vector3f& al::getCollidedCeilingNormal(al::LiveActor const*) {CRASH}
 const sead::Vector3f& al::getCollidedGroundNormal(al::LiveActor const*) {CRASH}
@@ -183,12 +196,8 @@ bool al::isCollided(al::LiveActor const*) {CRASH}
 bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 f32 al::getColliderOffsetY(al::LiveActor const*) {CRASH}
 f32 al::getColliderRadius(al::LiveActor const*) {CRASH}
-void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
-void al::limitVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
-bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
 
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
-void al::makeQuatRotationRate(sead::Quat<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::invalidateCollisionPartsBySystem(al::LiveActor*) {CRASH}
 void al::validateCollisionPartsBySystem(al::LiveActor*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
@@ -210,12 +219,6 @@ al::SceneMsg::SceneMsg() {CRASH}
 void al::calcRailPosAtCoord(sead::Vector3<float>*, al::IUseRail const*, float) {CRASH}
 s32 al::getRailPointNum(al::IUseRail const*) {CRASH}
 bool al::isLoopRail(al::IUseRail const*) {CRASH}
-
-void al::calcFittingBoxPose(sead::Quat<float>*, sead::BoundBox3<float> const&, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
-void al::calcQuatRotateAxisAndDegree(sead::Vector3<float>*, float*, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
-void al::calcBoxFacePoint(sead::Vector3<float>*, sead::BoundBox3<float> const&, al::Axis, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
-void al::calcQuatLocalAxisAll(sead::Quat<float> const&, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*) {CRASH}
-void al::rotateQuatAndTransDegree(sead::Quat<float>*, sead::Vector3<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 
 bool GameDataFunction::isOnObjNoWriteSaveData(GameDataHolderAccessor, al::PlacementId const*) {CRASH}
 bool GameDataFunction::isOnObjNoWriteSaveDataInSameScenario(GameDataHolder const*, al::PlacementId const*) {CRASH}
@@ -251,7 +254,6 @@ void al::ParameterBase::initializeListNode(const sead::SafeString& name,
 al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {CRASH}
 al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {CRASH}
 
-void al::calcSphereMargeSpheres(sead::Vector3<float>*, float*, sead::Vector3<float> const&, float, sead::Vector3<float> const&, float) {CRASH}
 void al::ScreenPointDirector::setCheckGroup(al::ScreenPointTarget*) {CRASH}
 void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
 void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
