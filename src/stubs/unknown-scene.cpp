@@ -21,11 +21,8 @@
 #include "Library/Se/Function/SeDbFunction.h"
 #include "Library/Se/SeFunction.h"
 #include "Project/Clipping/ViewInfoCtrl.h"
-#include "Project/File/FileLoader.h"
 #include "Project/Gravity/GravityHolder.h"
-#include "Project/LiveActor/ActorExecuteFunction.h"
 #include "Project/SaveData/SaveDataDirector.h"
-#include "System/Application.h"
 
 al::ClippingActorHolder::ClippingActorHolder(int) {WARN_UNIMPL;}
 
@@ -88,12 +85,7 @@ void al::ViewRenderer::endForwardPlayerScreenFader(int) {CRASH}
 void al::ViewRenderer::startForwardPlayerScreenFader(int, int, float) {CRASH}
 
 void al::executeDraw(al::LayoutKit const*, char const*) {CRASH}
-void al::executeDraw(al::LiveActorKit const*, char const*) {CRASH}
-void al::executeDrawList(al::LiveActorKit const*, char const*, char const*) {CRASH}
 void al::executeUpdate(al::LayoutKit*) {CRASH}
-void al::executeUpdate(al::LiveActorKit*, char const*) {CRASH}
-void al::executeUpdateList(al::LiveActorKit*, char const*, char const*) {CRASH}
-void al::executeUpdateTable(al::LiveActorKit*, char const*) {CRASH}
 const char* al::getLanguage() {CRASH}
 al::CameraTicket* al::initFixCamera(al::IUseCamera const*, char const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 void al::makeMtxSideNoSupport(sead::Matrix34<float>*, sead::Vector3<float> const&) {CRASH}

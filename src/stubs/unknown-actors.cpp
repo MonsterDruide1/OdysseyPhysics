@@ -1,14 +1,20 @@
 #include "Item/CoinCollectHolder.h"
-#include "Library/Area/SwitchOnAreaGroup.h"
+#include "Library/Collision/Collider.h"
+#include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/CollisionPartsKeeperUtil.h"
+#include "Library/Collision/KCollisionServer.h"
+#include "Library/Collision/PartsConnector.h"
 #include "Library/Collision/PartsConnectorUtil.h"
+#include "Library/Collision/SensorConnector.h"
 #include "Library/Event/EventFlowUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
 #include "Library/LiveActor/ActorInitFunction.h"
+#include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
+#include "Library/LiveActor/ActorSceneInfo.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
 #include "Library/Movement/WheelMovement.h"
@@ -32,7 +38,6 @@
 #include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
 #include "Util/ObjUtil.h"
-#include "PlayerUtil.h"
 #include "Project/Joint/RollingCubePoseKeeperUtil.h"
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
 #include "Scene/GuidePosInfoHolder.h"
@@ -68,8 +73,6 @@ void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
 void al::setColliderRadius(al::LiveActor*, float) {WARN_UNIMPL;}
 CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
 const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
-al::MtxConnector* al::tryCreateMtxConnector(al::LiveActor const*, al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
-al::MtxConnector* al::createMtxConnector(al::LiveActor const*) {WARN_UNIMPL;return nullptr;}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {WARN_UNIMPL;return false;}
@@ -88,10 +91,10 @@ bool al::isCollidedCeiling(al::LiveActor const*) {WARN_UNIMPL;return false;}
 s32 al::getPlayerNumMax(al::LiveActor const*) {WARN_UNIMPL; return 1;}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
 bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
-void al::attachMtxConnectorToCollisionParts(al::MtxConnector*, al::CollisionParts const*) {WARN_UNIMPL;}
-void al::setConnectorBaseQuatTrans(sead::Quat<float> const&, sead::Vector3<float> const&, al::MtxConnector*) {WARN_UNIMPL;}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {WARN_UNIMPL;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
+al::CollisionPartsConnector::CollisionPartsConnector() {WARN_UNIMPL;}
+void al::CollisionPartsConnector::clear() {WARN_UNIMPL;}
 
 // MathUtil.o
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
@@ -129,12 +132,10 @@ void AnagramAlphabet::init(const al::ActorInitInfo&) {}
 const char* GameDataFunction::getCurrentStageName(GameDataHolderAccessor) {CRASH}
 s32 GameDataFunction::getScenarioNo(al::LiveActor const*) {CRASH}
 bool al::CollisionPartsFilterActor::isInvalidParts(CollisionParts*) {CRASH}
-void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, bool) {CRASH}
 void al::calcJointPos(sead::Vector3f*, al::LiveActor const*, char const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead::Vector3f const&) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
-void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
 void al::initActorPoseTQSV(al::LiveActor*) {CRASH}
 void al::initExecutorWatchObj(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
@@ -150,16 +151,12 @@ void rs::onSaveObjInfo(SaveObjInfo*) {CRASH}
 bool al::WheelMovement::receiveMsg(al::LiveActor*, al::SensorMsg const*, al::HitSensor*, al::HitSensor*) {CRASH}
 void al::WheelMovement::reset(al::LiveActor*) {CRASH}
 void al::WheelMovement::update(al::LiveActor*) {CRASH}
-void al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
 bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
-al::CollisionParts* al::attachMtxConnectorToCollision(al::MtxConnector*, al::LiveActor const*, float, float) {CRASH}
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
-void al::connectPoseQT(al::LiveActor*, al::MtxConnector const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 const sead::Vector3f& al::getOnGroundNormal(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
-bool al::isMtxConnectorConnecting(al::MtxConnector const*) {CRASH}
 void al::setCollisionPartsSpecialPurposeName(al::LiveActor*, char const*) {CRASH}
 al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
@@ -216,7 +213,6 @@ void GameDataFunction::onObjNoWriteSaveDataInSameScenario(GameDataHolder*, al::P
 void GameDataFunction::offObjNoWriteSaveData(GameDataHolderWriter, al::PlacementId const*) {CRASH}
 void GameDataFunction::offObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, al::PlacementId const*) {CRASH}
 
-void al::calcConnectTrans(sead::Vector3<float>*, al::MtxConnector const*) {CRASH}
 void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
 
 bool al::isCollidedGroundFloorCode(al::LiveActor const*, char const*) {CRASH}
@@ -243,3 +239,10 @@ al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al:
 void al::ScreenPointDirector::setCheckGroup(al::ScreenPointTarget*) {CRASH}
 void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
 void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
+
+bool al::CollisionPartsConnector::isConnecting() const {CRASH}
+void al::CollisionPartsConnector::init(sead::Matrix34<float> const*, sead::Matrix34<float> const&, al::CollisionParts const*) {CRASH}
+
+void al::SensorConnector::init(sead::Matrix34<float> const*, sead::Matrix34<float> const&, al::HitSensor*) {CRASH}
+
+al::CollisionParts* alCollisionUtil::getStrikeArrowCollisionParts(al::IUseCollision const*, sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}

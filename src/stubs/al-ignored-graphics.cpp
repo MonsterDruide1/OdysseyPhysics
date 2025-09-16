@@ -34,10 +34,6 @@ namespace al {
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}
 
-void executeUpdateDrawBuffer(al::LiveActorKit const*) {}
-void incrementDrawBufferCounter(al::LiveActorKit const*) {}
-void waitUpdateCalcView(al::LiveActorKit const*) {}
-void waitUpdateDrawBuffer(al::LiveActorKit const*) {}
 void initDepthShadowMapCtrl(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {}
 void initPartialSklAnim(al::LiveActor*, int, int, int) {}
 void initShadowMaskCtrl(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&, char const*) {}
@@ -98,11 +94,14 @@ al::GraphicsInitArg::GraphicsInitArg(agl::DrawContext*, sead::FrameBuffer*) {}
 al::ModelDisplayListController::ModelDisplayListController(al::ModelGroup*) {}
 al::ModelDrawBufferUpdater::ModelDrawBufferUpdater(al::ExecuteDirector const*) {}
 al::ModelDrawBufferUpdater::~ModelDrawBufferUpdater() {}
+bool al::ModelDrawBufferUpdater::tryUpdateAsync() { return false; }
+void al::ModelDrawBufferUpdater::waitAsync() const {}
 al::ModelGroup::ModelGroup(int) {}
 al::ModelGroup::~ModelGroup() {}
 
 void al::ShadowDirector::endInit() {}
 void al::SkyDirector::init(al::ActorInitInfo const&) {}
+void al::SkyDirector::update() {}
 
 void al::ModelDisplayListController::update() {}
 void al::ModelOcclusionCullingDirector::calc() {}
