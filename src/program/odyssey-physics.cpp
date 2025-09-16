@@ -15,9 +15,6 @@
 // ----------------------------------
 
 
-#include <filesystem>
-#include <vector>
-#include "CUSTOM/PlayerAnimator.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/Nerve/NerveKeeper.h"
 #include "Library/Nerve/NerveStateCtrl.h"
@@ -35,18 +32,11 @@
 #include "heap/ClonableExpHeap.h"
 #include "math/seadMatrix.h"
 #include "raylib.h"
-#include "raymath.h"
 #include "rcamera.h"
 #include "rlgl.h"
 #include "seadInterface.h"
-#include "PlayerStateGym.h"
-
-#include "Library/Base/StringUtil.h"
-#include "Library/Camera/CameraPoserFunction.h"
 
 #include "Util/PlayerCollisionUtil.h"
-#include "Library/Collision/Collider.h"
-#include "Library/Collision/CollisionUtil.h"
 #include "agent/ScriptOptimizerDemo.h"
 
 #include <fcntl.h>
@@ -346,7 +336,7 @@ int odyssey_physics_main(int argc, char *argv[]) {
             frames++;
         }
     }
-    unloadSead();
+    //unloadSead();
     unloadRaylibUtil();
 
     CloseWindow();
