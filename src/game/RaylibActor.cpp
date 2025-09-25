@@ -150,7 +150,7 @@ void RaylibActor::initRaylibModel() {
         return;
     }
 
-    const al::KCollisionServer& coll = mActor->mCollisionParts->getKCollisionServer();
+    const al::KCollisionServer& coll = *mActor->mCollisionParts->getKCollisionServer();
     raylibModel = Model{0};
     raylibModel.materialCount = 1;
     raylibModel.materials = (Material*)RL_CALLOC(raylibModel.materialCount, sizeof(Material));

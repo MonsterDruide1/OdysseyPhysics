@@ -93,8 +93,6 @@ s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
 bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
 void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {WARN_UNIMPL;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
-al::CollisionPartsConnector::CollisionPartsConnector() {WARN_UNIMPL;}
-void al::CollisionPartsConnector::clear() {WARN_UNIMPL;}
 
 // MathUtil.o
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
@@ -239,9 +237,6 @@ al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al:
 void al::ScreenPointDirector::setCheckGroup(al::ScreenPointTarget*) {CRASH}
 void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
 void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
-
-bool al::CollisionPartsConnector::isConnecting() const {CRASH}
-void al::CollisionPartsConnector::init(sead::Matrix34<float> const*, sead::Matrix34<float> const&, al::CollisionParts const*) {CRASH}
 
 void al::SensorConnector::init(sead::Matrix34<float> const*, sead::Matrix34<float> const&, al::HitSensor*) {CRASH}
 

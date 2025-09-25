@@ -55,14 +55,6 @@ al::CollisionPartsFilterBase* createCollisionPartsFilter2DOnly() {
     return nullptr;
 }
 
-bool isModeE3Rom() {
-    return false;
-}
-
-bool isModeE3MovieRom() {
-    return false;
-}
-
 void addPlayerThrowCapCount(const al::LiveActor*) {}
 
 void snap2D(al::LiveActor*, IUseDimension const*, float) {}
@@ -313,15 +305,5 @@ PlayerStateCameraSubjective::PlayerStateCameraSubjective(al::LiveActor*, al::Cam
     : al::NerveStateBase("") {}
 
 bool PlayerStateHack::isEnableModelSyncShowHide() {
-    return false;
-}
-
-PlayerJudgeSleep::PlayerJudgeSleep(PlayerStateWait const*) {}
-
-void PlayerJudgeSleep::reset() {}
-
-void PlayerJudgeSleep::update() {}
-
-bool PlayerJudgeSleep::judge() const {
     return false;
 }
