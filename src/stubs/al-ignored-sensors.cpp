@@ -17,6 +17,7 @@ al::HitSensor* addHitSensor(al::LiveActor*, al::ActorInitInfo const&, char const
 }
 
 void al::HitReactionKeeper::start(char const*, sead::Vector3f const*, al::HitSensor const*, al::HitSensor const*) {}
+al::HitReactionKeeper* al::HitReactionKeeper::tryCreate(char const*, sead::Vector3<float> const*, al::IUseEffectKeeper*, al::IUseAudioKeeper const*, al::IUseCamera const*, al::PadRumbleDirector*, al::SceneStopCtrl*, al::RadialBlurDirector*, al::PlayerHolder const*, al::Resource const*, char const*) {WARN_UNIMPL;return nullptr;}
 
 void updateHitSensorsAll(al::LiveActor*) {}
 void invalidateHitSensors(LiveActor*) {}

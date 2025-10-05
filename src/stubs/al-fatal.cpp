@@ -76,10 +76,6 @@ void al::ActorPrePassLightKeeper::initAfterPlacement() {
     CRASH
 }
 
-void al::EffectKeeper::update() {
-    CRASH
-}
-
 void al::ActorActionKeeper::updatePost() {
     CRASH
 }
@@ -122,19 +118,6 @@ bool al::ActionAnimCtrl::start(char const*) {
 
 void al::ActionEffectCtrl::startAction(char const*){CRASH}
 
-al::ActionEffectCtrl* al::ActionEffectCtrl::tryCreate(al::IUseEffectKeeper*){
-    CRASH} al::ActionBgmCtrl* al::ActionBgmCtrl::tryCreate(al::AudioKeeper*){
-    CRASH} al::ActionScreenEffectCtrl* al::ActionScreenEffectCtrl::tryCreate(al::LiveActor const*,
-                                                                             char const*){
-    CRASH} al::ActionAnimCtrl* al::ActionAnimCtrl::tryCreate(al::LiveActor*,
-                                                             al::ActorResource const*, char const*,
-                                                             char const*){
-    CRASH} al::ActionPadAndCameraCtrl* al::ActionPadAndCameraCtrl::
-    tryCreate(al::LiveActor const*, al::ActorResource const*, sead::Vector3<float> const*,
-              char const*){CRASH} al::ActionSeCtrl* al::ActionSeCtrl::tryCreate(al::AudioKeeper*) {
-    CRASH
-}
-
 void al::SeKeeper::resetPosition() {
     CRASH
 }
@@ -147,23 +130,7 @@ const char* al::getCollidedFloorMaterialCodeName(al::LiveActor const*) {
     CRASH
 }
 
-bool al::isInStack(const void *) {
-    CRASH
-}
-
-void al::resetAllCollisionMtx(al::LiveActor*) {
-    CRASH
-}
-
-sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const*, char const*) {
-    CRASH
-}
-
 void al::calcTouchScreenPos(sead::Vector2f*) {
-    CRASH
-}
-
-void al::registerSubActor(al::LiveActor*, al::LiveActor*) {
     CRASH
 }
 

@@ -5,6 +5,7 @@ namespace al {
 
 void copySklAnim(al::LiveActor*, al::LiveActor const*) {}
 
+al::ActionAnimCtrl* al::ActionAnimCtrl::tryCreate(al::LiveActor*, al::ActorResource const*, char const*, char const*) {WARN_UNIMPL; return nullptr;}
 f32 ActionAnimCtrl::getActionFrameMax(char const*) const {return 1.0f;}
 f32 ActionAnimCtrl::getFrame() const {return 0.0f;}
 f32 ActionAnimCtrl::getFrameRate() const {return 1.0f;}

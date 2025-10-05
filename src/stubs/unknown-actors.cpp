@@ -12,6 +12,7 @@
 #include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/LiveActor/ActorModelFunction.h"
+#include "Library/LiveActor/ActorParamHolder.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorSceneInfo.h"
@@ -48,27 +49,6 @@
 #include "Util/PlayerUtil.h"
 
 // HIGH PRIORITY
-void al::initActorActionKeeper(al::LiveActor*, al::ActorResource const*, char const*, char const*) {WARN_UNIMPL;}
-void al::initActorCollisionWithResource(al::LiveActor*, al::Resource const*, sead::SafeStringBase<char> const&, al::HitSensor*, sead::Matrix34<float> const*, char const*) {WARN_UNIMPL;}
-void al::initActorEffectKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL;}
-void al::initActorSRT(al::LiveActor* actor, al::ActorInitInfo const& info) {WARN_UNIMPL;}
-void al::initActorPoseTFGSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTFGSV();}
-void al::initActorPoseTFSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTFSV();}
-void al::initActorPoseTFUSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTFUSV();}
-void al::initActorPoseTQGMSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTQGMSV();}
-void al::initActorPoseTQGSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTRGMSV();}
-void al::initActorPoseTRGMSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTRGMSV();}
-void al::initActorPoseTRMSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTRMSV();}
-void al::initActorPoseTRSV(al::LiveActor* actor) {actor->mPoseKeeper = new ActorPoseKeeperTRSV();}
-void al::initExecutorDraw(al::LiveActor*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL;}
-void al::initExecutorModelUpdate(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
-void al::initHitReactionKeeper(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL;}
-void al::initScreenPointKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL;}
-void al::initSubActorKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*, int) {WARN_UNIMPL;}
-void al::initStageSwitch(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
-void al::initActorParamHolder(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL;}
-void al::initActorItemKeeper(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&) {WARN_UNIMPL;}
-void al::initActorSceneInfo(al::LiveActor* actor, al::ActorInitInfo const& info) {ActorSceneInfo* sceneInfo = new ActorSceneInfo(); *sceneInfo = info.actorSceneInfo; actor->initSceneInfo(sceneInfo);}
 void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
 void al::setColliderRadius(al::LiveActor*, float) {WARN_UNIMPL;}
 CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
@@ -76,7 +56,6 @@ const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {WARN_UNIMPL;return false;}
-void al::initExecutorMapObjMovement(al::LiveActor*, al::ActorInitInfo const&) {WARN_UNIMPL;}
 bool al::isOnGround(al::LiveActor const*, unsigned int) {WARN_UNIMPL;return false;}
 bool al::isCollidedFloorCode(al::LiveActor const*, char const*) {WARN_UNIMPL;return false;}
 bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3f*, al::Triangle*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {WARN_UNIMPL;return false;}
@@ -91,8 +70,13 @@ bool al::isCollidedCeiling(al::LiveActor const*) {WARN_UNIMPL;return false;}
 s32 al::getPlayerNumMax(al::LiveActor const*) {WARN_UNIMPL; return 1;}
 s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
 bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
-void al::initExecutorUpdate(LiveActor *actor, const ActorInitInfo &info, const char *) {WARN_UNIMPL;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
+void al::CollisionParts::invalidateBySystem() {WARN_UNIMPL;}
+al::ActorParamHolder* al::ActorParamHolder::tryCreate(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL; return nullptr;}
+void al::resetAllCollisionMtx(al::LiveActor*) {WARN_UNIMPL;}
+void al::validateCollisionPartsBySystem(al::LiveActor*) {WARN_UNIMPL;}
+bool al::isInStack(const void *) {WARN_UNIMPL; return true;}
+sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const* a, char const*) {WARN_UNIMPL; return a->getPoseKeeper()->getMtxPtr();}
 
 // MathUtil.o
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
@@ -135,9 +119,6 @@ void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead:
 void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
 al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
-void al::initActorPoseTQSV(al::LiveActor*) {CRASH}
-void al::initExecutorWatchObj(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
-void al::initSubActorKeeperNoFile(al::LiveActor*, al::ActorInitInfo const&, int) {CRASH}
 void al::invalidateCollisionParts(al::LiveActor*) {CRASH}
 bool al::isExistCollisionParts(al::LiveActor const*) {CRASH}
 void al::multVecInvQuat(sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&) {CRASH}
@@ -151,7 +132,6 @@ void al::WheelMovement::reset(al::LiveActor*) {CRASH}
 void al::WheelMovement::update(al::LiveActor*) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
-bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 const sead::Vector3f& al::getOnGroundNormal(al::LiveActor const*, unsigned int) {CRASH}
 bool al::isExistActorCollider(al::LiveActor const*) {CRASH}
@@ -163,6 +143,7 @@ bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* coll
 void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH}
 void al::createAndSetColliderSpecialPurpose(al::LiveActor*,char const*) {CRASH}
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
+bool al::isExistJoint(al::LiveActor const*, char const*) {CRASH}
 bool al::isOnGroundNoVelocity(al::LiveActor const*,unsigned int) {CRASH}
 
 bool al::isMatchString(const char *, const MatchStr &) {CRASH}
@@ -184,7 +165,6 @@ f32 al::getColliderRadius(al::LiveActor const*) {CRASH}
 
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
 void al::invalidateCollisionPartsBySystem(al::LiveActor*) {CRASH}
-void al::validateCollisionPartsBySystem(al::LiveActor*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
 al::EventFlowExecutor* rs::initEventFlow(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 bool rs::isSequenceTimeBalloonOrRace(al::LiveActor const*) {CRASH}
@@ -201,6 +181,7 @@ void al::NatureDirector::init() {CRASH}
 al::SceneMsgCtrl::SceneMsgCtrl() {CRASH}
 al::SceneMsg::SceneMsg() {CRASH}
 
+bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
 bool GameDataFunction::isOnObjNoWriteSaveData(GameDataHolderAccessor, al::PlacementId const*) {CRASH}
 bool GameDataFunction::isOnObjNoWriteSaveDataInSameScenario(GameDataHolder const*, al::PlacementId const*) {CRASH}
 bool GameDataFunction::isObjStarted(GameDataHolder const*, al::PlacementId const*) {CRASH}

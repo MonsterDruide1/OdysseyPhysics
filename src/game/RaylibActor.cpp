@@ -45,8 +45,6 @@ void RaylibActor::apply(al::LiveActor* actor, const al::ByamlIter& data) {
     strcpy((char*)actor->mName, modelName);
 
     actor->mFlags->isDead = false;
-
-    actor->initModelKeeper(new al::ModelKeeper());
 }
 
 RaylibActor::~RaylibActor() {

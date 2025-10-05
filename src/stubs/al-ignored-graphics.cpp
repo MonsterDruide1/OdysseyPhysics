@@ -11,18 +11,29 @@
 #include "Library/Model/ModelDisplayListController.h"
 #include "Library/Model/ModelDrawBufferUpdater.h"
 #include "Library/Model/ModelGroup.h"
+#include "Library/Model/ModelKeeper.h"
 #include "Library/Model/ModelLodCtrl.h"
 #include "Library/Model/ModelOcclusionCullingDirector.h"
 #include "Library/Model/ModelOcclusionQuery.h"
 #include "Library/Model/SkyDirector.h"
 #include "Library/Obj/ActorDitherAnimator.h"
 #include "Library/Obj/FarDistanceDitherAnimator.h"
+#include "Library/Obj/ModelDrawParts.h"
+#include "Library/Obj/SimpleCircleShadowXZ.h"
 #include "Library/Rail/RailUtil.h"
 #include "Library/Scene/SceneUtil.h"
 #include "Library/Shader/ActorOcclusionKeeper.h"
 #include "Library/Shader/ForwardRendering/ShaderHolder.h"
+#include "Library/Shadow/DepthShadowMapCtrl.h"
+#include "Library/Shadow/DepthShadowMapDirector.h"
 #include "Library/Shadow/ShadowDirector.h"
+#include "Library/Shadow/ShadowMaskDirector.h"
+#include "Library/Shadow/ShadowMaskBase.h"
 #include "Library/Shadow/ShadowMaskCtrl.h"
+#include "Library/Shadow/ShadowMaskSphere.h"
+#include "Library/Shadow/ShadowMaskCube.h"
+#include "Library/Shadow/ShadowMaskCylinder.h"
+#include "Library/Shadow/ShadowMaskCastOvalCylinder.h"
 #include "Project/Action/ActionAnimCtrl.h"
 #include "Project/Anim/AnimPlayerSimple.h"
 #include "Project/Clipping/ClippingFunction.h"
@@ -34,10 +45,7 @@ namespace al {
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}
 
-void initDepthShadowMapCtrl(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {}
 void initPartialSklAnim(al::LiveActor*, int, int, int) {}
-void initShadowMaskCtrl(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&, char const*) {}
-void initActorOcclusionKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {}
 void invalidateShadowMaskIntensityAll(al::LiveActor*) {}
 void setClippingNearDistance(al::LiveActor*, float) {}
 void setClippingObb(al::LiveActor*, sead::BoundBox3<float> const&) {}
@@ -46,14 +54,11 @@ void setIgnoreUpdateDrawClipping(al::LiveActor*, bool) {}
 void calcModelBoundingBox(sead::BoundBox3<float>*, al::LiveActor const*) {}
 f32 calcModelBoundingSphereRadius(al::LiveActor const*) {return 0.0f;}
 void createUniqueShader(al::LiveActor*) {}
-void initActorModelKeeper(al::LiveActor*, al::ActorInitInfo const&, al::ActorResource const*, int) {}
-bool initActorPrePassLightKeeper(al::LiveActor*, al::Resource const*, al::ActorInitInfo const&, char const*) {return false;}
 bool isExistModel(al::LiveActor const*) {return false;}
 s32 getLodModelCount(al::LiveActor const*) {return 1;}
 void initActorClipping(al::LiveActor*, al::ActorInitInfo const&) {}
 void initGroupClipping(al::LiveActor*, al::ActorInitInfo const&) {}
 void invalidateDitherAnim(al::LiveActor*) {}
-void registerSubActorSyncClipping(al::LiveActor*, al::LiveActor*) {}
 bool isExistDitherAnimator(al::LiveActor const*) {return false;}
 void setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3f*,al::KeyPoseKeeper const*) {}
 void calcKeyMoveClippingInfo(sead::Vector3f*,float*,al::KeyPoseKeeper const*,float) {}
@@ -71,11 +76,87 @@ void setNeedSetBaseMtxAndCalcAnimFlag(al::LiveActor*, bool) {}
 const sead::Vector3f& getClippingCenterPos(al::LiveActor const*) {return sead::Vector3f::zero;}
 bool isInClippingFrustumAllView(al::LiveActor const*, sead::Vector3<float> const&, float, float) {return true;}
 void setDitherAnimMaxAlpha(al::LiveActor*, float) {}
+bool isIncludePrepassCullingShape(al::LiveActor*) {return false;}
+bool isUsingPrepassTriangleCulling() {return false;}
+void forceApplyCubeMap(al::ModelKeeper*, al::GraphicsSystemInfo const*, char const*) {}
 
+DepthShadowMapCtrl::DepthShadowMapCtrl(al::Resource const*) {}
+DepthShadowMapCtrl::~DepthShadowMapCtrl() {}
+void DepthShadowMapCtrl::appendDepthShadowMapInfo(char const*, int, int, int, float, bool, sead::Vector3<float> const&, bool, sead::Vector3<float> const&, sead::Vector3<float> const&, bool, char const*, int, bool, float, float, float, bool, bool, float, int, bool, bool, float) {}
+void DepthShadowMapCtrl::init(al::LiveActor*, al::ByamlIter const&) {}
+void DepthShadowMapCtrl::initWithoutIter(al::LiveActor*, int) {}
+void DepthShadowMapDirector::createDepthShadowMap(al::DepthShadowMapCtrl const*, al::ModelKeeper const*, char const*, int, int, int) {}
+
+ShadowMaskCtrl::ShadowMaskCtrl(bool) {}
+void ShadowMaskCtrl::appendShadowMask(al::ShadowMaskBase*) {}
+bool ShadowMaskCtrl::init(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&) {return true;}
+bool ShadowMaskCtrl::init(al::LiveActor*, int) {return true;}
+void ShadowMaskDirector::registerShadowMask(al::ShadowMaskBase*) {}
+
+ShadowMaskBase::ShadowMaskBase(const char*) {}
+void ShadowMaskBase::setDrawCategory(char const*) {}
+void ShadowMaskBase::setHost(al::LiveActor const*) {}
+ShadowMaskBase::~ShadowMaskBase() {}
+void ShadowMaskBase::declare(ShadowMaskDrawCategory) {}
+void ShadowMaskBase::update() {}
+void ShadowMaskBase::initAfterPlacement() {}
+void ShadowMaskBase::calcShadowMatrix(sead::Matrix34f*) {}
+void ShadowMaskBase::createMtxConnector() {}
+void ShadowMaskBase::readParam(const ByamlIter&) {}
+void ShadowMaskBase::updateMulti() {}
+void ShadowMaskBase::addMulti() {}
+
+ShadowMaskCastOvalCylinder::ShadowMaskCastOvalCylinder(char const*) : al::ShadowMaskBase("") {}
+ShadowMaskCastOvalCylinder::~ShadowMaskCastOvalCylinder() {}
+void ShadowMaskCastOvalCylinder::declare(ShadowMaskDrawCategory) {}
+void ShadowMaskCastOvalCylinder::update() {}
+void ShadowMaskCastOvalCylinder::calcShadowMatrix(sead::Matrix34f*) {}
+void ShadowMaskCastOvalCylinder::updateMulti() {}
+void ShadowMaskCastOvalCylinder::addMulti() {}
+ShadowMaskType ShadowMaskCastOvalCylinder::getShadowMaskType() const {return (ShadowMaskType)0;}
+
+ShadowMaskCube::ShadowMaskCube(char const*) : al::ShadowMaskBase("") {}
+ShadowMaskCube::~ShadowMaskCube() {}
+void ShadowMaskCube::declare(ShadowMaskDrawCategory) {}
+void ShadowMaskCube::update() {}
+void ShadowMaskCube::calcShadowMatrix(sead::Matrix34f*) {}
+void ShadowMaskCube::updateMulti() {}
+void ShadowMaskCube::addMulti() {}
+ShadowMaskType ShadowMaskCube::getShadowMaskType() const {return (ShadowMaskType)0;}
+
+ShadowMaskCylinder::ShadowMaskCylinder(char const*) : al::ShadowMaskBase("") {}
+ShadowMaskCylinder::~ShadowMaskCylinder() {}
+void ShadowMaskCylinder::declare(ShadowMaskDrawCategory) {}
+void ShadowMaskCylinder::update() {}
+void ShadowMaskCylinder::calcShadowMatrix(sead::Matrix34f*) {}
+void ShadowMaskCylinder::updateMulti() {}
+void ShadowMaskCylinder::addMulti() {}
+ShadowMaskType ShadowMaskCylinder::getShadowMaskType() const {return (ShadowMaskType)0;}
+
+ShadowMaskSphere::ShadowMaskSphere(char const*) : al::ShadowMaskBase("") {}
+ShadowMaskSphere::~ShadowMaskSphere() {}
+void ShadowMaskSphere::declare(ShadowMaskDrawCategory) {}
+void ShadowMaskSphere::update() {}
+void ShadowMaskSphere::calcShadowMatrix(sead::Matrix34f*) {}
+void ShadowMaskSphere::updateMulti() {}
+void ShadowMaskSphere::addMulti() {}
+ShadowMaskType ShadowMaskSphere::getShadowMaskType() const {return (ShadowMaskType)0;}
+
+SimpleCircleShadowXZ::SimpleCircleShadowXZ(char const*) : LiveActor("") {}
+void SimpleCircleShadowXZ::initSimpleCircleShadow(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*) {}
+void SimpleCircleShadowXZ::makeActorAlive() {}
+void SimpleCircleShadowXZ::control() {}
+
+ActorOcclusionKeeper::ActorOcclusionKeeper(al::GraphicsSystemInfo const*, al::Resource const*, al::LiveActor const*, char const*) {}
+bool ActorOcclusionKeeper::isExistFile(al::Resource const*, char const*) {return false;}
 void ActorOcclusionKeeper::appear(bool) {}
 void ActorOcclusionKeeper::hideModel() {}
 void ActorOcclusionKeeper::requestKill() {}
 void ActorOcclusionKeeper::updateAndRequest() {}
+
+ActorPrePassLightKeeper::ActorPrePassLightKeeper(al::LiveActor*) {}
+void ActorPrePassLightKeeper::init(al::Resource const*, al::ActorInitInfo const&, char const*) {}
+bool ActorPrePassLightKeeper::isExistFile(al::Resource const*, char const*) {return false;}
 void ActorPrePassLightKeeper::appear(bool) {}
 void ActorPrePassLightKeeper::hideModel() {}
 void ActorPrePassLightKeeper::requestKill() {}
@@ -98,6 +179,10 @@ bool al::ModelDrawBufferUpdater::tryUpdateAsync() { return false; }
 void al::ModelDrawBufferUpdater::waitAsync() const {}
 al::ModelGroup::ModelGroup(int) {}
 al::ModelGroup::~ModelGroup() {}
+void al::ModelGroup::registerModel(al::ModelKeeper*) {}
+
+al::ModelDrawParts::ModelDrawParts(char const*, al::LiveActor const*, al::ActorInitInfo const&, char const*) : al::LiveActor("") {}
+void al::ModelMaterialCategory::tryCreate(al::ModelCtrl*, char const*, al::MaterialCategoryKeeper*) {}
 
 void al::ShadowDirector::endInit() {}
 void al::SkyDirector::init(al::ActorInitInfo const&) {}
@@ -225,8 +310,6 @@ void validateDepthShadowMap(al::LiveActor*) {}
 
 FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
                                  al::FootPrintServer*) {}
-
-void ModelCtrl::recreateDisplayList() {}
 
 bool AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*,
                                  char const*, char const*) {return false;}

@@ -4,6 +4,7 @@
 #include "Library/Audio/System/SimpleAudioUser.h"
 #include "Library/LiveActor/LiveActor.h"
 #include "Project/Action/ActionSeCtrl.h"
+#include "Project/Action/ActionBgmCtrl.h"
 
 namespace al {
 
@@ -13,6 +14,10 @@ void AudioKeeper::appear() {}
 void AudioKeeper::endClipped() {}
 void AudioKeeper::kill() {}
 void AudioKeeper::startClipped() {}
+void AudioKeeper::initBgmKeeper(al::AudioDirector const*, char const*) {}
+void AudioKeeper::initSeKeeper(al::AudioDirector const*, char const*, sead::Vector3<float> const*, sead::Matrix34<float> const*, al::ModelKeeper const*, al::CameraDirector*) {}
+
+ActionBgmCtrl* ActionBgmCtrl::tryCreate(al::AudioKeeper*){WARN_UNIMPL; return nullptr;}
 
 void AudioDirector::finalize() {CRASH}
 void AudioDirector::initAfterInitPlacement() {CRASH}
@@ -35,6 +40,7 @@ void stopSe(al::IUseAudioKeeper const*, sead::SafeStringBase<char> const&, int, 
 void startBgmSituation(al::IUseAudioKeeper const*, char const*, bool) {CRASH}
 void endBgmSituation(al::IUseAudioKeeper const*, char const*, bool) {CRASH}
 
+ActionSeCtrl* ActionSeCtrl::tryCreate(al::AudioKeeper*) {WARN_UNIMPL; return nullptr;}
 void ActionSeCtrl::resetAction(bool) {}
 void ActionSeCtrl::restartAction() {}
 
@@ -44,9 +50,7 @@ f32 getCurBeatOnMeasure(al::IUseAudioKeeper const*) {return 0.0f;}
 
 void tryUpdateSeMaterialCode(al::IUseAudioKeeper*, char const*) {}
 
-void initActorBgmKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*) {}
-void initActorSeKeeper(al::LiveActor*, al::ActorInitInfo const&, char const*) {}
-    
 }
 
 al::AudioKeeper* alAudioKeeperFunction::createAudioKeeper(al::AudioDirector const*, char const*, char const*) {WARN_UNIMPL; return nullptr;}
+al::AudioKeeper* alAudioKeeperFunction::createAudioKeeper(al::AudioDirector const*) {WARN_UNIMPL; return nullptr;}

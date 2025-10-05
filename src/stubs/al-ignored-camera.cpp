@@ -42,7 +42,8 @@ al::CameraDirector::~CameraDirector() {}
 f32 CameraDirector::getSceneFovyDegree() {return 45.0f;}
 void al::CameraDirector::endInit(al::PlayerHolder const*) {}
 void al::CameraDirector::execute() {}
-
+ActionPadAndCameraCtrl* ActionPadAndCameraCtrl::tryCreate(al::LiveActor const*, al::ActorResource const*, sead::Vector3<float> const*,
+              char const*) {WARN_UNIMPL; return nullptr;}
 void ActionPadAndCameraCtrl::notifyActorDead() {}
 void ActionPadAndCameraCtrl::notifyActorEndClipped() {}
 void ActionPadAndCameraCtrl::notifyActorStartClipped() {}

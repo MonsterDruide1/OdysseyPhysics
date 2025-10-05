@@ -4,7 +4,9 @@
 #include "Library/Base/StringUtil.h"
 #include "Library/Collision/CollisionDirector.h"
 #include "Library/Execute/ExecuteDirector.h"
+#include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorInitInfo.h"
+#include "Library/LiveActor/LiveActorGroup.h"
 #include "Library/LiveActor/LiveActorKit.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
@@ -21,6 +23,7 @@
 #include "Player/PlayerActorHakoniwa.h"
 #include "Player/PlayerColliderHakoniwa.h"
 #include "PlayerUtil.h"
+#include "Project/Execute/ExecuteSystemInitInfo.h"
 #include "Project/Scene/SceneInitInfo.h"
 #include "Scene/ProjectActorFactory.h"
 #include "Scene/SceneObjFactory.h"
@@ -71,7 +74,7 @@ void StageScene::init(const char* stageName, int scenario) {
     al::GameSystemInfo gameSystemInfo = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
                                          nullptr, &drawSystemInfo, nullptr, nullptr, nullptr, nullptr};
     al::SceneInitInfo sceneInitInfo = {&gameSystemInfo, nullptr, {}, stageName, (u32)scenario};
-    al::Scene::initLiveActorKitImpl(sceneInitInfo, 5120, 4, 2);
+    al::Scene::initLiveActorKit(sceneInitInfo, 5120, 4, 2);
     al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
     initSceneObjHolder(sceneObjHolder);
 
@@ -167,8 +170,10 @@ void StageScene::init(const char* stageName, int scenario) {
         return;
     }
     al::ExecuteDirector* executeDirector = new al::ExecuteDirector(512);
+    executeDirector->init({});
     al::CollisionDirector* collDirector = new al::CollisionDirector(executeDirector);
     al::AreaObjDirector* areaObjDirector = new al::AreaObjDirector();
+    al::LiveActorGroup* allActorsGroup = mLiveActorKit->getLiveActorGroupAllActors();
     collDirector->setPartsKeeper(mPartsKeeper);
     PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
     al::PlacementInfo placementInfo = {};
@@ -177,20 +182,25 @@ void StageScene::init(const char* stageName, int scenario) {
     al::ActorResourceHolder* actorResourceHolder = mLiveActorKit->mActorResourceHolder;
     playerHolder->registerPlayer(player, new al::PadRumbleKeeper(0));
     al::ActorInitInfo actorInfo = {};
-    actorInfo.initNew(&placementInfo, nullptr, nullptr, nullptr, actorResourceHolder, areaObjDirector, nullptr, nullptr,
+    actorInfo.initNew(&placementInfo, nullptr, allActorsGroup, nullptr, actorResourceHolder, areaObjDirector, nullptr, nullptr,
                       mLiveActorKit->mClippingDirector, collDirector, nullptr, nullptr, executeDirector, nullptr, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, playerHolder, mSceneObjHolder, nullptr, nullptr,
-                      nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr);
-    al::ActorSceneInfo* sceneInfo =
-        new al::ActorSceneInfo();  // allocate on heap to ensure persistence
-    memcpy(sceneInfo, &actorInfo.actorSceneInfo, sizeof(al::ActorSceneInfo));
-    player->initSceneInfo(sceneInfo);
+                      nullptr, nullptr, nullptr, nullptr, nullptr, mLiveActorKit->getGraphicsSystemInfo(), nullptr, nullptr);
+
     sead::Vector3f playerTrans;
     al::getTrans(&playerTrans, actorInfo);
     sead::Quatf playerQuat;
     al::getQuat(&playerQuat, actorInfo);
     PlayerInitInfo initInfo = {
         nullptr, mCamera->getViewMtxPtr(), 0, "", "", playerTrans, playerQuat, 0};
+
+    // 0x7100444028;
+    al::initActorSceneInfo(player, actorInfo);
+    al::initActorPoseTQGSV(player);
+    al::initActorSRT(player, actorInfo);
+    const char* modelName = al::StringTmp<256> {"ObjectData/%s", rs::getInitPlayerModelName(initInfo)}.cstr();
+    al::initActorModelKeeper(player, actorInfo, modelName, 6, "ObjectData/PlayerAnimation");
+
     RaylibActor::apply(player, playerlist.getIterByIndex(0));
     player->initPlayer(actorInfo, initInfo);
     mPlayer = new RaylibActor(player);

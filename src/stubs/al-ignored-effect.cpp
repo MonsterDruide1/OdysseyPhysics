@@ -2,15 +2,23 @@
 #include "Library/Effect/EffectSystem.h"
 #include "Library/Effect/EffectSystemInfo.h"
 #include "Library/Effect/PartsEffectGroup.h"
+#include "Project/Action/ActionEffectCtrl.h"
+#include "Project/Action/ActionScreenEffectCtrl.h"
 
 namespace al {
 
 al::PartsEffectGroup::PartsEffectGroup() {}
 void al::PartsEffectGroup::init(int, al::EffectSystemInfo const*, char const*, sead::Vector3<float> const*, sead::Vector3<float> const*, sead::Matrix34<float> const*, al::IUseCamera const*) {}
 
+EffectKeeper::EffectKeeper(al::EffectSystemInfo*, char const*, sead::Vector3<float> const*, sead::Vector3<float> const*, sead::Matrix34<float> const*) {}
 void EffectKeeper::deleteAndClearEffectAll() {}
 void EffectKeeper::offCalcAndDraw() {}
 void EffectKeeper::onCalcAndDraw() {}
+void EffectKeeper::update() {}
+
+ActionEffectCtrl* ActionEffectCtrl::tryCreate(al::IUseEffectKeeper*){WARN_UNIMPL; return nullptr;}
+
+ActionScreenEffectCtrl* ActionScreenEffectCtrl::tryCreate(al::LiveActor const*, char const*) {WARN_UNIMPL; return nullptr;}
 
 void EffectSystem::endInit() {}
 void EffectSystem::endScene() {}
