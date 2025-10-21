@@ -80,11 +80,8 @@ sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const* a, char const*) {WARN_U
 
 // MathUtil.o
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
-bool al::isHalfProbability() {return getRandom() < 0.5f;}
 al::Axis al::calcNearVecFromAxis3(sead::Vector3f*, sead::Vector3f const&, sead::Quatf const&) {CRASH}
 void al::calcQuatLocalAxis(sead::Vector3f*, sead::Quatf const&, int) {CRASH}
-bool al::isSameSign(float, float) {CRASH}
-void al::lerpVec(sead::Vector2<float>*, sead::Vector2<float> const&, sead::Vector2<float> const&, float) {CRASH}
 void al::turnQuatYDirRate(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 void al::calcQuatGravity(sead::Vector3f*, sead::Quatf const&) {CRASH}
@@ -92,8 +89,6 @@ void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float>
 void al::limitVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
 bool al::turnQuatFrontToDirDegreeH(sead::Quat<float>*, sead::Vector3<float> const&, float) {CRASH}
 void al::calcVectorSeparateHV(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
-bool al::isPercentProbability(float) {CRASH}
-f32 al::lerpValue(float, float, float, float, float) {CRASH}
 void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
 void al::rotateVectorQuat(sead::Vector3f*, sead::Quatf const&) {CRASH}
 f32 al::calcQuatUpY(sead::Quatf const&) {CRASH}
