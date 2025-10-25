@@ -9,9 +9,9 @@ al::ActionAnimCtrl* al::ActionAnimCtrl::tryCreate(al::LiveActor*, al::ActorResou
 f32 ActionAnimCtrl::getActionFrameMax(char const*) const {return 1.0f;}
 f32 ActionAnimCtrl::getFrame() const {return 0.0f;}
 f32 ActionAnimCtrl::getFrameRate() const {return 1.0f;}
-const char* ActionAnimCtrl::getPlayingActionName() {return "";}
-bool ActionAnimCtrl::isActionEnd() {return false;}
-bool ActionAnimCtrl::isActionOneTime(const char*) {return true;}
+const char* ActionAnimCtrl::getPlayingActionName() const {return "";}
+bool ActionAnimCtrl::isActionEnd() const {return false;}
+bool ActionAnimCtrl::isActionOneTime(const char*) const {return true;}
 
 AnimScaleController::AnimScaleController(al::AnimScaleParam const*) : al::NerveExecutor("") {}
 void AnimScaleController::startAndSetScaleVelocityY(float) {}

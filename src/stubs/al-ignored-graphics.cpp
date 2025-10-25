@@ -166,7 +166,7 @@ void al::GraphicsSystemInfo::clearGraphicsRequest() {}
 void al::GraphicsSystemInfo::endInit() {}
 void al::GraphicsSystemInfo::init(al::GraphicsInitArg const&, al::AreaObjDirector*, al::ExecuteDirector*, al::EffectSystem*, al::PlayerHolder*, al::SceneCameraInfo*, al::ShaderHolder*) {}
 void al::GraphicsSystemInfo::initAfterPlacement() {}
-void al::GraphicsSystemInfo::preDrawGraphics(al::SceneCameraInfo*) {}
+void al::GraphicsSystemInfo::preDrawGraphics(const al::SceneCameraInfo*) {}
 void al::GraphicsSystemInfo::updateGraphics() {}
 al::GraphicsSystemInfo::~GraphicsSystemInfo() {}
 
@@ -314,39 +314,39 @@ FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
 bool AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*,
                                  char const*, char const*) {return false;}
 
-bool AnimPlayerSkl::isSklAnimExist(char const*) {return false;}
+bool AnimPlayerSkl::isSklAnimExist(char const*) const {return false;}
 
-const char* AnimPlayerSkl::getPlayingSklAnimName(int) {return "";}
+const char* AnimPlayerSkl::getPlayingSklAnimName(int) const {return "";}
 
 void AnimPlayerSkl::reset() {}
 
-bool AnimPlayerSkl::isSklAnimEnd(int) {return false;}
+bool AnimPlayerSkl::isSklAnimEnd(int) const {return false;}
 
-bool AnimPlayerSkl::isSklAnimOneTime(char const*) {return false;}
+bool AnimPlayerSkl::isSklAnimOneTime(char const*) const {return false;}
 
-bool AnimPlayerSkl::isSklAnimOneTime(int) {return false;}
+bool AnimPlayerSkl::isSklAnimOneTime(int) const {return false;}
 
-bool AnimPlayerSkl::isSklAnimPlaying(int) {return false;}
+bool AnimPlayerSkl::isSklAnimPlaying(int) const {return false;}
 
-f32 AnimPlayerSkl::getSklAnimFrame(int) {return 0.0f;}
+f32 AnimPlayerSkl::getSklAnimFrame(int) const {return 0.0f;}
 
-f32 AnimPlayerSkl::getSklAnimFrameRate(int) {return 0.0f;}
+f32 AnimPlayerSkl::getSklAnimFrameRate(int) const {return 0.0f;}
 
-f32 AnimPlayerSkl::getSklAnimFrameMax(int) {return 0.0f;}
+f32 AnimPlayerSkl::getSklAnimFrameMax(int) const {return 0.0f;}
 
-f32 AnimPlayerSkl::getSklAnimFrameMax(char const*) {return 0.0f;}
+f32 AnimPlayerSkl::getSklAnimFrameMax(char const*) const {return 0.0f;}
 
 void AnimPlayerSkl::setSklAnimFrame(int, float) {}
 
 void AnimPlayerSkl::setSklAnimFrameRate(int, float) {}
 
-s32 AnimPlayerSkl::getSklAnimBlendNum() {return 0;}
+s32 AnimPlayerSkl::getSklAnimBlendNum() const {return 0;}
 
-f32 AnimPlayerSkl::getSklAnimBlendWeight(int) {return 0.0f;}
+f32 AnimPlayerSkl::getSklAnimBlendWeight(int) const {return 0.0f;}
 
 bool AnimPlayerSkl::calcSklAnim() {return false;}
 
-bool ActionAnimCtrl::isExistAction(char const*) {return false;}
+bool ActionAnimCtrl::isExistAction(char const*) const {return false;}
 
 void AnimPlayerSimple::startAnim(char const*) {}
 
@@ -354,27 +354,27 @@ void AnimPlayerSimple::setAnimFrame(float) {}
 
 void AnimPlayerSimple::setAnimFrameRate(float) {}
 
-bool AnimPlayerSimple::isAnimExist(char const*) {return false;}
+bool AnimPlayerSimple::isAnimExist(char const*) const {return false;}
 
-const char* AnimPlayerSimple::getPlayingAnimName() {return "";}
+const char* AnimPlayerSimple::getPlayingAnimName() const {return "";}
 
 void AnimPlayerSimple::clearAnim() {}
 
-bool AnimPlayerSimple::isAnimEnd() {return false;}
+bool AnimPlayerSimple::isAnimEnd() const {return false;}
 
-bool AnimPlayerSimple::isAnimOneTime(char const*) {return false;}
+bool AnimPlayerSimple::isAnimOneTime(char const*) const {return false;}
 
-bool AnimPlayerSimple::isAnimOneTime() {return false;}
+bool AnimPlayerSimple::isAnimOneTime() const {return false;}
 
-bool AnimPlayerSimple::isAnimPlaying() {return false;}
+bool AnimPlayerSimple::isAnimPlaying() const {return false;}
 
-f32 AnimPlayerSimple::getAnimFrame() {return 0.0f;}
+f32 AnimPlayerSimple::getAnimFrame() const {return 0.0f;}
 
-f32 AnimPlayerSimple::getAnimFrameRate() {return 0.0f;}
+f32 AnimPlayerSimple::getAnimFrameRate() const {return 0.0f;}
 
-f32 AnimPlayerSimple::getAnimFrameMax() {return 0.0f;}
+f32 AnimPlayerSimple::getAnimFrameMax() const {return 0.0f;}
 
-f32 AnimPlayerSimple::getAnimFrameMax(char const*) {return 0.0f;}
+f32 AnimPlayerSimple::getAnimFrameMax(char const*) const {return 0.0f;}
 
 void AnimPlayerSkl::startPartialAnim(char const*, int, int, SklAnimRetargettingInfo const*) {}
 
@@ -382,19 +382,19 @@ void AnimPlayerSkl::prepareAnimInterpDirect(int) {}
 
 void AnimPlayerSkl::clearPartialAnim(int) {}
 
-bool AnimPlayerSkl::isPartialAnimEnd(int) {return false;}
+bool AnimPlayerSkl::isPartialAnimEnd(int) const {return false;}
 
-bool AnimPlayerSkl::isPartialAnimOneTime(int) {return false;}
+bool AnimPlayerSkl::isPartialAnimOneTime(int) const {return false;}
 
-bool AnimPlayerSkl::isPartialAnimAttached(int) {return false;}
+bool AnimPlayerSkl::isPartialAnimAttached(int) const {return false;}
 
-const char* AnimPlayerSkl::getPlayingPartialSklAnimName(int) {return "";}
+const char* AnimPlayerSkl::getPlayingPartialSklAnimName(int) const {return "";}
 
-f32 AnimPlayerSkl::getPartialAnimFrame(int) {return 0.0f;}
+f32 AnimPlayerSkl::getPartialAnimFrame(int) const {return 0.0f;}
 
 void AnimPlayerSkl::setPartialAnimFrame(int, float) {}
 
-f32 AnimPlayerSkl::getPartialAnimFrameRate(int) {return 0.0f;}
+f32 AnimPlayerSkl::getPartialAnimFrameRate(int) const {return 0.0f;}
 
 void AnimPlayerSkl::setPartialAnimFrameRate(int, float) {}
 

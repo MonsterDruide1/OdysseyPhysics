@@ -5,20 +5,18 @@
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Collision/PartsConnectorUtil.h"
-#include "Library/Collision/SensorConnector.h"
 #include "Library/Event/EventFlowUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
 #include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/LiveActor/ActorModelFunction.h"
-#include "Library/LiveActor/ActorParamHolder.h"
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/ActorResourceFunction.h"
 #include "Library/LiveActor/ActorSceneInfo.h"
+#include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
-#include "Library/Movement/WheelMovement.h"
 #include "Library/Nature/NatureUtil.h"
 #include "Library/Obj/PartsFunction.h"
 #include "Library/Player/PlayerUtil.h"
@@ -47,6 +45,7 @@
 #include "System/GameDataUtil.h"
 #include "Util/NpcAnimUtil.h"
 #include "Util/PlayerUtil.h"
+#include "Util/ScenePrepoFunction.h"
 
 // HIGH PRIORITY
 void al::setColliderOffsetY(al::LiveActor*, float) {WARN_UNIMPL;}
@@ -72,7 +71,6 @@ s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
 bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
 void al::CollisionParts::invalidateBySystem() {WARN_UNIMPL;}
-al::ActorParamHolder* al::ActorParamHolder::tryCreate(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL; return nullptr;}
 void al::resetAllCollisionMtx(al::LiveActor*) {WARN_UNIMPL;}
 void al::validateCollisionPartsBySystem(al::LiveActor*) {WARN_UNIMPL;}
 bool al::isInStack(const void *) {WARN_UNIMPL; return true;}
@@ -122,9 +120,6 @@ SaveObjInfo* rs::createSaveObjInfoWriteSaveData(al::ActorInitInfo const&) {CRASH
 const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
 void rs::onSaveObjInfo(SaveObjInfo*) {CRASH}
 
-bool al::WheelMovement::receiveMsg(al::LiveActor*, al::SensorMsg const*, al::HitSensor*, al::HitSensor*) {CRASH}
-void al::WheelMovement::reset(al::LiveActor*) {CRASH}
-void al::WheelMovement::update(al::LiveActor*) {CRASH}
 bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
 
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
@@ -214,6 +209,8 @@ void al::ScreenPointDirector::setCheckGroup(al::ScreenPointTarget*) {CRASH}
 void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
 void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
 
-void al::SensorConnector::init(sead::Matrix34<float> const*, sead::Matrix34<float> const&, al::HitSensor*) {CRASH}
-
 al::CollisionParts* alCollisionUtil::getStrikeArrowCollisionParts(al::IUseCollision const*, sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
+
+bool al::isSensorValid(al::HitSensor const*) {CRASH}
+void GameDataHolder::setRequireSave() {CRASH}
+s64 rs::prepo::generateSaveDataId() {CRASH}

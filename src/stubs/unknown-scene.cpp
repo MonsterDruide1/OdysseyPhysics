@@ -35,7 +35,7 @@ al::AreaObjDirector* al::AudioDirector::getAreaObjDirector() const {CRASH}
 
 void al::CameraDirector::endInvalidStopJudgeByDemo() {CRASH}
 void al::CameraDirector::endSnapShotMode() {CRASH}
-al::CameraPoseUpdater* al::CameraDirector::getPoseUpdater(int) {CRASH}
+al::CameraPoseUpdater* al::CameraDirector::getPoseUpdater(int) const {CRASH}
 void al::CameraDirector::init(al::CameraPoserSceneInfo*, al::CameraPoserFactory const*) {CRASH}
 al::PauseCameraCtrl* al::CameraDirector::initAndCreatePauseCameraCtrl(float) {CRASH}
 void al::CameraDirector::initAreaCameraSwitcherMultiForPrototype(al::AreaObjDirector*) {CRASH}

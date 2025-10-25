@@ -39,7 +39,7 @@ bool CameraPoserSubjective::isEnableRotateByPad() const {return false;}
 
 al::CameraDirector::CameraDirector(int) { mSceneCameraInfo = new SceneCameraInfo(1); }
 al::CameraDirector::~CameraDirector() {}
-f32 CameraDirector::getSceneFovyDegree() {return 45.0f;}
+f32 CameraDirector::getSceneFovyDegree() const {return 45.0f;}
 void al::CameraDirector::endInit(al::PlayerHolder const*) {}
 void al::CameraDirector::execute() {}
 ActionPadAndCameraCtrl* ActionPadAndCameraCtrl::tryCreate(al::LiveActor const*, al::ActorResource const*, sead::Vector3<float> const*,
