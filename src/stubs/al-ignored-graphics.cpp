@@ -1,4 +1,3 @@
-#include "Library/Anim/AnimPlayerSkl.h"
 #include "Library/Clipping/ClippingActorHolder.h"
 #include "Library/Draw/GraphicsSystemInfo.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
@@ -34,16 +33,11 @@
 #include "Library/Shadow/ShadowMaskCube.h"
 #include "Library/Shadow/ShadowMaskCylinder.h"
 #include "Library/Shadow/ShadowMaskCastOvalCylinder.h"
-#include "Project/Action/ActionAnimCtrl.h"
-#include "Project/Anim/AnimPlayerSimple.h"
 #include "Project/Clipping/ClippingFunction.h"
 #include "Project/Light/ActorPrepassLightKeeper.h"
 #include "playerUtil.h"
 
 namespace al {
-
-SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
-ShaderHolder::ShaderHolder() {}
 
 void initPartialSklAnim(al::LiveActor*, int, int, int) {}
 void invalidateShadowMaskIntensityAll(al::LiveActor*) {}
@@ -79,18 +73,71 @@ void setDitherAnimMaxAlpha(al::LiveActor*, float) {}
 bool isIncludePrepassCullingShape(al::LiveActor*) {return false;}
 bool isUsingPrepassTriangleCulling() {return false;}
 void forceApplyCubeMap(al::ModelKeeper*, al::GraphicsSystemInfo const*, char const*) {}
+const char* getModelName(al::LiveActor const*) {return "";}
+s32 getMaterialCount(al::LiveActor const*) {return 0;}
+const char* getMaterialName(al::LiveActor const*, int) {return "";}
+void setModelMaterialParameterV4F(al::LiveActor const*, char const*, char const*, sead::Vector4<float> const&) {}
+void tryInitFixedModelGpuBuffer(LiveActor*) {}
+void showModel(al::LiveActor*) {}
+void hideModel(al::LiveActor*) {}
+void hideSilhouetteModel(al::LiveActor*) {}
+void validateDitherAnim(al::LiveActor*) {}
+void setModelAlphaMask(LiveActor*, float) {}
+void setModelMaterialParameterF32(al::LiveActor const*, char const*, char const*, float) {}
+void stopDitherAnimAutoCtrl(al::LiveActor*) {}
+bool tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<float>*) {return false;}
+void offDrawClipping(al::LiveActor*) {}
+void onDrawClipping(al::LiveActor*) {}
+void setClippingInfo(al::LiveActor*, float, sead::Vector3<float> const*) {}
+void validateClipping(al::LiveActor*) {}
+void showShadowMask(al::LiveActor*) {}
+void showSilhouetteModelIfHide(al::LiveActor*) {}
+void setModelProjMtx0(al::ModelKeeper const*, sead::Matrix44<float> const&) {}
+void setModelMaterialParameterF32(al::LiveActor const*, int, char const*, float) {}
+void setShadowMaskDropLength(al::LiveActor*, float, char const*) {}
+void setShadowMaskIntensity(al::LiveActor const*, char const*, float) {}
+void offDepthShadowModel(al::LiveActor*) {}
+void onDepthShadowModel(al::LiveActor*) {}
+void hideShadowMask(al::LiveActor*) {}
+void hideSilhouetteModelIfShow(al::LiveActor*) {}
+void invalidateDepthShadowMap(al::LiveActor*) {}
+bool isExistDepthShadowMapCtrl(al::LiveActor*) {return false;}
+bool isHideModel(LiveActor const*) {return false;}
+void hideModelIfShow(LiveActor*) {}
+void showModelIfHide(LiveActor*) {}
+void invalidateClipping(al::LiveActor*) {}
+void setMaterialProgrammable(al::LiveActor*) {}
+s32 getMaterialIndex(al::LiveActor const*, char const*) {return 0;}
+f32 getShadowMaskIntensity(al::LiveActor const*, char const*) {return 0.0f;}
+bool blinkModel(al::LiveActor*, int, int, int) {return false;}
+void updateDepthShadowMapCtrlShapeVisible(al::LiveActor*) {}
+void validateDepthShadowMap(al::LiveActor*) {}
+
+SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
+ShaderHolder::ShaderHolder() {}
 
 DepthShadowMapCtrl::DepthShadowMapCtrl(al::Resource const*) {}
 DepthShadowMapCtrl::~DepthShadowMapCtrl() {}
+void DepthShadowMapCtrl::show() {}
+void DepthShadowMapCtrl::hide() {}
+void DepthShadowMapCtrl::update() {}
+void DepthShadowMapCtrl::initAfterPlacement(al::GraphicsSystemInfo*) {}
 void DepthShadowMapCtrl::appendDepthShadowMapInfo(char const*, int, int, int, float, bool, sead::Vector3<float> const&, bool, sead::Vector3<float> const&, sead::Vector3<float> const&, bool, char const*, int, bool, float, float, float, bool, bool, float, int, bool, bool, float) {}
 void DepthShadowMapCtrl::init(al::LiveActor*, al::ByamlIter const&) {}
 void DepthShadowMapCtrl::initWithoutIter(al::LiveActor*, int) {}
+
 void DepthShadowMapDirector::createDepthShadowMap(al::DepthShadowMapCtrl const*, al::ModelKeeper const*, char const*, int, int, int) {}
 
 ShadowMaskCtrl::ShadowMaskCtrl(bool) {}
+void ShadowMaskCtrl::show() {}
+void ShadowMaskCtrl::hide() {}
+void ShadowMaskCtrl::initAfterPlacement() {}
 void ShadowMaskCtrl::appendShadowMask(al::ShadowMaskBase*) {}
 bool ShadowMaskCtrl::init(al::LiveActor*, al::ActorInitInfo const&, al::ByamlIter const&) {return true;}
 bool ShadowMaskCtrl::init(al::LiveActor*, int) {return true;}
+void ShadowMaskCtrl::validate() {}
+void ShadowMaskCtrl::invalidate() {}
+
 void ShadowMaskDirector::registerShadowMask(al::ShadowMaskBase*) {}
 
 ShadowMaskBase::ShadowMaskBase(const char*) {}
@@ -156,6 +203,7 @@ void ActorOcclusionKeeper::updateAndRequest() {}
 
 ActorPrePassLightKeeper::ActorPrePassLightKeeper(al::LiveActor*) {}
 void ActorPrePassLightKeeper::init(al::Resource const*, al::ActorInitInfo const&, char const*) {}
+void ActorPrePassLightKeeper::initAfterPlacement() {}
 bool ActorPrePassLightKeeper::isExistFile(al::Resource const*, char const*) {return false;}
 void ActorPrePassLightKeeper::appear(bool) {}
 void ActorPrePassLightKeeper::hideModel() {}
@@ -173,10 +221,13 @@ al::GraphicsSystemInfo::~GraphicsSystemInfo() {}
 al::GraphicsInitArg::GraphicsInitArg(agl::DrawContext*, sead::FrameBuffer*) {}
 
 al::ModelDisplayListController::ModelDisplayListController(al::ModelGroup*) {}
+void al::ModelDisplayListController::update() {}
+
 al::ModelDrawBufferUpdater::ModelDrawBufferUpdater(al::ExecuteDirector const*) {}
 al::ModelDrawBufferUpdater::~ModelDrawBufferUpdater() {}
 bool al::ModelDrawBufferUpdater::tryUpdateAsync() { return false; }
 void al::ModelDrawBufferUpdater::waitAsync() const {}
+
 al::ModelGroup::ModelGroup(int) {}
 al::ModelGroup::~ModelGroup() {}
 void al::ModelGroup::registerModel(al::ModelKeeper*) {}
@@ -188,223 +239,22 @@ void al::ShadowDirector::endInit() {}
 void al::SkyDirector::init(al::ActorInitInfo const&) {}
 void al::SkyDirector::update() {}
 
-void al::ModelDisplayListController::update() {}
 void al::ModelOcclusionCullingDirector::calc() {}
 
 void al::ModelLodAllCtrl::registerLodCtrl(al::ModelLodCtrl*) {}
 al::ModelLodCtrl::ModelLodCtrl(al::IUseCamera*, sead::Vector3<float> const*, sead::Matrix34<float> const*, sead::Vector3<float> const*, sead::BoundBox3<float> const&, int) {}
 void al::ModelLodCtrl::init(al::ByamlIter const&) {}
+
 void al::ModelMaterialCategory::tryCreate(al::ModelCtrl*, al::Resource const*, char const*, al::MaterialCategoryKeeper*) {}
-al::ModelOcclusionQuery* al::ModelOcclusionQuery::tryCreate(al::LiveActor*, al::Resource*, char const*) {
-    WARN_UNIMPL;
-    return nullptr;
-}
-al::ActorDitherAnimator* al::ActorDitherAnimator::tryCreate(al::LiveActor*, al::Resource const*, char const*) {
-    WARN_UNIMPL;
-    return nullptr;
-}
-al::FarDistanceDitherAnimator* al::FarDistanceDitherAnimator::tryCreate(al::LiveActor*, al::Resource const*, char const*) {
-    WARN_UNIMPL;
-    return nullptr;
-}
-agl::DrawContext* al::GraphicsSystemInfo::getDrawContext() const {
-    WARN_UNIMPL;
-    return nullptr;
-}
-
-const char* getModelName(al::LiveActor const*) {
-    return "";
-}
-
-s32 getMaterialCount(al::LiveActor const*) {
-    return 0;
-}
-
-const char* getMaterialName(al::LiveActor const*, int) {
-    return "";
-}
-
-void setModelMaterialParameterV4F(al::LiveActor const*, char const*, char const*, sead::Vector4<float> const&) {}
-
-void tryInitFixedModelGpuBuffer(LiveActor*) {}
-
-void showModel(al::LiveActor*) {}
-
-void hideModel(al::LiveActor*) {}
-
-void hideSilhouetteModel(al::LiveActor*) {}
-
-void validateDitherAnim(al::LiveActor*) {}
-
-void setModelAlphaMask(LiveActor*, float) {}
-
-void setModelMaterialParameterF32(al::LiveActor const*, char const*, char const*, float) {}
-
-void stopDitherAnimAutoCtrl(al::LiveActor*) {}
-
-bool tryExpandClippingByDepthShadowLength(al::LiveActor*, sead::Vector3<float>*) {
-    return false;
-}
-
-void offDrawClipping(al::LiveActor*) {}
-
-void onDrawClipping(al::LiveActor*) {}
-
-void setClippingInfo(al::LiveActor*, float, sead::Vector3<float> const*) {}
-
-void validateClipping(al::LiveActor*) {}
-
-void showShadowMask(al::LiveActor*) {}
-
-void showSilhouetteModelIfHide(al::LiveActor*) {}
-
-void setModelProjMtx0(al::ModelKeeper const*, sead::Matrix44<float> const&) {}
-
-void setModelMaterialParameterF32(al::LiveActor const*, int, char const*, float) {}
-
-void setShadowMaskDropLength(al::LiveActor*, float, char const*) {}
-
-void setShadowMaskIntensity(al::LiveActor const*, char const*, float) {}
-
-void offDepthShadowModel(al::LiveActor*) {}
-
-void onDepthShadowModel(al::LiveActor*) {}
-
-void hideShadowMask(al::LiveActor*) {}
-
-void hideSilhouetteModelIfShow(al::LiveActor*) {}
-
-void invalidateDepthShadowMap(al::LiveActor*) {}
-
-bool isExistDepthShadowMapCtrl(al::LiveActor*) {
-    return false;
-}
-
-bool isHideModel(LiveActor const*) {
-    return false;
-}
-
-void hideModelIfShow(LiveActor*) {}
-
-void showModelIfHide(LiveActor*) {}
-
-void invalidateClipping(al::LiveActor*) {}
-
-void setMaterialProgrammable(al::LiveActor*) {}
-
-s32 getMaterialIndex(al::LiveActor const*, char const*) {
-    return 0;
-}
-
-f32 getShadowMaskIntensity(al::LiveActor const*, char const*) {
-    return 0.0f;
-}
-
-bool blinkModel(al::LiveActor*, int, int, int) {
-    return false;
-}
-
-void updateDepthShadowMapCtrlShapeVisible(al::LiveActor*) {}
-
-void validateDepthShadowMap(al::LiveActor*) {}
+al::ModelOcclusionQuery* al::ModelOcclusionQuery::tryCreate(al::LiveActor*, al::Resource*, char const*) {WARN_UNIMPL;return nullptr;}
+al::ActorDitherAnimator* al::ActorDitherAnimator::tryCreate(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL;return nullptr;}
+al::FarDistanceDitherAnimator* al::FarDistanceDitherAnimator::tryCreate(al::LiveActor*, al::Resource const*, char const*) {WARN_UNIMPL;return nullptr;}
+agl::DrawContext* al::GraphicsSystemInfo::getDrawContext() const {WARN_UNIMPL;return nullptr;}
 
 FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
                                  al::FootPrintServer*) {}
 
-bool AnimPlayerSkl::startSklAnim(char const*, char const*, char const*, char const*, char const*,
-                                 char const*, char const*) {return false;}
-
-bool AnimPlayerSkl::isSklAnimExist(char const*) const {return false;}
-
-const char* AnimPlayerSkl::getPlayingSklAnimName(int) const {return "";}
-
-void AnimPlayerSkl::reset() {}
-
-bool AnimPlayerSkl::isSklAnimEnd(int) const {return false;}
-
-bool AnimPlayerSkl::isSklAnimOneTime(char const*) const {return false;}
-
-bool AnimPlayerSkl::isSklAnimOneTime(int) const {return false;}
-
-bool AnimPlayerSkl::isSklAnimPlaying(int) const {return false;}
-
-f32 AnimPlayerSkl::getSklAnimFrame(int) const {return 0.0f;}
-
-f32 AnimPlayerSkl::getSklAnimFrameRate(int) const {return 0.0f;}
-
-f32 AnimPlayerSkl::getSklAnimFrameMax(int) const {return 0.0f;}
-
-f32 AnimPlayerSkl::getSklAnimFrameMax(char const*) const {return 0.0f;}
-
-void AnimPlayerSkl::setSklAnimFrame(int, float) {}
-
-void AnimPlayerSkl::setSklAnimFrameRate(int, float) {}
-
-s32 AnimPlayerSkl::getSklAnimBlendNum() const {return 0;}
-
-f32 AnimPlayerSkl::getSklAnimBlendWeight(int) const {return 0.0f;}
-
-bool AnimPlayerSkl::calcSklAnim() {return false;}
-
-bool ActionAnimCtrl::isExistAction(char const*) const {return false;}
-
-void AnimPlayerSimple::startAnim(char const*) {}
-
-void AnimPlayerSimple::setAnimFrame(float) {}
-
-void AnimPlayerSimple::setAnimFrameRate(float) {}
-
-bool AnimPlayerSimple::isAnimExist(char const*) const {return false;}
-
-const char* AnimPlayerSimple::getPlayingAnimName() const {return "";}
-
-void AnimPlayerSimple::clearAnim() {}
-
-bool AnimPlayerSimple::isAnimEnd() const {return false;}
-
-bool AnimPlayerSimple::isAnimOneTime(char const*) const {return false;}
-
-bool AnimPlayerSimple::isAnimOneTime() const {return false;}
-
-bool AnimPlayerSimple::isAnimPlaying() const {return false;}
-
-f32 AnimPlayerSimple::getAnimFrame() const {return 0.0f;}
-
-f32 AnimPlayerSimple::getAnimFrameRate() const {return 0.0f;}
-
-f32 AnimPlayerSimple::getAnimFrameMax() const {return 0.0f;}
-
-f32 AnimPlayerSimple::getAnimFrameMax(char const*) const {return 0.0f;}
-
-void AnimPlayerSkl::startPartialAnim(char const*, int, int, SklAnimRetargettingInfo const*) {}
-
-void AnimPlayerSkl::prepareAnimInterpDirect(int) {}
-
-void AnimPlayerSkl::clearPartialAnim(int) {}
-
-bool AnimPlayerSkl::isPartialAnimEnd(int) const {return false;}
-
-bool AnimPlayerSkl::isPartialAnimOneTime(int) const {return false;}
-
-bool AnimPlayerSkl::isPartialAnimAttached(int) const {return false;}
-
-const char* AnimPlayerSkl::getPlayingPartialSklAnimName(int) const {return "";}
-
-f32 AnimPlayerSkl::getPartialAnimFrame(int) const {return 0.0f;}
-
-void AnimPlayerSkl::setPartialAnimFrame(int, float) {}
-
-f32 AnimPlayerSkl::getPartialAnimFrameRate(int) const {return 0.0f;}
-
-void AnimPlayerSkl::setPartialAnimFrameRate(int, float) {}
-
-void AnimPlayerSkl::setSklAnimBlendWeight(int, float) {}
-
-void ShadowMaskCtrl::validate() {}
-
-void ShadowMaskCtrl::invalidate() {}
+void ClippingActorHolder::addToClippingTarget(al::LiveActor*) {}
+void ClippingActorHolder::removeFromClippingTarget(al::LiveActor*) {}
 
 }  // namespace al
-
-void al::ClippingActorHolder::addToClippingTarget(al::LiveActor*) {}
-void al::ClippingActorHolder::removeFromClippingTarget(al::LiveActor*) {}

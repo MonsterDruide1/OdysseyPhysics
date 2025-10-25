@@ -1,10 +1,12 @@
 #include "Item/CoinCollectHolder.h"
+#include "Library/Action/ActorActionKeeper.h"
 #include "Library/Collision/Collider.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/CollisionPartsKeeperUtil.h"
 #include "Library/Collision/KCollisionServer.h"
 #include "Library/Collision/PartsConnector.h"
 #include "Library/Collision/PartsConnectorUtil.h"
+#include "Library/Controller/InputFunction.h"
 #include "Library/Event/EventFlowUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
@@ -31,6 +33,7 @@
 #include "Library/Yaml/ParameterBase.h"
 #include "MapObj/AnagramAlphabet.h"
 #include "MapObj/RouteGuideDirector.h"
+#include "Project/Action/ActionFlagCtrl.h"
 #include "Project/Action/InitResourceDataAction.h"
 #include "Project/Anim/InitResourceDataAnim.h"
 #include "Project/Gravity/GravityHolder.h"
@@ -145,6 +148,7 @@ void al::calcCollidedNormalSum(al::LiveActor const*, sead::Vector3<float>*) {CRA
 void al::calcColliderPos(sead::Vector3<float>*, al::LiveActor const*) {CRASH}
 void al::calcJumpInertia(sead::Vector3<float>*, al::LiveActor*, sead::Vector3<float> const&, float) {CRASH}
 al::Triangle* al::Collider::getPlane(int) {CRASH}
+sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {CRASH}
 const sead::Vector3f& al::getCollidedCeilingNormal(al::LiveActor const*) {CRASH}
 const sead::Vector3f& al::getCollidedGroundNormal(al::LiveActor const*) {CRASH}
 const sead::Vector3f& al::getCollidedWallNormal(al::LiveActor const*) {CRASH}
@@ -214,3 +218,17 @@ al::CollisionParts* alCollisionUtil::getStrikeArrowCollisionParts(al::IUseCollis
 bool al::isSensorValid(al::HitSensor const*) {CRASH}
 void GameDataHolder::setRequireSave() {CRASH}
 s64 rs::prepo::generateSaveDataId() {CRASH}
+
+void al::ActionFlagCtrl::initPost() {CRASH}
+void al::ActionFlagCtrl::startCtrlSensor() {CRASH}
+void al::ActionFlagCtrl::startCtrlFlag() {CRASH}
+void al::ActionFlagCtrl::updateCtrlSensor(float, float, float, bool) {CRASH}
+
+void al::ActorActionKeeper::updatePost() {CRASH}
+
+void al::calcTouchScreenPos(sead::Vector2f*) {CRASH}
+void al::updateMaterialCodePuddle(al::LiveActor*) {CRASH}
+const char* al::getCollidedFloorMaterialCodeName(al::LiveActor const*) {CRASH}
+
+void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {CRASH}
+const al::LiveActor* al::CollisionParts::getConnectedHost() const {CRASH}

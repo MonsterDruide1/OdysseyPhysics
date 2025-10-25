@@ -17,8 +17,10 @@ void EffectKeeper::onCalcAndDraw() {}
 void EffectKeeper::update() {}
 
 ActionEffectCtrl* ActionEffectCtrl::tryCreate(al::IUseEffectKeeper*){WARN_UNIMPL; return nullptr;}
+void ActionEffectCtrl::startAction(char const*){}
 
 ActionScreenEffectCtrl* ActionScreenEffectCtrl::tryCreate(al::LiveActor const*, char const*) {WARN_UNIMPL; return nullptr;}
+void ActionScreenEffectCtrl::startAction(char const*) {}
 
 void EffectSystem::endInit() {}
 void EffectSystem::endScene() {}
