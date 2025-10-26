@@ -57,9 +57,6 @@ void registSupportFreezeSyncGroup(al::LiveActor*, al::ActorInitInfo const&) {}
 
 f32 getChangeAlphaValue(al::SensorMsg const*) { return 0.0f; }
 
-HitSensor* tryGetCollidedGroundSensor(al::LiveActor const*) { return nullptr; }
-HitSensor* tryGetCollidedCeilingSensor(al::LiveActor const*) { return nullptr; }
-
 }  // namespace al
 
 namespace alSensorFunction {
