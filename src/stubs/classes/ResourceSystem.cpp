@@ -3,24 +3,15 @@
 
 namespace al {
 
+static ResourceSystem::ResourceCategory sResource {"", nullptr};
 
-ResourceSystem::ResourceSystem(const char*) {WARN_UNIMPL;}
-const sead::SafeString& ResourceSystem::addCategory(const sead::SafeString&, s32, sead::Heap*) {CRASH}
+ResourceSystem::ResourceCategory* ResourceSystem::addCategory(const sead::SafeString& name, s32 id, sead::Heap* heap) {WARN_UNIMPL;sResource = {name, heap}; return &sResource;}
 Resource* ResourceSystem::findOrCreateResourceCategory(const sead::SafeString&, const sead::SafeString&, const char*) {CRASH}
-s64 ResourceSystem::findResourceCategoryIter(const sead::SafeString&) {CRASH}
+sead::RingBuffer<ResourceSystem::ResourceCategory*>::iterator ResourceSystem::findResourceCategoryIter(const sead::SafeString&) {CRASH}
 bool ResourceSystem::isEmptyCategoryResource(const sead::SafeString&) {CRASH}
 void ResourceSystem::createCategoryResourceAll(const sead::SafeString&) {CRASH}
-Resource* ResourceSystem::createResource(const sead::SafeString&, ResourceCategory*, const char*) {CRASH}
 void ResourceSystem::removeCategory(const sead::SafeString&) {CRASH}
-Resource* ResourceSystem::findResource(const sead::SafeString&) {CRASH}
-Resource* ResourceSystem::findResourceCore(const sead::SafeString&, sead::RingBuffer<ResourceCategory*>::iterator*) {CRASH}
-Resource* ResourceSystem::findOrCreateResource(const sead::SafeString& x, const char*) {WARN_UNIMPL;return new Resource(x);}
-ResourceSystem::ResourceCategory* ResourceSystem::findResourceCategory(const sead::SafeString&) {CRASH}
+ResourceSystem::ResourceCategory* ResourceSystem::findResourceCategory(const sead::SafeString&) {WARN_UNIMPL;return &sResource;}
 void ResourceSystem::loadCategoryArchiveAll(const sead::SafeString&) {CRASH}
-void ResourceSystem::setCurrentCategory(const char*) {CRASH}
-const char* ResourceSystem::findCategoryNameFromTable(const sead::SafeString&) const {CRASH}
-bool ResourceSystem::tryGetTableCategoryIter(ByamlIter*, const sead::SafeString&) const {CRASH}
-bool ResourceSystem::tryGetGraphicsInfoIter(ByamlIter*, const sead::SafeString&) const {CRASH}
-
 
 }

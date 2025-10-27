@@ -57,11 +57,6 @@ const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isOnSaveObjInfo(SaveObjInfo const*) {WARN_UNIMPL;return false;}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
-bool al::isNearPlayer(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
-const sead::Vector3f& al::getPlayerPos(al::LiveActor const*,int) {WARN_UNIMPL;return sead::Vector3f::zero;}
-s32 al::getPlayerNumMax(al::LiveActor const*) {WARN_UNIMPL; return 1;}
-s32 al::getPlayerPort(al::LiveActor const*, s32) {WARN_UNIMPL; return 0;}
-bool al::isPlayerDead(al::LiveActor const*, s32) {WARN_UNIMPL; return false;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
 bool al::isInStack(const void *) {WARN_UNIMPL; return true;}
 sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const* a, char const*) {WARN_UNIMPL; return a->getPoseKeeper()->getMtxPtr();}
@@ -74,6 +69,8 @@ void al::Collider::onInvalidate() {WARN_UNIMPL;}
 void al::Collider::setCollisionPartsFilter(al::CollisionPartsFilterBase const*) {WARN_UNIMPL;}
 const sead::Vector3f& al::Collider::getRecentOnGroundNormal(u32) {WARN_UNIMPL; return sead::Vector3f::ey;}
 sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {WARN_UNIMPL; return sead::Vector3f::zero;}
+al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {WARN_UNIMPL;return nullptr;}
+al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {WARN_UNIMPL;return nullptr;}
 
 // MathUtil.o
 void al::calcQuatSide(sead::Vector3f*, sead::Quatf const&) {WARN_UNIMPL;}
@@ -114,9 +111,6 @@ SaveObjInfo* rs::createSaveObjInfoWriteSaveData(al::ActorInitInfo const&) {CRASH
 void rs::onSaveObjInfo(SaveObjInfo*) {CRASH}
 
 const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
-bool al::tryFindNearestPlayerPos(sead::Vector3f*, al::LiveActor const*) {CRASH}
-al::LiveActor* al::tryFindNearestPlayerActor(al::LiveActor const*) {CRASH}
-void al::faceToPlayer(al::LiveActor*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
 
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
@@ -176,8 +170,6 @@ void al::ParameterBase::initializeListNode(const sead::SafeString& name,
                                            const sead::SafeString& label,
                                            const sead::SafeString& meta, al::ParameterObj* obj,
                                            bool e) {CRASH}
-al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {CRASH}
-al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {CRASH}
 
 void al::ScreenPointDirector::setCheckGroup(al::ScreenPointTarget*) {CRASH}
 void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
@@ -215,3 +207,5 @@ bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* coll
 bool al::CollisionPartsFilterMergePair::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 bool al::CollisionPartsFilterIgnoreOptionalPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 bool al::CollisionPartsFilterSubActor::isInvalidParts(CollisionParts* collisionParts) {CRASH}
+
+bool al::isJudgedToClipFrustum(al::LiveActor const*, sead::Vector3<float> const&, float, float) {CRASH}

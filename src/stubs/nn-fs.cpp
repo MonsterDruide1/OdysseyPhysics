@@ -1,4 +1,5 @@
 #include <cstdio>
+#include <dirent.h>
 #include <string>
 #include "Library/Base/StringUtil.h"
 #include "nn/fs.h"
@@ -73,6 +74,25 @@ void nn::fs::CloseFile(nn::fs::FileHandle handle) {
     FILE* file = (FILE*) handle._internal;
     fclose(file);
 }
+nn::Result nn::fs::GetEntryType(nn::fs::DirectoryEntryType* type, const char* name) {
+    std::string full_name = (std::string)settings::sRomfsPath + "/" + (name + 9);
+
+    FILE* file = fopen(full_name.c_str(), "rb");
+    if (file) {
+        *type = nn::fs::DirectoryEntryType_File;
+        fclose(file);
+        return NN_SUCCESS;
+    }
+
+    // Try to open as directory
+    std::string dir_name = full_name;
+    if (opendir(dir_name.c_str())) {
+        *type = nn::fs::DirectoryEntryType_Directory;
+        return NN_SUCCESS;
+    }
+
+    return NN_FAILURE;
+}
 // ----------------
 
 // ----------------
@@ -93,7 +113,6 @@ nn::Result nn::fs::CreateDirectory(char const*) {CRASH}
 nn::Result nn::fs::CreateFile(char const*, long) {CRASH}
 nn::Result nn::fs::DeleteFile(char const*) {CRASH}
 nn::Result nn::fs::FlushFile(nn::fs::FileHandle) {CRASH}
-nn::Result nn::fs::GetEntryType(nn::fs::DirectoryEntryType*, char const*) {CRASH}
 nn::Result nn::fs::MountSaveDataForDebug(char const*) {CRASH}
 nn::Result nn::fs::OpenDirectory(nn::fs::DirectoryHandle*, char const*, int) {CRASH}
 nn::Result nn::fs::ReadDirectory(long*, nn::fs::DirectoryEntry*, nn::fs::DirectoryHandle, long) {CRASH}
