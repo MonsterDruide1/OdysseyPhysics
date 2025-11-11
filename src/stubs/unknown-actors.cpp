@@ -34,10 +34,14 @@
 #include "Library/Yaml/ParameterBase.h"
 #include "MapObj/AnagramAlphabet.h"
 #include "MapObj/RouteGuideDirector.h"
+#include "Project/Action/ActionBgmCtrl.h"
+#include "Project/Action/ActionEffectCtrl.h"
 #include "Project/Action/ActionFlagCtrl.h"
+#include "Project/Action/ActionPadAndCameraCtrl.h"
+#include "Project/Action/ActionScreenEffectCtrl.h"
+#include "Project/Action/ActionSeCtrl.h"
 #include "Project/Action/InitResourceDataAction.h"
 #include "Project/Anim/InitResourceDataAnim.h"
-#include "Project/Gravity/GravityHolder.h"
 #include "Util/DemoUtil.h"
 #include "Util/NpcEventFlowUtil.h"
 #include "Util/ObjUtil.h"
@@ -135,8 +139,6 @@ void rs::setRouteHeadGuidePosPtr(al::IUseSceneObjHolder const*, sead::Vector3<fl
 void rs::startEventFlow(al::EventFlowExecutor*, char const*) {CRASH}
 bool rs::updateEventFlow(al::EventFlowExecutor*) {CRASH}
 
-al::GravityHolder::GravityHolder() {CRASH}
-void al::GravityHolder::init() {CRASH}
 al::NatureDirector::NatureDirector() {CRASH}
 void al::NatureDirector::init() {CRASH}
 al::SceneMsgCtrl::SceneMsgCtrl() {CRASH}
@@ -184,8 +186,6 @@ void al::ActionFlagCtrl::startCtrlSensor() {CRASH}
 void al::ActionFlagCtrl::startCtrlFlag() {CRASH}
 void al::ActionFlagCtrl::updateCtrlSensor(float, float, float, bool) {CRASH}
 
-void al::ActorActionKeeper::updatePost() {CRASH}
-
 void al::calcTouchScreenPos(sead::Vector2f*) {CRASH}
 void al::updateMaterialCodePuddle(al::LiveActor*) {CRASH}
 
@@ -209,3 +209,9 @@ bool al::CollisionPartsFilterIgnoreOptionalPurpose::isInvalidParts(CollisionPart
 bool al::CollisionPartsFilterSubActor::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 
 bool al::isJudgedToClipFrustum(al::LiveActor const*, sead::Vector3<float> const&, float, float) {CRASH}
+
+void al::ActionEffectCtrl::update(float, float, float, bool) {CRASH}
+void al::ActionSeCtrl::update(float, float, float, bool) {CRASH}
+void al::ActionBgmCtrl::update(float, float, float, bool) {CRASH}
+void al::ActionPadAndCameraCtrl::update(float, float, float, bool) {CRASH}
+void al::ActionScreenEffectCtrl::update(float, float, float, bool) {CRASH}

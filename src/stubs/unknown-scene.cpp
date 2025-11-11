@@ -21,7 +21,6 @@
 #include "Library/Se/Function/SeDbFunction.h"
 #include "Library/Se/SeFunction.h"
 #include "Project/Clipping/ViewInfoCtrl.h"
-#include "Project/Gravity/GravityHolder.h"
 #include "Project/SaveData/SaveDataDirector.h"
 
 al::ClippingActorHolder::ClippingActorHolder(int) {WARN_UNIMPL;}
@@ -64,8 +63,6 @@ s32 al::DemoDirector::getDemoActorNum() const {CRASH}
 bool al::DemoDirector::isActiveDemo() const {CRASH}
 
 void al::GraphicsSystemInfo::initStageResource(al::Resource const*, char const*, char const*) {CRASH}
-
-void al::GravityHolder::createGravity(al::PlacementInfo const&) {CRASH}
 
 void al::LayoutInitInfo::init(al::ExecuteDirector*, al::EffectSystemInfo const*, al::SceneObjHolder*, al::AudioDirector const*, al::CameraDirector*, al::LayoutSystem const*, al::MessageSystem const*, al::GamePadSystem const*, al::PadRumbleDirector*) {CRASH}
 
