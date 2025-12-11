@@ -36,6 +36,8 @@ bool PlayerCarryKeeper::isThrow() const {
     return false;
 }
 
+void PlayerCarryKeeper::endCameraSubjective() {}
+
 void PlayerActorHakoniwa::updateCarry() {}
 
 bool rs::isPlayerCarrySomething(al::LiveActor const*) {

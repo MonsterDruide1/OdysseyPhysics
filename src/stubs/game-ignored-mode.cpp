@@ -3,6 +3,7 @@
 #include "Enemy/HackerDepthShadowMapCtrl.h"
 #include "Library/Collision/CollisionDirector.h"
 #include "Library/Scene/DemoDirector.h"
+#include "ModeBalloon/RankingLocalFunction.h"
 #include "Player/HackerJudge.h"
 #include "Player/HackerStateNormalMove.h"
 #include "Player/PlayerActionTurnControl.h"
@@ -12,6 +13,8 @@
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/Hack.h"
 #include "Area/In2DAreaMoveControl.h"
+
+RankingCategory RankingLocalFunction::findRankingCategoryByRaceRecordName(char const*) {return (RankingCategory)0;}
 
 PlayerConst* PlayerFunction::createMarioConst(char const*) {
     return new PlayerConst();
@@ -100,6 +103,12 @@ bool isTriggerHackAnyButton(IUsePlayerHack const*) {return false;}
 bool isTriggerSubjectiveCamera(IUsePlayerHack const*) {return false;}
 void resetHackTutorialText(al::IUseSceneObjHolder const*) {}
 void calcDimensionGravity(sead::Vector3<float>* x, IUseDimension const*, sead::Vector3<float> const&) {x->set(-sead::Vector3f::ey);}
+bool addHackActorAccelStick(al::LiveActor*, IUsePlayerHack const*, sead::Vector3<float>*, float, sead::Vector3<float> const&) {return false;}
+f32 calcHackMovePower(IUsePlayerHack const*) {return 0.0f;}
+bool isOnHackMoveStick(IUsePlayerHack const*) {return false;}
+bool isTouchHackCancelCollisionCode(al::LiveActor const*, IUsePlayerCollision const*) {return false;}
+bool isTouchHackDamageCollisionCode(al::LiveActor const*, IUsePlayerCollision const*) {return false;}
+
 
 }  // namespace rs
 
@@ -295,3 +304,8 @@ PlayerStateEndHack::PlayerStateEndHack(al::LiveActor*, PlayerConst const*,
 bool PlayerStateHack::isEnableModelSyncShowHide() {
     return false;
 }
+
+HackerJudgeStartRun::HackerJudgeStartRun(al::LiveActor const*, IUsePlayerHack**) : HackerJudge(nullptr) {}
+void HackerJudgeStartRun::reset() {}
+void HackerJudgeStartRun::update() {}
+bool HackerJudgeStartRun::judge() const {return false;}

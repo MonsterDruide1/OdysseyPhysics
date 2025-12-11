@@ -77,5 +77,6 @@ f32 getAllAnimFrameMax(al::LiveActor const*, char const*, int) {return 1.0f;}
 f32 getAllAnimFrameRate(al::LiveActor const*, int) {return 1.0f;}
 const char* getAllAnimName(al::LiveActor const*) {return "";}
 bool isAllAnimEnd(al::LiveActor const*, int) {return false;}
+bool checkPass(float, float, float, bool, float) {return false;}
 
 }

@@ -93,7 +93,14 @@ void setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {}
 bool tryGetAirExplosionForce(sead::Vector3f*, al::SensorMsg const*) {return false;}
 bool tryGetByugoBlowForce(sead::Vector3f*, al::SensorMsg const*) {return false;}
 bool tryReceiveMsgNpcScareByEnemyIgnoreTargetHack(al::SensorMsg const*, CapTargetInfo const*) {return false;}
+bool tryReceiveMsgPushToCapAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
+bool tryReceiveMsgPushToGrowPlantAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
+bool tryReceiveMsgPushToHackerAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float, bool) {return false;}
+bool tryReceiveMsgPushToPlayerAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
+bool tryReceiveMsgPushToYoshiNpcAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
+bool trySendMsgPlayerReflectOrTrample(al::LiveActor const*, al::HitSensor*, al::HitSensor*) {return false;}
 bool tryGetSandGeyserRaise(al::SensorMsg const*, float*, float*) {return false;}
+al::HitSensor* tryGetCollidedCeilingSensor(IUsePlayerCollision const*) {WARN_UNIMPL;return nullptr;}
 
 bool sendMsgEnemyAttack2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgTouchFireDrum2D(al::HitSensor*, al::HitSensor*) {return false;}
@@ -110,6 +117,8 @@ bool sendMsgKouraItemGet2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgKouraAttack2D(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgTimerAthleticDemoStart(al::LiveActor*) {return false;}
 bool sendMsgKillBySwitchTimer(al::LiveActor*) {return false;}
+bool sendMsgHackObjUpperPunch(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgHackUpperPunch(al::HitSensor*, al::HitSensor*) {return false;}
 
 void sendPlayerCollisionTouchMsg(al::LiveActor const*, al::HitSensor*, IUsePlayerCollision const*) {}
 

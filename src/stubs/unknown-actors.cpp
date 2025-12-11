@@ -39,11 +39,9 @@
 #include "Library/Yaml/ParameterBase.h"
 #include "MapObj/AnagramAlphabet.h"
 #include "MapObj/RouteGuideDirector.h"
-#include "ModeBalloon/RankingLocalFunction.h"
 #include "Player/HackerJudge.h"
 #include "Player/PlayerCarryKeeper.h"
 #include "Player/PlayerInput.h"
-#include "PlayerUtil.h"
 #include "Project/Action/ActionBgmCtrl.h"
 #include "Project/Action/ActionEffectCtrl.h"
 #include "Project/Action/ActionFlagCtrl.h"
@@ -59,7 +57,6 @@
 #include "System/NetworkUploadFlag.h"
 #include "System/ShopTalkData.h"
 #include "System/VisitStageData.h"
-#include "System/WorldList.h"
 #include "System/WorldWarpTalkData.h"
 #include "Util/DemoUtil.h"
 #include "Util/Hack.h"
@@ -113,6 +110,8 @@ void al::calcFittingBoxPose(sead::Quat<float>*, sead::BoundBox3<float> const&, s
 void al::calcQuatLocalAxisAll(sead::Quat<float> const&, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*) {CRASH}
 void al::rotateQuatAndTransDegree(sead::Quat<float>*, sead::Vector3<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::calcSphereMargeSpheres(sead::Vector3<float>*, float*, sead::Vector3<float> const&, float, sead::Vector3<float> const&, float) {CRASH}
+void al::calcBoxFacePoint(sead::Vector3<float>*, sead::BoundBox3<float> const&, int, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
+bool al::turnQuatWithAxisDegree(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 // MtxUtil.o
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 
@@ -154,17 +153,6 @@ void al::NatureDirector::init() {CRASH}
 al::SceneMsgCtrl::SceneMsgCtrl() {CRASH}
 al::SceneMsg::SceneMsg() {CRASH}
 
-bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {CRASH}
-bool GameDataFunction::isOnObjNoWriteSaveData(GameDataHolderAccessor, al::PlacementId const*) {CRASH}
-bool GameDataFunction::isOnObjNoWriteSaveDataInSameScenario(GameDataHolder const*, al::PlacementId const*) {CRASH}
-bool GameDataFunction::isObjStarted(GameDataHolder const*, al::PlacementId const*) {CRASH}
-void GameDataFunction::setObjStarted(GameDataHolder*, al::PlacementId const*) {CRASH}
-void GameDataFunction::onObjNoWriteSaveData(GameDataHolderWriter, al::PlacementId const*) {CRASH}
-void GameDataFunction::onObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, al::PlacementId const*) {CRASH}
-void GameDataFunction::onObjNoWriteSaveDataInSameScenario(GameDataHolder*, al::PlacementId const*) {CRASH}
-void GameDataFunction::offObjNoWriteSaveData(GameDataHolderWriter, al::PlacementId const*) {CRASH}
-void GameDataFunction::offObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, al::PlacementId const*) {CRASH}
-
 void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
 
 void rs::offRouteGuideByActor(al::LiveActor*) {CRASH}
@@ -188,7 +176,6 @@ void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
 void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
 
 bool al::isSensorValid(al::HitSensor const*) {CRASH}
-void GameDataHolder::setRequireSave() {CRASH}
 s64 rs::prepo::generateSaveDataId() {CRASH}
 
 void al::calcTouchScreenPos(sead::Vector2f*) {CRASH}
@@ -221,71 +208,6 @@ void al::ActionBgmCtrl::update(float, float, float, bool) {CRASH}
 void al::ActionPadAndCameraCtrl::update(float, float, float, bool) {CRASH}
 void al::ActionScreenEffectCtrl::update(float, float, float, bool) {CRASH}
 
-HackerJudgeStartRun::HackerJudgeStartRun(al::LiveActor const*, IUsePlayerHack**) : HackerJudge(nullptr) {CRASH}
-void HackerJudgeStartRun::reset() {CRASH}
-void HackerJudgeStartRun::update() {CRASH}
-bool HackerJudgeStartRun::judge() const {CRASH}
-
-void GameDataHolder::calcWorldWarpHoleLabelAndStageName(sead::BufferedSafeStringBase<char>*, sead::BufferedSafeStringBase<char>*, char const*, int) const {CRASH}
-bool GameDataHolder::checkIsOpenWorldWarpHoleInScenario(int, int) const {CRASH}
-s32 GameDataHolder::findUnlockShineNum(bool*, int) const {CRASH}
-bool GameDataHolder::findValueFromTempSaveDataHash(char const*) {CRASH}
-CapMessageBossData* GameDataHolder::getCapMessageBossData() const {CRASH}
-void GameDataHolder::playScenarioStartCamera(int) {CRASH}
-void GameDataHolder::writeTempSaveDataToHash(char const*, bool) {CRASH}
-bool HintPhotoData::checkSavedHintPhoto(char const*) const {CRASH}
-void HintPhotoData::saveHintPhoto(char const*) {CRASH}
-void NetworkUploadFlag::updateScore(RankingCategory const&) {CRASH}
-void PlayerCarryKeeper::endCameraSubjective() {CRASH}
-bool PlayerInput::isTriggerCameraSubjective() const {CRASH}
-RankingCategory RankingLocalFunction::findRankingCategoryByRaceRecordName(char const*) {CRASH}
-bool ShopTalkData::checkExistNewItem(GameDataHolderAccessor const&, int, int, bool) const {CRASH}
-bool ShopTalkData::checkShowNewItemAndPrepareSave(GameDataHolderAccessor const&, bool, int) {CRASH}
-bool ShopTalkData::isEnableExplainShopCoin(int) const {CRASH}
-bool VisitStageData::checkAlreadyVisit(char const*) const {CRASH}
-void VisitStageData::visit(char const*) {CRASH}
-const char* WorldList::getWorldDevelopName(int) const {CRASH}
-bool WorldList::isEqualAfterEndingScenarioNo(int, int) const {CRASH}
-bool WorldList::isEqualClearMainScenarioNo(int, int) const {CRASH}
-bool WorldList::isEqualMoonRockScenarioNo(int, int) const {CRASH}
-void WorldWarpTalkData::addTipsId() {CRASH}
-s32 WorldWarpTalkData::getTipsId() const {CRASH}
-bool WorldWarpTalkData::isAlreadyTalkNextWorld(int) const {CRASH}
-bool WorldWarpTalkData::isAlreadyTalkPrevWorld(int) const {CRASH}
-bool WorldWarpTalkData::isTalkBossRaid() const {CRASH}
-bool WorldWarpTalkData::isTalkFindKoopa() const {CRASH}
-void WorldWarpTalkData::setAlreadyTalkNextWorld(int) {CRASH}
-void WorldWarpTalkData::setAlreadyTalkPrevWorld(int) {CRASH}
-void WorldWarpTalkData::setTalkSpecial(bool, bool) {CRASH}
 void al::ResourceSystem::removeCategory(sead::SafeStringBase<char> const&) {CRASH}
-void al::calcBoxFacePoint(sead::Vector3<float>*, sead::BoundBox3<float> const&, int, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
-f32 al::getShadowMaskDropLength(al::LiveActor const*, char const*) {CRASH}
 const char* al::getSubStringUnmatched(char const*, al::MatchStr const&) {CRASH}
-void al::resetSeKeeperPlayNamePrefix(al::IUseAudioKeeper const*) {CRASH}
-void al::setSeKeeperPlayNamePrefix(al::IUseAudioKeeper const*, char const*) {CRASH}
-void al::setShadowMaskDropLength(al::LiveActor*, float) {CRASH}
-bool al::tryReceiveMsgCollidePush(sead::Vector3<float>*, al::SensorMsg const*) {CRASH}
-bool al::turnQuatWithAxisDegree(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
-bool alAnimFunction::checkPass(float, float, float, bool, float) {CRASH}
-void alCameraBlurFunction::resetCameraBlurName(al::LiveActor const*) {CRASH}
-void alCameraBlurFunction::setCameraBlurName(al::LiveActor const*, char const*) {CRASH}
-void alSeFunction::endListenerPoser(al::IUseAudioKeeper const*, char const*, int) {CRASH}
-void alSeFunction::startListenerPoser(al::IUseAudioKeeper const*, char const*, int) {CRASH}
-bool rs::addHackActorAccelStick(al::LiveActor*, IUsePlayerHack const*, sead::Vector3<float>*, float, sead::Vector3<float> const&) {CRASH}
-f32 rs::calcHackMovePower(IUsePlayerHack const*) {CRASH}
-bool rs::isOnHackMoveStick(IUsePlayerHack const*) {CRASH}
-bool rs::isPlayerInWater(al::LiveActor const*) {CRASH}
-bool rs::isTouchHackCancelCollisionCode(al::LiveActor const*, IUsePlayerCollision const*) {CRASH}
-bool rs::isTouchHackDamageCollisionCode(al::LiveActor const*, IUsePlayerCollision const*) {CRASH}
 u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, float, float, float) {CRASH}
-bool rs::sendMsgHackObjUpperPunch(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgHackUpperPunch(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::tryAppearPlayerCameraSubjectiveTutorial(al::IUseSceneObjHolder const*) {CRASH}
-void rs::tryClosePlayerCameraSubjectiveTutorial(al::IUseSceneObjHolder const*) {CRASH}
-al::HitSensor* rs::tryGetCollidedCeilingSensor(IUsePlayerCollision const*) {CRASH}
-bool rs::tryReceiveMsgPushToCapAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
-bool rs::tryReceiveMsgPushToGrowPlantAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
-bool rs::tryReceiveMsgPushToHackerAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float, bool) {CRASH}
-bool rs::tryReceiveMsgPushToPlayerAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
-bool rs::tryReceiveMsgPushToYoshiNpcAndCalcPushTrans(sead::Vector3<float>*, al::SensorMsg const*, al::LiveActor const*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
-bool rs::trySendMsgPlayerReflectOrTrample(al::LiveActor const*, al::HitSensor*, al::HitSensor*) {CRASH}

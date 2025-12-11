@@ -7,6 +7,7 @@
 #include "Library/Camera/SnapShotCameraCtrl.h"
 #include "Library/Play/Camera/CameraPoserSubjective.h"
 #include "Library/Play/Camera/CameraVerticalAbsorber.h"
+#include "Library/PostProcessing/CameraBlurController.h"
 #include "Project/Action/ActionPadAndCameraCtrl.h"
 #include "Project/Camera/CameraAngleCtrlInfo.h"
 
@@ -97,3 +98,6 @@ bool isTargetGrabCeil(al::CameraPoser const*) {return false;}
 }
 
 al::CameraTicket* alCameraFunction::initCamera(al::CameraPoser*, al::IUseCamera const*, al::ActorInitInfo const&, char const*, int) {WARN_UNIMPL; return nullptr;}
+
+void alCameraBlurFunction::resetCameraBlurName(al::LiveActor const*) {}
+void alCameraBlurFunction::setCameraBlurName(al::LiveActor const*, char const*) {}

@@ -112,6 +112,8 @@ f32 getShadowMaskIntensity(al::LiveActor const*, char const*) {return 0.0f;}
 bool blinkModel(al::LiveActor*, int, int, int) {return false;}
 void updateDepthShadowMapCtrlShapeVisible(al::LiveActor*) {}
 void validateDepthShadowMap(al::LiveActor*) {}
+f32 getShadowMaskDropLength(al::LiveActor const*, char const*) {return 0.0f;}
+void setShadowMaskDropLength(al::LiveActor*, float) {}
 
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}

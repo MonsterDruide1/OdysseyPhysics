@@ -1,10 +1,41 @@
 #include "System/GameDataFile.h"
 #include "System/GameDataFunction.h"
+#include "System/HintPhotoData.h"
+#include "System/NetworkUploadFlag.h"
+#include "System/ShopTalkData.h"
+#include "System/VisitStageData.h"
 #include "System/WorldList.h"
+#include "System/WorldWarpTalkData.h"
 
+bool HintPhotoData::checkSavedHintPhoto(char const*) const {return false;}
+void HintPhotoData::saveHintPhoto(char const*) {}
+
+void NetworkUploadFlag::updateScore(RankingCategory const&) {}
+
+bool ShopTalkData::checkExistNewItem(GameDataHolderAccessor const&, int, int, bool) const {return false;}
+bool ShopTalkData::checkShowNewItemAndPrepareSave(GameDataHolderAccessor const&, bool, int) {return false;}
+bool ShopTalkData::isEnableExplainShopCoin(int) const {return false;}
+
+bool VisitStageData::checkAlreadyVisit(char const*) const {return false;}
+void VisitStageData::visit(char const*) {}
+
+const char* WorldList::getWorldDevelopName(int) const {return "";}
+bool WorldList::isEqualAfterEndingScenarioNo(int, int) const {return false;}
+bool WorldList::isEqualClearMainScenarioNo(int, int) const {return false;}
+bool WorldList::isEqualMoonRockScenarioNo(int, int) const {return false;}
 s32 WorldList::tryFindWorldIndexByMainStageName(const char*) const {return 0;}
 s32 WorldList::getWorldNum() const {return 0;}
 s32 WorldList::tryFindWorldIndexByDevelopName(char const*) const {return 0;}
+
+void WorldWarpTalkData::addTipsId() {CRASH}
+s32 WorldWarpTalkData::getTipsId() const {CRASH}
+bool WorldWarpTalkData::isAlreadyTalkNextWorld(int) const {CRASH}
+bool WorldWarpTalkData::isAlreadyTalkPrevWorld(int) const {CRASH}
+bool WorldWarpTalkData::isTalkBossRaid() const {CRASH}
+bool WorldWarpTalkData::isTalkFindKoopa() const {CRASH}
+void WorldWarpTalkData::setAlreadyTalkNextWorld(int) {CRASH}
+void WorldWarpTalkData::setAlreadyTalkPrevWorld(int) {CRASH}
+void WorldWarpTalkData::setTalkSpecial(bool, bool) {CRASH}
 
 const char* GameDataFunction::getCurrentCapTypeName(GameDataHolderAccessor) {return "";}
 const char* GameDataFunction::getCurrentCostumeTypeName(GameDataHolderAccessor) {return "";}
@@ -37,6 +68,16 @@ bool GameDataFunction::isTimeBalloonSequence(GameDataHolderAccessor) {return fal
 bool GameDataFunction::isWorldClash(GameDataHolderAccessor) {return false;}
 void GameDataFunction::saveObjS32(GameDataHolderWriter, al::PlacementId const*, int) {}
 bool GameDataFunction::tryFindSaveObjS32Value(int*, GameDataHolderAccessor, al::PlacementId const*) {return false;}
+bool GameDataFunction::isWorldMoon(GameDataHolderAccessor) {return false;}
+bool GameDataFunction::isOnObjNoWriteSaveData(GameDataHolderAccessor, al::PlacementId const*) {return false;}
+bool GameDataFunction::isOnObjNoWriteSaveDataInSameScenario(GameDataHolder const*, al::PlacementId const*) {return false;}
+bool GameDataFunction::isObjStarted(GameDataHolder const*, al::PlacementId const*) {return false;}
+void GameDataFunction::setObjStarted(GameDataHolder*, al::PlacementId const*) {}
+void GameDataFunction::onObjNoWriteSaveData(GameDataHolderWriter, al::PlacementId const*) {}
+void GameDataFunction::onObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, al::PlacementId const*) {}
+void GameDataFunction::onObjNoWriteSaveDataInSameScenario(GameDataHolder*, al::PlacementId const*) {}
+void GameDataFunction::offObjNoWriteSaveData(GameDataHolderWriter, al::PlacementId const*) {}
+void GameDataFunction::offObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, al::PlacementId const*) {}
 
 void GameDataFile::addGrowFlowerGrowLevel(al::PlacementId const*, unsigned int) {}
 s32 GameDataFile::calcAllShineNumByObjectNameOrOptionalId(char const*) const {return 0;}
@@ -79,3 +120,11 @@ GameDataHolder::GameDataHolder() {}
 GameDataHolder::~GameDataHolder() {}
 const char* GameDataHolder::getSceneObjName() const {return "";}
 al::MessageSystem* GameDataHolder::getMessageSystem() const {WARN_UNIMPL;return nullptr;}
+void GameDataHolder::calcWorldWarpHoleLabelAndStageName(sead::BufferedSafeStringBase<char>*, sead::BufferedSafeStringBase<char>*, char const*, int) const {}
+bool GameDataHolder::checkIsOpenWorldWarpHoleInScenario(int, int) const {return false;}
+s32 GameDataHolder::findUnlockShineNum(bool*, int) const {return 0;}
+bool GameDataHolder::findValueFromTempSaveDataHash(char const*) {return false;}
+CapMessageBossData* GameDataHolder::getCapMessageBossData() const {WARN_UNIMPL; return nullptr;}
+void GameDataHolder::playScenarioStartCamera(int) {}
+void GameDataHolder::writeTempSaveDataToHash(char const*, bool) {}
+void GameDataHolder::setRequireSave() {}

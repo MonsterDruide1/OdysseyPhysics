@@ -1,5 +1,6 @@
 
 #include "PlayerUtil.h"
+#include "Util/PlayerUtil.h"
 #include "Util/ShadowUtil.h"
 
 PlayerCounterIceWater::PlayerCounterIceWater(al::LiveActor*, al::ActorInitInfo const&,
@@ -64,3 +65,5 @@ PlayerStateDamageSwim::PlayerStateDamageSwim(al::LiveActor*, PlayerConst const*,
 
 void WaterSurfaceShadow::disappearShadow() {}
 WaterSurfaceShadow* rs::tryCreateWaterSurfaceCoinShadow(al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
+
+bool rs::isPlayerInWater(al::LiveActor const*) {return false;}

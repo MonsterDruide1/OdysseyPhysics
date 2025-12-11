@@ -49,6 +49,7 @@ f32 getSensorRadius(al::LiveActor const*, char const*) {return 1.0f;}
 al::LiveActor* getSensorHost(al::HitSensor const*) {WARN_UNIMPL;return nullptr;}
 bool tryReceiveMsgPushAndAddVelocity(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
 bool tryReceiveMsgPushAndAddVelocityH(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
+bool tryReceiveMsgCollidePush(sead::Vector3<float>*, al::SensorMsg const*) {return false;}
 bool pushAndAddVelocity(al::LiveActor*, al::HitSensor const*, al::HitSensor const*, float) {return false;}
 const sead::Vector3f& getActorVelocity(al::HitSensor const*) {return sead::Vector3f::zero;}
 const sead::Vector3f& getActorGravity(al::HitSensor const*) {return sead::Vector3f::zero;}
