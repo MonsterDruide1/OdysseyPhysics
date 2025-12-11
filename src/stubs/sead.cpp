@@ -20,6 +20,10 @@ s32 sead::StringUtil::snprintf(char* s, size_t n, const char* format, ...) {
     return ret;
 }
 
+bool sead::MemUtil::isStack(void const*) {
+    return true;
+}
+
 sead::FrameHeap* sead::FrameHeap::tryCreate(unsigned long, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
 
 void sead::Heap::makeMetaString_(BufferedSafeString* str) {

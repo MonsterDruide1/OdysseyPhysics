@@ -1,23 +1,20 @@
 
+#include "Library/Nerve/NerveExecutor.h"
 #include "PlayerUtil.h"
 
 PlayerCarryKeeper::PlayerCarryKeeper(al::LiveActor const*, al::HitSensor*, PlayerAnimator*,
                                      IPlayerModelChanger const*, IUsePlayerCeilingCheck const*,
-                                     PlayerJointParamHandLegAngle*) {}
+                                     PlayerJointParamHandLegAngle*) : al::NerveExecutor("") {}
 
-bool PlayerCarryKeeper::isThrowRelease() {
+bool PlayerCarryKeeper::isThrowRelease() const {
     return false;
 }
 
-bool PlayerCarryKeeper::isCarryUp() {
+bool PlayerCarryKeeper::isCarryUp() const {
     return false;
 }
 
-bool PlayerCarryKeeper::updateCollideLockUp(IUsePlayerCollision const*, PlayerPushReceiver const*) {
-    return false;
-}
-
-bool PlayerCarryKeeper::isCarry() {
+bool PlayerCarryKeeper::updateCollideLockUp(IUsePlayerCollision const*, PlayerPushReceiver*) {
     return false;
 }
 

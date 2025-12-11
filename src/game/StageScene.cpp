@@ -8,10 +8,12 @@
 #include "Library/LiveActor/ActorInitInfo.h"
 #include "Library/LiveActor/LiveActorGroup.h"
 #include "Library/LiveActor/LiveActorKit.h"
+#include "Library/Memory/HeapUtil.h"
 #include "Library/Placement/PlacementFunction.h"
 #include "Library/Placement/PlacementInfo.h"
 #include "Library/Player/PlayerHolder.h"
 #include "Library/Resource/ActorResourceHolder.h"
+#include "Library/Resource/ResourceFunction.h"
 #include "Library/Scene/ISceneObj.h"
 #include "Library/Scene/SceneObjHolder.h"
 #include "Library/Scene/SceneUtil.h"
@@ -24,9 +26,11 @@
 #include "Player/PlayerColliderHakoniwa.h"
 #include "PlayerUtil.h"
 #include "Project/Execute/ExecuteSystemInitInfo.h"
+#include "Project/Memory/Util.h"
 #include "Project/Scene/SceneInitInfo.h"
 #include "Scene/ProjectActorFactory.h"
 #include "Scene/SceneObjFactory.h"
+#include "System/GameDataHolder.h"
 #include "game/Input.h"
 #include "heap/seadHeapMgr.h"
 #include "resource/seadArchiveRes.h"
@@ -73,10 +77,14 @@ void StageScene::init(const char* stageName, int scenario) {
     mDrawSystemInfo = &drawSystemInfo;
     al::GameSystemInfo gameSystemInfo = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
                                          nullptr, &drawSystemInfo, nullptr, nullptr, nullptr, nullptr};
-    al::SceneInitInfo sceneInitInfo = {&gameSystemInfo, nullptr, {}, stageName, (u32)scenario};
+    GameDataHolder holder;
+    al::SceneInitInfo sceneInitInfo = {&gameSystemInfo, &holder, nullptr, stageName, scenario, "", nullptr};
     al::Scene::initLiveActorKit(sceneInitInfo, 5120, 4, 2);
     al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
     initSceneObjHolder(sceneObjHolder);
+    al::addResourceCategory("シーン", 0x200, sead::HeapMgr::instance()->getCurrentHeap());
+    al::addResourceCategory("シーン", 0x200, sead::HeapMgr::instance()->getCurrentHeap());
+    al::setCurrentCategoryName("シーン");
 
     sead::ArchiveRes* sarc = loadSarc(((std::string) "StageData/"+stageName+".szs").c_str(), nullptr);
     const auto* file = sarc->getFile(((std::string) stageName + ".byml").c_str());
@@ -113,7 +121,7 @@ void StageScene::init(const char* stageName, int scenario) {
         al::PlacementInfo placement;
         placement.set(objiter, nullptr);
         al::ActorInitInfo info;
-        al::initActorInitInfo(&info, this, &placement, nullptr, &factory, nullptr, nullptr);
+        al::initActorInitInfo(&info, this, &placement, nullptr, &factory, nullptr, &holder);
         info.actorSceneInfo.sceneObjHolder = mSceneObjHolder;
         liveactor->init(info);
         RaylibActor::apply(liveactor, objiter);
@@ -183,7 +191,7 @@ void StageScene::init(const char* stageName, int scenario) {
     playerHolder->registerPlayer(player, new al::PadRumbleKeeper(0));
     al::ActorInitInfo actorInfo = {};
     actorInfo.initNew(&placementInfo, nullptr, allActorsGroup, nullptr, actorResourceHolder, areaObjDirector, nullptr, nullptr,
-                      mLiveActorKit->mClippingDirector, collDirector, nullptr, nullptr, executeDirector, nullptr, nullptr, nullptr,
+                      mLiveActorKit->mClippingDirector, collDirector, nullptr, nullptr, executeDirector, &holder, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, playerHolder, mSceneObjHolder, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, nullptr, mLiveActorKit->getGraphicsSystemInfo(), nullptr, nullptr);
 

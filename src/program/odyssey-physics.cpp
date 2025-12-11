@@ -1,8 +1,9 @@
 // ----------------------------------
 // Easy configuration stuff
+#include "PlayerUtil.h"
 #include "System/Application.h"
 #define Stage "SandWorldMeganeExStageMap"
-#define TASFile "res/beginner_recording.txt"
+#define TASFile "../scripts/current"
 #define TASPlayback false
 #define WSL_COMPATIBILITY false
 
@@ -108,6 +109,13 @@ int odyssey_physics_main(int argc, char *argv[]) {
             Input::instance()->setInputProvider(new InputProviderTAS(TASFile));
         else
             Input::instance()->setInputProvider(new InputProviderRaylib());
+
+        /*
+        // for measuring individual actions
+        scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans({150, 150, 900});
+        scene->mPlayer->mActor->mPoseKeeper->updatePoseQuat(sead::Quatf::unit);
+        rs::resetCollision(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->getPlayerCollision());
+        */
 
         float angleH = 0;
         float angleV = 60;

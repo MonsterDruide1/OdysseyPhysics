@@ -25,6 +25,7 @@ void startCamera(al::IUseCamera const*, al::CameraTicket*, int) {}
 al::ActorCameraTarget* createActorCameraTarget(al::LiveActor const*, float) {WARN_UNIMPL; return nullptr;}
 void endCamera(al::IUseCamera const*, al::CameraTicket*, int, bool) {}
 void calcCameraFront(sead::Vector3f*, al::IUseCamera const*, int) {}
+void setCameraInterpoleStep(al::CameraTicket*, int) {}
 
 CameraPoserSubjective::CameraPoserSubjective(char const*) : al::CameraPoser("") {}
 void CameraPoserSubjective::init() {}

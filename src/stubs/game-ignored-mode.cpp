@@ -31,10 +31,6 @@ bool isPlayer3D(const al::LiveActor* actor) {
     return true;
 }
 
-bool isKidsMode(al::LiveActor const*) {
-    return false;
-}
-
 bool isActiveDemo(al::LiveActor const*) {
     return false;
 }
@@ -260,8 +256,7 @@ bool PlayerJudgeCameraSubjective::judge() const {
     return false;
 }
 
-PlayerJudgeActiveCameraSubjective::PlayerJudgeActiveCameraSubjective(
-    PlayerStateCameraSubjective const*) {}
+PlayerJudgeActiveCameraSubjective::PlayerJudgeActiveCameraSubjective(PlayerStateCameraSubjective const*) {}
 
 void PlayerJudgeActiveCameraSubjective::reset() {}
 
@@ -295,13 +290,6 @@ void PlayerStateHack::prepareStageStartHack() {}
 PlayerStateEndHack::PlayerStateEndHack(al::LiveActor*, PlayerConst const*,
                                        IUsePlayerCollision const*, PlayerInput const*,
                                        PlayerTrigger*, PlayerAnimator*)
-    : al::NerveStateBase("") {}
-
-PlayerStateCameraSubjective::PlayerStateCameraSubjective(al::LiveActor*, al::CameraTicket*,
-                                                         IPlayerModelChanger*, PlayerCarryKeeper*,
-                                                         PlayerAnimator*, PlayerConst const*,
-                                                         IUsePlayerCollision const*,
-                                                         PlayerInput const*)
     : al::NerveStateBase("") {}
 
 bool PlayerStateHack::isEnableModelSyncShowHide() {

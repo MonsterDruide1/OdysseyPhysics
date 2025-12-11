@@ -43,11 +43,6 @@ al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
 }  // namespace al
 
 // might be fine to ignore, better replace with proper implementation though
-void al::tryReplaceString(sead::BufferedSafeStringBase<char>* result, char const* in,
-                          char const* search, char const* replace) {
-    result->setReplaceString(in, search, replace);
-}
-
 const char* rs::getInitPlayerModelName(PlayerInitInfo const&) {
     WARN_UNIMPL;
     return "Mario";

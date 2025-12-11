@@ -36,17 +36,6 @@ bool PlayerJudgeInWater::judge() const {
 PlayerRippleGenerator::PlayerRippleGenerator(al::LiveActor const*, al::LiveActor const*,
                                              PlayerModelHolder const*) {}
 
-PlayerJudgeCameraInWater::PlayerJudgeCameraInWater(al::LiveActor const*, IJudge const*,
-                                                   al::WaterSurfaceFinder const*) {}
-
-void PlayerJudgeCameraInWater::update() {}
-
-void PlayerJudgeCameraInWater::reset() {}
-
-bool PlayerJudgeCameraInWater::judge() const {
-    return false;
-}
-
 PlayerJudgeTalkSwim::PlayerJudgeTalkSwim(PlayerHackKeeper const*, PlayerCarryKeeper const*,
                                          PlayerStateSwim const*) {}
 

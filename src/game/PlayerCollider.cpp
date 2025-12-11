@@ -13,29 +13,6 @@
 #include "math/seadMatrix.h"
 #include "math/seadVectorFwd.h"
 
-PlayerCollider::~PlayerCollider() {
-    delete info1;
-    delete info2;
-    delete info3;
-
-    delete mCollisionMultiShape;
-    delete[] someHitInfos;
-
-    // assume only three elements from ctor in array
-    if (anotherPtrArray.size() != 3)
-        CRASH
-    for (int i = 0; i < anotherPtrArray.size(); i++)
-        delete anotherPtrArray[i];
-
-    ptrArraysChangeMe[0].freeBuffer();
-    ptrArraysChangeMe[1].freeBuffer();
-    ptrArraysChangeMe[2].freeBuffer();
-    anotherPtrArray.freeBuffer();
-
-    someThreeFloats1.freeBuffer();
-    someThreeFloats2.freeBuffer();
-}
-
 PlayerCollider::PlayerCollider(al::CollisionDirector* a2, sead::Matrix34f const* a3,
                                sead::Vector3f const* a4, sead::Vector3f const* a5, bool a6) {
     PlayerCollider* a1 = this;
@@ -2030,7 +2007,7 @@ void PlayerCollider::calcBoundingCenter(sead::Vector3f*) const {
     CRASH
 }
 
-void PlayerCollider::validateCorrectMovePartsCheck() const {
+void PlayerCollider::validateCorrectMovePartsCheck() {
     mCollisionMultiShape->validateCorrectMovePartsCheck();
 }
 

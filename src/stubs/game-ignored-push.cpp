@@ -5,12 +5,6 @@
 PlayerHitPush::PlayerHitPush(al::LiveActor*, PlayerConst*) {}
 void PlayerHitPush::clearHitFlag() {}
 
-PlayerPushReceiver::PlayerPushReceiver(al::LiveActor const*) {}
-void PlayerPushReceiver::calcPushedVelocity(sead::Vector3<float>*, sead::Vector3<float> const&) const {}
-bool PlayerPushReceiver::receivePushMsg(al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {}
-void PlayerPushReceiver::clear() {}
-void PlayerPushReceiver::calcPushedVelocityWithCollide(sead::Vector3<float>*, sead::Vector3<float> const&, IUsePlayerCollision const*, float) const {}
-
 PlayerExternalVelocity::PlayerExternalVelocity(al::LiveActor const*, IUsePlayerCollision const*,
                                                sead::Vector3<float> const*) {}
 void PlayerExternalVelocity::requestApplyLastGroundInertia() {}
