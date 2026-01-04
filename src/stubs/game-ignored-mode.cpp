@@ -195,15 +195,6 @@ bool PlayerEquipmentFunction::isEquipmentNoCapThrow(PlayerEquipmentUser const*) 
     return false;
 }
 
-PlayerPuppet::PlayerPuppet(al::LiveActor*, HackCap*, PlayerAnimator*, IUsePlayerCollision*,
-                           ActorDimensionKeeper*, IPlayerModelChanger*, WorldEndBorderKeeper*,
-                           PlayerCounterForceRun*, PlayerDamageKeeper*, PlayerEffect*,
-                           PlayerInput const*, PlayerConst const*) {}
-
-bool PlayerPuppet::isNoCollide() {
-    return false;
-}
-
 PlayerStateRun2D::PlayerStateRun2D(al::LiveActor*, PlayerConst const*, PlayerInput const*,
                                    IUsePlayerCollision const*, PlayerAnimator*)
     : al::NerveStateBase("") {}
@@ -250,39 +241,6 @@ void PlayerJudgeEnablePeachAmiibo::reset() {}
 void PlayerJudgeEnablePeachAmiibo::update() {}
 
 bool PlayerJudgeEnablePeachAmiibo::judge() const {
-    return false;
-}
-
-PlayerJudgeCameraSubjective::PlayerJudgeCameraSubjective(al::LiveActor const*,
-                                                         IUsePlayerCollision const*,
-                                                         PlayerInput const*) {}
-
-void PlayerJudgeCameraSubjective::reset() {}
-
-void PlayerJudgeCameraSubjective::update() {}
-
-bool PlayerJudgeCameraSubjective::judge() const {
-    return false;
-}
-
-PlayerJudgeActiveCameraSubjective::PlayerJudgeActiveCameraSubjective(PlayerStateCameraSubjective const*) {}
-
-void PlayerJudgeActiveCameraSubjective::reset() {}
-
-void PlayerJudgeActiveCameraSubjective::update() {}
-
-bool PlayerJudgeActiveCameraSubjective::judge() const {
-    return false;
-}
-
-PlayerJudgeFailureCameraSubjective::PlayerJudgeFailureCameraSubjective(PlayerInput const*,
-                                                                       IJudge const*) {}
-
-void PlayerJudgeFailureCameraSubjective::reset() {}
-
-void PlayerJudgeFailureCameraSubjective::update() {}
-
-bool PlayerJudgeFailureCameraSubjective::judge() const {
     return false;
 }
 

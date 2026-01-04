@@ -10,7 +10,7 @@ namespace al {
 al::PartsEffectGroup::PartsEffectGroup() {}
 void al::PartsEffectGroup::init(int, al::EffectSystemInfo const*, char const*, sead::Vector3<float> const*, sead::Vector3<float> const*, sead::Matrix34<float> const*, al::IUseCamera const*) {}
 
-EffectKeeper::EffectKeeper(al::EffectSystemInfo*, char const*, sead::Vector3<float> const*, sead::Vector3<float> const*, sead::Matrix34<float> const*) {}
+EffectKeeper::EffectKeeper(const al::EffectSystemInfo*, char const*, sead::Vector3<float> const*, sead::Vector3<float> const*, sead::Matrix34<float> const*) {}
 void EffectKeeper::deleteAndClearEffectAll() {}
 void EffectKeeper::offCalcAndDraw() {}
 void EffectKeeper::onCalcAndDraw() {}
@@ -45,3 +45,6 @@ bool tryUpdateEffectMaterialCode(al::IUseEffectKeeper*, char const*) {return fal
 
 void alEffectKeeperInitFunction::setupCameraToEffectKeeper(al::EffectKeeper*, al::IUseCamera const*) {}
 void alEffectKeeperInitFunction::setupModelToEffectKeeper(al::EffectKeeper*, al::ModelKeeper const*) {}
+
+void alEffectSystemFunction::updateEffect2D(al::EffectSystem*) {}
+void alEffectSystemFunction::drawEffect2D(al::EffectSystem const*, sead::Viewport const*) {}

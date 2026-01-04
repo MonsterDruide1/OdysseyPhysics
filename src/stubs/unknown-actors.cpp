@@ -89,7 +89,7 @@ void al::CollisionParts::invalidateBySystem() {WARN_UNIMPL;}
 al::Collider::Collider(CollisionDirector*, const sead::Matrix34f*, const sead::Vector3f*, const sead::Vector3f*, f32, f32, u32) {WARN_UNIMPL;}
 void al::Collider::onInvalidate() {WARN_UNIMPL;}
 void al::Collider::setCollisionPartsFilter(al::CollisionPartsFilterBase const*) {WARN_UNIMPL;}
-const sead::Vector3f& al::Collider::getRecentOnGroundNormal(u32) {WARN_UNIMPL; return sead::Vector3f::ey;}
+const sead::Vector3f& al::Collider::getRecentOnGroundNormal(u32) const {WARN_UNIMPL; return sead::Vector3f::ey;}
 sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {WARN_UNIMPL; return sead::Vector3f::zero;}
 al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {WARN_UNIMPL;return nullptr;}
 al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {WARN_UNIMPL;return nullptr;}
@@ -137,7 +137,7 @@ void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH
 void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
 bool al::isExistJoint(al::LiveActor const*, char const*) {CRASH}
 
-al::Triangle* al::Collider::getPlane(int) {CRASH}
+al::Triangle* al::Collider::getPlane(int) const {CRASH}
 bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
@@ -162,7 +162,7 @@ const char* ProjectAppearSwitchFactory::convertName(const char*) const {CRASH}
 void al::ParameterBase::tryGetParam(al::ByamlIter const&) {CRASH}
 bool al::ParameterBase::copyLerp(al::ParameterBase const&, al::ParameterBase const&, float) {CRASH}
 bool al::ParameterBase::copy(al::ParameterBase const&) {CRASH}
-bool al::ParameterBase::isEqual(al::ParameterBase const&) const {CRASH}
+bool al::ParameterBase::isEqual(al::ParameterBase const&) {CRASH}
 void al::ParameterBase::afterGetParam() {CRASH}
 void al::ParameterBase::initialize(const sead::SafeString& name, const sead::SafeString& label,
                                    const sead::SafeString& meta, bool e) {CRASH}
@@ -191,7 +191,7 @@ void al::CollisionParts::invalidateByUser() {CRASH}
 void al::CollisionParts::validateByUser() {CRASH}
 
 al::CollisionDirector* al::Collider::getCollisionDirector() const {CRASH}
-void al::Collider::calcCheckPos(sead::Vector3<float>*) {CRASH}
+void al::Collider::calcCheckPos(sead::Vector3<float>*) const {CRASH}
 void al::Collider::setTriangleFilter(al::TriangleFilterBase const*) {CRASH}
 
 bool al::CollisionPartsFilterActor::isInvalidParts(CollisionParts*) {CRASH}
@@ -211,3 +211,5 @@ void al::ActionScreenEffectCtrl::update(float, float, float, bool) {CRASH}
 void al::ResourceSystem::removeCategory(sead::SafeStringBase<char> const&) {CRASH}
 const char* al::getSubStringUnmatched(char const*, al::MatchStr const&) {CRASH}
 u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, float, float, float) {CRASH}
+
+bool rs::isCollisionCodeSandSink(IUsePlayerCollision const*) {CRASH}

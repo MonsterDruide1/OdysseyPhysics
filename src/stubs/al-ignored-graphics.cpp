@@ -3,6 +3,7 @@
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
 #include "Library/KeyPose/KeyPoseKeeper.h"
 #include "Library/Layout/LayoutInitInfo.h"
+#include "Library/Layout/LayoutKeeper.h"
 #include "Library/Light/ModelMaterialCategory.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/LiveActorKit.h"
@@ -14,6 +15,20 @@
 #include "Library/Model/ModelLodCtrl.h"
 #include "Library/Model/ModelOcclusionCullingDirector.h"
 #include "Library/Model/ModelOcclusionQuery.h"
+#include "Library/Model/ModelDrawerBase.h"
+#include "Library/Model/ModelDrawerForward.h"
+#include "Library/Model/ModelDrawerDeferred.h"
+#include "Library/Model/ModelDrawerDeferredSilhouette.h"
+#include "Library/Model/ModelDrawerDeferred.h"
+#include "Library/Model/ModelDrawerDepthShadow.h"
+#include "Library/Model/ModelDrawerStaticDepthShadow.h"
+#include "Library/Model/ModelDrawerDepthOnly.h"
+#include "Library/Model/ModelDrawerPrepassCulling.h"
+#include "Library/Model/ModelDrawerDeferredSky.h"
+#include "Library/Model/ModelDrawerDeferredFootPrint.h"
+#include "Library/Model/ModelDrawerWorldAo.h"
+#include "Library/Model/ModelDrawerBufferUpdate.h"
+#include "Library/Model/ModelDrawerChromakey.h"
 #include "Library/Model/SkyDirector.h"
 #include "Library/Obj/ActorDitherAnimator.h"
 #include "Library/Obj/FarDistanceDitherAnimator.h"
@@ -258,5 +273,83 @@ FootPrintHolder::FootPrintHolder(al::LiveActor*, char const*, al::HitSensor*,
 
 void ClippingActorHolder::addToClippingTarget(al::LiveActor*) {}
 void ClippingActorHolder::removeFromClippingTarget(al::LiveActor*) {}
+
+void LayoutKeeper::draw() {}
+
+ModelDrawerBase::ModelDrawerBase(const char* name) : mName(name) {}
+ModelDrawerBase::~ModelDrawerBase() {}
+void ModelDrawerBase::registerModel(ModelCtrl* model) {}
+void ModelDrawerBase::addModel(ModelCtrl* model) {}
+void ModelDrawerBase::removeModel(ModelCtrl* model) {}
+void ModelDrawerBase::updateModel(ModelCtrl* model) {}
+void ModelDrawerBase::setDrawInfo(agl::DrawContext*, al::GraphicsSystemInfo const*, al::ModelDrawBufferCounter const*, al::ModelKeeper const*) {}
+
+ModelDrawerForward::ModelDrawerForward(char const* name, bool, bool, bool, bool, bool, bool) : ModelDrawerBase(name) {}
+void ModelDrawerForward::createTable() {}
+void ModelDrawerForward::draw() const {}
+void ModelDrawerForward::addModel(ModelCtrl*) {}
+void ModelDrawerForward::removeModel(ModelCtrl*) {}
+
+ModelDrawerDeferred::ModelDrawerDeferred(char const* name, bool, bool, bool, bool) : ModelDrawerBase(name) {}
+void ModelDrawerDeferred::createTable() {}
+void ModelDrawerDeferred::draw() const {}
+void ModelDrawerDeferred::addModel(ModelCtrl*) {}
+void ModelDrawerDeferred::removeModel(ModelCtrl*) {}
+
+ModelDrawerDeferredSilhouette::ModelDrawerDeferredSilhouette(char const* name, al::SilhouetteDrawCategory) : ModelDrawerBase(name) {}
+void ModelDrawerDeferredSilhouette::createTable() {}
+void ModelDrawerDeferredSilhouette::draw() const {}
+
+ModelDrawerDepthShadow::ModelDrawerDepthShadow(char const* name, bool, bool) : ModelDrawerBase(name) {}
+void ModelDrawerDepthShadow::createTable() {}
+void ModelDrawerDepthShadow::registerModel(ModelCtrl*) {}
+void ModelDrawerDepthShadow::addModel(ModelCtrl*) {}
+void ModelDrawerDepthShadow::updateModel(ModelCtrl*) {}
+void ModelDrawerDepthShadow::draw() const {}
+
+ModelDrawerStaticDepthShadow::ModelDrawerStaticDepthShadow(char const* name) : ModelDrawerBase(name) {}
+void ModelDrawerStaticDepthShadow::createTable() {}
+void ModelDrawerStaticDepthShadow::addModel(ModelCtrl*) {}
+void ModelDrawerStaticDepthShadow::removeModel(ModelCtrl*) {}
+void ModelDrawerStaticDepthShadow::draw() const {}
+
+ModelDrawerDepthOnly::ModelDrawerDepthOnly(char const* name, bool, bool, bool, bool, bool) : ModelDrawerBase(name) {}
+void ModelDrawerDepthOnly::createTable() {}
+void ModelDrawerDepthOnly::draw() const {}
+void ModelDrawerDepthOnly::registerModel(ModelCtrl*) {}
+void ModelDrawerDepthOnly::addModel(ModelCtrl*) {}
+void ModelDrawerDepthOnly::removeModel(ModelCtrl*) {}
+void ModelDrawerDepthOnly::updateModel(ModelCtrl*) {}
+void ModelDrawerDepthOnly::createTableCulling() {}
+
+ModelDrawerPrepassCulling::ModelDrawerPrepassCulling(char const* name) : ModelDrawerBase(name) {}
+void ModelDrawerPrepassCulling::createTable() {}
+void ModelDrawerPrepassCulling::draw() const {}
+void ModelDrawerPrepassCulling::registerModel(ModelCtrl*) {}
+void ModelDrawerPrepassCulling::addModel(ModelCtrl*) {}
+void ModelDrawerPrepassCulling::updateModel(ModelCtrl*) {}
+
+ModelDrawerDeferredSky::ModelDrawerDeferredSky(char const* name) : ModelDrawerBase(name) {}
+void ModelDrawerDeferredSky::createTable() {}
+void ModelDrawerDeferredSky::draw() const {}
+
+ModelDrawerDeferredFootPrint::ModelDrawerDeferredFootPrint(char const* name) : ModelDrawerBase(name) {}
+void ModelDrawerDeferredFootPrint::createTable() {}
+void ModelDrawerDeferredFootPrint::draw() const {}
+
+ModelDrawerWorldAo::ModelDrawerWorldAo(char const* name) : ModelDrawerBase(name) {}
+void ModelDrawerWorldAo::createTable() {}
+void ModelDrawerWorldAo::draw() const {}
+void ModelDrawerWorldAo::addModel(ModelCtrl*) {}
+void ModelDrawerWorldAo::removeModel(ModelCtrl*) {}
+
+ModelDrawerBufferUpdate::ModelDrawerBufferUpdate(char const* name) : ModelDrawerBase(name) {}
+void ModelDrawerBufferUpdate::draw() const {}
+void ModelDrawerBufferUpdate::createTable() {}
+
+ModelDrawerChromakey::ModelDrawerChromakey(char const* name, bool, bool, bool, bool) : ModelDrawerBase(name) {}
+void ModelDrawerChromakey::createTable() {}
+void ModelDrawerChromakey::registerModel(ModelCtrl*) {}
+void ModelDrawerChromakey::draw() const {}
 
 }  // namespace al

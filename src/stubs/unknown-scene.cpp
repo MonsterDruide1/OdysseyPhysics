@@ -81,7 +81,6 @@ al::CameraPoserEntrance* al::CameraPoserFactory::createEntranceCameraPoser() con
 void al::ViewRenderer::endForwardPlayerScreenFader(int) {CRASH}
 void al::ViewRenderer::startForwardPlayerScreenFader(int, int, float) {CRASH}
 
-void al::executeDraw(al::LayoutKit const*, char const*) {CRASH}
 void al::executeUpdate(al::LayoutKit*) {CRASH}
 const char* al::getLanguage() {CRASH}
 al::CameraTicket* al::initFixCamera(al::IUseCamera const*, char const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}

@@ -27,6 +27,9 @@ al::ActorCameraTarget* createActorCameraTarget(al::LiveActor const*, float) {WAR
 void endCamera(al::IUseCamera const*, al::CameraTicket*, int, bool) {}
 void calcCameraFront(sead::Vector3f*, al::IUseCamera const*, int) {}
 void setCameraInterpoleStep(al::CameraTicket*, int) {}
+CameraTicket* initSubjectiveCameraNoSave(al::IUseCamera const*, char const*) {WARN_UNIMPL; return nullptr;}
+void validateSnapShotCameraRoll(al::CameraTicket*) {}
+void validateSnapShotCameraZoomFovy(al::CameraTicket*) {}
 
 CameraPoserSubjective::CameraPoserSubjective(char const*) : al::CameraPoser("") {}
 void CameraPoserSubjective::init() {}
@@ -61,7 +64,7 @@ void CameraArrowCollider::start() {}
 
 void CameraPoser::movement() {}
 
-bool CameraTargetAreaLimitter::applyAreaLimit(sead::Vector3<float>*, sead::Vector3<float> const&) {return false;}
+bool CameraTargetAreaLimitter::applyAreaLimit(sead::Vector3<float>*, sead::Vector3<float> const&) const {return false;}
 CameraTargetAreaLimitter* CameraTargetAreaLimitter::tryCreate(al::PlacementInfo const&) {WARN_UNIMPL; return nullptr;}
 
 void CameraVerticalAbsorber::exeAbsorb() {}
