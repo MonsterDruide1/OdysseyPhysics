@@ -1,6 +1,7 @@
 
 #include "Library/stuff.h"
 #include "PlayerUtil.h"
+#include "Player/PlayerSandSinkAffect.h"
 #include "Util/PlayerCollisionUtil.h"
 
 namespace rs {
@@ -30,23 +31,25 @@ bool isOnGroundForceRollingCode(al::LiveActor const*, IUsePlayerCollision const*
     return false;
 }
 
+bool isCollisionCodeSandSink(IUsePlayerCollision const*) {
+    return false;
+}
+
 }  // namespace rs
 
 PlayerSandSinkAffect::PlayerSandSinkAffect(al::LiveActor const*, PlayerConst const*,
                                            PlayerInput const*, IUsePlayerCollision*,
                                            PlayerEffect*) {}
 
-bool PlayerSandSinkAffect::isSinkDeathHeight() {
+bool PlayerSandSinkAffect::isSinkDeathHeight() const {
     return false;
 }
 
-PlayerJudgeSandSink::PlayerJudgeSandSink(IUsePlayerCollision const*, PlayerSandSinkAffect const*) {}
+bool PlayerSandSinkAffect::isSink() const {
+    return false;
+}
 
-void PlayerJudgeSandSink::update() {}
-
-void PlayerJudgeSandSink::reset() {}
-
-bool PlayerJudgeSandSink::judge() const {
+bool PlayerSandSinkAffect::isEnableCapThrow() const {
     return false;
 }
 

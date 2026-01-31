@@ -205,7 +205,6 @@ u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, f
 
 bool al::isInAreaObjPlayerOneIgnoreAreaTarget(al::PlayerHolder const*, char const*) {CRASH}
 
-bool rs::isCollisionCodeSandSink(IUsePlayerCollision const*) {CRASH}
 bool rs::isPlayerCollidedGround(al::LiveActor const*) {CRASH}
 
 s32 alCollisionUtil::checkStrikeSphere(al::IUseCollision const*, sead::Vector3<float> const&, float, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
