@@ -30,6 +30,7 @@ void setCameraInterpoleStep(al::CameraTicket*, int) {}
 CameraTicket* initSubjectiveCameraNoSave(al::IUseCamera const*, char const*) {WARN_UNIMPL; return nullptr;}
 void validateSnapShotCameraRoll(al::CameraTicket*) {}
 void validateSnapShotCameraZoomFovy(al::CameraTicket*) {}
+CameraTicket* initTowerCameraWithSave(al::IUseCamera const*, sead::Vector3<float> const*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL; return nullptr;}
 
 CameraPoserSubjective::CameraPoserSubjective(char const*) : al::CameraPoser("") {}
 void CameraPoserSubjective::init() {}
@@ -71,8 +72,6 @@ void CameraVerticalAbsorber::exeAbsorb() {}
 void CameraVerticalAbsorber::exeFollow() {}
 void CameraVerticalAbsorber::exeFollowClimbPole() {}
 void CameraVerticalAbsorber::exeFollowGround() {}
-void CameraVerticalAbsorber::liberateAbsorb() {}
-void CameraVerticalAbsorber::makeLookAtCamera(sead::LookAtCamera*) const {}
 
 void SnapShotCameraCtrl::makeLookAtCameraLast(sead::LookAtCamera*) const {}
 void SnapShotCameraCtrl::makeLookAtCameraPost(sead::LookAtCamera*) const {}
@@ -97,6 +96,7 @@ bool isSnapShotMode(al::CameraPoser const*) {return false;}
 bool isTargetClimbPole(al::CameraPoser const*) {return false;}
 bool isTargetCollideGround(al::CameraPoser const*) {return false;}
 bool isTargetGrabCeil(al::CameraPoser const*) {return false;}
+bool checkFirstCameraCollisionArrow(sead::Vector3<float>*, sead::Vector3<float>*, al::IUseCollision const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {return false;}
 
 }
 

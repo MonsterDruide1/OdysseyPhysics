@@ -119,3 +119,6 @@ nn::Result nn::fs::ReadDirectory(long*, nn::fs::DirectoryEntry*, nn::fs::Directo
 nn::Result nn::fs::SetFileSize(nn::fs::FileHandle, long) {CRASH}
 nn::Result nn::fs::Unmount(char const*) {CRASH}
 nn::Result nn::fs::WriteFile(nn::fs::FileHandle, long, void const*, unsigned long, nn::fs::WriteOption const&) {CRASH}
+nn::Result nn::fs::CommitSaveData(char const*) {CRASH}
+nn::Result nn::fs::EnsureSaveData(nn::account::Uid const&) {CRASH}
+nn::Result nn::fs::MountSaveData(char const*, nn::account::Uid const&) {CRASH}

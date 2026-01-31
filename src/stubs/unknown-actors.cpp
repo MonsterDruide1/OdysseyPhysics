@@ -12,6 +12,7 @@
 #include "Library/Controller/InputFunction.h"
 #include "Library/Event/EventFlowUtil.h"
 #include "Library/Joint/JointControllerKeeper.h"
+#include "Library/LiveActor/ActorAreaFunction.h"
 #include "Library/LiveActor/ActorCollisionFunction.h"
 #include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorInitInfo.h"
@@ -94,6 +95,8 @@ sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {WARN_UNIMPL; 
 al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {WARN_UNIMPL;return nullptr;}
 al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {WARN_UNIMPL;return nullptr;}
 
+// NORMAL PRIORITY
+
 // MathUtil.o
 al::Axis al::calcNearVecFromAxis3(sead::Vector3f*, sead::Vector3f const&, sead::Quatf const&) {CRASH}
 void al::calcQuatLocalAxis(sead::Vector3f*, sead::Quatf const&, int) {CRASH}
@@ -112,10 +115,11 @@ void al::rotateQuatAndTransDegree(sead::Quat<float>*, sead::Vector3<float>*, sea
 void al::calcSphereMargeSpheres(sead::Vector3<float>*, float*, sead::Vector3<float> const&, float, sead::Vector3<float> const&, float) {CRASH}
 void al::calcBoxFacePoint(sead::Vector3<float>*, sead::BoundBox3<float> const&, int, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
 bool al::turnQuatWithAxisDegree(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+void al::calcClosestSegmentPoint(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
+bool al::checkHitSegmentSphereNearDepth(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, sead::Vector3<float>*, sead::Vector3<float>*) {CRASH}
 // MtxUtil.o
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 
-// NORMAL PRIORITY
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
 const char* GameDataFunction::getCurrentStageName(GameDataHolderAccessor) {CRASH}
@@ -123,10 +127,7 @@ s32 GameDataFunction::getScenarioNo(al::LiveActor const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead::Vector3f const&) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
-al::CollisionObj* al::createCollisionObj(al::LiveActor const*, al::ActorInitInfo const&, char const*, al::HitSensor*, char const*, char const*) {CRASH}
-void al::multVecInvQuat(sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&) {CRASH}
 
-const sead::Vector3f& rs::getPlayerPos(al::LiveActor const*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
 
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
@@ -159,20 +160,11 @@ void rs::offRouteGuideByActor(al::LiveActor*) {CRASH}
 void rs::onRouteGuideByActor(al::LiveActor*) {CRASH}
 const char* ProjectAppearSwitchFactory::convertName(const char*) const {CRASH}
 
-void al::ParameterBase::tryGetParam(al::ByamlIter const&) {CRASH}
-bool al::ParameterBase::copyLerp(al::ParameterBase const&, al::ParameterBase const&, float) {CRASH}
-bool al::ParameterBase::copy(al::ParameterBase const&) {CRASH}
-bool al::ParameterBase::isEqual(al::ParameterBase const&) {CRASH}
-void al::ParameterBase::afterGetParam() {CRASH}
-void al::ParameterBase::initialize(const sead::SafeString& name, const sead::SafeString& label,
-                                   const sead::SafeString& meta, bool e) {CRASH}
-void al::ParameterBase::initializeListNode(const sead::SafeString& name,
-                                           const sead::SafeString& label,
-                                           const sead::SafeString& meta, al::ParameterObj* obj,
-                                           bool e) {CRASH}
-
 void al::ScreenPointDirector::setCheckGroup(al::ScreenPointTarget*) {CRASH}
 void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
+bool al::ScreenPointDirector::hitCheckLayoutCircle(al::ScreenPointer*, sead::ObjArray<al::ScreenPointTargetHitInfo>*, int, sead::Vector2<float> const&, float, float, int (*)(al::ScreenPointTargetHitInfo const*, al::ScreenPointTargetHitInfo const*)) {CRASH}
+bool al::ScreenPointDirector::hitCheckScreenCircle(al::ScreenPointer*, sead::ObjArray<al::ScreenPointTargetHitInfo>*, int, sead::Vector2<float> const&, float, float) {CRASH}
+bool al::ScreenPointDirector::hitCheckSegment(al::ScreenPointer*, sead::ObjArray<al::ScreenPointTargetHitInfo>*, int, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
 
 bool al::isSensorValid(al::HitSensor const*) {CRASH}
@@ -208,8 +200,12 @@ void al::ActionBgmCtrl::update(float, float, float, bool) {CRASH}
 void al::ActionPadAndCameraCtrl::update(float, float, float, bool) {CRASH}
 void al::ActionScreenEffectCtrl::update(float, float, float, bool) {CRASH}
 
-void al::ResourceSystem::removeCategory(sead::SafeStringBase<char> const&) {CRASH}
 const char* al::getSubStringUnmatched(char const*, al::MatchStr const&) {CRASH}
 u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, float, float, float) {CRASH}
 
+bool al::isInAreaObjPlayerOneIgnoreAreaTarget(al::PlayerHolder const*, char const*) {CRASH}
+
 bool rs::isCollisionCodeSandSink(IUsePlayerCollision const*) {CRASH}
+bool rs::isPlayerCollidedGround(al::LiveActor const*) {CRASH}
+
+s32 alCollisionUtil::checkStrikeSphere(al::IUseCollision const*, sead::Vector3<float> const&, float, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}

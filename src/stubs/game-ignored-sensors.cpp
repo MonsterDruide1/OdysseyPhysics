@@ -87,6 +87,8 @@ bool isMsgThrowObjHitReflect(al::SensorMsg const*) {return false;}
 bool isMsgCapReflectCollide(al::SensorMsg const*) {return false;}
 bool isMsgBreakSignBoard(al::SensorMsg const*) {return false;}
 bool isMsgPlayerTrample2D(al::SensorMsg const*) {return false;}
+bool isMsgPlayerEndGrabCeil(al::SensorMsg const*) {return false;}
+bool isMsgPlayerStartGrabCeil(al::SensorMsg const*) {return false;}
 
 bool isVisibleChameleon(al::SensorMsg const*) {return false;}
 void setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {}
@@ -119,6 +121,7 @@ bool sendMsgTimerAthleticDemoStart(al::LiveActor*) {return false;}
 bool sendMsgKillBySwitchTimer(al::LiveActor*) {return false;}
 bool sendMsgHackObjUpperPunch(al::HitSensor*, al::HitSensor*) {return false;}
 bool sendMsgHackUpperPunch(al::HitSensor*, al::HitSensor*) {return false;}
+bool sendMsgObjSnapForce(al::HitSensor*, al::HitSensor*, sead::Vector3<float> const&) {return false;}
 
 void sendPlayerCollisionTouchMsg(al::LiveActor const*, al::HitSensor*, IUsePlayerCollision const*) {}
 

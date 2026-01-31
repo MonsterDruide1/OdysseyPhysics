@@ -90,5 +90,3 @@ void alAudioSystemFunction::setPadRumbleDirectorForSe(al::AudioDirector*, al::Pa
 void alEffectSystemFunction::drawEffectDeferred(al::EffectSystem const*, sead::Matrix44<float> const&, sead::Matrix34<float> const&, float, float, float) {CRASH}
 const char* alSeDbFunction::tryFindSceneSeUserName(al::AudioSystemInfo const*, char const*, int) {CRASH}
 void alSeFunction::stopAllSe(al::AudioDirector const*, unsigned int) {CRASH}
-
-al::SaveDataDirector::SaveDataDirector(unsigned int, int) {CRASH}

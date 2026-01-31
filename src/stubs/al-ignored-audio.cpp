@@ -1,7 +1,9 @@
 #include <prim/seadSafeString.h>
 #include "Library/Audio/System/AudioKeeper.h"
 #include "Library/Audio/AudioDirector.h"
+#include "Library/Audio/System/AudioKeeperFunction.h"
 #include "Library/Audio/System/SimpleAudioUser.h"
+#include "Library/Bgm/BgmLineFunction.h"
 #include "Library/LiveActor/LiveActor.h"
 #include "Library/Se/SeFunction.h"
 #include "Library/Se/SeKeeper.h"
@@ -29,6 +31,9 @@ f32 getCurBeatOnMeasure(al::IUseAudioKeeper const*) {return 0.0f;}
 void tryUpdateSeMaterialCode(al::IUseAudioKeeper*, char const*) {}
 void resetSeKeeperPlayNamePrefix(al::IUseAudioKeeper const*) {}
 void setSeKeeperPlayNamePrefix(al::IUseAudioKeeper const*, char const*) {}
+void startAndStopBgmInCurPosition(al::IUseAudioKeeper const*, bool) {}
+void startBgm(al::IUseAudioKeeper const*, al::BgmPlayingRequest const&, bool, bool) {}
+void stopBgm(al::IUseAudioKeeper const*, char const*, int) {}
 
 SimpleAudioUser::SimpleAudioUser(char const*, ActorInitInfo const&) {}
 AudioKeeper* SimpleAudioUser::getAudioKeeper() const {WARN_UNIMPL;return nullptr;}
@@ -62,3 +67,6 @@ al::AudioKeeper* alAudioKeeperFunction::createAudioKeeper(al::AudioDirector cons
 
 void alSeFunction::endListenerPoser(al::IUseAudioKeeper const*, char const*, int) {}
 void alSeFunction::startListenerPoser(al::IUseAudioKeeper const*, char const*, int) {}
+
+bool alAudioSystemFunction::tryDisableSoundMemoryPoolHandlerByFilePath(char const*, al::SeadAudioPlayer*) {return false;}
+al::SeadAudioPlayer* alAudioSystemFunction::tryFindAudioPlayerRegistedSoundMemoryPoolHandler(char const*, al::SeadAudioPlayer*, al::SeadAudioPlayer*) {WARN_UNIMPL; return nullptr;}

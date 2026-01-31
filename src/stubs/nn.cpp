@@ -2,6 +2,7 @@
 
 #include <basis/seadTypes.h>
 
+#include "nn/account.h"
 #include "nn/os.h"
 
 nn::os::Tick nn::os::GetSystemTickFrequency() {
@@ -146,3 +147,5 @@ void nn::os::JamMessageQueue(nn::os::MessageQueueType*, u64) {
 bool nn::os::TryJamMessageQueue(nn::os::MessageQueueType*, u64) {
     CRASH
 }
+
+nn::Result nn::account::GetLastOpenedUser(nn::account::Uid*) {CRASH}

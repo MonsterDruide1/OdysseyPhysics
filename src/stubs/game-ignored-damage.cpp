@@ -26,10 +26,6 @@ bool PlayerTrigger::isOnAnyDamage() const {
     return false;
 }
 
-PlayerDamageKeeper::PlayerDamageKeeper(al::LiveActor*, PlayerEffect*) {}
-
-void PlayerDamageKeeper::update(IPlayerModelChanger*, bool, bool) {}
-
 void PlayerActorHakoniwa::checkDamageFromCollision() {}
 
 PlayerJudgeRecoveryLifeFast::PlayerJudgeRecoveryLifeFast(

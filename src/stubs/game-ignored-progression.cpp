@@ -1,3 +1,4 @@
+#include "MapObj/CapMessageShowInfo.h"
 #include "System/GameDataFile.h"
 #include "System/GameDataFunction.h"
 #include "System/HintPhotoData.h"
@@ -6,6 +7,13 @@
 #include "System/VisitStageData.h"
 #include "System/WorldList.h"
 #include "System/WorldWarpTalkData.h"
+
+namespace rs {
+    
+bool isShowCapMsgPlayerLife1(al::IUseSceneObjHolder const*) {return true;}
+void showCapMsgPlayerLife1(al::IUseSceneObjHolder const*, int) {}
+
+}
 
 bool HintPhotoData::checkSavedHintPhoto(char const*) const {return false;}
 void HintPhotoData::saveHintPhoto(char const*) {}
@@ -26,6 +34,7 @@ bool WorldList::isEqualMoonRockScenarioNo(int, int) const {return false;}
 s32 WorldList::tryFindWorldIndexByMainStageName(const char*) const {return 0;}
 s32 WorldList::getWorldNum() const {return 0;}
 s32 WorldList::tryFindWorldIndexByDevelopName(char const*) const {return 0;}
+s32 WorldList::tryFindWorldIndexByStageName(char const*) const {return 0;}
 
 void WorldWarpTalkData::addTipsId() {CRASH}
 s32 WorldWarpTalkData::getTipsId() const {CRASH}
@@ -78,6 +87,11 @@ void GameDataFunction::onObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, a
 void GameDataFunction::onObjNoWriteSaveDataInSameScenario(GameDataHolder*, al::PlacementId const*) {}
 void GameDataFunction::offObjNoWriteSaveData(GameDataHolderWriter, al::PlacementId const*) {}
 void GameDataFunction::offObjNoWriteSaveDataResetMiniGame(GameDataHolderWriter, al::PlacementId const*) {}
+void GameDataFunction::damagePlayer(GameDataHolderWriter) {}
+s32 GameDataFunction::getPlayerHitPoint(GameDataHolderAccessor) {return 3;}
+bool GameDataFunction::isPlayerHitPointMax(GameDataHolderAccessor) {return true;}
+void GameDataFunction::killPlayer(GameDataHolderWriter) {}
+void GameDataFunction::recoveryPlayer(al::LiveActor const*) {}
 
 void GameDataFile::addGrowFlowerGrowLevel(al::PlacementId const*, unsigned int) {}
 s32 GameDataFile::calcAllShineNumByObjectNameOrOptionalId(char const*) const {return 0;}

@@ -28,6 +28,7 @@ al::ExecuteTableHolderUpdate::~ExecuteTableHolderUpdate() {}
 al::ExecuteAsyncExecutor::ExecuteAsyncExecutor(al::ExecuteDirector const*, char const*, sead::CoreId) {}
 al::ExecuteAsyncExecutor::~ExecuteAsyncExecutor() {}
 void al::ExecuteAsyncExecutor::executeAsync() {}
+void al::ExecuteAsyncExecutor::waitAsync() {}
 
 al::ExecuteAsyncExecutorUpdate::~ExecuteAsyncExecutorUpdate() {}
 void al::ExecuteAsyncExecutorUpdate::execute() {}

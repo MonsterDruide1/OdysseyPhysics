@@ -71,7 +71,6 @@ void invalidateDitherAnim(al::LiveActor*) {}
 bool isExistDitherAnimator(al::LiveActor const*) {return false;}
 void setKeyMoveClippingInfo(al::LiveActor*,sead::Vector3f*,al::KeyPoseKeeper const*) {}
 void calcKeyMoveClippingInfo(sead::Vector3f*,float*,al::KeyPoseKeeper const*,float) {}
-bool updateSyncHostVisible(bool*, al::LiveActor*, al::LiveActor const*, bool) {return false;}
 f32 getModelAlphaMask(al::LiveActor const*) {return 1.0f;}
 void calcViewModel(al::LiveActor*) {}
 void forceApplyCubeMap(al::LiveActor*, char const*) {}
@@ -129,6 +128,12 @@ void updateDepthShadowMapCtrlShapeVisible(al::LiveActor*) {}
 void validateDepthShadowMap(al::LiveActor*) {}
 f32 getShadowMaskDropLength(al::LiveActor const*, char const*) {return 0.0f;}
 void setShadowMaskDropLength(al::LiveActor*, float) {}
+void invalidateShadowMask(al::LiveActor*) {}
+void invalidateShadowMask(al::LiveActor*, char const*) {}
+bool isExistShadow(al::LiveActor*) {return false;}
+void setShadowMaskOffset(al::LiveActor const*, sead::Vector3<float> const&, char const*) {}
+void showShadow(al::LiveActor*) {}
+void validateShadowMask(al::LiveActor*) {}
 
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}

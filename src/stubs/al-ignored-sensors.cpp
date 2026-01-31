@@ -55,7 +55,7 @@ const sead::Vector3f& getActorVelocity(al::HitSensor const*) {return sead::Vecto
 const sead::Vector3f& getActorGravity(al::HitSensor const*) {return sead::Vector3f::zero;}
 const sead::Vector3f& getSensorPos(al::LiveActor const*, char const*) {return sead::Vector3f::zero;}
 void registSupportFreezeSyncGroup(al::LiveActor*, al::ActorInitInfo const&) {}
-
+f32 calcDistance(al::HitSensor const*, al::HitSensor const*) {return 0.0f;}
 f32 getChangeAlphaValue(al::SensorMsg const*) { return 0.0f; }
 
 }  // namespace al

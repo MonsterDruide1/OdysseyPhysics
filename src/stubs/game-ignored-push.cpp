@@ -2,9 +2,6 @@
 #include "Library/Collision/CollisionUtil.h"
 #include "PlayerUtil.h"
 
-PlayerHitPush::PlayerHitPush(al::LiveActor*, PlayerConst*) {}
-void PlayerHitPush::clearHitFlag() {}
-
 PlayerExternalVelocity::PlayerExternalVelocity(al::LiveActor const*, IUsePlayerCollision const*,
                                                sead::Vector3<float> const*) {}
 void PlayerExternalVelocity::requestApplyLastGroundInertia() {}

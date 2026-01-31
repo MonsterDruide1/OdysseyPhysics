@@ -63,7 +63,4 @@ PlayerStateDamageSwim::PlayerStateDamageSwim(al::LiveActor*, PlayerConst const*,
                                              IJudge*)
     : al::NerveStateBase("") {}
 
-void WaterSurfaceShadow::disappearShadow() {}
-WaterSurfaceShadow* rs::tryCreateWaterSurfaceCoinShadow(al::ActorInitInfo const&) {WARN_UNIMPL;return nullptr;}
-
 bool rs::isPlayerInWater(al::LiveActor const*) {return false;}

@@ -30,13 +30,9 @@ void startHitReactionLandIfLanding(al::LiveActor const*, IUsePlayerCollision con
 
 void startHitReactionHipDropLand(al::LiveActor*, bool) {}
 
-f32 setShadowDropLength(al::LiveActor*, al::ActorInitInfo const&, char const*) {return 0.0f;}
-
 void calcOffsetAllRoot(sead::Vector3<float>* a1, PlayerModelHolder const*) {
     *a1 = sead::Vector3f::zero;
 }
-
-void tryUpdateWaterSurfaceCoinShadow(WaterSurfaceShadow*, al::LiveActor*, float) {}
 
 bool tryCalcPlayerModelHeadJointFront(sead::Vector3<float>*, al::LiveActor const*) {return false;}
 bool tryCalcPlayerModelHeadJointPos(sead::Vector3<float>*, al::LiveActor const*) {return false;}
@@ -68,20 +64,15 @@ al::ActorDitherAnimator* PlayerFunction::createPlayerDitherAnimator(al::LiveActo
     return nullptr;
 }
 
-PlayerEffect::PlayerEffect(al::LiveActor*, PlayerModelHolder const*, sead::Matrix34<float> const*) {
-}
-
+PlayerEffect::PlayerEffect(al::LiveActor*, PlayerModelHolder const*, sead::Matrix34<float> const*) {}
 void PlayerEffect::updateWaterSurfaceMtx(al::WaterSurfaceFinder const*) {}
-
 void PlayerEffect::tryEmitRollingEffect() {}
-
 void PlayerEffect::tryDeleteRollingEffect() {}
-
 void PlayerEffect::tryStartRunEffectDashWaterSurface() {}
-
 void PlayerEffect::tryStartRunEffectRunStart() {}
-
 void PlayerEffect::clearRunEffect() {}
+void PlayerEffect::tryEmitInvincibleEffect() {}
+void PlayerEffect::tryDeleteInvincibleEffect() {}
 
 PlayerModelChangerHakoniwa::PlayerModelChangerHakoniwa(al::LiveActor const*, PlayerModelHolder*,
                                                        PlayerPainPartsKeeper*, PlayerCostumeInfo*,
@@ -147,10 +138,6 @@ PlayerStainControl::PlayerStainControl(al::LiveActor const*, al::LiveActor*,
                                        PlayerEffect*) {}
 
 GaugeAir::GaugeAir(char const*, al::LayoutInitInfo const&) {}
-
-WaterSurfaceShadow::WaterSurfaceShadow(al::ActorInitInfo const&, char const*) {}
-
-void WaterSurfaceShadow::setScale(float) {}
 
 PlayerCapManHeroEyesControl::PlayerCapManHeroEyesControl(char const*, al::LiveActor*,
                                                          al::LiveActor*) {}

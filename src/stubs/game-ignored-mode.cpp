@@ -71,13 +71,10 @@ void calc2DAreaLockDir(sead::Vector3<float>*, al::AreaObj const*, sead::Vector3<
 bool isMsgPlayerItemGet2D(al::SensorMsg const*) {return false;}
 
 void endHack(IUsePlayerHack**) {}
-void endHackShadow(al::LiveActor*) {}
 void endHackStartDemo(IUsePlayerHack*, al::LiveActor*) {}
 const char* getSpecialPurposeName2DOnly() {return "";}
 void hideShadowHackCap(IUsePlayerHack*) {}
-void initHackShadow(al::LiveActor*) {}
 bool isHackStartDemoEnterMario(IUsePlayerHack const*) {return false;}
-void setupHackShadow(al::LiveActor*) {}
 IUsePlayerHack* startHack(al::HitSensor*, al::HitSensor*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
 IUsePlayerHack* startHackStartDemo(IUsePlayerHack*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
 bool isPlayerHackKuriboAny(al::LiveActor const*) {return false;}
@@ -178,6 +175,11 @@ const char* PlayerHackKeeper::getCurrentHackName() const {
 al::CollisionPartsFilterBase* PlayerHackKeeper::getCollisionPartsFilter() const {
     return nullptr;
 }
+void PlayerHackKeeper::appearHackDemoModel(sead::Matrix34<float> const&, float) {}
+void PlayerHackKeeper::deleteHackDemoModelEffect() {}
+void PlayerHackKeeper::killHackDemoModel() {}
+void PlayerHackKeeper::recordHack() {}
+void PlayerHackKeeper::updateHackDemoModel(sead::Matrix34<float> const&, float) {}
 
 PlayerRecoverySafetyPoint::PlayerRecoverySafetyPoint(al::LiveActor const*, HackCap const*,
                                                      al::ActorInitInfo const&, IUseDimension const*,
@@ -220,10 +222,6 @@ bool PlayerJudgePreInputHackAction::judge() const {
     return false;
 }
 
-bool HackCap::sendMsgStartHack(al::HitSensor*) {
-    return false;
-}
-
 PlayerJudgeEnableGuideArrow::PlayerJudgeEnableGuideArrow(PlayerPuppet const*) {}
 
 void PlayerJudgeEnableGuideArrow::reset() {}
@@ -248,20 +246,10 @@ PlayerStateBind::PlayerStateBind(al::LiveActor*, PlayerConst const*, PlayerInput
                                  PlayerPuppet const*, IUsePlayerCollision const*, PlayerTrigger*)
     : al::NerveStateBase("") {}
 
-PlayerStateHack::PlayerStateHack(al::LiveActor*, PlayerHackKeeper*, IPlayerModelChanger*,
-                                 PlayerAnimator*, HackCap*)
-    : al::NerveStateBase("") {}
-
-void PlayerStateHack::prepareStageStartHack() {}
-
 PlayerStateEndHack::PlayerStateEndHack(al::LiveActor*, PlayerConst const*,
                                        IUsePlayerCollision const*, PlayerInput const*,
                                        PlayerTrigger*, PlayerAnimator*)
     : al::NerveStateBase("") {}
-
-bool PlayerStateHack::isEnableModelSyncShowHide() {
-    return false;
-}
 
 HackerJudgeStartRun::HackerJudgeStartRun(al::LiveActor const*, IUsePlayerHack**) : HackerJudge(nullptr) {}
 void HackerJudgeStartRun::reset() {}

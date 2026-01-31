@@ -20,9 +20,22 @@ s32 sead::StringUtil::snprintf(char* s, size_t n, const char* format, ...) {
     return ret;
 }
 
+s32 sead::StringUtil::vsw16printf(char16_t*, unsigned long, char16_t const*, va_list) {
+    CRASH
+}
+
+char16* sead::StringUtil::wcs16cpy(char16_t*, unsigned long, char16_t const*) {
+    CRASH
+}
+
+s32 sead::StringUtil::vsnw16printf(char16* s, size_t n, const char16* format, va_list arg) {
+    CRASH
+}
+
 bool sead::MemUtil::isStack(void const*) {
     return true;
 }
+sead::FrameHeap* sead::FrameHeap::create(unsigned long, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
 
 sead::FrameHeap* sead::FrameHeap::tryCreate(unsigned long, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
 
@@ -47,11 +60,10 @@ void sead::ExpHeap::setFindFreeBlockMode(sead::ExpHeap::FindFreeBlockMode) {
 }
 
 void sead::ExpHeap::genInformation_(hostio::Context* context){
-    CRASH} s32 sead::ExpHeap::destroyAndGetAllocatableSize(int){CRASH}
-
-s32 sead::StringUtil::vsnw16printf(char16* s, size_t n, const char16* format, va_list arg) {
     CRASH
 }
+
+s32 sead::ExpHeap::destroyAndGetAllocatableSize(int){CRASH}
 
 void sead::CalculateTask::pauseCalc(bool) {
     CRASH
@@ -162,10 +174,6 @@ sead::NinJoyNpadDevice::~NinJoyNpadDevice() {
     CRASH
 }
 
-char16* sead::StringUtil::wcs16cpy(char16_t*, unsigned long, char16_t const*) {
-    CRASH
-}
-
 void sead::WriteStream::writeF32(float) {CRASH}
 void sead::WriteStream::writeMemBlock(void const*, unsigned int) {CRASH}
 void sead::WriteStream::writeS32(int) {CRASH}
@@ -174,16 +182,6 @@ void sead::WriteStream::writeU16(unsigned short) {CRASH}
 void sead::WriteStream::writeU32(unsigned int) {CRASH}
 void sead::WriteStream::writeU64(unsigned long) {CRASH}
 void sead::WriteStream::writeU8(unsigned char) {CRASH}
-
-f32 sead::PerspectiveProjection::getNear() const {CRASH}
-f32 sead::PerspectiveProjection::getFar() const {CRASH}
-f32 sead::PerspectiveProjection::getAspect() const {CRASH}
-f32 sead::PerspectiveProjection::getFovy() const {CRASH}
-f32 sead::PerspectiveProjection::getTop() const {CRASH}
-f32 sead::PerspectiveProjection::getBottom() const {CRASH}
-f32 sead::PerspectiveProjection::getLeft() const {CRASH}
-f32 sead::PerspectiveProjection::getRight() const {CRASH}
-void sead::PerspectiveProjection::set(float, float, float, float) {CRASH}
 
 sead::ParallelSZSDecompressor::ParallelSZSDecompressor(unsigned int, int, sead::Heap*, unsigned char*, sead::CoreIdMask const&) : sead::Decompressor("") {CRASH}
 sead::ParallelSZSDecompressor::~ParallelSZSDecompressor() {CRASH}
