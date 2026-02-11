@@ -89,6 +89,21 @@ bool isMsgBreakSignBoard(al::SensorMsg const*) {return false;}
 bool isMsgPlayerTrample2D(al::SensorMsg const*) {return false;}
 bool isMsgPlayerEndGrabCeil(al::SensorMsg const*) {return false;}
 bool isMsgPlayerStartGrabCeil(al::SensorMsg const*) {return false;}
+bool isMsgBossMagmaCatchPlayer(al::SensorMsg const*) {CRASH}
+bool isMsgBossMagmaDeadDemoEnd(al::SensorMsg const*) {CRASH}
+bool isMsgBossMagmaDeadDemoStart(al::SensorMsg const*) {CRASH}
+bool isMsgBossMagmaQueryToBubble(al::SensorMsg const*) {CRASH}
+bool isMsgBossMagmaReleasePlayer(al::SensorMsg const*) {CRASH}
+bool isMsgBubbleAttack(al::SensorMsg const*) {CRASH}
+bool isMsgBubbleLauncherStart(al::SensorMsg const*) {CRASH}
+bool isMsgEndInSaucePan(al::SensorMsg const*) {CRASH}
+bool isMsgEnemyAttackFireCollision(al::SensorMsg const*) {CRASH}
+bool isMsgFireDamageAll(al::SensorMsg const*) {CRASH}
+bool isMsgHackDirectStageInit(IUsePlayerHack**, al::SensorMsg const*) {CRASH}
+bool isMsgHackInvalidEscape(al::SensorMsg const*) {CRASH}
+bool isMsgHackInvalidEscapeNoReaction(al::SensorMsg const*) {CRASH}
+bool isMsgHammerBrosHammerEnemyAttack(al::SensorMsg const*) {CRASH}
+bool isMsgKillByMoonRockDemo(al::SensorMsg const*) {CRASH}
 
 bool isVisibleChameleon(al::SensorMsg const*) {return false;}
 void setMsgTargetMarkerPosition(al::SensorMsg const*, sead::Vector3f const&) {}

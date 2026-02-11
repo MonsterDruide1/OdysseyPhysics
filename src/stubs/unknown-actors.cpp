@@ -1,4 +1,3 @@
-#include "Item/CoinCollectHolder.h"
 #include "Library/Action/ActorActionKeeper.h"
 #include "Library/Base/StringUtil.h"
 #include "Library/Camera/CameraUtil.h"
@@ -77,8 +76,6 @@
 #include "Util/SensorMsgFunction.h"
 
 // HIGH PRIORITY
-CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
-const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}

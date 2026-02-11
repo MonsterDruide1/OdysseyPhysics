@@ -12,6 +12,8 @@ const char* GameDataHolder::getCoinCollect2DArchiveName(int) const {return "Coin
 const char* GameDataHolder::getCoinCollectEmptyArchiveName(int) const {return "CoinCollectEmptyA";}
 const char* GameDataHolder::getCoinCollectArchiveName(int) const {return "CoinCollect";}
 
+CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
+const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 CoinCollectHolder* rs::createCoinCollectHolder(al::IUseSceneObjHolder const*) {WARN_UNIMPL;return nullptr;}
 void CoinCollectHolder::registerCoinCollect2D(CoinCollect2D*) {}
 void CoinCollectHolder::registerHintObj(CoinCollectHintObj*) {}
