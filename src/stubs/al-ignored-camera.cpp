@@ -1,5 +1,6 @@
 #include "Library/Camera/CameraArrowCollider.h"
 #include "Library/Camera/CameraDirector.h"
+#include "Library/Camera/CameraLimitRailKeeper.h"
 #include "Library/Camera/CameraPoserFunction.h"
 #include "Library/Camera/CameraTargetAreaLimitter.h"
 #include "Library/Camera/CameraUtil.h"
@@ -31,6 +32,10 @@ CameraTicket* initSubjectiveCameraNoSave(al::IUseCamera const*, char const*) {WA
 void validateSnapShotCameraRoll(al::CameraTicket*) {}
 void validateSnapShotCameraZoomFovy(al::CameraTicket*) {}
 CameraTicket* initTowerCameraWithSave(al::IUseCamera const*, sead::Vector3<float> const*, al::ActorInitInfo const&, char const*) {WARN_UNIMPL; return nullptr;}
+void initCameraSubTargetTurnParam(al::CameraSubTargetBase*, al::CameraSubTargetTurnParam const*) {}
+ActorCameraSubTarget* createActorCameraSubTarget(al::LiveActor const*, sead::Vector3<float> const*) {WARN_UNIMPL;return nullptr;}
+void resetCameraPlacementSubTarget(al::IUseCamera*, al::CameraSubTargetBase*) {}
+void setCameraPlacementSubTarget(al::IUseCamera*, al::CameraSubTargetBase*) {}
 
 CameraPoserSubjective::CameraPoserSubjective(char const*) : al::CameraPoser("") {}
 void CameraPoserSubjective::init() {}
@@ -76,6 +81,9 @@ void CameraVerticalAbsorber::exeFollowGround() {}
 void SnapShotCameraCtrl::makeLookAtCameraLast(sead::LookAtCamera*) const {}
 void SnapShotCameraCtrl::makeLookAtCameraPost(sead::LookAtCamera*) const {}
 void SnapShotCameraCtrl::start(float) {}
+
+al::CameraLimitRailKeeper::CameraLimitRailKeeper() {}
+void al::CameraLimitRailKeeper::init(al::PlacementInfo const&, int) {}
 
 }
 

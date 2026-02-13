@@ -139,12 +139,9 @@ al::Triangle* al::Collider::getPlane(int) const {CRASH}
 bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
-al::EventFlowExecutor* rs::initEventFlow(al::LiveActor*, al::ActorInitInfo const&, char const*, char const*) {CRASH}
 void rs::resetRouteHeadGuidePosPtr(al::IUseSceneObjHolder const*) {CRASH}
 void rs::setNpcMaterialAnimFromPlacementInfo(al::LiveActor*, al::ActorInitInfo const&) {CRASH}
 void rs::setRouteHeadGuidePosPtr(al::IUseSceneObjHolder const*, sead::Vector3<float> const*) {CRASH}
-void rs::startEventFlow(al::EventFlowExecutor*, char const*) {CRASH}
-bool rs::updateEventFlow(al::EventFlowExecutor*) {CRASH}
 
 al::NatureDirector::NatureDirector() {CRASH}
 void al::NatureDirector::init() {CRASH}
@@ -201,6 +198,7 @@ const char* al::getSubStringUnmatched(char const*, al::MatchStr const&) {CRASH}
 u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, float, float, float) {CRASH}
 
 bool al::isInAreaObjPlayerOneIgnoreAreaTarget(al::PlayerHolder const*, char const*) {CRASH}
+bool al::isInAreaObjPlayerAnyOne(al::LiveActor const*, al::AreaObj const*) {CRASH}
 
 bool rs::isPlayerCollidedGround(al::LiveActor const*) {CRASH}
 

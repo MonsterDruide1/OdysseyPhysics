@@ -40,6 +40,9 @@ void tryKillEmitterAndParticleAll(al::IUseEffectKeeper*) {}
 void setEffectAllScale(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const&) {}
 bool tryDeleteEffect(al::IUseEffectKeeper*,char const*) {return false;}
 bool tryUpdateEffectMaterialCode(al::IUseEffectKeeper*, char const*) {return false;}
+bool tryEmitEffect(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const*) {return false;}
+bool isEffectEmitting(al::IUseEffectKeeper const*, char const*) {return false;}
+void setEffectEmitterVolumeScale(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const&) {}
 
 }
 
@@ -48,3 +51,5 @@ void alEffectKeeperInitFunction::setupModelToEffectKeeper(al::EffectKeeper*, al:
 
 void alEffectSystemFunction::updateEffect2D(al::EffectSystem*) {}
 void alEffectSystemFunction::drawEffect2D(al::EffectSystem const*, sead::Viewport const*) {}
+
+void alEffectFunction::emitEffectIfExist(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const*) {}

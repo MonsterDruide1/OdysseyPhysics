@@ -10,6 +10,7 @@
 #include "Library/Draw/GraphicsSystemInfo.h"
 #include "Library/Draw/ViewRenderer.h"
 #include "Library/Effect/EffectKeeper.h"
+#include "Library/Event/EventFlowUtil.h"
 #include "Library/Layout/LayoutInitInfo.h"
 #include "Library/Layout/LayoutUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
@@ -32,6 +33,7 @@ void al::AudioDirector::setDependentModule(al::AudioDirector*) {CRASH}
 void al::AudioDirector::pauseSystem(bool, const char*, bool, f32, bool, bool, bool) {CRASH}
 al::AreaObjDirector* al::AudioDirector::getAreaObjDirector() const {CRASH}
 
+void al::CameraDirector::registerCameraRailHolder(al::CameraRailHolder*) {}
 void al::CameraDirector::endInvalidStopJudgeByDemo() {CRASH}
 void al::CameraDirector::endSnapShotMode() {CRASH}
 al::CameraPoseUpdater* al::CameraDirector::getPoseUpdater(int) const {CRASH}
@@ -85,6 +87,7 @@ void al::executeUpdate(al::LayoutKit*) {CRASH}
 const char* al::getLanguage() {CRASH}
 al::CameraTicket* al::initFixCamera(al::IUseCamera const*, char const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 void al::makeMtxSideNoSupport(sead::Matrix34<float>*, sead::Vector3<float> const&) {CRASH}
+bool al::isEventName(al::EventFlowEventData const*, char const*, ...) {return false;}
 
 void alAudioSystemFunction::setPadRumbleDirectorForSe(al::AudioDirector*, al::PadRumbleDirector*) {CRASH}
 void alEffectSystemFunction::drawEffectDeferred(al::EffectSystem const*, sead::Matrix44<float> const&, sead::Matrix34<float> const&, float, float, float) {CRASH}

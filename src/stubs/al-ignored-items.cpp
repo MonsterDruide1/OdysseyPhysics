@@ -15,6 +15,7 @@ bool appearItem(al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3
 }
 
 bool appearItemTiming(al::LiveActor const*, char const*) {return false;}
+bool appearItemTiming(al::LiveActor const*, char const*, sead::Vector3<float> const&, sead::Vector3<float> const&, al::HitSensor const*) {return false;}
 
 void setAppearItemAttackerSensor(al::LiveActor const*, al::HitSensor const*) {}
 void setAppearItemFactor(al::LiveActor const*, char const*, al::HitSensor const*) {}
