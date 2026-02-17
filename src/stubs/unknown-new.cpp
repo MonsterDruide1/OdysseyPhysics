@@ -1,5 +1,8 @@
+#include "Boss/Loop/LoopAnimState.h"
 #include "Enemy/BubbleStateInLauncher.h"
 #include "Enemy/DisregardReceiver.h"
+#include "Enemy/GotogotonMark.h"
+#include "Library/Event/EventFlowExecutor.h"
 #include "Library/Joint/JointSpringControllerHolder.h"
 #include "Library/LiveActor/ActorClippingFunction.h"
 #include "Library/LiveActor/ActorModelFunction.h"
@@ -8,11 +11,16 @@
 #include "Library/Movement/AnimScaleController.h"
 #include "Library/Nature/NatureUtil.h"
 #include "Library/Shadow/ActorShadowUtil.h"
+#include "MapObj/CapMessageShowInfo.h"
+#include "MapObj/TouchTargetInfo.h"
+#include "Player/WhipTargetInfo.h"
 #include "Util/CameraUtil.h"
 #include "Util/CollisionUtil.h"
 #include "Util/Hack.h"
 #include "Util/InputInterruptTutorialUtil.h"
+#include "Util/ObjUtil.h"
 #include "Util/PlayerUtil.h"
+#include "Util/ScenePlayerCapFunction.h"
 #include "Util/SensorMsgFunction.h"
 
 bool HackFunction::isTriggerCancelBubbleLauncher(IUsePlayerHack const*) {CRASH}
@@ -49,18 +57,21 @@ bool rs::isTriggerHackAction(IUsePlayerHack const*) {CRASH}
 bool rs::isTriggerHackPreInputJump(IUsePlayerHack const*) {CRASH}
 bool rs::requestDownToDefaultCameraAngleBySpeed(al::LiveActor const*, float, int) {CRASH}
 void rs::requestStageStartHack(al::LiveActor const*, al::HitSensor*, CapTargetInfo const*, al::LiveActor*) {CRASH}
-bool rs::sendMsgBubbleAttack(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgBubbleAttackToPecho(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgBubbleGroundTouchTrigger(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgBubbleReflectH(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgBubbleReflectV(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgBubbleWallTouch(al::HitSensor*, al::HitSensor*) {CRASH}
-bool rs::sendMsgStartInSaucePan(al::HitSensor*, al::HitSensor*, bool) {CRASH}
 void rs::showHackCap(IUsePlayerHack*) {CRASH}
 void rs::showTutorial(al::IUseSceneObjHolder const*) {CRASH}
 void rs::solveCollisionInHacking(al::LiveActor*, sead::Vector3<float> const&) {CRASH}
 void rs::startReset(al::LiveActor*) {CRASH}
-bool rs::tryGetBossMagmaBreathForce(al::SensorMsg const*, sead::Vector3<float>*) {CRASH}
-bool rs::tryGetBossMagmaDeadDemoEndTargetPos(al::SensorMsg const*, sead::Vector3<float>*) {CRASH}
-bool rs::tryGetBossMagmaResetPos(al::SensorMsg const*, sead::Vector3<float>*) {CRASH}
-bool rs::tryReceiveMsgPushToPlayerAndAddVelocityH(al::LiveActor*, al::SensorMsg const*, al::HitSensor const*, al::HitSensor const*, float) {CRASH}
+
+bool EventFlowFunction::isCapTargetHackType(CapTargetInfo const*, int) {CRASH}
+bool GotogotonMark::isMatch(GotogotonMark const*) const {CRASH}
+void TouchTargetInfo::setInfoByConnector(al::MtxConnector const*, sead::Vector3<float> const&, sead::Vector3<float> const&, bool) {CRASH}
+void TouchTargetInfo::setInfoBySensor(al::HitSensor const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
+void WhipTargetInfo::initWhipTarget(al::HitSensor*, sead::Vector3<float> const*) {CRASH}
+void al::EventFlowExecutor::attackSensor(al::HitSensor*, al::HitSensor*) {CRASH}
+void al::validateShadowMask(al::LiveActor*, char const*) {CRASH}
+const sead::Vector3f& rs::getPlayerHeadPos(al::LiveActor const*) {CRASH}
+bool rs::isMsgHackerDamageAndCancel(al::SensorMsg const*) {CRASH}
+bool rs::isPlayerOnActor(al::LiveActor const*) {CRASH}
+bool rs::isPlayerSquat(al::LiveActor const*) {CRASH}
+bool rs::trySendMsgPlayerReflectOrTrample(al::LiveActor const*, al::HitSensor*, al::HitSensor*) {CRASH}
+bool rs::tryShowCapMsgCatchBombCatchFirst(al::IUseSceneObjHolder const*) {CRASH}

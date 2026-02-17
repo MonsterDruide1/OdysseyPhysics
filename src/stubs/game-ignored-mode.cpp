@@ -68,8 +68,6 @@ al::AreaObj* tryFind2DAreaObj(al::LiveActor const*, sead::Vector3<float>*, sead:
 
 void calc2DAreaLockDir(sead::Vector3<float>*, al::AreaObj const*, sead::Vector3<float> const&) {}
 
-bool isMsgPlayerItemGet2D(al::SensorMsg const*) {return false;}
-
 void endHack(IUsePlayerHack**) {}
 void endHackStartDemo(IUsePlayerHack*, al::LiveActor*) {}
 const char* getSpecialPurposeName2DOnly() {return "";}

@@ -15,10 +15,6 @@ void rs::reflectCeilingUpperPunch(al::LiveActor*, IUsePlayerCollision const*, Pl
     CRASH
 }
 
-bool rs::sendMsgPlayerStartWallJump(al::HitSensor*, al::HitSensor*) {
-    CRASH
-}
-
 // 2D-related
 void rs::calcLockDirection(sead::Vector3f*, const IUseDimension*) {
     CRASH

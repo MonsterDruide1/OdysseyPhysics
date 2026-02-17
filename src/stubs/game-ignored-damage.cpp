@@ -10,8 +10,6 @@ bool isPressedCollision(IUsePlayerCollision const*) {
     return false;
 }
 
-bool sendMsgNoticePlayerDamage(al::HitSensor*, al::HitSensor*) {}
-
 bool isPlayerDamageStopDemo(al::LiveActor const*) {
     return false;
 }

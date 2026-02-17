@@ -11,7 +11,6 @@ CapTargetInfo* createCapTargetInfo(al::LiveActor*, char const*) {WARN_UNIMPL;ret
 CapTargetInfo* createCapTargetInfoWithPlayerCollider(al::LiveActor*, IUsePlayerCollision*, char const*) {WARN_UNIMPL;return nullptr;}
 void requestLockOnCapHitReaction(al::LiveActor const*, CapTargetInfo const*, char const*) {}
 bool tryGetFlyingCapPos(sead::Vector3<float>*, al::LiveActor const*) {return false;}
-bool tryReceiveMsgInitCapTargetAndSetCapTargetInfo(al::SensorMsg const*, CapTargetInfo const*) {return false;}
 bool tryShowCapMsgCollectCoinGetFirst(al::IUseSceneObjHolder const*) {return false;}
 
 }
