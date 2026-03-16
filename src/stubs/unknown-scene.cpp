@@ -22,7 +22,6 @@
 #include "Library/Se/Function/SeDbFunction.h"
 #include "Library/Se/SeFunction.h"
 #include "Project/Clipping/ViewInfoCtrl.h"
-#include "Project/SaveData/SaveDataDirector.h"
 
 al::ClippingActorHolder::ClippingActorHolder(int) {WARN_UNIMPL;}
 
@@ -84,7 +83,6 @@ void al::ViewRenderer::endForwardPlayerScreenFader(int) {CRASH}
 void al::ViewRenderer::startForwardPlayerScreenFader(int, int, float) {CRASH}
 
 void al::executeUpdate(al::LayoutKit*) {CRASH}
-const char* al::getLanguage() {CRASH}
 al::CameraTicket* al::initFixCamera(al::IUseCamera const*, char const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 void al::makeMtxSideNoSupport(sead::Matrix34<float>*, sead::Vector3<float> const&) {CRASH}
 bool al::isEventName(al::EventFlowEventData const*, char const*, ...) {return false;}

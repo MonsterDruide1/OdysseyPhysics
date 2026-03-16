@@ -3,7 +3,7 @@
 #include "Player/PlayerTrigger.h"
 #include "PlayerUtil.h"
 #include "Stuff.h"
-#include "Util/ObjUtil.h"
+#include "Util/PlayerUtil.h"
 #include "Util/PlayerCollisionUtil.h"
 
 bool rs::isPlayerOnGround(al::LiveActor const* actor) {

@@ -22,6 +22,8 @@
 #include "Library/LiveActor/ActorSensorUtil.h"
 #include "Library/Math/MathUtil.h"
 #include "Library/Matrix/MatrixUtil.h"
+#include "Library/Message/LanguageUtil.h"
+#include "Library/Message/MessageHolder.h"
 #include "Library/Nature/NatureUtil.h"
 #include "Library/Obj/PartsFunction.h"
 #include "Library/Player/PlayerUtil.h"
@@ -76,7 +78,6 @@
 #include "Util/SensorMsgFunction.h"
 
 // HIGH PRIORITY
-bool GameDataFunction::isOnObjNoWriteSaveDataResetMiniGame(GameDataHolderAccessor, al::PlacementId const*) {WARN_UNIMPL;return false;}
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
 sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const* a, char const*) {WARN_UNIMPL; return a->getPoseKeeper()->getMtxPtr();}
@@ -91,6 +92,10 @@ const sead::Vector3f& al::Collider::getRecentOnGroundNormal(u32) const {WARN_UNI
 sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {WARN_UNIMPL; return sead::Vector3f::zero;}
 al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {WARN_UNIMPL;return nullptr;}
 al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {WARN_UNIMPL;return nullptr;}
+const char* al::getLanguageString() {return "";}
+const char* al::getLanguage() {return "";}
+s32 al::getSystemMessageLabelNum(al::IUseMessageSystem const*, char const*) {return 0;}
+s64 rs::prepo::generateSaveDataId() {return -1;}
 
 // NORMAL PRIORITY
 
@@ -119,8 +124,6 @@ void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f con
 
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
-const char* GameDataFunction::getCurrentStageName(GameDataHolderAccessor) {CRASH}
-s32 GameDataFunction::getScenarioNo(al::LiveActor const*) {CRASH}
 void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead::Vector3f const&) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
@@ -162,7 +165,6 @@ bool al::ScreenPointDirector::hitCheckSegment(al::ScreenPointer*, sead::ObjArray
 void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
 
 bool al::isSensorValid(al::HitSensor const*) {CRASH}
-s64 rs::prepo::generateSaveDataId() {CRASH}
 
 void al::calcTouchScreenPos(sead::Vector2f*) {CRASH}
 void al::updateMaterialCodePuddle(al::LiveActor*) {CRASH}

@@ -14,6 +14,7 @@
 #include "Player/PlayerInputFunction.h"
 #include "PlayerUtil.h"
 #include "Project/Memory/Util.h"
+#include "System/GameDataHolderAccessor.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "Util/SensorMsgFunction.h"
 #include "basis/seadTypes.h"
@@ -24,20 +25,6 @@ sead::Heap* getCurrentHeap() {CRASH}
 
 al::ISceneObj* getSceneObj(al::IUseSceneObjHolder const* holder, int index) {
     return holder->getSceneObjHolder()->getObj(index);
-    if (index == 15) {
-        return nullptr;
-    }  // al::FootPrintHolder => graphics
-    if (index == 18) {
-        dbg_printf("Returning nullptr for GameDataHolderAccessor from getSceneObj!\n");
-        return nullptr;
-    }  // GameDataHolderAccessor => ?
-    if (index == 7) {
-        return new CoinCollectHolder();
-    }
-    if (index == 8) {
-        return new CoinCollectWatcher();
-    }
-    CRASH
 }
 
 }  // namespace al

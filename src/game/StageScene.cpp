@@ -16,6 +16,7 @@
 #include "Library/Resource/ResourceFunction.h"
 #include "Library/Scene/ISceneObj.h"
 #include "Library/Scene/SceneObjHolder.h"
+#include "Library/Scene/SceneObjUtil.h"
 #include "Library/Scene/SceneUtil.h"
 #include "Library/System/GameSystemInfo.h"
 #include "Library/Yaml/ByamlData.h"
@@ -73,18 +74,21 @@ static sead::ArchiveRes* loadSarc(const sead::SafeString& path, sead::FileDevice
 }
 
 void StageScene::init(const char* stageName, int scenario) {
+    al::addResourceCategory("シーン", 0x200, sead::HeapMgr::instance()->getCurrentHeap());
+    al::addResourceCategory("シーン", 0x200, sead::HeapMgr::instance()->getCurrentHeap());
+    al::setCurrentCategoryName("シーン");
+
     al::DrawSystemInfo drawSystemInfo;
     mDrawSystemInfo = &drawSystemInfo;
     al::GameSystemInfo gameSystemInfo = {nullptr, nullptr, nullptr, nullptr, nullptr, nullptr,
                                          nullptr, &drawSystemInfo, nullptr, nullptr, nullptr, nullptr};
-    GameDataHolder holder;
-    al::SceneInitInfo sceneInitInfo = {&gameSystemInfo, &holder, nullptr, stageName, scenario, "", nullptr};
+    GameDataHolder* holder = new GameDataHolder(nullptr);
+    
+    al::SceneInitInfo sceneInitInfo = {&gameSystemInfo, holder, nullptr, stageName, scenario, "", nullptr};
     al::Scene::initLiveActorKit(sceneInitInfo, 5120, 4, 2);
     al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
     initSceneObjHolder(sceneObjHolder);
-    al::addResourceCategory("シーン", 0x200, sead::HeapMgr::instance()->getCurrentHeap());
-    al::addResourceCategory("シーン", 0x200, sead::HeapMgr::instance()->getCurrentHeap());
-    al::setCurrentCategoryName("シーン");
+    al::setSceneObj(this, holder);
 
     sead::ArchiveRes* sarc = loadSarc(((std::string) "StageData/"+stageName+".szs").c_str(), nullptr);
     const auto* file = sarc->getFile(((std::string) stageName + ".byml").c_str());
@@ -121,7 +125,7 @@ void StageScene::init(const char* stageName, int scenario) {
         al::PlacementInfo placement;
         placement.set(objiter, nullptr);
         al::ActorInitInfo info;
-        al::initActorInitInfo(&info, this, &placement, nullptr, &factory, nullptr, &holder);
+        al::initActorInitInfo(&info, this, &placement, nullptr, &factory, nullptr, holder);
         info.actorSceneInfo.sceneObjHolder = mSceneObjHolder;
         liveactor->init(info);
         RaylibActor::apply(liveactor, objiter);
@@ -191,7 +195,7 @@ void StageScene::init(const char* stageName, int scenario) {
     playerHolder->registerPlayer(player, new al::PadRumbleKeeper(0));
     al::ActorInitInfo actorInfo = {};
     actorInfo.initNew(&placementInfo, nullptr, allActorsGroup, nullptr, actorResourceHolder, areaObjDirector, nullptr, nullptr,
-                      mLiveActorKit->mClippingDirector, collDirector, nullptr, nullptr, executeDirector, &holder, nullptr, nullptr,
+                      mLiveActorKit->mClippingDirector, collDirector, nullptr, nullptr, executeDirector, holder, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, playerHolder, mSceneObjHolder, nullptr, nullptr,
                       nullptr, nullptr, nullptr, nullptr, nullptr, mLiveActorKit->getGraphicsSystemInfo(), nullptr, nullptr);
 

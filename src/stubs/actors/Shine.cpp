@@ -2,7 +2,6 @@
 #include "System/GameDataHolder.h"
 
 const char* ShineFunction::getMovePointLinkName() {return "ShineMovePoint";}
-s32 GameDataHolder::getShineAnimFrame(int) const {return 1;}
 
 Shine::Shine(char const*) : al::LiveActor("") {WARN_UNIMPL;}
 void Shine::endBossDemoAndStartFall(float) {}

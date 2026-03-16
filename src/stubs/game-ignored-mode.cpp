@@ -142,20 +142,6 @@ void In2DAreaMoveControl::update(const sead::FixedPtrArray<al::AreaObj, 8>&) {}
 
 PlayerDemoActionFlag::PlayerDemoActionFlag() {}
 
-void GameDataFunction::disableCapByPlacement(al::LiveActor const*) {}
-
-bool GameDataFunction::isMeetCap(GameDataHolderAccessor) {
-    return true;
-}
-
-bool GameDataFunction::isEnableCap(GameDataHolderAccessor) {
-    return true;
-}
-
-bool GameDataFunction::isPlayerLifeZero(GameDataHolderAccessor) {
-    return false;
-}
-
 PlayerHackKeeper::PlayerHackKeeper(al::LiveActor*, HackCap*, PlayerRecoverySafetyPoint*,
                                    PlayerInput const*, sead::Matrix34<float> const*,
                                    PlayerDamageKeeper const*, IPlayerModelChanger const*,

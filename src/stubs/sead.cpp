@@ -7,6 +7,7 @@
 #include "prim/seadStringUtil.h"
 #include "resource/seadParallelSZSDecompressor.h"
 #include "stream/seadStream.h"
+#include "stream/seadStreamFormat.h"
 
 s32 sead::StringUtil::vsnprintf(char* s, size_t n, const char* format, va_list arg) {
     return std::vsnprintf(s, n, format, arg);
@@ -174,16 +175,38 @@ sead::NinJoyNpadDevice::~NinJoyNpadDevice() {
     CRASH
 }
 
-void sead::WriteStream::writeF32(float) {CRASH}
-void sead::WriteStream::writeMemBlock(void const*, unsigned int) {CRASH}
-void sead::WriteStream::writeS32(int) {CRASH}
-void sead::WriteStream::writeS64(long) {CRASH}
-void sead::WriteStream::writeU16(unsigned short) {CRASH}
-void sead::WriteStream::writeU32(unsigned int) {CRASH}
-void sead::WriteStream::writeU64(unsigned long) {CRASH}
-void sead::WriteStream::writeU8(unsigned char) {CRASH}
-
 sead::ParallelSZSDecompressor::ParallelSZSDecompressor(unsigned int, int, sead::Heap*, unsigned char*, sead::CoreIdMask const&) : sead::Decompressor("") {CRASH}
 sead::ParallelSZSDecompressor::~ParallelSZSDecompressor() {CRASH}
 u8* sead::ParallelSZSDecompressor::tryDecompFromDevice(const ResourceMgr::LoadArg& loadArg, Resource* resource, u32* outSize,
                             u32* outAllocSize, bool* outAllocated) {CRASH}
+
+                            
+u8 sead::TextStreamFormat::readU8(StreamSrc* src, Endian::Types endian) {return 0;}
+u16 sead::TextStreamFormat::readU16(StreamSrc* src, Endian::Types endian) {return 0;}
+u32 sead::TextStreamFormat::readU32(StreamSrc* src, Endian::Types endian) {return 0;}
+u64 sead::TextStreamFormat::readU64(StreamSrc* src, Endian::Types endian) {return 0;}
+s8 sead::TextStreamFormat::readS8(StreamSrc* src, Endian::Types endian) {return 0;}
+s16 sead::TextStreamFormat::readS16(StreamSrc* src, Endian::Types endian) {return 0;}
+s32 sead::TextStreamFormat::readS32(StreamSrc* src, Endian::Types endian) {return 0;}
+s64 sead::TextStreamFormat::readS64(StreamSrc* src, Endian::Types endian) {return 0;}
+f32 sead::TextStreamFormat::readF32(StreamSrc* src, Endian::Types endian) {return 0;}
+void sead::TextStreamFormat::readBit(StreamSrc* src, void* data, u32 bits) {}
+void sead::TextStreamFormat::readString(StreamSrc* src, BufferedSafeString* str, u32 size) {}
+u32 sead::TextStreamFormat::readMemBlock(StreamSrc* src, void* buffer, u32 size) {return 0;}
+void sead::TextStreamFormat::writeU8(StreamSrc* src, Endian::Types endian, u8 value) {}
+void sead::TextStreamFormat::writeU16(StreamSrc* src, Endian::Types endian, u16 value) {}
+void sead::TextStreamFormat::writeU32(StreamSrc* src, Endian::Types endian, u32 value) {}
+void sead::TextStreamFormat::writeU64(StreamSrc* src, Endian::Types endian, u64 value) {}
+void sead::TextStreamFormat::writeS8(StreamSrc* src, Endian::Types endian, s8 value) {}
+void sead::TextStreamFormat::writeS16(StreamSrc* src, Endian::Types endian, s16 value) {}
+void sead::TextStreamFormat::writeS32(StreamSrc* src, Endian::Types endian, s32 value) {}
+void sead::TextStreamFormat::writeS64(StreamSrc* src, Endian::Types endian, s64 value) {}
+void sead::TextStreamFormat::writeF32(StreamSrc* src, Endian::Types endian, f32 value) {}
+void sead::TextStreamFormat::writeBit(StreamSrc* src, const void* data, u32 bits) {}
+void sead::TextStreamFormat::writeString(StreamSrc* src, const SafeString& str, u32 size) {}
+void sead::TextStreamFormat::writeMemBlock(StreamSrc* src, const void* buffer, u32 size) {}
+void sead::TextStreamFormat::writeDecorationText(StreamSrc* src, const SafeString& text) {}
+void sead::TextStreamFormat::writeNullChar(StreamSrc* src) {}
+void sead::TextStreamFormat::skip(StreamSrc* src, u32 offset) {}
+void sead::TextStreamFormat::flush(StreamSrc* src) {}
+void sead::TextStreamFormat::rewind(StreamSrc* src) {}

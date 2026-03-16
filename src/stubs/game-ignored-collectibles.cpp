@@ -7,11 +7,6 @@
 #include "System/GameDataFunction.h"
 #include "Util/ItemUtil.h"
 
-const char* GameDataHolder::getCoinCollect2DEmptyArchiveName(int) const {return "CoinCollectEmpty2D_A";}
-const char* GameDataHolder::getCoinCollect2DArchiveName(int) const {return "CoinCollect2D";}
-const char* GameDataHolder::getCoinCollectEmptyArchiveName(int) const {return "CoinCollectEmptyA";}
-const char* GameDataHolder::getCoinCollectArchiveName(int) const {return "CoinCollect";}
-
 CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
 const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
 CoinCollectHolder* rs::createCoinCollectHolder(al::IUseSceneObjHolder const*) {WARN_UNIMPL;return nullptr;}
@@ -24,12 +19,6 @@ void CoinRotateCalculator::addFishingLineTouch() {}
 f32 CoinRotateCalculator::getRotate() const {return 0.0f;}
 void CoinRotateCalculator::reset() {}
 void CoinRotateCalculator::update(sead::Vector3<float> const&, bool) {}
-
-void GameDataFunction::addCoin(GameDataHolderWriter, int) {}
-void GameDataFunction::addCoinCollect(GameDataHolderWriter, al::PlacementId const*) {}
-s32 GameDataFunction::getCoinCollectGotNum(GameDataHolderAccessor) {return 0;}
-s32 GameDataFunction::getCoinCollectNumMax(GameDataHolderAccessor) {return 0;}
-bool GameDataFunction::isGotCoinCollect(GameDataHolderAccessor, al::ActorInitInfo const&) {return false;}
 
 LifeMaxUpItem2D::LifeMaxUpItem2D(char const*) : al::LiveActor("") {}
 void LifeMaxUpItem2D::init(const al::ActorInitInfo& initInfo) {}
