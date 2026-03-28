@@ -14,7 +14,7 @@ int main(int argc, char* argv[]) {
     if (mode == 0) {
         return odyssey_physics_main(argc-2, argv+2);
     } else if (mode == 1) {
-        return odyssey_gym_main(argc, argv);
+        return odyssey_gym_main(argc-2, argv+2);
     } else {
         printf("Invalid mode: %d\n", mode);
         return 1;

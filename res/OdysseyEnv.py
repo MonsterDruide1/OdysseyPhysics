@@ -30,7 +30,7 @@ class OdysseyEnv(gym.Env):
         self.socket.listen(1)
 
         display = 2 if render_mode == "human" else 1 if render_mode == "rgb_array" else 0
-        self.process = subprocess.Popen(["build/OdysseyPhysics", 1, stage, str(scenario), romfs_path, self.socket_file, str(display)], stdout=sys.stdout, stderr=sys.stderr)
+        self.process = subprocess.Popen(["build/OdysseyPhysics", str(1), stage, str(scenario), romfs_path, self.socket_file, str(display)], stdout=sys.stdout, stderr=sys.stderr)
 
         self.conn, self.addr = self.socket.accept()
 
