@@ -100,8 +100,6 @@ s64 rs::prepo::generateSaveDataId() {return -1;}
 // NORMAL PRIORITY
 
 // MathUtil.o
-al::Axis al::calcNearVecFromAxis3(sead::Vector3f*, sead::Vector3f const&, sead::Quatf const&) {CRASH}
-void al::calcQuatLocalAxis(sead::Vector3f*, sead::Quatf const&, int) {CRASH}
 void al::turnQuatYDirRate(sead::Quatf*, sead::Quatf const&, sead::Vector3f const&, float) {CRASH}
 void al::rotateVectorDegree(sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 void al::limitVectorParallelVertical(sead::Vector3<float>*, sead::Vector3<float> const&, float, float) {CRASH}
@@ -112,13 +110,16 @@ void al::rotateVectorDegreeY(sead::Vector3f*, float) {CRASH}
 void al::rotateVectorQuat(sead::Vector3f*, sead::Quatf const&) {CRASH}
 void al::getRandomDirH(sead::Vector3f*,sead::Vector3f const&) {CRASH}
 void al::calcFittingBoxPose(sead::Quat<float>*, sead::BoundBox3<float> const&, sead::Quat<float> const&, sead::Quat<float> const&) {CRASH}
-void al::calcQuatLocalAxisAll(sead::Quat<float> const&, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*) {CRASH}
 void al::rotateQuatAndTransDegree(sead::Quat<float>*, sead::Vector3<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::calcSphereMargeSpheres(sead::Vector3<float>*, float*, sead::Vector3<float> const&, float, sead::Vector3<float> const&, float) {CRASH}
 void al::calcBoxFacePoint(sead::Vector3<float>*, sead::BoundBox3<float> const&, int, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
 bool al::turnQuatWithAxisDegree(sead::Quat<float>*, sead::Quat<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
 void al::calcClosestSegmentPoint(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 bool al::checkHitSegmentSphereNearDepth(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, sead::Vector3<float>*, sead::Vector3<float>*) {CRASH}
+al::Axis al::calcNearVecFromAxis3(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
+void al::calcQuatLocalAxis(sead::Vector3<float>*, sead::Quat<float> const&, int) {CRASH}
+f32 al::calcSquaredDistanceToObb(sead::Vector3<float> const&, sead::Matrix34<float> const&, sead::Vector3<float> const&, sead::BoundBox3<float> const&) {CRASH}
+bool al::limitCylinderInDir(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 // MtxUtil.o
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 

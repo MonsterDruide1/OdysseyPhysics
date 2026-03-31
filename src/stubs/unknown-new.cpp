@@ -71,7 +71,6 @@ bool al::pushAndAddVelocityH(al::LiveActor*, al::HitSensor const*, al::HitSensor
 void al::showSilhouetteModel(al::LiveActor*) {CRASH}
 bool al::tryAddRippleRandomBlur(al::LiveActor const*, sead::Vector3f const&, float, float, float) {CRASH}
 bool al::tryAddRippleSmall(al::LiveActor const*) {CRASH}
-void al::updateBoundingBox(sead::Vector3f, sead::Vector3f*, sead::Vector3f*) {CRASH}
 void rs::endHackFromTargetPos(IUsePlayerHack**, sead::Vector3f const&, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 void rs::endReset(al::LiveActor*) {CRASH}
 void rs::hideHackCap(IUsePlayerHack*) {CRASH}
