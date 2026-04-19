@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-24.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -36,7 +36,7 @@
           pkgs.libGL
 
           rustToolchain
-          (python311.withPackages (python-pkgs: [
+          (python313.withPackages (python-pkgs: [
             python-pkgs.toml
             python-pkgs.gymnasium
           ]))
