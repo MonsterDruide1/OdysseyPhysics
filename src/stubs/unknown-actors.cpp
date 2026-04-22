@@ -1,5 +1,6 @@
 #include "Library/Action/ActorActionKeeper.h"
 #include "Library/Base/StringUtil.h"
+#include "Library/Bgm/BgmLineFunction.h"
 #include "Library/Camera/CameraUtil.h"
 #include "Library/Collision/Collider.h"
 #include "Library/Collision/CollisionDirector.h"
@@ -36,12 +37,13 @@
 #include "Library/Screen/ScreenFunction.h"
 #include "Library/Screen/ScreenPointDirector.h"
 #include "Library/Screen/ScreenPointKeeper.h"
-#include "Library/Se/SeFunction.h"
 #include "Library/Shadow/ActorShadowUtil.h"
-#include "Library/Yaml/ParameterBase.h"
+#include "Boss/Koopa/KoopaHackStopCtrl.h"
 #include "MapObj/AnagramAlphabet.h"
+#include "MapObj/Barrel2D.h"
+#include "MapObj/CapMessageShowInfo.h"
+#include "MapObj/FukankunZoomTargetFunction.h"
 #include "MapObj/RouteGuideDirector.h"
-#include "Player/HackerJudge.h"
 #include "Player/PlayerCarryKeeper.h"
 #include "Player/PlayerInput.h"
 #include "Project/Action/ActionBgmCtrl.h"
@@ -55,11 +57,6 @@
 #include "Project/Anim/InitResourceDataAnim.h"
 #include "Project/Resource/ResourceSystem.h"
 #include "System/GameDataFile.h"
-#include "System/HintPhotoData.h"
-#include "System/NetworkUploadFlag.h"
-#include "System/ShopTalkData.h"
-#include "System/VisitStageData.h"
-#include "System/WorldWarpTalkData.h"
 #include "Util/DemoUtil.h"
 #include "Util/Hack.h"
 #include "Util/InputInterruptTutorialUtil.h"
@@ -70,7 +67,6 @@
 #include "Project/LiveActor/ConveyerKeyKeeper.h"
 #include "Scene/GuidePosInfoHolder.h"
 #include "Scene/ProjectAppearSwitchFactory.h"
-#include "System/GameDataFunction.h"
 #include "System/GameDataUtil.h"
 #include "Util/NpcAnimUtil.h"
 #include "Util/PlayerUtil.h"
@@ -206,3 +202,18 @@ bool al::isInAreaObjPlayerAnyOne(al::LiveActor const*, al::AreaObj const*) {CRAS
 bool rs::isPlayerCollidedGround(al::LiveActor const*) {CRASH}
 
 s32 alCollisionUtil::checkStrikeSphere(al::IUseCollision const*, sead::Vector3<float> const&, float, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
+
+Barrel2D::Barrel2D(char const*) : al::LiveActor("") {CRASH}
+void Barrel2D::appearByGenerator(sead::Vector3<float> const&, sead::Quat<float> const&, float) {CRASH}
+void Barrel2D::startMove() {CRASH}
+void Barrel2D::init(const al::ActorInitInfo& info) {CRASH}
+void Barrel2D::attackSensor(al::HitSensor* self, al::HitSensor* other) {CRASH}
+bool Barrel2D::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
+void FukankunZoomTargetFunction::declareUseFukankunZoomTargetActor(al::LiveActor const*) {CRASH}
+s32 FukankunZoomTargetFunction::getWatchCount(al::LiveActor const*) {CRASH}
+void FukankunZoomTargetFunction::registerFukankunZoomTargetActor(al::LiveActor const*, int, sead::Vector3<float> const&, char const*) {CRASH}
+bool KoopaHackFunction::isStopKoopaHack(al::LiveActor const*) {CRASH}
+void al::calcMxtInvertOrtho(sead::Matrix34<float>*, sead::Matrix34<float> const&) {CRASH}
+void al::calcObbCorners(sead::Vector3<float>*, sead::Matrix34<float> const&, sead::BoundBox3<float> const&) {CRASH}
+bool al::isRunningBgm(al::IUseAudioKeeper const*, char const*) {CRASH}
+bool rs::tryShowCapMessageFromCurrentStageMsg(al::IUseSceneObjHolder const*, char const*, int, int) {CRASH}

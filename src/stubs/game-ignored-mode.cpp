@@ -4,14 +4,15 @@
 #include "Library/Collision/CollisionDirector.h"
 #include "Library/Scene/DemoDirector.h"
 #include "ModeBalloon/RankingLocalFunction.h"
-#include "Player/HackerJudge.h"
+#include "Player/HackerJudgeNormalFall.h"
+#include "Player/HackerJudgeStartRun.h"
 #include "Player/HackerStateNormalMove.h"
 #include "Player/PlayerActionTurnControl.h"
 #include "Player/PlayerHackStartShaderCtrl.h"
 #include "PlayerUtil.h"
-#include "System/GameDataFunction.h"
 #include "Util/ActorDimensionKeeper.h"
 #include "Util/Hack.h"
+#include "Util/HackerJudge.h"
 #include "Area/In2DAreaMoveControl.h"
 
 RankingCategory RankingLocalFunction::findRankingCategoryByRaceRecordName(char const*) {return (RankingCategory)0;}
@@ -125,7 +126,7 @@ bool HackerJudge::judge() const {return false;}
 
 HackerDepthShadowMapCtrl::HackerDepthShadowMapCtrl(al::LiveActor*, char const*, float, float, float) {}
 void HackerDepthShadowMapCtrl::update(PlayerCollider*) {}
-HackerJudgeNormalFall::HackerJudgeNormalFall(al::LiveActor const*, int) : HackerJudge(nullptr) {}
+HackerJudgeNormalFall::HackerJudgeNormalFall(al::LiveActor const*, int) {}
 void HackerJudgeNormalFall::reset() {}
 void HackerJudgeNormalFall::update() {}
 bool HackerJudgeNormalFall::judge() const {return false;}
