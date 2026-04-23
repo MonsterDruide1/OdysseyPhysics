@@ -40,7 +40,14 @@ s32 CollisionPartsKeeper::checkStrikePoint(al::HitInfo*, const al::CollisionChec
 
 s32 CollisionPartsKeeper::checkStrikeSphere(al::SphereHitResultBuffer* results, const al::SphereCheckInfo& info,
                                              bool a4, const sead::Vector3f& a5) const {
-    CRASH
+    int numCollisions = 0;
+    for (int i = 0; i < mPartsList.size(); i++) {
+        numCollisions +=
+            mPartsList[i]->checkStrikeSphere(results, info.mPos, info.mRadius, a4, a5, info.mTriFilterBase);
+        if (results->isFull())
+            break;
+    }
+    return numCollisions;
 }
 
 s32 CollisionPartsKeeper::checkStrikeArrow(al::ArrowHitResultBuffer* results,

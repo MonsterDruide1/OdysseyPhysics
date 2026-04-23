@@ -183,7 +183,7 @@ void StageScene::init(const char* stageName, int scenario) {
     }
     al::ExecuteDirector* executeDirector = new al::ExecuteDirector(512);
     executeDirector->init({});
-    al::CollisionDirector* collDirector = new al::CollisionDirector(executeDirector);
+    al::CollisionDirector* collDirector = mLiveActorKit->getCollisionDirector();
     al::AreaObjDirector* areaObjDirector = new al::AreaObjDirector();
     al::LiveActorGroup* allActorsGroup = mLiveActorKit->getLiveActorGroupAllActors();
     collDirector->setPartsKeeper(mPartsKeeper);
