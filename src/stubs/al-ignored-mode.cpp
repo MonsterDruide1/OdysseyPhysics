@@ -1,4 +1,5 @@
 #include "Library/Demo/DemoFunction.h"
+#include "Library/Scene/DemoDirector.h"
 #include "playerUtil.h"
 
 namespace al {
@@ -14,5 +15,9 @@ bool isActiveCameraInterpole(al::IUseCamera const*, int) {
 void addDemoActorFromAddDemoInfo(al::LiveActor const*,al::AddDemoInfo const*) {}
 AddDemoInfo* registDemoRequesterToAddDemoInfo(al::LiveActor const*,al::ActorInitInfo const&,int) {WARN_UNIMPL;return nullptr;}
 void registActorToDemoInfo(al::LiveActor*, al::ActorInitInfo const&) {}
+
+void DemoDirector::addDemoActor(al::LiveActor*) {}
+void DemoDirector::requestEndDemo(char const*) {}
+bool DemoDirector::requestStartDemo(char const*) {return false;}
 
 }  // namespace al

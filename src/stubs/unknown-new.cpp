@@ -1,7 +1,5 @@
 #include "Amiibo/HelpAmiiboDirector.h"
 #include "Boss/Loop/LoopAnimState.h"
-#include "Camera/ScenarioStartCamera.h"
-#include "Enemy/BubbleStateInLauncher.h"
 #include "Enemy/DisregardReceiver.h"
 #include "Enemy/GotogotonMark.h"
 #include "Item/ShineInfo.h"
@@ -14,7 +12,6 @@
 #include "Library/LiveActor/ActorClippingFunction.h"
 #include "Library/LiveActor/ActorModelFunction.h"
 #include "Library/LiveActor/ActorSensorUtil.h"
-#include "Library/Math/MathUtil.h"
 #include "Library/Message/MessageHolder.h"
 #include "Library/Message/MessageTagDataHolder.h"
 #include "Library/Movement/AnimScaleController.h"
@@ -133,6 +130,7 @@ bool rs::trySavePrepoChangeCapEvent(char const*, long, long, long) {CRASH}
 bool rs::trySavePrepoChangeClothEvent(char const*, long, long, long) {CRASH}
 bool sead::StringUtil::tryParseU32(unsigned int*, sead::SafeStringBase<char> const&, sead::StringUtil::CardinalNumber) {CRASH}
 void al::copyMemory(void*, void const*, unsigned int) {CRASH}
+sead::Heap* al::getCurrentHeap() {CRASH}
 
 void BirdMtxGlideCtrl::invalidateGlide() {CRASH}
 bool BirdMtxGlideCtrl::isWaitBird() const {CRASH}

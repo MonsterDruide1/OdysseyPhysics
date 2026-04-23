@@ -1,4 +1,5 @@
 
+#include "Boss/Koopa/KoopaHackStopCtrl.h"
 #include "Enemy/GamaneHackState.h"
 #include "Enemy/HackerDepthShadowMapCtrl.h"
 #include "Library/Collision/CollisionDirector.h"
@@ -134,9 +135,8 @@ PlayerHackStartShaderCtrl::PlayerHackStartShaderCtrl(al::LiveActor*, PlayerHackS
 void PlayerHackStartShaderCtrl::end() {}
 void PlayerHackStartShaderCtrl::start() {}
 void PlayerHackStartShaderCtrl::update() {}
-void al::DemoDirector::addDemoActor(al::LiveActor*) {}
-void al::DemoDirector::requestEndDemo(char const*) {}
-bool al::DemoDirector::requestStartDemo(char const*) {return false;}
+
+bool KoopaHackFunction::isStopKoopaHack(al::LiveActor const*) {return false;}
 
 In2DAreaMoveControl::In2DAreaMoveControl() {}
 void In2DAreaMoveControl::update(const sead::FixedPtrArray<al::AreaObj, 8>&) {}

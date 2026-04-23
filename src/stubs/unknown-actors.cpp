@@ -34,24 +34,19 @@
 #include "Library/Resource/Resource.h"
 #include "Library/Resource/ResourceFunction.h"
 #include "Library/Scene/SceneMsgCtrl.h"
-#include "Library/Screen/ScreenFunction.h"
 #include "Library/Screen/ScreenPointDirector.h"
 #include "Library/Screen/ScreenPointKeeper.h"
 #include "Library/Shadow/ActorShadowUtil.h"
 #include "Boss/Koopa/KoopaHackStopCtrl.h"
 #include "MapObj/AnagramAlphabet.h"
-#include "MapObj/Barrel2D.h"
 #include "MapObj/CapMessageShowInfo.h"
 #include "MapObj/FukankunZoomTargetFunction.h"
 #include "MapObj/RouteGuideDirector.h"
 #include "Player/PlayerCarryKeeper.h"
 #include "Player/PlayerInput.h"
-#include "Project/Action/ActionBgmCtrl.h"
-#include "Project/Action/ActionEffectCtrl.h"
 #include "Project/Action/ActionFlagCtrl.h"
 #include "Project/Action/ActionPadAndCameraCtrl.h"
 #include "Project/Action/ActionScreenEffectCtrl.h"
-#include "Project/Action/ActionSeCtrl.h"
 #include "Project/Action/InitResourceDataAction.h"
 #include "Project/Action/InitResourceDataActionAnim.h"
 #include "Project/Anim/InitResourceDataAnim.h"
@@ -92,6 +87,8 @@ const char* al::getLanguageString() {return "";}
 const char* al::getLanguage() {return "";}
 s32 al::getSystemMessageLabelNum(al::IUseMessageSystem const*, char const*) {return 0;}
 s64 rs::prepo::generateSaveDataId() {return -1;}
+const char* rs::getInitPlayerModelName(PlayerInitInfo const&) {return "Mario";}
+const char* rs::getInitCapTypeName(PlayerInitInfo const&) {return "Mario";}
 
 // NORMAL PRIORITY
 
@@ -116,27 +113,19 @@ al::Axis al::calcNearVecFromAxis3(sead::Vector3<float>*, sead::Vector3<float> co
 void al::calcQuatLocalAxis(sead::Vector3<float>*, sead::Quat<float> const&, int) {CRASH}
 f32 al::calcSquaredDistanceToObb(sead::Vector3<float> const&, sead::Matrix34<float> const&, sead::Vector3<float> const&, sead::BoundBox3<float> const&) {CRASH}
 bool al::limitCylinderInDir(sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
+void al::calcObbCorners(sead::Vector3<float>*, sead::Matrix34<float> const&, sead::BoundBox3<float> const&) {CRASH}
+bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 // MtxUtil.o
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
+void al::calcMxtInvertOrtho(sead::Matrix34<float>*, sead::Matrix34<float> const&) {CRASH}
 
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
-void al::calcLayoutPosFromWorldPos(sead::Vector2f*, al::IUseCamera const*, sead::Vector3f const&) {CRASH}
 void al::calcMtxLandEffect(sead::Matrix34f*, al::RollingCubePoseKeeper const*, sead::Quatf const&, sead::Vector3f const&) {CRASH}
 void al::calcRollingCubeClippingInfo(sead::Vector3f*, float*, al::RollingCubePoseKeeper const*, float) {CRASH}
 
-const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
-
 bool al::calcFindFireSurface(sead::Vector3f*, sead::Vector3f*, al::LiveActor const*, sead::Vector3f const&, sead::Vector3f const&, float) {CRASH}
 void rs::setBossBarrierField(BarrierField*) {CRASH}
-
-void al::calcJointPos(sead::Vector3f*, al::LiveActor const*, char const*) {CRASH}
-void al::calcJointScale(sead::Vector3f*,al::LiveActor const*,char const*) {CRASH}
-void al::initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {CRASH}
-bool al::isExistJoint(al::LiveActor const*, char const*) {CRASH}
-
-al::Triangle* al::Collider::getPlane(int) const {CRASH}
-bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 
 bool al::isActive(al::EventFlowExecutor const*) {CRASH}
 void rs::resetRouteHeadGuidePosPtr(al::IUseSceneObjHolder const*) {CRASH}
@@ -148,8 +137,6 @@ void al::NatureDirector::init() {CRASH}
 al::SceneMsgCtrl::SceneMsgCtrl() {CRASH}
 al::SceneMsg::SceneMsg() {CRASH}
 
-void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
-
 void rs::offRouteGuideByActor(al::LiveActor*) {CRASH}
 void rs::onRouteGuideByActor(al::LiveActor*) {CRASH}
 const char* ProjectAppearSwitchFactory::convertName(const char*) const {CRASH}
@@ -159,15 +146,13 @@ void al::ScreenPointDirector::registerTarget(al::ScreenPointTarget*) {CRASH}
 bool al::ScreenPointDirector::hitCheckLayoutCircle(al::ScreenPointer*, sead::ObjArray<al::ScreenPointTargetHitInfo>*, int, sead::Vector2<float> const&, float, float, int (*)(al::ScreenPointTargetHitInfo const*, al::ScreenPointTargetHitInfo const*)) {CRASH}
 bool al::ScreenPointDirector::hitCheckScreenCircle(al::ScreenPointer*, sead::ObjArray<al::ScreenPointTargetHitInfo>*, int, sead::Vector2<float> const&, float, float) {CRASH}
 bool al::ScreenPointDirector::hitCheckSegment(al::ScreenPointer*, sead::ObjArray<al::ScreenPointTargetHitInfo>*, int, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
-void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
-
-bool al::isSensorValid(al::HitSensor const*) {CRASH}
-
 void al::calcTouchScreenPos(sead::Vector2f*) {CRASH}
-void al::updateMaterialCodePuddle(al::LiveActor*) {CRASH}
+
+void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
 
 bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 al::CollisionParts* alCollisionUtil::getStrikeArrowCollisionParts(al::IUseCollision const*, sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
+s32 alCollisionUtil::checkStrikeSphere(al::IUseCollision const*, sead::Vector3<float> const&, float, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 
 void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {CRASH}
 const al::LiveActor* al::CollisionParts::getConnectedHost() const {CRASH}
@@ -178,6 +163,7 @@ void al::CollisionParts::validateByUser() {CRASH}
 al::CollisionDirector* al::Collider::getCollisionDirector() const {CRASH}
 void al::Collider::calcCheckPos(sead::Vector3<float>*) const {CRASH}
 void al::Collider::setTriangleFilter(al::TriangleFilterBase const*) {CRASH}
+al::Triangle* al::Collider::getPlane(int) const {CRASH}
 
 bool al::CollisionPartsFilterActor::isInvalidParts(CollisionParts*) {CRASH}
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
@@ -185,35 +171,8 @@ bool al::CollisionPartsFilterMergePair::isInvalidParts(CollisionParts* collision
 bool al::CollisionPartsFilterIgnoreOptionalPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 bool al::CollisionPartsFilterSubActor::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 
-bool al::isJudgedToClipFrustum(al::LiveActor const*, sead::Vector3<float> const&, float, float) {CRASH}
-
-void al::ActionEffectCtrl::update(float, float, float, bool) {CRASH}
-void al::ActionSeCtrl::update(float, float, float, bool) {CRASH}
-void al::ActionBgmCtrl::update(float, float, float, bool) {CRASH}
-void al::ActionPadAndCameraCtrl::update(float, float, float, bool) {CRASH}
-void al::ActionScreenEffectCtrl::update(float, float, float, bool) {CRASH}
-
 const char* al::getSubStringUnmatched(char const*, al::MatchStr const&) {CRASH}
 u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, float, float, float) {CRASH}
 
-bool al::isInAreaObjPlayerOneIgnoreAreaTarget(al::PlayerHolder const*, char const*) {CRASH}
-bool al::isInAreaObjPlayerAnyOne(al::LiveActor const*, al::AreaObj const*) {CRASH}
-
 bool rs::isPlayerCollidedGround(al::LiveActor const*) {CRASH}
-
-s32 alCollisionUtil::checkStrikeSphere(al::IUseCollision const*, sead::Vector3<float> const&, float, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
-
-Barrel2D::Barrel2D(char const*) : al::LiveActor("") {CRASH}
-void Barrel2D::appearByGenerator(sead::Vector3<float> const&, sead::Quat<float> const&, float) {CRASH}
-void Barrel2D::startMove() {CRASH}
-void Barrel2D::init(const al::ActorInitInfo& info) {CRASH}
-void Barrel2D::attackSensor(al::HitSensor* self, al::HitSensor* other) {CRASH}
-bool Barrel2D::receiveMsg(const al::SensorMsg* message, al::HitSensor* other, al::HitSensor* self) {CRASH}
-void FukankunZoomTargetFunction::declareUseFukankunZoomTargetActor(al::LiveActor const*) {CRASH}
-s32 FukankunZoomTargetFunction::getWatchCount(al::LiveActor const*) {CRASH}
-void FukankunZoomTargetFunction::registerFukankunZoomTargetActor(al::LiveActor const*, int, sead::Vector3<float> const&, char const*) {CRASH}
-bool KoopaHackFunction::isStopKoopaHack(al::LiveActor const*) {CRASH}
-void al::calcMxtInvertOrtho(sead::Matrix34<float>*, sead::Matrix34<float> const&) {CRASH}
-void al::calcObbCorners(sead::Vector3<float>*, sead::Matrix34<float> const&, sead::BoundBox3<float> const&) {CRASH}
-bool al::isRunningBgm(al::IUseAudioKeeper const*, char const*) {CRASH}
-bool rs::tryShowCapMessageFromCurrentStageMsg(al::IUseSceneObjHolder const*, char const*, int, int) {CRASH}
+const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}

@@ -48,6 +48,8 @@
 #include "Library/Shadow/ShadowMaskCube.h"
 #include "Library/Shadow/ShadowMaskCylinder.h"
 #include "Library/Shadow/ShadowMaskCastOvalCylinder.h"
+#include "Project/Action/ActionEffectCtrl.h"
+#include "Project/Action/ActionScreenEffectCtrl.h"
 #include "Project/Clipping/ClippingFunction.h"
 #include "Project/Light/ActorPrepassLightKeeper.h"
 #include "playerUtil.h"
@@ -134,6 +136,13 @@ bool isExistShadow(al::LiveActor*) {return false;}
 void setShadowMaskOffset(al::LiveActor const*, sead::Vector3<float> const&, char const*) {}
 void showShadow(al::LiveActor*) {}
 void validateShadowMask(al::LiveActor*) {}
+bool isJudgedToClipFrustum(al::LiveActor const*, sead::Vector3<float> const&, float, float) {return false;}
+void calcJointPos(sead::Vector3f* a, al::LiveActor const*, char const*) {a->set(sead::Vector3f::zero);}
+void calcJointScale(sead::Vector3f* a,al::LiveActor const*,char const*) {a->set(sead::Vector3f::ones);}
+void initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {}
+bool isExistJoint(al::LiveActor const*, char const*) {return true;}
+void calcLayoutPosFromWorldPos(sead::Vector2f* a, al::IUseCamera const*, sead::Vector3f const&) {a->set(sead::Vector2f::zero);}
+void updateMaterialCodePuddle(al::LiveActor*) {}
 
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}
@@ -356,5 +365,8 @@ ModelDrawerChromakey::ModelDrawerChromakey(char const* name, bool, bool, bool, b
 void ModelDrawerChromakey::createTable() {}
 void ModelDrawerChromakey::registerModel(ModelCtrl*) {}
 void ModelDrawerChromakey::draw() const {}
+
+void ActionEffectCtrl::update(float, float, float, bool) {}
+void ActionScreenEffectCtrl::update(float, float, float, bool) {}
 
 }  // namespace al

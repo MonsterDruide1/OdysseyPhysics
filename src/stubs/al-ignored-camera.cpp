@@ -59,6 +59,7 @@ void ActionPadAndCameraCtrl::startAction(char const*) {}
 void ActionPadAndCameraCtrl::notifyActorDead() {}
 void ActionPadAndCameraCtrl::notifyActorEndClipped() {}
 void ActionPadAndCameraCtrl::notifyActorStartClipped() {}
+void ActionPadAndCameraCtrl::update(float, float, float, bool) {}
 
 bool CameraAngleCtrlInfo::isFixByRangeHV() const {return false;}
 void CameraAngleCtrlInfo::load(al::ByamlIter const&) {}

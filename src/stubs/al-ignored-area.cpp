@@ -7,6 +7,8 @@
 namespace al {
 
 bool isInAreaObj(al::IUseAreaObj const*, char const*) {return false;}
+bool isInAreaObjPlayerOneIgnoreAreaTarget(al::PlayerHolder const*, char const*) {return false;}
+bool isInAreaObjPlayerAnyOne(al::LiveActor const*, al::AreaObj const*) {return false;}
 
 bool al::AreaShapeCube::calcLocalBoundingBox(sead::BoundBox3<float>*) const {return false;}
 bool al::AreaShapeCube::calcNearestEdgePoint(sead::Vector3<float>*, sead::Vector3<float> const&) const {return false;}

@@ -34,6 +34,7 @@ void setSeKeeperPlayNamePrefix(al::IUseAudioKeeper const*, char const*) {}
 void startAndStopBgmInCurPosition(al::IUseAudioKeeper const*, bool) {}
 void startBgm(al::IUseAudioKeeper const*, al::BgmPlayingRequest const&, bool, bool) {}
 void stopBgm(al::IUseAudioKeeper const*, char const*, int) {}
+bool isRunningBgm(al::IUseAudioKeeper const*, char const*) {return true;}
 
 SimpleAudioUser::SimpleAudioUser(char const*, ActorInitInfo const&) {}
 AudioKeeper* SimpleAudioUser::getAudioKeeper() const {WARN_UNIMPL;return nullptr;}
@@ -47,6 +48,7 @@ void AudioKeeper::initSeKeeper(al::AudioDirector const*, char const*, sead::Vect
 
 ActionBgmCtrl* ActionBgmCtrl::tryCreate(al::AudioKeeper*){WARN_UNIMPL; return nullptr;}
 void ActionBgmCtrl::startAction(char const*) {}
+void ActionBgmCtrl::update(float, float, float, bool) {}
 
 void AudioDirector::finalize() {}
 void AudioDirector::initAfterInitPlacement() {}
@@ -57,6 +59,7 @@ ActionSeCtrl* ActionSeCtrl::tryCreate(al::AudioKeeper*) {WARN_UNIMPL; return nul
 void ActionSeCtrl::startAction(char const*) {}
 void ActionSeCtrl::resetAction(bool) {}
 void ActionSeCtrl::restartAction() {}
+void ActionSeCtrl::update(float, float, float, bool) {}
 
 void SeKeeper::resetPosition() {}
 

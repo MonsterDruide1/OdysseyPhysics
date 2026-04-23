@@ -1,3 +1,4 @@
+#include "MapObj/FukankunZoomTargetFunction.h"
 #include "Player/PlayerInput.h"
 #include "Player/PlayerInputFunction.h"
 #include "PlayerUtil.h"
@@ -16,3 +17,7 @@ PlayerJudgeActiveCameraSubjective::PlayerJudgeActiveCameraSubjective(PlayerState
 void PlayerJudgeActiveCameraSubjective::reset() {}
 void PlayerJudgeActiveCameraSubjective::update() {}
 bool PlayerJudgeActiveCameraSubjective::judge() const {return false;}
+
+void FukankunZoomTargetFunction::declareUseFukankunZoomTargetActor(al::LiveActor const*) {}
+s32 FukankunZoomTargetFunction::getWatchCount(al::LiveActor const*) {return 0;}
+void FukankunZoomTargetFunction::registerFukankunZoomTargetActor(al::LiveActor const*, int, sead::Vector3<float> const&, char const*) {}

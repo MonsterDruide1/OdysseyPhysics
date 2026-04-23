@@ -27,4 +27,6 @@ void sead::PerspectiveProjection::set(float, float, float, float) {CRASH}
 void sead::Camera::cameraPosToWorldPosByMatrix(sead::Vector3<float>*, sead::Vector3<float> const&) const {CRASH}
 void sead::Camera::unprojectRayByMatrix(sead::Ray<sead::Vector3<float> >*, sead::Vector3<float> const&) const {CRASH}
 
+void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
+
 void sead::Viewport::project(sead::Vector2<float>*, sead::Vector3<float> const&) const {CRASH}
