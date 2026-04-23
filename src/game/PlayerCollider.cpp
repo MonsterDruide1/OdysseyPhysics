@@ -689,7 +689,7 @@ void PlayerCollider::calcResultVec(sead::Vector3f* a2, sead::Vector3f* a3,
     for (v11 = 0; v11 < mNumCollideResult; v11++) {
         collidedShapeResult = mCollisionShapeKeeper->getCollidedShapeResult(v11);
         if (collidedShapeResult->isArrow()) {
-            ArrowHitInfo = collidedShapeResult->getArrowHitInfo().hitInfo.data();
+            ArrowHitInfo = &collidedShapeResult->getArrowHitInfo();
             v14 = this->unk11;
             v15 = &ArrowHitInfo->triangle.getFaceNormal();
             if (al::isNearZero(*v15, 0.001))
@@ -705,8 +705,8 @@ void PlayerCollider::calcResultVec(sead::Vector3f* a2, sead::Vector3f* a3,
         } else if (collidedShapeResult->isSphere()) {
             SphereHitInfo = &collidedShapeResult->getSphereHitInfo();
             v22 = this->unk11;
-            v23 = &SphereHitInfo->hitInfo->triangle;
-            if (!SphereHitInfo->hitInfo->isCollisionAtFace())
+            v23 = &SphereHitInfo->triangle;
+            if (!SphereHitInfo->isCollisionAtFace())
                 continue;
 
             v24 = &v23->getFaceNormal();
@@ -723,8 +723,8 @@ void PlayerCollider::calcResultVec(sead::Vector3f* a2, sead::Vector3f* a3,
         } else if (collidedShapeResult->isDisk()) {
             DiskHitInfo = &collidedShapeResult->getDiskHitInfo();
             unk11 = this->unk11;
-            p_triangle = &DiskHitInfo->hitInfo->triangle;
-            if (!DiskHitInfo->hitInfo->isCollisionAtFace())
+            p_triangle = &DiskHitInfo->triangle;
+            if (!DiskHitInfo->isCollisionAtFace())
                 continue;
 
             FaceNormal = &p_triangle->getFaceNormal();
@@ -1068,7 +1068,7 @@ void sub_7100433D98(sead::PtrArray<al::HitInfo>* a1, sead::Buffer<f32>* a2, sead
     if (!a4->isArrow())
         return;
 
-    const al::HitInfo& ArrowHitInfo = *a4->getArrowHitInfo().hitInfo.data();
+    const al::HitInfo& ArrowHitInfo = a4->getArrowHitInfo();
     const sead::Vector3f& FaceNormal = ArrowHitInfo.triangle.getFaceNormal();
     if (al::isNearZero(FaceNormal, 0.001))
         return;
@@ -1315,7 +1315,7 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint>* a2, sead::Vector3f*
     sead::Vector3f v29v;
 
     if ((this->someBitField & 0x40) != 0) {
-        ArrowHitInfo = result->getArrowHitInfo().hitInfo.data();
+        ArrowHitInfo = &result->getArrowHitInfo();
         mGravityPtr = this->mGravityPtr;
         v19 = ArrowHitInfo;
         FaceNormal = &ArrowHitInfo->triangle.getFaceNormal();
@@ -1561,8 +1561,8 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
     sphereHitInfo = &a7->getSphereHitInfo();
     gravity = *this->mGravityPtr;
     v15 = sphereHitInfo;
-    p_mCollisionHitPos = &sphereHitInfo->hitInfo->collisionHitPos;
-    v97 = sphereHitInfo->hitInfo->triangle.getNormal(0);
+    p_mCollisionHitPos = &sphereHitInfo->collisionHitPos;
+    v97 = sphereHitInfo->triangle.getNormal(0);
     v96 = {0.0f, 0.0f, 0.0f};
     v95 = {0.0f, 0.0f, 0.0f};
     unk11 = this->unk11;
@@ -1576,13 +1576,13 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
             if (sead::Mathf::abs(v97.dot(gravity)) < sead::Mathf::cos(sead::Mathf::deg2rad(v22))) {
                 mWallBorderCheckType = this->mWallBorderCheckType;
                 if ((mWallBorderCheckType == 2 ||
-                     mWallBorderCheckType == 1 && !v15->hitInfo->isCollisionAtFace()) &&
+                     mWallBorderCheckType == 1 && !v15->isCollisionAtFace()) &&
                     rs::calcExistCollisionBorder(this, *p_mCollisionHitPos, v97))
                     return;
 
                 if ((this->someBitField & 2) == 0) {
                     v15->calcFixVector(&v96, &v95);
-                    if (!v15->hitInfo->isCollisionAtFace()) {
+                    if (!v15->isCollisionAtFace()) {
                         al::verticalizeVec(&v96, gravity, v96);
                         al::tryNormalizeOrZero(&v95, v96);
                     }
@@ -1626,7 +1626,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
 
     p_mWorldShapeInfo = &a7->getShapeInfoSphere()->mWorldShapeInfo;
     unk2 = a7->getShapeInfoSphere()->unk2;
-    v100 = v15->hitInfo->collisionHitPos - v15->hitInfo->_80;
+    v100 = v15->collisionHitPos - v15->_80;
     al::verticalizeVec(&v100, *p_mWorldShapeInfo, v100);
     if (v100.length() < unk2)
         goto LABEL_34;
@@ -1637,10 +1637,10 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
 
     LABEL_117:
         if ((*(u8*)p_someBitField & 0x40) != 0 &&
-            (v15->hitInfo->collisionHitPos - this->mCollidedGroundPos).dot(mCollidedGroundNormal) < 2.5)
+            (v15->collisionHitPos - this->mCollidedGroundPos).dot(mCollidedGroundNormal) < 2.5)
             return;
 
-        v100 = v15->hitInfo->_80 - *p_mCollisionHitPos;
+        v100 = v15->_80 - *p_mCollisionHitPos;
         if (!al::tryNormalizeOrZero(&v100))
             return;
 
@@ -1656,7 +1656,7 @@ void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f
     }
 
     v94 = al::isNearZeroOrGreater(this->mCollisionShapeKeeper->_58 +
-                                      gravity.dot(v15->hitInfo->collisionHitPos - this->mCollidedGroundPos),
+                                      gravity.dot(v15->collisionHitPos - this->mCollidedGroundPos),
                                   0.001);
     v15->calcFixVectorNormal(&v96, &v95);
     if (!v94)
@@ -1666,15 +1666,15 @@ LABEL_35:
     v37 = 0;
 
 LABEL_36:
-    if (alCollisionUtil::isCollisionMoving(v15->hitInfo.data())) {
+    if (alCollisionUtil::isCollisionMoving(v15)) {
         v99 = 0.0;
         v100.x = 0.0;
         v100.y = 0.0;
         v100.z = 0.0;
         if (al::separateScalarAndDirection(&v99, &v100, v96) ||
-            (v38 = (float)((float)(v100.x * v15->hitInfo->collisionMovingReaction.x) +
-                           (float)(v100.y * v15->hitInfo->collisionMovingReaction.y)) +
-                   (float)(v100.z * v15->hitInfo->collisionMovingReaction.z),
+            (v38 = (float)((float)(v100.x * v15->collisionMovingReaction.x) +
+                           (float)(v100.y * v15->collisionMovingReaction.y)) +
+                   (float)(v100.z * v15->collisionMovingReaction.z),
              v38 >= 0.0)) {
             v58 = v96.x;
             v59 = a5->x;
@@ -1710,36 +1710,36 @@ LABEL_36:
                 v66 = v63;
 
             a6->z = v66;
-            v67 = v15->hitInfo->collisionMovingReaction.x;
+            v67 = v15->collisionMovingReaction.x;
             v68 = a5->y;
             if (a5->x < v67)
                 v67 = a5->x;
 
             a5->x = v67;
-            v69 = v15->hitInfo->collisionMovingReaction.y;
+            v69 = v15->collisionMovingReaction.y;
             if (v68 < v69)
                 v69 = v68;
 
             a5->y = v69;
             v70 = a5->z;
-            if (v70 >= v15->hitInfo->collisionMovingReaction.z)
-                v70 = v15->hitInfo->collisionMovingReaction.z;
+            if (v70 >= v15->collisionMovingReaction.z)
+                v70 = v15->collisionMovingReaction.z;
 
             a5->z = v70;
-            v71 = v15->hitInfo->collisionMovingReaction.x;
+            v71 = v15->collisionMovingReaction.x;
             v72 = a6->y;
             if (a6->x > v71)
                 v71 = a6->x;
 
             a6->x = v71;
-            v73 = v15->hitInfo->collisionMovingReaction.y;
+            v73 = v15->collisionMovingReaction.y;
             if (v72 > v73)
                 v73 = v72;
 
             a6->y = v73;
             v74 = a6->z;
-            if (v74 <= v15->hitInfo->collisionMovingReaction.z)
-                v74 = v15->hitInfo->collisionMovingReaction.z;
+            if (v74 <= v15->collisionMovingReaction.z)
+                v74 = v15->collisionMovingReaction.z;
 
             a6->z = v74;
         } else {
@@ -1800,88 +1800,88 @@ LABEL_36:
             if (al::isNearZero(v97, 0.001) ||
                 (sead::Mathf::abs(v97.dot(gravity)) >=
                  sead::Mathf::cos(sead::Mathf::deg2rad(this->unk11)))) {
-                if (this->val3 < v15->hitInfo->_70) {
+                if (this->val3 < v15->_70) {
                     info3 = this->info3;
-                    info3->triangle.mKCPrismHeader = v15->hitInfo->triangle.mKCPrismHeader;
-                    info3->triangle.mKCPrismData = v15->hitInfo->triangle.mKCPrismData;
-                    info3->triangle.mCollisionParts = v15->hitInfo->triangle.mCollisionParts;
-                    info3->triangle.mNormals[0] = v15->hitInfo->triangle.mNormals[0];
-                    info3->triangle.mNormals[1].x = v15->hitInfo->triangle.mNormals[1].x;
-                    info3->triangle.mNormals[1].y = v15->hitInfo->triangle.mNormals[1].y;
-                    info3->triangle.mNormals[1].z = v15->hitInfo->triangle.mNormals[1].z;
-                    info3->triangle.mNormals[2] = v15->hitInfo->triangle.mNormals[2];
-                    info3->triangle.mNormals[3] = v15->hitInfo->triangle.mNormals[3];
-                    info3->triangle.mPositions[0].x = v15->hitInfo->triangle.mPositions[0].x;
-                    info3->triangle.mPositions[0].y = v15->hitInfo->triangle.mPositions[0].y;
-                    info3->triangle.mPositions[0].z = v15->hitInfo->triangle.mPositions[0].z;
-                    info3->triangle.mPositions[1] = v15->hitInfo->triangle.mPositions[1];
-                    info3->triangle.mPositions[2] = v15->hitInfo->triangle.mPositions[2];
-                    info3->_70 = v15->hitInfo->_70;
-                    info3->collisionHitPos = v15->hitInfo->collisionHitPos;
-                    info3->_80 = v15->hitInfo->_80;
-                    info3->collisionMovingReaction = v15->hitInfo->collisionMovingReaction;
-                    info3->collisionLocation = v15->hitInfo->collisionLocation;
-                    this->val3 = v15->hitInfo->_70;
+                    info3->triangle.mKCPrismHeader = v15->triangle.mKCPrismHeader;
+                    info3->triangle.mKCPrismData = v15->triangle.mKCPrismData;
+                    info3->triangle.mCollisionParts = v15->triangle.mCollisionParts;
+                    info3->triangle.mNormals[0] = v15->triangle.mNormals[0];
+                    info3->triangle.mNormals[1].x = v15->triangle.mNormals[1].x;
+                    info3->triangle.mNormals[1].y = v15->triangle.mNormals[1].y;
+                    info3->triangle.mNormals[1].z = v15->triangle.mNormals[1].z;
+                    info3->triangle.mNormals[2] = v15->triangle.mNormals[2];
+                    info3->triangle.mNormals[3] = v15->triangle.mNormals[3];
+                    info3->triangle.mPositions[0].x = v15->triangle.mPositions[0].x;
+                    info3->triangle.mPositions[0].y = v15->triangle.mPositions[0].y;
+                    info3->triangle.mPositions[0].z = v15->triangle.mPositions[0].z;
+                    info3->triangle.mPositions[1] = v15->triangle.mPositions[1];
+                    info3->triangle.mPositions[2] = v15->triangle.mPositions[2];
+                    info3->_70 = v15->_70;
+                    info3->collisionHitPos = v15->collisionHitPos;
+                    info3->_80 = v15->_80;
+                    info3->collisionMovingReaction = v15->collisionMovingReaction;
+                    info3->collisionLocation = v15->collisionLocation;
+                    this->val3 = v15->_70;
                 }
 
                 v82 = 2;
             } else {
-                if (this->val2 < v15->hitInfo->_70) {
+                if (this->val2 < v15->_70) {
                     info2 = this->info2;
-                    info2->triangle.mKCPrismHeader = v15->hitInfo->triangle.mKCPrismHeader;
-                    info2->triangle.mKCPrismData = v15->hitInfo->triangle.mKCPrismData;
-                    info2->triangle.mCollisionParts = v15->hitInfo->triangle.mCollisionParts;
-                    info2->triangle.mNormals[0] = v15->hitInfo->triangle.mNormals[0];
-                    info2->triangle.mNormals[1].x = v15->hitInfo->triangle.mNormals[1].x;
-                    info2->triangle.mNormals[1].y = v15->hitInfo->triangle.mNormals[1].y;
-                    info2->triangle.mNormals[1].z = v15->hitInfo->triangle.mNormals[1].z;
-                    info2->triangle.mNormals[2] = v15->hitInfo->triangle.mNormals[2];
-                    info2->triangle.mNormals[3] = v15->hitInfo->triangle.mNormals[3];
-                    info2->triangle.mPositions[0].x = v15->hitInfo->triangle.mPositions[0].x;
-                    info2->triangle.mPositions[0].y = v15->hitInfo->triangle.mPositions[0].y;
-                    info2->triangle.mPositions[0].z = v15->hitInfo->triangle.mPositions[0].z;
-                    info2->triangle.mPositions[1] = v15->hitInfo->triangle.mPositions[1];
-                    info2->triangle.mPositions[2] = v15->hitInfo->triangle.mPositions[2];
-                    info2->_70 = v15->hitInfo->_70;
-                    info2->collisionHitPos = v15->hitInfo->collisionHitPos;
-                    info2->_80 = v15->hitInfo->_80;
-                    info2->collisionMovingReaction = v15->hitInfo->collisionMovingReaction;
-                    info2->collisionLocation = v15->hitInfo->collisionLocation;
-                    this->val2 = v15->hitInfo->_70;
+                    info2->triangle.mKCPrismHeader = v15->triangle.mKCPrismHeader;
+                    info2->triangle.mKCPrismData = v15->triangle.mKCPrismData;
+                    info2->triangle.mCollisionParts = v15->triangle.mCollisionParts;
+                    info2->triangle.mNormals[0] = v15->triangle.mNormals[0];
+                    info2->triangle.mNormals[1].x = v15->triangle.mNormals[1].x;
+                    info2->triangle.mNormals[1].y = v15->triangle.mNormals[1].y;
+                    info2->triangle.mNormals[1].z = v15->triangle.mNormals[1].z;
+                    info2->triangle.mNormals[2] = v15->triangle.mNormals[2];
+                    info2->triangle.mNormals[3] = v15->triangle.mNormals[3];
+                    info2->triangle.mPositions[0].x = v15->triangle.mPositions[0].x;
+                    info2->triangle.mPositions[0].y = v15->triangle.mPositions[0].y;
+                    info2->triangle.mPositions[0].z = v15->triangle.mPositions[0].z;
+                    info2->triangle.mPositions[1] = v15->triangle.mPositions[1];
+                    info2->triangle.mPositions[2] = v15->triangle.mPositions[2];
+                    info2->_70 = v15->_70;
+                    info2->collisionHitPos = v15->collisionHitPos;
+                    info2->_80 = v15->_80;
+                    info2->collisionMovingReaction = v15->collisionMovingReaction;
+                    info2->collisionLocation = v15->collisionLocation;
+                    this->val2 = v15->_70;
                 }
 
                 v82 = 1;
             }
 
             v80 = this;
-            v81 = v15->hitInfo.data();
+            v81 = v15;
         } else {
-            if (this->val1 < v15->hitInfo->_70) {
+            if (this->val1 < v15->_70) {
                 info1 = this->info1;
-                info1->triangle.mKCPrismHeader = v15->hitInfo->triangle.mKCPrismHeader;
-                info1->triangle.mKCPrismData = v15->hitInfo->triangle.mKCPrismData;
-                info1->triangle.mCollisionParts = v15->hitInfo->triangle.mCollisionParts;
-                info1->triangle.mNormals[0] = v15->hitInfo->triangle.mNormals[0];
-                info1->triangle.mNormals[1].x = v15->hitInfo->triangle.mNormals[1].x;
-                info1->triangle.mNormals[1].y = v15->hitInfo->triangle.mNormals[1].y;
-                info1->triangle.mNormals[1].z = v15->hitInfo->triangle.mNormals[1].z;
-                info1->triangle.mNormals[2] = v15->hitInfo->triangle.mNormals[2];
-                info1->triangle.mNormals[3] = v15->hitInfo->triangle.mNormals[3];
-                info1->triangle.mPositions[0].x = v15->hitInfo->triangle.mPositions[0].x;
-                info1->triangle.mPositions[0].y = v15->hitInfo->triangle.mPositions[0].y;
-                info1->triangle.mPositions[0].z = v15->hitInfo->triangle.mPositions[0].z;
-                info1->triangle.mPositions[1] = v15->hitInfo->triangle.mPositions[1];
-                info1->triangle.mPositions[2] = v15->hitInfo->triangle.mPositions[2];
-                info1->_70 = v15->hitInfo->_70;
-                info1->collisionHitPos = v15->hitInfo->collisionHitPos;
-                info1->_80 = v15->hitInfo->_80;
-                info1->collisionMovingReaction = v15->hitInfo->collisionMovingReaction;
-                info1->collisionLocation = v15->hitInfo->collisionLocation;
-                this->val1 = v15->hitInfo->_70;
+                info1->triangle.mKCPrismHeader = v15->triangle.mKCPrismHeader;
+                info1->triangle.mKCPrismData = v15->triangle.mKCPrismData;
+                info1->triangle.mCollisionParts = v15->triangle.mCollisionParts;
+                info1->triangle.mNormals[0] = v15->triangle.mNormals[0];
+                info1->triangle.mNormals[1].x = v15->triangle.mNormals[1].x;
+                info1->triangle.mNormals[1].y = v15->triangle.mNormals[1].y;
+                info1->triangle.mNormals[1].z = v15->triangle.mNormals[1].z;
+                info1->triangle.mNormals[2] = v15->triangle.mNormals[2];
+                info1->triangle.mNormals[3] = v15->triangle.mNormals[3];
+                info1->triangle.mPositions[0].x = v15->triangle.mPositions[0].x;
+                info1->triangle.mPositions[0].y = v15->triangle.mPositions[0].y;
+                info1->triangle.mPositions[0].z = v15->triangle.mPositions[0].z;
+                info1->triangle.mPositions[1] = v15->triangle.mPositions[1];
+                info1->triangle.mPositions[2] = v15->triangle.mPositions[2];
+                info1->_70 = v15->_70;
+                info1->collisionHitPos = v15->collisionHitPos;
+                info1->_80 = v15->_80;
+                info1->collisionMovingReaction = v15->collisionMovingReaction;
+                info1->collisionLocation = v15->collisionLocation;
+                this->val1 = v15->_70;
             }
 
             v80 = this;
-            v81 = v15->hitInfo.data();
+            v81 = v15;
             v82 = 0;
         }
 

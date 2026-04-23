@@ -72,15 +72,8 @@
 bool rs::isNearPlayerH(al::LiveActor const*, float) {WARN_UNIMPL;return false;}
 bool rs::findWallCatchPosWallHit(al::CollisionParts const**, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*, al::LiveActor const*, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float, float, float, float, float, float, float) {WARN_UNIMPL;return false;}
 sead::Matrix34f* al::getJointMtxPtr(al::LiveActor const* a, char const*) {WARN_UNIMPL; return a->getPoseKeeper()->getMtxPtr();}
-bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3f*, al::Triangle*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {WARN_UNIMPL;return false;}
-al::ICollisionPartsKeeper* alCollisionUtil::getCollisionPartsKeeper(al::IUseCollision const* c) {return c->getCollisionDirector()->getActivePartsKeeper();}
 void al::CollisionParts::validateBySystem() {WARN_UNIMPL;}
 void al::CollisionParts::invalidateBySystem() {WARN_UNIMPL;}
-al::Collider::Collider(CollisionDirector*, const sead::Matrix34f*, const sead::Vector3f*, const sead::Vector3f*, f32, f32, u32) {WARN_UNIMPL;}
-void al::Collider::onInvalidate() {WARN_UNIMPL;}
-void al::Collider::setCollisionPartsFilter(al::CollisionPartsFilterBase const*) {WARN_UNIMPL;}
-const sead::Vector3f& al::Collider::getRecentOnGroundNormal(u32) const {WARN_UNIMPL; return sead::Vector3f::ey;}
-sead::Vector3f al::Collider::collide(sead::Vector3<float> const&) {WARN_UNIMPL; return sead::Vector3f::zero;}
 al::InitResourceDataAction* al::InitResourceDataAction::tryCreate(al::Resource*, al::InitResourceDataAnim const*, char const*) {WARN_UNIMPL;return nullptr;}
 al::InitResourceDataAnim* al::InitResourceDataAnim::tryCreate(al::Resource*, al::Resource*) {WARN_UNIMPL;return nullptr;}
 const char* al::getLanguageString() {return "";}
@@ -89,6 +82,9 @@ s32 al::getSystemMessageLabelNum(al::IUseMessageSystem const*, char const*) {ret
 s64 rs::prepo::generateSaveDataId() {return -1;}
 const char* rs::getInitPlayerModelName(PlayerInitInfo const&) {return "Mario";}
 const char* rs::getInitCapTypeName(PlayerInitInfo const&) {return "Mario";}
+al::ICollisionPartsKeeper* alCollisionUtil::getCollisionPartsKeeper(al::IUseCollision const* c) {return c->getCollisionDirector()->getActivePartsKeeper();}
+bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3f*, al::Triangle*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {WARN_UNIMPL;return false;}
+s32 alCollisionUtil::checkStrikeSphereMovingReaction(al::IUseCollision const*, sead::Vector3<float> const&, float, sead::Vector3<float> const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {WARN_UNIMPL;return 0;}
 
 // NORMAL PRIORITY
 
@@ -153,17 +149,14 @@ void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlay
 bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 al::CollisionParts* alCollisionUtil::getStrikeArrowCollisionParts(al::IUseCollision const*, sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 s32 alCollisionUtil::checkStrikeSphere(al::IUseCollision const*, sead::Vector3<float> const&, float, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
+const al::SphereHitInfo& alCollisionUtil::getStrikeSphereInfo(al::IUseCollision const*, unsigned int) {CRASH}
+s32 alCollisionUtil::getStrikeSphereInfoNum(al::IUseCollision const*) {CRASH}
 
 void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {CRASH}
 const al::LiveActor* al::CollisionParts::getConnectedHost() const {CRASH}
 void al::CollisionParts::resetAllMtx() {CRASH}
 void al::CollisionParts::invalidateByUser() {CRASH}
 void al::CollisionParts::validateByUser() {CRASH}
-
-al::CollisionDirector* al::Collider::getCollisionDirector() const {CRASH}
-void al::Collider::calcCheckPos(sead::Vector3<float>*) const {CRASH}
-void al::Collider::setTriangleFilter(al::TriangleFilterBase const*) {CRASH}
-al::Triangle* al::Collider::getPlane(int) const {CRASH}
 
 bool al::CollisionPartsFilterActor::isInvalidParts(CollisionParts*) {CRASH}
 bool al::CollisionPartsFilterSpecialPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
