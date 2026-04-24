@@ -166,3 +166,4 @@ u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, f
 
 bool rs::isPlayerCollidedGround(al::LiveActor const*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
+bool rs::isEquipCapCatched(al::LiveActor const*) {CRASH}

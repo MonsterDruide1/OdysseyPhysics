@@ -106,10 +106,14 @@ bool isTargetClimbPole(al::CameraPoser const*) {return false;}
 bool isTargetCollideGround(al::CameraPoser const*) {return false;}
 bool isTargetGrabCeil(al::CameraPoser const*) {return false;}
 bool checkFirstCameraCollisionArrow(sead::Vector3<float>*, sead::Vector3<float>*, al::IUseCollision const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {return false;}
+void invalidateKeepDistanceNextCameraIfNoCollide(al::CameraPoser*) {}
 
 }
 
 al::CameraTicket* alCameraFunction::initCamera(al::CameraPoser*, al::IUseCamera const*, al::ActorInitInfo const&, char const*, int) {WARN_UNIMPL; return nullptr;}
+void alCameraFunction::initPriorityDemoTalk(al::CameraTicket*) {}
+void alCameraFunction::validateCameraInterpoleEaseOut(al::CameraTicket*) {}
+void alCameraFunction::validateKeepPreSelfPoseNextCamera(al::CameraTicket*) {}
 
 void alCameraBlurFunction::resetCameraBlurName(al::LiveActor const*) {}
 void alCameraBlurFunction::setCameraBlurName(al::LiveActor const*, char const*) {}

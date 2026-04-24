@@ -1,6 +1,7 @@
 #include "Library/LiveActor/ActorInitFunction.h"
-#include "Library/LiveActor/ActorPoseKeeper.h"
+#include "Library/LiveActor/ActorPoseUtil.h"
 #include "Library/Math/MathUtil.h"
+#include "MapObj/SimpleSignBoard.h"
 #include "Player/Player.h"
 #include "PlayerUtil.h"
 #include "Util/PlayerUtil.h"
@@ -153,3 +154,5 @@ bool PlayerStateWait::tryChangeRequestAnim() {
 bool PlayerStateWait::tryChangeAreaAnim() {
     return false;
 }
+
+void SimpleSignBoardFunction::startSignAimVisAnimFromModelName(al::LiveActor*, al::ActorInitInfo const&) {}

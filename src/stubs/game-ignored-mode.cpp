@@ -4,6 +4,7 @@
 #include "Enemy/HackerDepthShadowMapCtrl.h"
 #include "Library/Collision/CollisionDirector.h"
 #include "Library/Scene/DemoDirector.h"
+#include "MapObj/RocketFlowerFunction.h"
 #include "ModeBalloon/RankingLocalFunction.h"
 #include "Player/HackerJudgeNormalFall.h"
 #include "Player/HackerJudgeStartRun.h"
@@ -87,7 +88,7 @@ bool tryEndHackStartDemo(IUsePlayerHack*, al::LiveActor*) {return false;}
 void endHackAirVelocity(IUsePlayerHack**, sead::Vector3<float> const&, sead::Quat<float> const&, sead::Vector3<float> const&, int) {}
 void endHackDir(IUsePlayerHack**, sead::Vector3<float> const&) {}
 void endHackTargetQuat(IUsePlayerHack**, sead::Quat<float> const&, sead::Vector3<float> const&) {}
-bool isTriggerHackSwing(IUsePlayerHack const*) {}
+bool isTriggerHackSwing(IUsePlayerHack const*) {return false;}
 bool receiveMsgRequestTransferHack(al::SensorMsg const*, IUsePlayerHack*, al::HitSensor*) {return false;}
 bool requestDamage(IUsePlayerHack*) {return false;}
 bool sendMsgHackerNoReaction(IUsePlayerHack const*, al::HitSensor*, al::HitSensor*) {return false;}
@@ -240,3 +241,6 @@ HackerJudgeStartRun::HackerJudgeStartRun(al::LiveActor const*, IUsePlayerHack**)
 void HackerJudgeStartRun::reset() {}
 void HackerJudgeStartRun::update() {}
 bool HackerJudgeStartRun::judge() const {return false;}
+
+void RocketFlowerFunction::createRocketFlowerEquipWatcherIfNotExist(al::LiveActor const*, al::ActorInitInfo const&) {}
+bool RocketFlowerFunction::requestEquipRocketFlower(RocketFlower*, al::HitSensor*) {return false;}

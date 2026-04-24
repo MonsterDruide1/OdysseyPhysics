@@ -4,7 +4,8 @@
 #include "Item/LifeMaxUpItem2D.h"
 #include "Item/LifeUpItem.h"
 #include "Item/LifeUpItem2D.h"
-#include "System/GameDataFunction.h"
+#include "MapObj/BlockStateSingleItem.h"
+#include "MapObj/BlockStateTenCoin.h"
 #include "Util/ItemUtil.h"
 
 CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
@@ -44,3 +45,14 @@ void LifeUpItem2D::init(const al::ActorInitInfo& initInfo) {}
 bool LifeUpItem2D::receiveMsg(const al::SensorMsg* message, al::HitSensor* other,
                 al::HitSensor* self) {return false;}
 ActorDimensionKeeper* LifeUpItem2D::getActorDimensionKeeper() const {WARN_UNIMPL;return nullptr;}
+
+BlockStateSingleItem::BlockStateSingleItem(al::LiveActor* a, int, bool) : al::ActorStateBase("", a) {WARN_UNIMPL;}
+void BlockStateSingleItem::init() {}
+bool BlockStateSingleItem::isReaction() const {return false;}
+bool BlockStateSingleItem::receiveMsg(al::SensorMsg const*, al::HitSensor*, al::HitSensor*) {return false;}
+void BlockStateSingleItem::setItemOffsetY(float) {}
+BlockStateTenCoin::BlockStateTenCoin(al::LiveActor* a, bool) : al::ActorStateBase("", a) {WARN_UNIMPL;}
+void BlockStateTenCoin::init() {}
+void BlockStateTenCoin::control() {}
+bool BlockStateTenCoin::isReaction() const {return false;}
+bool BlockStateTenCoin::receiveMsg(al::SensorMsg const*, al::HitSensor*, al::HitSensor*) {return false;}
