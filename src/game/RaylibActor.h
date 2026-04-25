@@ -1,7 +1,5 @@
 #pragma once
 
-#include "CUSTOM/CollisionPartsKeeper.h"
-#include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/LiveActor.h"
 #include "Library/Yaml/ByamlIter.h"
 #include "raylib.h"
@@ -13,7 +11,6 @@ public:
     RaylibActor(al::LiveActor*);
     virtual ~RaylibActor();
 
-    void initCollision(const al::ByamlIter& data, CollisionPartsKeeper* keeper);
     void initRaylibModel();
     void initFallbackModel();
 

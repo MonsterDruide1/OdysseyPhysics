@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdio>
+#include "CUSTOM/CollisionPartsKeeper.h"
 #include "Library/Scene/Scene.h"
 #include "game/Camera.h"
 #include "game/RaylibActor.h"

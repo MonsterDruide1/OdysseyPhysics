@@ -1,21 +1,16 @@
 #include "game/RaylibActor.h"
 #include <cstdio>
 #include <cstring>
-#include <filesystem>
-#include "Library/Base/StringUtil.h"
 #include "Library/Collision/CollisionParts.h"
 #include "Library/Collision/KCollisionServer.h"
+#include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/LiveActor/LiveActorFlag.h"
-#include "Library/Matrix/MatrixUtil.h"
-#include "Library/Model/ModelKeeper.h"
-#include "Library/Placement/PlacementFunction.h"
 #include "Library/Yaml/ByamlUtil.h"
 #include "RaylibUtil.h"
 #include "filedevice/seadFileDevice.h"
 #include "raylib.h"
 #include "resource/seadArchiveRes.h"
 #include "resource/seadResourceMgr.h"
-#include "settings.h"
 
 namespace game {
 
@@ -79,65 +74,6 @@ static sead::ArchiveRes* loadSarc(const sead::SafeString& path, sead::FileDevice
     sead::Resource* resource =
         sead::ResourceMgr::instance()->tryLoad(loadArg, "sarc", nullptr);
     return sead::DynamicCast<sead::ArchiveRes>(resource);
-}
-
-void RaylibActor::initCollision(const al::ByamlIter& data, CollisionPartsKeeper* keeper) {
-    sead::ArchiveRes* sarc = loadSarc(((std::string) "ObjectData/"+mActor->mName+".szs").c_str(), nullptr);
-
-    constexpr u32 ENTRIES_NUM = 512;
-    sead::HandleBuffer handle{};
-    sead::DirectoryEntry entries[ENTRIES_NUM];
-    u32 files_num = sarc->readDirectory(&handle, entries, ENTRIES_NUM);
-
-    int kclIndex = -1;
-    for (u16 i = 0; i < files_num; i++) {
-        if (al::isEndWithString(entries[i].name.cstr(), ".kcl")) {
-            kclIndex = i;
-            break;
-        }
-    }
-    if (kclIndex == -1) {
-        dbg_printf("Actor has no collision: %s\n", mActor->mName);
-        return;
-    }
-    sead::ArchiveRes::FileInfo kclFileInfo;
-    const auto* kclFile = sarc->getFile(entries[kclIndex].name.cstr(), &kclFileInfo);
-
-    int byamlIndex = -1;
-    for (u16 i = 0; i < files_num; i++) {
-        if (al::isEqualString(entries[i].name.cstr(), (std::string(entries[kclIndex].name.cstr()).substr(0, entries[kclIndex].name.calcLength() - 4) + ("Attribute.byml")).c_str())) {
-            byamlIndex = i;
-            break;
-        }
-    }
-    if(byamlIndex == -1) {
-        dbg_printf("Actor has corrupted collision: %s\n", mActor->mName);
-        CRASH
-    }
-    sead::ArchiveRes::FileInfo bymlFileInfo;
-    const auto* bymlFile = sarc->getFile(entries[byamlIndex].name.cstr(), &bymlFileInfo);
-
-    kclData = new u8[kclFileInfo.mLength];
-    memcpy(kclData, kclFile, kclFileInfo.mLength);
-    collisionByml = new u8[bymlFileInfo.mLength];
-    memcpy(collisionByml, bymlFile, bymlFileInfo.mLength);
-
-    mActor->mCollisionParts = new al::CollisionParts(kclData, collisionByml);
-    sead::Matrix34f mat;
-    // al::makeMtxSRT
-    mActor->mPoseKeeper->calcBaseMtx(&mat);
-    al::preScaleMtx(&mat, *mActor->mPoseKeeper->getScalePtr());
-    // ---
-    if (data.getKeyIndex("Sensor") != -1)
-        dbg_printf("Sensor-attribute exists, but is not implemented! (%s)\n", mActor->mName);
-    mActor->mCollisionParts->mConnectedSensor = nullptr;
-
-    mActor->mCollisionParts->initParts(mat);
-
-    if (data.getKeyIndex("Joint") != -1)
-        dbg_printf("Joint-attribute exists, but is not implemented! (%s)\n", mActor->mName);
-    mActor->mCollisionParts->mJointMtx = nullptr;
-    keeper->addCollisionParts(mActor->mCollisionParts);
 }
 
 void RaylibActor::initRaylibModel() {

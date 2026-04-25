@@ -1,5 +1,6 @@
 #include "agent/ScriptOptimizerSimple.h"
 
+#include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Player/PlayerActorHakoniwa.h"
 #include "Util/PlayerCollisionUtil.h"
 #include "game/InputProviderTAS.h"

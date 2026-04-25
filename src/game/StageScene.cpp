@@ -6,6 +6,7 @@
 #include "Library/Execute/ExecuteDirector.h"
 #include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorInitInfo.h"
+#include "Library/LiveActor/ActorInitUtil.h"
 #include "Library/LiveActor/LiveActorGroup.h"
 #include "Library/LiveActor/LiveActorKit.h"
 #include "Library/Memory/HeapUtil.h"
@@ -122,9 +123,11 @@ void StageScene::init(const char* stageName, int scenario) {
             }
         }
 
+        bool unknown = false;
         if(!liveactor) {
             printf("Unknown class: %s\n", className ?: "nullptr");
             liveactor = new al::LiveActor("LiveActor");
+            unknown = true;
         }
         al::PlacementInfo placement;
         placement.set(objiter, nullptr);
@@ -132,9 +135,15 @@ void StageScene::init(const char* stageName, int scenario) {
         al::initActorInitInfo(&info, this, &placement, nullptr, &factory, nullptr, holder);
         info.actorSceneInfo.sceneObjHolder = mSceneObjHolder;
         liveactor->init(info);
+        if (unknown) {
+            const char* suffix = nullptr;
+            al::tryGetStringArg(&suffix, info, "Suffix");
+            al::initMapPartsActor(liveactor, info, suffix);
+        }
         RaylibActor::apply(liveactor, objiter);
         RaylibActor* actor = new RaylibActor(liveactor);
-        actor->initCollision(objiter, mPartsKeeper);
+        if (actor->mActor->getCollisionParts())
+            mPartsKeeper->addCollisionParts(actor->mActor->getCollisionParts());/**/
         actor->initRaylibModel();
         addObject(actor);
         liveactor->initAfterPlacement();
