@@ -150,10 +150,18 @@ void StageScene::init(const char* stageName, int scenario) {
                 al::initActorWithArchiveName(liveactor, info, "Jugem", nullptr);
             } else if (al::isEqualString("FukankunZoomCapMessageSun", className)) {
                 // no `initActor` used in this class
+            } else if (al::isEqualString("DelaySwitch", className)) {
+                // no `initActor` used in this class
             } else if (al::isEqualString("CapRackTimer", className)) {
                 al::initActorWithArchiveName(liveactor, info, "CapRack", nullptr);
             } else if (al::isEqualString("DigPointHintPhoto", className)) {
                 al::initActorWithArchiveName(liveactor, info, "DigPoint", "HintPhoto");
+            } else if (al::isEqualString("KuriboPossessed", className)) {
+                al::initActorWithArchiveName(liveactor, info, "Kuribo", nullptr);
+            } else if (al::isEqualString("GrowerWorm", className)) {
+                al::initActorWithArchiveName(liveactor, info, "GrowerWorm", nullptr);
+            } else if (al::isEqualString("Mofumofu", className)) {
+                al::initActorWithArchiveName(liveactor, info, "MofumofuHead", nullptr);
             }
             else {
                 const char* suffix = nullptr;

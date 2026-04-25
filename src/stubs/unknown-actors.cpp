@@ -151,7 +151,6 @@ s32 alCollisionUtil::checkStrikeSphere(al::IUseCollision const*, sead::Vector3<f
 
 void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {CRASH}
 const al::LiveActor* al::CollisionParts::getConnectedHost() const {CRASH}
-void al::CollisionParts::invalidateByUser() {CRASH}
 void al::CollisionParts::validateByUser() {CRASH}
 
 bool al::CollisionPartsFilterActor::isInvalidParts(CollisionParts*) {CRASH}
