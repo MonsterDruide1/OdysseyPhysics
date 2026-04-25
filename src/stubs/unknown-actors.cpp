@@ -84,6 +84,7 @@ const char* rs::getInitPlayerModelName(PlayerInitInfo const&) {return "Mario";}
 const char* rs::getInitCapTypeName(PlayerInitInfo const&) {return "Mario";}
 al::ICollisionPartsKeeper* alCollisionUtil::getCollisionPartsKeeper(al::IUseCollision const* c) {return c->getCollisionDirector()->getActivePartsKeeper();}
 bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3f*, al::Triangle*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {WARN_UNIMPL;return false;}
+const char* al::getSubStringUnmatched(char const*, al::MatchStr const&) {WARN_UNIMPL; return nullptr;}
 
 // NORMAL PRIORITY
 
@@ -146,12 +147,10 @@ void al::calcTouchScreenPos(sead::Vector2f*) {CRASH}
 void rs::moveInertiaSlideOnSkate(sead::Vector3<float>*, al::LiveActor*, IUsePlayerCollision const*, sead::Vector3<float> const&, float, float, float, float, float, float, float) {CRASH}
 
 bool alCollisionUtil::getHitPosOnArrow(al::IUseCollision const*, sead::Vector3f*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
-al::CollisionParts* alCollisionUtil::getStrikeArrowCollisionParts(al::IUseCollision const*, sead::Vector3<float>*, sead::Vector3<float> const&, sead::Vector3<float> const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 s32 alCollisionUtil::checkStrikeSphere(al::IUseCollision const*, sead::Vector3<float> const&, float, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {CRASH}
 
 void al::CollisionParts::calcForceRotatePower(sead::Quatf*) const {CRASH}
 const al::LiveActor* al::CollisionParts::getConnectedHost() const {CRASH}
-void al::CollisionParts::resetAllMtx() {CRASH}
 void al::CollisionParts::invalidateByUser() {CRASH}
 void al::CollisionParts::validateByUser() {CRASH}
 
@@ -161,7 +160,6 @@ bool al::CollisionPartsFilterMergePair::isInvalidParts(CollisionParts* collision
 bool al::CollisionPartsFilterIgnoreOptionalPurpose::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 bool al::CollisionPartsFilterSubActor::isInvalidParts(CollisionParts* collisionParts) {CRASH}
 
-const char* al::getSubStringUnmatched(char const*, al::MatchStr const&) {CRASH}
 u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, float, float, float) {CRASH}
 
 bool rs::isPlayerCollidedGround(al::LiveActor const*) {CRASH}

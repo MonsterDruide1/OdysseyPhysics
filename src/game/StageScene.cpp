@@ -94,6 +94,8 @@ void StageScene::init(const char* stageName, int scenario) {
     
     al::AreaObjDirector* areaObjDirector = mLiveActorKit->getAreaObjDirector();
     areaObjDirector->init(new ProjectAreaFactory());
+    al::CollisionDirector* collDirector = mLiveActorKit->getCollisionDirector();
+    collDirector->setPartsKeeper(mPartsKeeper);
 
     sead::ArchiveRes* sarc = loadSarc(((std::string) "StageData/"+stageName+".szs").c_str(), nullptr);
     const auto* file = sarc->getFile(((std::string) stageName + ".byml").c_str());
@@ -136,9 +138,28 @@ void StageScene::init(const char* stageName, int scenario) {
         info.actorSceneInfo.sceneObjHolder = mSceneObjHolder;
         liveactor->init(info);
         if (unknown) {
-            const char* suffix = nullptr;
-            al::tryGetStringArg(&suffix, info, "Suffix");
-            al::initMapPartsActor(liveactor, info, suffix);
+            // special handling for a few actors that are *not* just MapParts with fancy handlers
+            if (al::isEqualString("FigureWalkingNpc", className)) {
+                al::initActorWithArchiveName(liveactor, info, "NokonokoNpc", nullptr);
+            } else if (al::isEqualString("CarSandWorld", className)) {
+                al::initActorWithArchiveName(liveactor, info, "Car", nullptr);
+            } else if (al::isEqualString("TalkMessageInfoPoint", className)) {
+                // doesn't exist???
+                //al::initActorWithArchiveName(liveactor, info, "TalkMessageInfoPoint", nullptr);
+            } else if (al::isEqualString("JugemFishing", className)) {
+                al::initActorWithArchiveName(liveactor, info, "Jugem", nullptr);
+            } else if (al::isEqualString("FukankunZoomCapMessageSun", className)) {
+                // no `initActor` used in this class
+            } else if (al::isEqualString("CapRackTimer", className)) {
+                al::initActorWithArchiveName(liveactor, info, "CapRack", nullptr);
+            } else if (al::isEqualString("DigPointHintPhoto", className)) {
+                al::initActorWithArchiveName(liveactor, info, "DigPoint", "HintPhoto");
+            }
+            else {
+                const char* suffix = nullptr;
+                al::tryGetStringArg(&suffix, info, "Suffix");
+                al::initMapPartsActor(liveactor, info, suffix);
+            }
         }
         RaylibActor::apply(liveactor, objiter);
         RaylibActor* actor = new RaylibActor(liveactor);
@@ -196,9 +217,7 @@ void StageScene::init(const char* stageName, int scenario) {
     }
     al::ExecuteDirector* executeDirector = new al::ExecuteDirector(512);
     executeDirector->init({});
-    al::CollisionDirector* collDirector = mLiveActorKit->getCollisionDirector();
     al::LiveActorGroup* allActorsGroup = mLiveActorKit->getLiveActorGroupAllActors();
-    collDirector->setPartsKeeper(mPartsKeeper);
     PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
     al::PlacementInfo placementInfo = {};
     placementInfo.set(playerlist.getIterByIndex(0), al::ByamlIter());

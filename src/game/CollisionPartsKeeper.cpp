@@ -30,9 +30,7 @@ void CollisionPartsKeeper::disconnectToCollisionPartsList(al::CollisionParts*) {
     CRASH
 }
 
-void CollisionPartsKeeper::resetToCollisionPartsList(al::CollisionParts*) {
-    CRASH
-}
+void CollisionPartsKeeper::resetToCollisionPartsList(al::CollisionParts*) {}
 
 s32 CollisionPartsKeeper::checkStrikePoint(al::HitInfo*, const al::CollisionCheckInfoBase&) const {
     CRASH
