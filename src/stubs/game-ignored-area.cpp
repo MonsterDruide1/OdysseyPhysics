@@ -1,11 +1,14 @@
 #include "Library/Area/AreaObjDirector.h"
 #include "Library/Area/AreaObjUtil.h"
 #include "Library/stuff.h"
+#include "MapObj/RouteGuideDirector.h"
 #include "Player/PlayerJudgeInvalidateInputFall.h"
 #include "PlayerUtil.h"
 #include "Stuff.h"
 #include "Util/AreaUtil.h"
 #include "playerUtil.h"
+
+void rs::onRouteGuideSystem(al::IUseSceneObjHolder const*) {}
 
 bool rs::isInLowGravityArea(al::LiveActor const*) {
     return false;

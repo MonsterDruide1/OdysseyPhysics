@@ -30,6 +30,7 @@
 #include "Project/Memory/Util.h"
 #include "Project/Scene/SceneInitInfo.h"
 #include "Scene/ProjectActorFactory.h"
+#include "Scene/ProjectAreaFactory.h"
 #include "Scene/SceneObjFactory.h"
 #include "System/GameDataHolder.h"
 #include "game/Input.h"
@@ -89,6 +90,9 @@ void StageScene::init(const char* stageName, int scenario) {
     al::SceneObjHolder* sceneObjHolder = SceneObjFactory::createSceneObjHolder();
     initSceneObjHolder(sceneObjHolder);
     al::setSceneObj(this, holder);
+    
+    al::AreaObjDirector* areaObjDirector = mLiveActorKit->getAreaObjDirector();
+    areaObjDirector->init(new ProjectAreaFactory());
 
     sead::ArchiveRes* sarc = loadSarc(((std::string) "StageData/"+stageName+".szs").c_str(), nullptr);
     const auto* file = sarc->getFile(((std::string) stageName + ".byml").c_str());
@@ -184,7 +188,6 @@ void StageScene::init(const char* stageName, int scenario) {
     al::ExecuteDirector* executeDirector = new al::ExecuteDirector(512);
     executeDirector->init({});
     al::CollisionDirector* collDirector = mLiveActorKit->getCollisionDirector();
-    al::AreaObjDirector* areaObjDirector = new al::AreaObjDirector();
     al::LiveActorGroup* allActorsGroup = mLiveActorKit->getLiveActorGroupAllActors();
     collDirector->setPartsKeeper(mPartsKeeper);
     PlayerActorHakoniwa* player = new PlayerActorHakoniwa("Player");
