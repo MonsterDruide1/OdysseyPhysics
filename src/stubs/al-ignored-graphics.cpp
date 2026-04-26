@@ -52,7 +52,7 @@
 #include "Project/Action/ActionScreenEffectCtrl.h"
 #include "Project/Clipping/ClippingFunction.h"
 #include "Project/Light/ActorPrepassLightKeeper.h"
-#include "playerUtil.h"
+#include "FootPrintHolder.h"
 
 namespace al {
 
