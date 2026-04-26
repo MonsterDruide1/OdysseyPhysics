@@ -52,7 +52,7 @@ bool checkGetAchievement(GameDataHolderAccessor, char const*) {return false;}
 s32 getPlayerJumpCount(GameDataHolder const*) {return 0;}
 s32 getPlayerThrowCapCount(GameDataHolder const*) {return 0;}
 s32 getTotalCoinNum(GameDataHolder const*) {return 0;}
-bool trySavePrepoSeparatePlayMode(bool, long, long, long) {return false;}
+bool trySavePrepoSeparatePlayMode(bool, s64, s64, s64) {return false;}
 
 }
 
@@ -154,8 +154,8 @@ bool GameDataFile::isTalkKakku() const {return false;}
 bool GameDataFile::isTalkWorldTravelingPeach() const {return false;}
 bool GameDataFile::isUsedGrowFlowerSeed(al::PlacementId const*) const {return false;}
 void GameDataFile::noFirstNetwork() {}
-void GameDataFile::setGrowFlowerTime(al::PlacementId const*, al::PlacementId const*, unsigned long) {}
-void GameDataFile::setGrowFlowerTime(al::PlacementId const*, unsigned long) {}
+void GameDataFile::setGrowFlowerTime(al::PlacementId const*, al::PlacementId const*, u64) {}
+void GameDataFile::setGrowFlowerTime(al::PlacementId const*, u64) {}
 void GameDataFile::setJumpingRopeBestCount(int) {}
 void GameDataFile::setTokimekiMayorNpcFavorabilityRating(int) {}
 void GameDataFile::setUpdateJumpingRopeScoreFlag() {}

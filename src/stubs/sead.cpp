@@ -21,11 +21,11 @@ s32 sead::StringUtil::snprintf(char* s, size_t n, const char* format, ...) {
     return ret;
 }
 
-s32 sead::StringUtil::vsw16printf(char16_t*, unsigned long, char16_t const*, va_list) {
+s32 sead::StringUtil::vsw16printf(char16_t*, u64, char16_t const*, va_list) {
     CRASH
 }
 
-char16* sead::StringUtil::wcs16cpy(char16_t*, unsigned long, char16_t const*) {
+char16* sead::StringUtil::wcs16cpy(char16_t*, u64, char16_t const*) {
     CRASH
 }
 
@@ -36,9 +36,9 @@ s32 sead::StringUtil::vsnw16printf(char16* s, size_t n, const char16* format, va
 bool sead::MemUtil::isStack(void const*) {
     return true;
 }
-sead::FrameHeap* sead::FrameHeap::create(unsigned long, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
+sead::FrameHeap* sead::FrameHeap::create(u64, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
 
-sead::FrameHeap* sead::FrameHeap::tryCreate(unsigned long, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
+sead::FrameHeap* sead::FrameHeap::tryCreate(u64, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
 
 void sead::Heap::makeMetaString_(BufferedSafeString* str) {
     CRASH
@@ -167,7 +167,7 @@ sead::NinJoyNpadDevice::VibrationThread::~VibrationThread() {
     CRASH
 }
 
-void sead::NinJoyNpadDevice::VibrationThread::calc_(long) {
+void sead::NinJoyNpadDevice::VibrationThread::calc_(s64) {
     CRASH
 }
 

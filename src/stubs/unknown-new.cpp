@@ -126,8 +126,8 @@ al::StringTmp<64> rs::getAmiiboMstxtLabel(bool*, al::IUseMessageSystem const*, i
 SearchAmiiboDataTable* rs::getSearchAmiiboData(al::IUseSceneObjHolder const*) {CRASH}
 void rs::makeMessageLabel(sead::BufferedSafeStringBase<char>*, al::PlacementId const*, char const*) {CRASH}
 void rs::tryFindAmiiboCostumeItemInfo(ShopItem::ItemInfo**, ShopItem::ItemInfo**, al::NfpCharacterId const&, int, al::IUseSceneObjHolder*) {CRASH}
-bool rs::trySavePrepoChangeCapEvent(char const*, long, long, long) {CRASH}
-bool rs::trySavePrepoChangeClothEvent(char const*, long, long, long) {CRASH}
+bool rs::trySavePrepoChangeCapEvent(char const*, s64, s64, s64) {CRASH}
+bool rs::trySavePrepoChangeClothEvent(char const*, s64, s64, s64) {CRASH}
 bool sead::StringUtil::tryParseU32(unsigned int*, sead::SafeStringBase<char> const&, sead::StringUtil::CardinalNumber) {CRASH}
 void al::copyMemory(void*, void const*, unsigned int) {CRASH}
 sead::Heap* al::getCurrentHeap() {CRASH}

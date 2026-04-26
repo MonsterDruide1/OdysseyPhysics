@@ -35,7 +35,7 @@ nn::Result nn::fs::OpenFile(nn::fs::FileHandle* handle, char const* name, int mo
     handle->_internal = (u64) file;
     return NN_SUCCESS;
 }
-nn::Result nn::fs::GetFileSize(long* size, nn::fs::FileHandle handle) {
+nn::Result nn::fs::GetFileSize(s64* size, nn::fs::FileHandle handle) {
     FILE* file = (FILE*) handle._internal;
 
     s32 prev = ftell(file);
@@ -97,11 +97,11 @@ nn::Result nn::fs::GetEntryType(nn::fs::DirectoryEntryType* type, const char* na
 
 // ----------------
 // Useless functions
-nn::Result nn::fs::QueryMountRomCacheSize(unsigned long* cache_size) {
+nn::Result nn::fs::QueryMountRomCacheSize(u64* cache_size) {
     *cache_size = 0;
     return NN_SUCCESS;
 }
-nn::Result nn::fs::MountRom(char const* name, void* cache, unsigned long cache_size) {
+nn::Result nn::fs::MountRom(char const* name, void* cache, u64 cache_size) {
     if (cache_size == 0 && al::isEqualString(name, "content"))
         return NN_SUCCESS;  // from seadFileDeviceMgr.cpp
     CRASH
@@ -110,15 +110,15 @@ nn::Result nn::fs::MountRom(char const* name, void* cache, unsigned long cache_s
 
 void nn::fs::CloseDirectory(nn::fs::DirectoryHandle) {CRASH}
 nn::Result nn::fs::CreateDirectory(char const*) {CRASH}
-nn::Result nn::fs::CreateFile(char const*, long) {CRASH}
+nn::Result nn::fs::CreateFile(char const*, s64) {CRASH}
 nn::Result nn::fs::DeleteFile(char const*) {CRASH}
 nn::Result nn::fs::FlushFile(nn::fs::FileHandle) {CRASH}
 nn::Result nn::fs::MountSaveDataForDebug(char const*) {CRASH}
 nn::Result nn::fs::OpenDirectory(nn::fs::DirectoryHandle*, char const*, int) {CRASH}
-nn::Result nn::fs::ReadDirectory(long*, nn::fs::DirectoryEntry*, nn::fs::DirectoryHandle, long) {CRASH}
-nn::Result nn::fs::SetFileSize(nn::fs::FileHandle, long) {CRASH}
+nn::Result nn::fs::ReadDirectory(s64*, nn::fs::DirectoryEntry*, nn::fs::DirectoryHandle, s64) {CRASH}
+nn::Result nn::fs::SetFileSize(nn::fs::FileHandle, s64) {CRASH}
 nn::Result nn::fs::Unmount(char const*) {CRASH}
-nn::Result nn::fs::WriteFile(nn::fs::FileHandle, long, void const*, unsigned long, nn::fs::WriteOption const&) {CRASH}
+nn::Result nn::fs::WriteFile(nn::fs::FileHandle, s64, void const*, u64, nn::fs::WriteOption const&) {CRASH}
 nn::Result nn::fs::CommitSaveData(char const*) {CRASH}
 nn::Result nn::fs::EnsureSaveData(nn::account::Uid const&) {CRASH}
 nn::Result nn::fs::MountSaveData(char const*, nn::account::Uid const&) {CRASH}
