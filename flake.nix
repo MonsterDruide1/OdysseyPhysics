@@ -1,6 +1,6 @@
 {
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs/nixos-25.11";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
     flake-parts.url = "github:hercules-ci/flake-parts";
     systems.url = "github:nix-systems/default";
     rust-overlay.url = "github:oxalica/rust-overlay";
@@ -24,11 +24,11 @@
           ninja
           clang
           pkg-config
-          xorg.libX11
-          xorg.libXrandr
-          xorg.libXinerama
-          xorg.libXcursor
-          xorg.libXi
+          libx11
+          libxrandr
+          libxinerama
+          libxcursor
+          libxi
           libffi
           pkgs.wayland
           pkgs.wayland-scanner
@@ -41,10 +41,8 @@
             python-pkgs.gymnasium
           ]))
           openssl
-          openssl_legacy
           libclang
           ncurses5
-          ncurses6
         ];
         LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath buildInputs}";
         LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";
