@@ -1,14 +1,27 @@
 cmake_minimum_required(VERSION 3.5)
 
-set(CMAKE_C_COMPILER clang)
-set(CMAKE_CXX_COMPILER clang++)
+#set(CMAKE_C_COMPILER clang)
+#set(CMAKE_CXX_COMPILER clang++)
+set(CMAKE_C_COMPILER aarch64-unknown-linux-gnu-gcc)
+set(CMAKE_CXX_COMPILER aarch64-unknown-linux-gnu-g++)
 set(CMAKE_CXX_STANDARD 20)
+
+set(CMAKE_SYSTEM_NAME Generic)
+set(CMAKE_SYSTEM_PROCESSOR aarch64)
+set(CMAKE_C_COMPILER_TARGET aarch64-unknown-linux-gnu)
+set(CMAKE_CXX_COMPILER_TARGET aarch64-unknown-linux-gnu)
+set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+#add_link_options(-fuse-ld=lld)
+
+# work around cross-compilation issue
+# raylib wants to use `-std=c99`, which does not expose `clockid_t` from `<time.h>`, whereas any `-std=gnu` dialect does
+add_compile_options(-D_GNU_SOURCE)
 
 set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
 project(OdysseyPhysics)
 
-add_compile_options(-O0 -g)
+add_compile_options(-O1 -g)
 #add_compile_options(-stdlib=libc++)
 #add_link_options(-stdlib=libc++)
 
