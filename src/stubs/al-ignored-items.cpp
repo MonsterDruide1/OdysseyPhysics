@@ -32,4 +32,6 @@ al::ActorItemInfo* addItem(al::LiveActor*, al::ActorInitInfo const&, char const*
     return nullptr;
 }
 
+bool isExistItemKeeper(al::LiveActor const*) {return false;}
+
 }  // namespace al

@@ -52,6 +52,7 @@
 #include "Project/Anim/InitResourceDataAnim.h"
 #include "Project/Resource/ResourceSystem.h"
 #include "System/GameDataFile.h"
+#include "Util/BreakJudgeUtil.h"
 #include "Util/DemoUtil.h"
 #include "Util/Hack.h"
 #include "Util/InputInterruptTutorialUtil.h"
@@ -164,3 +165,5 @@ u32 rs::reboundVelocityPart(al::LiveActor*, IUsePlayerCollision const*, float, f
 bool rs::isPlayerCollidedGround(al::LiveActor const*) {CRASH}
 const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
 bool rs::isEquipCapCatched(al::LiveActor const*) {CRASH}
+
+al::JudgeFuncPtr rs::getBreakJudgeFunction(char const*) {CRASH}

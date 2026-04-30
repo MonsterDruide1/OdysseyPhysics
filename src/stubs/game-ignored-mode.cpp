@@ -107,6 +107,9 @@ bool isOnHackMoveStick(IUsePlayerHack const*) {return false;}
 bool isTouchHackCancelCollisionCode(al::LiveActor const*, IUsePlayerCollision const*) {return false;}
 bool isTouchHackDamageCollisionCode(al::LiveActor const*, IUsePlayerCollision const*) {return false;}
 
+void endBindAndPuppetNull(IUsePlayerPuppet**) {}
+void startPuppet(al::HitSensor*, al::HitSensor*) {}
+
 
 }  // namespace rs
 

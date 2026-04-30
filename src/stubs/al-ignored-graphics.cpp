@@ -48,6 +48,7 @@
 #include "Library/Shadow/ShadowMaskCube.h"
 #include "Library/Shadow/ShadowMaskCylinder.h"
 #include "Library/Shadow/ShadowMaskCastOvalCylinder.h"
+#include "Library/Texture/TextureUtil.h"
 #include "Project/Action/ActionEffectCtrl.h"
 #include "Project/Action/ActionScreenEffectCtrl.h"
 #include "Project/Clipping/ClippingFunction.h"
@@ -143,6 +144,8 @@ void initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char 
 bool isExistJoint(al::LiveActor const*, char const*) {return true;}
 void calcLayoutPosFromWorldPos(sead::Vector2f* a, al::IUseCamera const*, sead::Vector3f const&) {a->set(sead::Vector2f::zero);}
 void updateMaterialCodePuddle(al::LiveActor*) {}
+const agl::TextureData* getWhite2DTexture() {WARN_UNIMPL; return nullptr;}
+void recreateModelDisplayList(al::LiveActor const*) {}
 
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}
@@ -368,5 +371,9 @@ void ModelDrawerChromakey::draw() const {}
 
 void ActionEffectCtrl::update(float, float, float, bool) {}
 void ActionScreenEffectCtrl::update(float, float, float, bool) {}
+
+TextureReplacer::TextureReplacer(agl::TextureData const*) {}
+void TextureReplacer::replace(al::LiveActor*, char const*, char const*) {}
+void TextureReplacer::update() {}
 
 }  // namespace al

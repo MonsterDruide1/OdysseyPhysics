@@ -19,6 +19,8 @@ void rs::setEventBalloonFilterOnlyMiniGame(al::LiveActor const*) {}
 void rs::resetEventBalloonFilter(al::LiveActor const*) {}
 bool rs::tryShowCapMessageFromCurrentStageMsg(al::IUseSceneObjHolder const*, char const*, int, int) {return false;}
 bool rs::isDefinedEventCamera(al::EventFlowExecutor const*, char const*) {return false;}
+bool rs::checkTriggerDecideWithRequestIcon(al::LiveActor*, sead::Vector3<float> const&, float) {return false;}
+void rs::requestSwitchTalkNpcEventAfterDoorSnow(al::LiveActor*, int) {}
 
 NpcEventStateScare::NpcEventStateScare(al::LiveActor* x, NpcEventStateScareActionParam const*) : al::ActorStateBase("", x) {WARN_UNIMPL;}
 void NpcEventStateScare::kill() {}

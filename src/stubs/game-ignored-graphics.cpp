@@ -4,6 +4,7 @@
 #include "MapObj/SimpleSignBoard.h"
 #include "Player/Player.h"
 #include "PlayerUtil.h"
+#include "Util/MoviePlayer.h"
 #include "Util/PlayerUtil.h"
 
 PlayerCostumeInfo* PlayerFunction::initMarioModelActor(al::LiveActor* actor, al::ActorInitInfo const& initInfo,
@@ -156,3 +157,11 @@ bool PlayerStateWait::tryChangeAreaAnim() {
 }
 
 void SimpleSignBoardFunction::startSignAimVisAnimFromModelName(al::LiveActor*, al::ActorInitInfo const&) {}
+
+const agl::TextureData* MoviePlayer::getTexture() const {WARN_UNIMPL; return nullptr;}
+bool MoviePlayer::isDecode() const {return false;}
+bool MoviePlayer::isLooped() const {return false;}
+bool MoviePlayer::isPlay() const {return false;}
+void MoviePlayer::play(char const*) {}
+void MoviePlayer::stop() {}
+void MoviePlayer::update() {}
