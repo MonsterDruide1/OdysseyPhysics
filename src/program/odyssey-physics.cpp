@@ -42,6 +42,7 @@
 
 #include <fcntl.h>
 #include <sys/stat.h>
+#include <unistd.h>
 
 enum class MyCameraMode { Free, Follow, Fixed };
 

@@ -1260,7 +1260,7 @@ void PlayerCollider::calcGroundArrowAverage(bool* a2, sead::Vector3f* a3, bool* 
            a5->z);
 }
 
-void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint>* a2, sead::Vector3f* a3,
+void PlayerCollider::calcResultVecArrow(sead::BitFlag<u32>* a2, sead::Vector3f* a3,
                                         sead::Vector3f* a4, sead::Vector3f* a5, sead::Vector3f* a6,
                                         CollidedShapeResult const* result) {
     const al::HitInfo* ArrowHitInfo;                // x0
@@ -1495,7 +1495,7 @@ void PlayerCollider::calcResultVecArrow(sead::BitFlag<uint>* a2, sead::Vector3f*
     }
 }
 
-void PlayerCollider::calcResultVecSphere(sead::BitFlag<uint>* a2, sead::Vector3f* a3,
+void PlayerCollider::calcResultVecSphere(sead::BitFlag<u32>* a2, sead::Vector3f* a3,
                                          sead::Vector3f* a4, sead::Vector3f* a5, sead::Vector3f* a6,
                                          CollidedShapeResult const* a7) {
     const al::SphereHitInfo* sphereHitInfo;    // x0
@@ -1889,7 +1889,7 @@ LABEL_36:
     }
 }
 
-void PlayerCollider::calcResultVecDisk(sead::BitFlag<uint>*, sead::Vector3f*, sead::Vector3f*,
+void PlayerCollider::calcResultVecDisk(sead::BitFlag<u32>*, sead::Vector3f*, sead::Vector3f*,
                                        sead::Vector3f*, sead::Vector3f*,
                                        CollidedShapeResult const*) {
     CRASH
