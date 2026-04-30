@@ -316,6 +316,20 @@ int odyssey_physics_main(int argc, char *argv[]) {
                             CRASH
                         }
                     }
+
+                    // facing direction with an arrow
+                    {
+                        sead::Vector3f startOrig = sead::Vector3f::zero;
+                        sead::Vector3f endOrig = sead::Vector3f::ez*200;
+                        sead::Vector3f start, end;
+                        start.setMul(mtx, startOrig);
+                        end.setMul(mtx, endOrig);
+                        start *= SCALE;
+                        end *= SCALE;
+                        rlPushMatrix();
+                        DrawLine3D(raylibVec(start), raylibVec(end), RED);
+                        rlPopMatrix();
+                    }
                 }
 
                 EndMode3D();
