@@ -59,10 +59,6 @@ bool trySavePrepoSeparatePlayMode(bool, s64, s64, s64) {return false;}
 void SaveDataAccessFunction::startSaveDataWriteSync(GameDataHolder*) {}
 SaveDataAccessSequence::SaveDataAccessSequence(GameDataHolder*, al::LayoutInitInfo const&) : al::NerveExecutor("") {}
 
-QuestInfoHolder::QuestInfoHolder(int) {}
-void QuestInfoHolder::initAfterPlacementSceneObj(const al::ActorInitInfo& _info) {}
-void QuestInfoHolder::clearAll() {}
-
 GameConfigData::GameConfigData() {}
 
 MapDataHolder::MapDataHolder(GameDataHolder const*) {}

@@ -119,12 +119,10 @@ nn::Result nn::time::Initialize() {CRASH}
 bool nn::time::IsInitialized() {CRASH}
 nn::Result nn::time::StandardUserSystemClock::GetCurrentTime(nn::time::PosixTime*) {CRASH}
 nn::Result nn::time::ToCalendarTime(nn::time::CalendarTime*, nn::time::CalendarAdditionalInfo*, nn::time::PosixTime const&) {CRASH}
-const QuestInfo* const* rs::getActiveQuestList(al::IUseSceneObjHolder const*) {CRASH}
-s32 rs::getActiveQuestNo(al::IUseSceneObjHolder const*) {CRASH}
-s32 rs::getActiveQuestNum(al::IUseSceneObjHolder const*) {CRASH}
 al::StringTmp<64> rs::getAmiiboMstxtLabel(bool*, al::IUseMessageSystem const*, int, int, int) {CRASH}
 SearchAmiiboDataTable* rs::getSearchAmiiboData(al::IUseSceneObjHolder const*) {CRASH}
 void rs::makeMessageLabel(sead::BufferedSafeStringBase<char>*, al::PlacementId const*, char const*) {CRASH}
+void rs::makeMessageLabel(sead::BufferedSafeStringBase<char>*, al::PlacementInfo const&, char const*) {CRASH}
 void rs::tryFindAmiiboCostumeItemInfo(ShopItem::ItemInfo**, ShopItem::ItemInfo**, al::NfpCharacterId const&, int, al::IUseSceneObjHolder*) {CRASH}
 bool rs::trySavePrepoChangeCapEvent(char const*, s64, s64, s64) {CRASH}
 bool rs::trySavePrepoChangeClothEvent(char const*, s64, s64, s64) {CRASH}
@@ -141,6 +139,7 @@ void BirdMtxGlideCtrl::validateGlide() {CRASH}
 al::MessageSystem* al::LayoutInitInfo::getMessageSystem() const {CRASH}
 const char* rs::getCheckpointLabelPrefix() {CRASH}
 const char* rs::getPlacementStageName(GameDataHolderAccessor, al::ActorInitInfo const&) {CRASH}
+const char* rs::getPlacementStageName(GameDataHolderAccessor, al::PlacementInfo const&) {CRASH}
 bool rs::isPlayerBinding(al::LiveActor const*) {CRASH}
 void rs::makeActorMessageLabel(sead::BufferedSafeStringBase<char>*, al::ActorInitInfo const&, char const*) {CRASH}
 void rs::registerCheckpointFlagToWatcher(CheckpointFlag*) {CRASH}

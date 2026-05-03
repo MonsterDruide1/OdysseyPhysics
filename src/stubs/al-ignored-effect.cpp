@@ -43,6 +43,7 @@ bool tryUpdateEffectMaterialCode(al::IUseEffectKeeper*, char const*) {return fal
 bool tryEmitEffect(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const*) {return false;}
 bool isEffectEmitting(al::IUseEffectKeeper const*, char const*) {return false;}
 void setEffectEmitterVolumeScale(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const&) {}
+void setEffectParticleAlpha(al::IUseEffectKeeper*, char const*, float) {}
 
 }
 

@@ -60,6 +60,7 @@ f32 getChangeAlphaValue(al::SensorMsg const*) {return 0.0f;}
 bool isSensorValid(al::HitSensor const*) {return true;}
 f32 getSensorRadius(al::HitSensor const*) {return 0.0f;}
 void calcVecBetweenSensors(sead::Vector3f* out, const HitSensor* a, const HitSensor* b) {out->set(sead::Vector3f::zero);}
+HitSensor* addHitSensorMapObj(al::LiveActor*, al::ActorInitInfo const&, char const*, float, unsigned short, sead::Vector3<float> const&) {WARN_UNIMPL; return nullptr;}
 
 }  // namespace al
 

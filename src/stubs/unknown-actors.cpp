@@ -115,6 +115,7 @@ bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> c
 // MtxUtil.o
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
 void al::calcMxtInvertOrtho(sead::Matrix34<float>*, sead::Matrix34<float> const&) {CRASH}
+void al::makeMtxQuatPos(sead::Matrix34<float>*, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
 
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}
