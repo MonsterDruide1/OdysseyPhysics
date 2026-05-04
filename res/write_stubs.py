@@ -3,14 +3,14 @@ import re
 
 data = sys.stdin.read()
 
-p = re.compile(r"([^:]+):\d+:\(.*\): undefined reference to `([^']+)'")
+p = re.compile(r"([^:]+):(\d+:\(.*\):)? undefined reference to `([^']+)'")
 matches = p.findall(data)
 
 undef_funcs = {}
 for m in matches:
-    if m[1] not in undef_funcs:
-        undef_funcs[m[1]] = set()
-    undef_funcs[m[1]].add(m[0])
+    if m[2] not in undef_funcs:
+        undef_funcs[m[2]] = set()
+    undef_funcs[m[2]].add(m[0])
 
 sorted_funcs = sorted(undef_funcs.keys())
 
