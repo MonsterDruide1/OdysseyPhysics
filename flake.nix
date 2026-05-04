@@ -43,46 +43,14 @@
           pkgsCross.aarch64-multiplatform.libxkbcommon
           pkgsCross.aarch64-multiplatform.glibc
           pkgsCross.aarch64-multiplatform.linuxHeaders
+          pkgsCross.aarch64-multiplatform.glfw
+          pkgsCross.aarch64-multiplatform.mesa  # see shellHook below
         ];
 
         shellHook = ''
           unset LD_LIBRARY_PATH
+          export LD_LIBRARY_PATH=${pkgs.pkgsCross.aarch64-multiplatform.mesa}/lib
         '';
-        /*buildInputs = with pkgs; [
-          cmake
-          ninja
-          #clang
-          #llvmPackages_20.clang-unwrapped
-          pkgsCross.aarch64-multiplatform.pkg-config
-          pkgsCross.aarch64-multiplatform.binutils
-          pkgsCross.aarch64-multiplatform.libx11
-          libxrandr
-          libxinerama
-          libxcursor
-          libxi
-          libffi
-          pkgs.wayland
-          pkgs.wayland-scanner
-          pkgs.libxkbcommon
-          pkgs.libGL
-
-          rustToolchain
-          (python313.withPackages (python-pkgs: [
-            python-pkgs.toml
-            python-pkgs.gymnasium
-          ]))
-          openssl
-          libclang
-          ncurses5
-
-          pkgsCross.aarch64-multiplatform.buildPackages.gcc
-          pkgsCross.aarch64-multiplatform.glibc
-          #pkgsCross.aarch64-multiplatform.stdenv
-          pkgsCross.aarch64-multiplatform.glibc.dev
-          pkgsCross.aarch64-multiplatform.linuxHeaders
-        ];
-        LD_LIBRARY_PATH = "${pkgs.lib.makeLibraryPath buildInputs}";
-        LIBCLANG_PATH = "${pkgs.libclang.lib}/lib";*/
       };
     };
   };
