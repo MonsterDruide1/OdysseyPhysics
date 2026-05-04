@@ -1,0 +1,547 @@
+#include <basis/seadTypes.h>
+#include "nn/account.h"
+#include "nn/audio.h"
+#include "nn/hid.h"
+#include "nv.h"
+
+namespace movie {
+class Buffer {
+public:
+    Buffer();
+    void Offset() const;
+    void SetDataAndCapacity(void*, u64);
+    void SetRange(int, int);
+    void Size() const;
+    ~Buffer();
+};
+
+enum class DecoderType : int;
+enum class DecoderOutputFormat : int;
+class Decoder {
+public:
+    Decoder(DecoderType, DecoderOutputFormat);
+};
+
+enum class ContainerType : int;
+enum class CacheSize : int;
+class Extractor {
+public:
+    Extractor(ContainerType, CacheSize);
+};
+
+class MediaData {
+public:
+    MediaData();
+    ~MediaData();
+    void Clear();
+    void FindInt32(char const*, int*) const;
+    void FindString(char const*, char const**) const;
+};
+
+void SetAllocator(void* (*)(u64, u64, void*), void (*)(void*, void*), void* (*)(void*, u64, void*), void*);
+void SetCoreMask(u64);
+}
+
+movie::Buffer::Buffer() {CRASH}
+void movie::Buffer::Offset() const {CRASH}
+void movie::Buffer::SetDataAndCapacity(void*, u64) {CRASH}
+void movie::Buffer::SetRange(int, int) {CRASH}
+void movie::Buffer::Size() const {CRASH}
+movie::Buffer::~Buffer() {CRASH}
+
+movie::Decoder::Decoder(movie::DecoderType, movie::DecoderOutputFormat) {CRASH}
+
+movie::Extractor::Extractor(movie::ContainerType, movie::CacheSize) {CRASH}
+
+void movie::MediaData::Clear() {CRASH}
+void movie::MediaData::FindInt32(char const*, int*) const {CRASH}
+void movie::MediaData::FindString(char const*, char const**) const {CRASH}
+movie::MediaData::MediaData() {CRASH}
+movie::MediaData::~MediaData() {CRASH}
+
+void movie::SetAllocator(void* (*)(u64, u64, void*), void (*)(void*, void*), void* (*)(void*, u64, void*), void*) {CRASH}
+void movie::SetCoreMask(u64) {CRASH}
+
+extern "C" {
+void __nnDetailNintendoSdkNsoFile() {CRASH}
+void nnResultGetDescription() {CRASH}
+void nnResultGetModule() {CRASH}
+void nnResultIsFailure() {CRASH}
+void nnResultIsSuccess() {CRASH}
+void nndetailDiagAbortFormatImpl() {CRASH}
+void nnosConvertTickToNanoSeconds() {CRASH}
+void nnosCreateThread() {CRASH}
+void nnosDestroyThread() {CRASH}
+void nnosFinalizeEvent() {CRASH}
+void nnosFinalizeMutex() {CRASH}
+void nnosGetCurrentThread() {CRASH}
+void nnosGetSystemTick() {CRASH}
+void nnosGetSystemTickFrequency() {CRASH}
+void nnosGetThreadPriority() {CRASH}
+void nnosInitializeEvent() {CRASH}
+void nnosInitializeMutex() {CRASH}
+void nnosLockMutex() {CRASH}
+void nnosSetThreadNamePointer() {CRASH}
+void nnosSignalEvent() {CRASH}
+void nnosSleepThread() {CRASH}
+void nnosStartThread() {CRASH}
+void nnosUnlockMutex() {CRASH}
+void nnosWaitEvent() {CRASH}
+void nnosWaitThread() {CRASH}
+void nnsocketBind() {CRASH}
+void nnsocketCancel() {CRASH}
+void nnsocketClose() {CRASH}
+void nnsocketConnect() {CRASH}
+void nnsocketFcntl() {CRASH}
+void nnsocketGetHostByNameCancel() {CRASH}
+void nnsocketGetLastErrno() {CRASH}
+void nnsocketGetPeerName() {CRASH}
+void nnsocketGetSockName() {CRASH}
+void nnsocketGetSockOpt() {CRASH}
+void nnsocketInetHtons() {CRASH}
+void nnsocketInetNtohs() {CRASH}
+void nnsocketPoll() {CRASH}
+void nnsocketRecv() {CRASH}
+void nnsocketRequestCancelHandle() {CRASH}
+void nnsocketSend() {CRASH}
+void nnsocketSetLastErrno() {CRASH}
+void nnsocketSetSockOpt() {CRASH}
+void nnsocketSocket() {CRASH}
+void nnsslConnectionCreate() {CRASH}
+void nnsslConnectionDestroy() {CRASH}
+void nnsslConnectionDoHandshakeWithCertBuffer() {CRASH}
+void nnsslConnectionGetConnectionId() {CRASH}
+void nnsslConnectionGetVerifyCertError() {CRASH}
+void nnsslConnectionPeek() {CRASH}
+void nnsslConnectionPending() {CRASH}
+void nnsslConnectionRead() {CRASH}
+void nnsslConnectionSetHostName() {CRASH}
+void nnsslConnectionSetIoMode() {CRASH}
+void nnsslConnectionSetOption() {CRASH}
+void nnsslConnectionSetSessionCacheMode() {CRASH}
+void nnsslConnectionSetSocketDescriptor() {CRASH}
+void nnsslConnectionSetVerifyOption() {CRASH}
+void nnsslConnectionWrite() {CRASH}
+void nnsslContextDestroy() {CRASH}
+void nnsslContextGetContextId() {CRASH}
+void nnsslFinalize() {CRASH}
+void nnsslInitialize() {CRASH}
+void nvnBootstrapLoader() {CRASH}
+}
+
+nn::account::AsyncContext::AsyncContext() {CRASH}
+nn::Result nn::account::AsyncContext::Cancel() {CRASH}
+nn::Result nn::account::AsyncContext::GetResult() {CRASH}
+nn::Result nn::account::AsyncContext::GetSystemEvent(nn::os::SystemEvent*) {CRASH}
+nn::Result nn::account::AsyncContext::HasDone(bool*) {CRASH}
+nn::account::AsyncContext::~AsyncContext() {CRASH}
+
+void nn::account::CloseUser(nn::account::UserHandle const&) {CRASH}
+nn::Result nn::account::EnsureNetworkServiceAccountAvailable(nn::account::UserHandle const&) {CRASH}
+nn::Result nn::account::EnsureNetworkServiceAccountIdTokenCacheAsync(nn::account::AsyncContext*, nn::account::UserHandle const&) {CRASH}
+nn::Result nn::account::GetNetworkServiceAccountId(nn::account::NetworkServiceAccountId*, nn::account::UserHandle const&) {CRASH}
+nn::Result nn::account::GetNickname(nn::account::Nickname*, nn::account::Uid const&) {CRASH}
+nn::Result nn::account::GetUserId(nn::account::Uid*, nn::account::UserHandle const&) {CRASH}
+void nn::account::Initialize() {CRASH}
+nn::Result nn::account::IsNetworkServiceAccountAvailable(bool*, nn::account::UserHandle const&) {CRASH}
+void nn::account::ListAllUsers(int*, nn::account::Uid*, int) {CRASH}
+nn::Result nn::account::LoadNetworkServiceAccountIdTokenCache(u64*, char*, u64, nn::account::UserHandle const&) {CRASH}
+nn::Result nn::account::OpenPreselectedUser(nn::account::UserHandle*) {CRASH}
+nn::Result nn::account::OpenUser(nn::account::UserHandle*, nn::account::Uid const&) {CRASH}
+
+void nn::audio::AcquireAudioDeviceSwitchNotification(nn::os::SystemEvent*) {CRASH}
+void nn::audio::AcquireFinalMix(nn::audio::AudioRendererConfig*, nn::audio::FinalMixType*, int) {CRASH}
+bool nn::audio::AcquireMemoryPool(nn::audio::AudioRendererConfig*, nn::audio::MemoryPoolType*, void*, size_t) {CRASH}
+void nn::audio::AcquireSubMix(nn::audio::AudioRendererConfig*, nn::audio::SubMixType*, int, int) {CRASH}
+void nn::audio::AcquireVoiceSlot(nn::audio::AudioRendererConfig*, nn::audio::VoiceType*, int, int, nn::audio::SampleFormat, int, void const*, size_t) {CRASH}
+void nn::audio::AddAux(nn::audio::AudioRendererConfig*, nn::audio::AuxType*, nn::audio::FinalMixType*, void*, void*, size_t) {CRASH}
+void nn::audio::AddAux(nn::audio::AudioRendererConfig*, nn::audio::AuxType*, nn::audio::SubMixType*, void*, void*, size_t) {CRASH}
+void nn::audio::AddCircularBufferSink(nn::audio::AudioRendererConfig*, nn::audio::CircularBufferSinkType*, nn::audio::FinalMixType*, signed char const*, int, void*, size_t, nn::audio::SampleFormat) {CRASH}
+void nn::audio::AddDelay(nn::audio::AudioRendererConfig*, nn::audio::DelayType*, void*, size_t, nn::audio::FinalMixType*, nn::TimeSpan, int) {CRASH}
+void nn::audio::AddDelay(nn::audio::AudioRendererConfig*, nn::audio::DelayType*, void*, size_t, nn::audio::SubMixType*, nn::TimeSpan, int) {CRASH}
+void nn::audio::AddDeviceSink(nn::audio::AudioRendererConfig*, nn::audio::DeviceSinkType*, nn::audio::FinalMixType*, signed char const*, int, char const*) {CRASH}
+void nn::audio::AppendWaveBuffer(nn::audio::VoiceType*, nn::audio::WaveBuffer const*) {CRASH}
+void nn::audio::CloseAudioRenderer(nn::audio::AudioRendererHandle) {CRASH}
+void nn::audio::ExecuteAudioRendererRendering(nn::audio::AudioRendererHandle) {CRASH}
+void nn::audio::GetActiveAudioDeviceName(nn::audio::AudioDeviceName*) {CRASH}
+void nn::audio::GetActiveChannelCount() {CRASH}
+void nn::audio::GetAudioRendererConfigWorkBufferSize(nn::audio::AudioRendererParameter const&) {CRASH}
+void nn::audio::GetAudioRendererRenderingTimeLimit(nn::audio::AudioRendererHandle) {CRASH}
+void nn::audio::GetAudioRendererWorkBufferSize(nn::audio::AudioRendererParameter const&) {CRASH}
+void nn::audio::GetAuxSampleCount(nn::audio::AuxType const*) {CRASH}
+void nn::audio::GetAuxSampleRate(nn::audio::AuxType const*) {CRASH}
+void nn::audio::GetMemoryPoolState(nn::audio::MemoryPoolType const*) {CRASH}
+void nn::audio::GetReleasedWaveBuffer(nn::audio::VoiceType*) {CRASH}
+void nn::audio::GetRequiredBufferSizeForAuxSendReturnBuffer(nn::audio::AudioRendererParameter const*, int, int) {CRASH}
+void nn::audio::GetRequiredBufferSizeForCircularBufferSink(nn::audio::AudioRendererParameter const*, int, int, nn::audio::SampleFormat) {CRASH}
+void nn::audio::GetRequiredBufferSizeForDelay(nn::TimeSpan, int, int) {CRASH}
+void nn::audio::GetRequiredBufferSizeForPerformanceFrames(nn::audio::AudioRendererParameter const&) {CRASH}
+void nn::audio::GetSinkNodeId(nn::audio::CircularBufferSinkType const*) {CRASH}
+void nn::audio::GetSinkNodeId(nn::audio::DeviceSinkType const*) {CRASH}
+void nn::audio::GetSubMixNodeId(nn::audio::SubMixType const*) {CRASH}
+void nn::audio::GetVoiceNodeId(nn::audio::VoiceType const*) {CRASH}
+void nn::audio::GetVoicePlayState(nn::audio::VoiceType const*) {CRASH}
+void nn::audio::GetVoicePlayedSampleCount(nn::audio::VoiceType const*) {CRASH}
+void nn::audio::InitializeAudioRendererConfig(nn::audio::AudioRendererConfig*, nn::audio::AudioRendererParameter const&, void*, u64) {CRASH}
+void nn::audio::InitializeAudioRendererParameter(nn::audio::AudioRendererParameter*) {CRASH}
+void nn::audio::IsAuxRemovable(nn::audio::AuxType const*) {CRASH}
+void nn::audio::IsDelayRemovable(nn::audio::DelayType const*) {CRASH}
+void nn::audio::IsMemoryPoolAttached(nn::audio::MemoryPoolType const*) {CRASH}
+void nn::audio::IsValidAudioRendererParameter(nn::audio::AudioRendererParameter const&) {CRASH}
+void nn::audio::IsVoiceDroppedFlagOn(nn::audio::VoiceType const*) {CRASH}
+void nn::audio::IsVoiceValid(nn::audio::VoiceType const*) {CRASH}
+void nn::audio::ListAudioDeviceName(nn::audio::AudioDeviceName*, int) {CRASH}
+void nn::audio::OpenAudioRenderer(nn::audio::AudioRendererHandle*, nn::os::SystemEvent*, nn::audio::AudioRendererParameter const&, void*, u64) {CRASH}
+void nn::audio::PerformanceInfo::GetEntries(int*) {CRASH}
+void nn::audio::PerformanceInfo::GetTotalProcessingTime() {CRASH}
+void nn::audio::PerformanceInfo::MoveToNextFrame() {CRASH}
+void nn::audio::PerformanceInfo::PerformanceInfo() {CRASH}
+void nn::audio::PerformanceInfo::SetBuffer(void const*, u64) {CRASH}
+void nn::audio::PerformanceInfo::~PerformanceInfo() {CRASH}
+void nn::audio::ReadAuxSendBuffer(nn::audio::AuxType*, int*, int) {CRASH}
+void nn::audio::ReadCircularBufferSink(nn::audio::CircularBufferSinkType*, void*, u64) {CRASH}
+void nn::audio::ReleaseMemoryPool(nn::audio::AudioRendererConfig*, nn::audio::MemoryPoolType*) {CRASH}
+void nn::audio::ReleaseVoiceSlot(nn::audio::AudioRendererConfig*, nn::audio::VoiceType*) {CRASH}
+void nn::audio::RemoveAux(nn::audio::AudioRendererConfig*, nn::audio::AuxType*, nn::audio::FinalMixType*) {CRASH}
+void nn::audio::RemoveAux(nn::audio::AudioRendererConfig*, nn::audio::AuxType*, nn::audio::SubMixType*) {CRASH}
+void nn::audio::RemoveCircularBufferSink(nn::audio::AudioRendererConfig*, nn::audio::CircularBufferSinkType*, nn::audio::FinalMixType*) {CRASH}
+void nn::audio::RemoveDelay(nn::audio::AudioRendererConfig*, nn::audio::DelayType*, nn::audio::FinalMixType*) {CRASH}
+void nn::audio::RemoveDelay(nn::audio::AudioRendererConfig*, nn::audio::DelayType*, nn::audio::SubMixType*) {CRASH}
+void nn::audio::RequestAttachMemoryPool(nn::audio::MemoryPoolType*) {CRASH}
+void nn::audio::RequestDetachMemoryPool(nn::audio::MemoryPoolType*) {CRASH}
+void nn::audio::RequestUpdateAudioRenderer(nn::audio::AudioRendererHandle, nn::audio::AudioRendererConfig const*) {CRASH}
+void nn::audio::SetAudioDeviceOutputVolume(nn::audio::AudioDeviceName const*, float) {CRASH}
+void nn::audio::SetAudioRendererRenderingTimeLimit(nn::audio::AudioRendererHandle, int) {CRASH}
+void nn::audio::SetAuxEnabled(nn::audio::AuxType*, bool) {CRASH}
+void nn::audio::SetAuxInputOutput(nn::audio::AuxType*, signed char const*, signed char const*, int) {CRASH}
+void nn::audio::SetDelayChannelSpread(nn::audio::DelayType*, float) {CRASH}
+void nn::audio::SetDelayDryGain(nn::audio::DelayType*, float) {CRASH}
+void nn::audio::SetDelayEnabled(nn::audio::DelayType*, bool) {CRASH}
+void nn::audio::SetDelayFeedbackGain(nn::audio::DelayType*, float) {CRASH}
+void nn::audio::SetDelayInGain(nn::audio::DelayType*, float) {CRASH}
+void nn::audio::SetDelayInputOutput(nn::audio::DelayType*, signed char const*, signed char const*, int) {CRASH}
+void nn::audio::SetDelayLowPassAmount(nn::audio::DelayType*, float) {CRASH}
+void nn::audio::SetDelayTime(nn::audio::DelayType*, nn::TimeSpan) {CRASH}
+void nn::audio::SetDownMixParameter(nn::audio::DeviceSinkType*, nn::audio::DeviceSinkType::DownMixParameter const*) {CRASH}
+void nn::audio::SetDownMixParameterEnabled(nn::audio::DeviceSinkType*, bool) {CRASH}
+void nn::audio::SetPerformanceFrameBuffer(nn::audio::AudioRendererConfig*, void*, u64) {CRASH}
+void nn::audio::SetSubMixDestination(nn::audio::AudioRendererConfig*, nn::audio::SubMixType*, nn::audio::FinalMixType*) {CRASH}
+void nn::audio::SetSubMixDestination(nn::audio::AudioRendererConfig*, nn::audio::SubMixType*, nn::audio::SubMixType*) {CRASH}
+void nn::audio::SetSubMixMixVolume(nn::audio::SubMixType*, nn::audio::FinalMixType*, float, int, int) {CRASH}
+void nn::audio::SetSubMixMixVolume(nn::audio::SubMixType*, nn::audio::SubMixType*, float, int, int) {CRASH}
+void nn::audio::SetVoiceBiquadFilterParameter(nn::audio::VoiceType*, int, nn::audio::BiquadFilterParameter const&) {CRASH}
+void nn::audio::SetVoiceDestination(nn::audio::AudioRendererConfig*, nn::audio::VoiceType*, nn::audio::FinalMixType*) {CRASH}
+void nn::audio::SetVoiceDestination(nn::audio::AudioRendererConfig*, nn::audio::VoiceType*, nn::audio::SubMixType*) {CRASH}
+void nn::audio::SetVoiceMixVolume(nn::audio::VoiceType*, nn::audio::FinalMixType*, float, int, int) {CRASH}
+void nn::audio::SetVoiceMixVolume(nn::audio::VoiceType*, nn::audio::SubMixType*, float, int, int) {CRASH}
+void nn::audio::SetVoicePitch(nn::audio::VoiceType*, float) {CRASH}
+void nn::audio::SetVoicePlayState(nn::audio::VoiceType*, nn::audio::VoiceType::PlayState) {CRASH}
+void nn::audio::SetVoicePriority(nn::audio::VoiceType*, int) {CRASH}
+void nn::audio::SetVoiceVolume(nn::audio::VoiceType*, float) {CRASH}
+void nn::audio::StartAudioRenderer(nn::audio::AudioRendererHandle) {CRASH}
+void nn::audio::StopAudioRenderer(nn::audio::AudioRendererHandle) {CRASH}
+void nn::audio::WriteAuxReturnBuffer(nn::audio::AuxType*, int const*, int) {CRASH}
+void nn::crypto::GenerateSha1Hash(void*, u64, void const*, u64) {CRASH}
+void nn::crypto::detail::Md5Impl::GetHash(void*, u64) {CRASH}
+void nn::crypto::detail::Md5Impl::Initialize() {CRASH}
+void nn::crypto::detail::Md5Impl::Update(void const*, u64) {CRASH}
+void nn::crypto::detail::Sha1Impl::GetHash(void*, u64) {CRASH}
+void nn::crypto::detail::Sha1Impl::Initialize() {CRASH}
+void nn::crypto::detail::Sha1Impl::Update(void const*, u64) {CRASH}
+void nn::detail::UnexpectedDefaultImpl(char const*, char const*, int) {CRASH}
+void nn::diag::GetAllModuleInfo(nn::diag::ModuleInfo**, void*, u64) {CRASH}
+void nn::diag::GetBacktrace(u64*, int) {CRASH}
+void nn::diag::GetRequiredBufferSizeForGetAllModuleInfo() {CRASH}
+void nn::diag::GetSymbolName(char*, u64, u64) {CRASH}
+void nn::diag::GetSymbolSize(u64) {CRASH}
+void nn::diag::InitializeAbortObserverHolder(nn::diag::AbortObserverHolder*, void (*)(nn::diag::AbortInfo const&)) {CRASH}
+void nn::diag::IsDebuggerAttached() {CRASH}
+void nn::diag::RegisterAbortObserver(nn::diag::AbortObserverHolder*) {CRASH}
+void nn::diag::detail::AbortImpl(char const*, char const*, char const*, int) {CRASH}
+void nn::diag::detail::AbortImpl(char const*, char const*, char const*, int, nn::Result const*, char const*, ...) {CRASH}
+void nn::diag::detail::LogImpl(nn::diag::LogMetaData const&, char const*, ...) {CRASH}
+void nn::diag::detail::NotNullImpl(u64) {CRASH}
+void nn::diag::detail::OnAssertionFailure(nn::diag::AssertionType, char const*, char const*, char const*, int) {CRASH}
+void nn::diag::detail::PutImpl(nn::diag::LogMetaData const&, char const*, u64) {CRASH}
+void nn::err::ShowError(nn::Result) {CRASH}
+void nn::fontll::ScalableFontEngine::AcquireGlyphmap(unsigned int, unsigned short) {CRASH}
+void nn::fontll::ScalableFontEngine::AcquireOtfKerning(nn::fontll::OtfKerningTable const*, unsigned int, unsigned int, unsigned int) {CRASH}
+void nn::fontll::ScalableFontEngine::AcquireOtfKerningFirst(nn::fontll::OtfKerningTable const*, unsigned int, unsigned int) {CRASH}
+void nn::fontll::ScalableFontEngine::AcquireOtfKerningLast(nn::fontll::OtfKerningTable const*, unsigned int, unsigned int) {CRASH}
+void nn::fontll::ScalableFontEngine::CheckGlyphExist(unsigned int) {CRASH}
+void nn::fontll::ScalableFontEngine::Finalize() {CRASH}
+void nn::fontll::ScalableFontEngine::FinalizeOtfKerningTable(nn::fontll::OtfKerningTable*, void (*)(void*, void*), void*) {CRASH}
+void nn::fontll::ScalableFontEngine::GetAdvance(short*, short*, int*, int*, unsigned int, unsigned short) {CRASH}
+void nn::fontll::ScalableFontEngine::GetError() {CRASH}
+void nn::fontll::ScalableFontEngine::GetFontMetrics(nn::fontll::Metrics*) {CRASH}
+void nn::fontll::ScalableFontEngine::GetKerning(int*, int*, unsigned int, unsigned int) {CRASH}
+void nn::fontll::ScalableFontEngine::GetPointerToWorkBuffer() {CRASH}
+void nn::fontll::ScalableFontEngine::Initialize(void*, unsigned int) {CRASH}
+void nn::fontll::ScalableFontEngine::InitializeOtfKerningTable(void* (*)(u64, u64, void*), void*, bool) {CRASH}
+void nn::fontll::ScalableFontEngine::LoadFont(char*, void const*, unsigned int, unsigned int) {CRASH}
+void nn::fontll::ScalableFontEngine::ReleasesGlyph(void*) {CRASH}
+void nn::fontll::ScalableFontEngine::ScalableFontEngine() {CRASH}
+void nn::fontll::ScalableFontEngine::SetAutoHint(bool) {CRASH}
+void nn::fontll::ScalableFontEngine::SetBoldWeight(int) {CRASH}
+void nn::fontll::ScalableFontEngine::SetFlags(nn::fontll::ScalableFontEngine::Flags) {CRASH}
+void nn::fontll::ScalableFontEngine::SetFont(char*) {CRASH}
+void nn::fontll::ScalableFontEngine::SetOutlineWidth(unsigned short) {CRASH}
+void nn::fontll::ScalableFontEngine::SetScale(int, int, int, int) {CRASH}
+void nn::fontll::ScalableFontEngineHelper::Decode(void const*, unsigned int) {CRASH}
+void nn::friends::AsyncContext::AsyncContext() {CRASH}
+void nn::friends::AsyncContext::GetResult() const {CRASH}
+void nn::friends::AsyncContext::GetSystemEvent(nn::os::SystemEvent*) {CRASH}
+void nn::friends::AsyncContext::~AsyncContext() {CRASH}
+void nn::friends::GetProfileList(nn::friends::AsyncContext*, nn::friends::Profile*, nn::account::NetworkServiceAccountId const*, int) {CRASH}
+void nn::friends::Initialize() {CRASH}
+void nn::friends::Profile::GetNickname() const {CRASH}
+void nn::friends::Profile::GetProfileImageUrl(nn::friends::Url*, nn::friends::ImageSize) const {CRASH}
+void nn::friends::Profile::Profile() {CRASH}
+void nn::fs::ReadFile(u64*, nn::fs::FileHandle, long, void*, u64) {CRASH}
+void nn::hid::DisconnectNpad(unsigned int const&) {CRASH}
+void nn::hid::GetDebugPadState(nn::hid::DebugPadState*) {CRASH}
+void nn::hid::GetNpadControllerColor(nn::hid::NpadControllerColor*, nn::hid::NpadControllerColor*, unsigned int const&) {CRASH}
+void nn::hid::GetNpadJoyAssignment(unsigned int const&) {CRASH}
+void nn::hid::GetNpadStates(nn::hid::NpadFullKeyState*, int, unsigned int const&) {CRASH}
+void nn::hid::GetNpadStates(nn::hid::NpadHandheldState*, int, unsigned int const&) {CRASH}
+void nn::hid::GetNpadStates(nn::hid::NpadJoyDualState*, int, unsigned int const&) {CRASH}
+void nn::hid::GetNpadStates(nn::hid::NpadJoyLeftState*, int, unsigned int const&) {CRASH}
+void nn::hid::GetNpadStates(nn::hid::NpadJoyRightState*, int, unsigned int const&) {CRASH}
+void nn::hid::GetNpadStyleSet(unsigned int const&) {CRASH}
+void nn::hid::GetSixAxisSensorHandles(nn::hid::SixAxisSensorHandle*, int, unsigned int const&, nn::util::BitFlagSet<32, nn::hid::NpadStyleTag>) {CRASH}
+void nn::hid::GetSixAxisSensorStates(nn::hid::SixAxisSensorState*, int, nn::hid::SixAxisSensorHandle const&) {CRASH}
+void nn::hid::GetVibrationDeviceHandles(nn::hid::VibrationDeviceHandle*, int, unsigned int const&, nn::util::BitFlagSet<32, nn::hid::NpadStyleTag>) {CRASH}
+void nn::hid::InitializeDebugPad() {CRASH}
+void nn::hid::InitializeNpad() {CRASH}
+void nn::hid::InitializeTouchScreen() {CRASH}
+void nn::hid::InitializeVibrationDevice(nn::hid::VibrationDeviceHandle const&) {CRASH}
+void nn::hid::MergeSingleJoyAsDualJoy(unsigned int const&, unsigned int const&) {CRASH}
+void nn::hid::SendVibrationValue(nn::hid::VibrationDeviceHandle const&, nn::hid::VibrationValue const&) {CRASH}
+void nn::hid::SetNpadJoyAssignmentModeDual(unsigned int const&) {CRASH}
+void nn::hid::SetNpadJoyAssignmentModeSingle(unsigned int const&) {CRASH}
+void nn::hid::SetNpadJoyAssignmentModeSingle(unsigned int const&, nn::hid::NpadJoyDeviceType) {CRASH}
+void nn::hid::SetNpadJoyHoldType(nn::hid::NpadJoyHoldType) {CRASH}
+void nn::hid::SetSupportedNpadIdType(unsigned int const*, u64) {CRASH}
+void nn::hid::SetSupportedNpadStyleSet(nn::util::BitFlagSet<32, nn::hid::NpadStyleTag>) {CRASH}
+void nn::hid::ShowControllerSupport(nn::hid::ControllerSupportResultInfo*, nn::hid::ControllerSupportArg const&) {CRASH}
+void nn::hid::StartSixAxisSensor(nn::hid::SixAxisSensorHandle const&) {CRASH}
+void nn::hid::SwapNpadAssignment(unsigned int const&, unsigned int const&) {CRASH}
+void nn::hid::VibrationMixer::SetMixMode(nn::hid::VibrationMixMode) {CRASH}
+void nn::hid::VibrationMixer::VibrationMixer() {CRASH}
+void nn::hid::VibrationNode::SetModulationTo(nn::hid::VibrationNode const*, nn::hid::VibrationModulation const&) {CRASH}
+void nn::hid::VibrationNode::Update() {CRASH}
+void nn::hid::VibrationNodeConnection::Connect(nn::hid::VibrationNode*, nn::hid::VibrationNode*) {CRASH}
+void nn::hid::VibrationNodeConnection::Disconnect() {CRASH}
+void nn::hid::VibrationNodeConnection::GetDestination() const {CRASH}
+void nn::hid::VibrationNodeConnection::GetModulation() const {CRASH}
+void nn::hid::VibrationNodeConnection::VibrationNodeConnection() {CRASH}
+void nn::hid::VibrationNodeConnection::VibrationNodeConnection(nn::hid::VibrationNode*, nn::hid::VibrationNode*) {CRASH}
+void nn::hid::VibrationPlayer::GetFileInfo() const {CRASH}
+void nn::hid::VibrationPlayer::IsPlaying() const {CRASH}
+void nn::hid::VibrationPlayer::Load(void const*, u64) {CRASH}
+void nn::hid::VibrationPlayer::Play() {CRASH}
+void nn::hid::VibrationPlayer::SetCurrentPosition(int) {CRASH}
+void nn::hid::VibrationPlayer::SetLoop(bool) {CRASH}
+void nn::hid::VibrationPlayer::Stop() {CRASH}
+void nn::hid::VibrationPlayer::VibrationPlayer() {CRASH}
+void nn::hid::VibrationTarget::IsVibrationDeviceHandleSet() const {CRASH}
+void nn::hid::VibrationTarget::SetVibrationDeviceHandle(nn::hid::VibrationDeviceHandle const&) {CRASH}
+void nn::hid::VibrationTarget::UnsetVibrationDeviceHandle() {CRASH}
+void nn::hid::VibrationTarget::VibrationTarget() {CRASH}
+void nn::hid::VibrationWriter::VibrationWriter() {CRASH}
+void nn::hid::VibrationWriter::Write(nn::hid::VibrationValue const&) {CRASH}
+void nn::image::JpegDecoder::Analyze() {CRASH}
+void nn::image::JpegDecoder::Decode(void*, u64, int, void*, u64) {CRASH}
+void nn::image::JpegDecoder::GetAnalyzedDimension() const {CRASH}
+void nn::image::JpegDecoder::GetAnalyzedWorkBufferSize() const {CRASH}
+void nn::image::JpegDecoder::JpegDecoder() {CRASH}
+void nn::image::JpegDecoder::SetImageData(void const*, u64) {CRASH}
+void nn::image::JpegDecoder::~JpegDecoder() {CRASH}
+void nn::lmem::AllocateFromFrameHeap(nn::lmem::detail::HeapHead*, u64, int) {CRASH}
+void nn::lmem::CreateFrameHeap(void*, u64, int) {CRASH}
+void nn::lmem::DestroyFrameHeap(nn::lmem::detail::HeapHead*) {CRASH}
+void nn::mem::StandardAllocator::Allocate(u64) {CRASH}
+void nn::mem::StandardAllocator::Allocate(u64, u64) {CRASH}
+void nn::mem::StandardAllocator::Dump() const {CRASH}
+void nn::mem::StandardAllocator::Finalize() {CRASH}
+void nn::mem::StandardAllocator::Free(void*) {CRASH}
+void nn::mem::StandardAllocator::GetSizeOf(void const*) const {CRASH}
+void nn::mem::StandardAllocator::GetTotalFreeSize() const {CRASH}
+void nn::mem::StandardAllocator::Initialize(void*, u64) {CRASH}
+void nn::mem::StandardAllocator::Reallocate(void*, u64) {CRASH}
+void nn::mem::StandardAllocator::StandardAllocator() {CRASH}
+void nn::mem::StandardAllocator::StandardAllocator(void*, u64) {CRASH}
+void nn::nfp::AttachActivateEvent(nn::os::SystemEventType*, nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nfp::AttachDeactivateEvent(nn::os::SystemEventType*, nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nfp::Finalize() {CRASH}
+void nn::nfp::GetDeviceState(nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nfp::GetModelInfo(nn::nfp::ModelInfo*, nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nfp::GetNpadId(unsigned int*, nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nfp::GetTagInfo(nn::nfp::TagInfo*, nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nfp::Initialize() {CRASH}
+void nn::nfp::ListDevices(nn::nfp::DeviceHandle*, int*, int) {CRASH}
+void nn::nfp::Mount(nn::nfp::DeviceHandle const&, nn::nfp::ModelType, nn::nfp::MountTarget) {CRASH}
+void nn::nfp::StartDetection(nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nfp::StopDetection(nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nfp::Unmount(nn::nfp::DeviceHandle const&) {CRASH}
+void nn::nifm::GetCurrentPrimaryIpAddress(in_addr*) {CRASH}
+void nn::nifm::GetCurrentProxySetting(nn::nifm::ProxySetting*) {CRASH}
+void nn::nifm::HandleNetworkRequestResult() {CRASH}
+void nn::nifm::Initialize() {CRASH}
+void nn::nifm::IsNetworkAvailable() {CRASH}
+void nn::nifm::IsNetworkRequestOnHold() {CRASH}
+void nn::nifm::SetLocalNetworkMode(bool) {CRASH}
+void nn::nifm::SubmitNetworkRequest() {CRASH}
+void nn::nifm::SubmitNetworkRequestAndWait() {CRASH}
+void nn::nsd::ResolveEx(nn::nsd::Fqdn*, nn::nsd::Fqdn const&) {CRASH}
+void nn::oe::EnableGamePlayRecording(void*, u64) {CRASH}
+void nn::oe::FinishStartupLogo() {CRASH}
+void nn::oe::GetCurrentFocusState() {CRASH}
+void nn::oe::GetDesiredLanguage() {CRASH}
+void nn::oe::GetDisplayVersion(nn::oe::DisplayVersion*) {CRASH}
+void nn::oe::GetExpectedVolumeBalance(float*, float*) {CRASH}
+void nn::oe::GetOperationMode() {CRASH}
+void nn::oe::GetPerformanceConfiguration(nn::oe::PerformanceMode) {CRASH}
+void nn::oe::GetPerformanceMode() {CRASH}
+void nn::oe::Initialize() {CRASH}
+void nn::oe::IsUserInactivityDetectionTimeExtended() {CRASH}
+void nn::oe::SetExpectedVolumeBalance(float, float) {CRASH}
+void nn::oe::SetFocusHandlingMode(nn::oe::FocusHandlingMode) {CRASH}
+void nn::oe::SetOperationModeChangedNotificationEnabled(bool) {CRASH}
+void nn::oe::SetPerformanceConfiguration(nn::oe::PerformanceMode, int) {CRASH}
+void nn::oe::SetPerformanceModeChangedNotificationEnabled(bool) {CRASH}
+void nn::oe::SetResumeNotificationEnabled(bool) {CRASH}
+void nn::oe::SetScreenShotImageOrientation(nn::album::ImageOrientation) {CRASH}
+void nn::oe::SetUserInactivityDetectionTimeExtended(bool) {CRASH}
+void nn::oe::TryPopNotificationMessage(unsigned int*) {CRASH}
+void nn::os::BroadcastConditionVariable(nn::os::ConditionVariableType*) {CRASH}
+void nn::os::ClearEvent(nn::os::EventType*) {CRASH}
+void nn::os::ClearLightEvent(nn::os::LightEventType*) {CRASH}
+void nn::os::ConvertToTick(nn::TimeSpan) {CRASH}
+void nn::os::DestroySystemEvent(nn::os::SystemEventType*) {CRASH}
+void nn::os::FinalizeConditionVariable(nn::os::ConditionVariableType*) {CRASH}
+void nn::os::FinalizeEvent(nn::os::EventType*) {CRASH}
+void nn::os::FinalizeLightEvent(nn::os::LightEventType*) {CRASH}
+void nn::os::GenerateRandomBytes(void*, u64) {CRASH}
+void nn::os::GetCurrentFiber() {CRASH}
+void nn::os::GetHostArgc() {CRASH}
+void nn::os::GetHostArgv() {CRASH}
+void nn::os::GetThreadNamePointer(nn::os::ThreadType const*) {CRASH}
+void nn::os::InitializeConditionVariable(nn::os::ConditionVariableType*) {CRASH}
+void nn::os::InitializeEvent(nn::os::EventType*, bool, nn::os::EventClearMode) {CRASH}
+void nn::os::InitializeLightEvent(nn::os::LightEventType*, bool, nn::os::EventClearMode) {CRASH}
+void nn::os::SetMemoryHeapSize(u64) {CRASH}
+void nn::os::SetThreadNamePointer(nn::os::ThreadType*, char const*) {CRASH}
+void nn::os::SetUserExceptionHandler(void (*)(nn::os::UserExceptionInfo*), void*, u64, nn::os::UserExceptionInfo*) {CRASH}
+void nn::os::SignalConditionVariable(nn::os::ConditionVariableType*) {CRASH}
+void nn::os::SignalEvent(nn::os::EventType*) {CRASH}
+void nn::os::SignalLightEvent(nn::os::LightEventType*) {CRASH}
+void nn::os::TimedWaitConditionVariable(nn::os::ConditionVariableType*, nn::os::MutexType*, nn::TimeSpan) {CRASH}
+void nn::os::TimedWaitLightEvent(nn::os::LightEventType*, nn::TimeSpan) {CRASH}
+void nn::os::TimedWaitSystemEvent(nn::os::SystemEventType*, nn::TimeSpan) {CRASH}
+void nn::os::TryWaitEvent(nn::os::EventType*) {CRASH}
+void nn::os::TryWaitSystemEvent(nn::os::SystemEventType*) {CRASH}
+void nn::os::WaitConditionVariable(nn::os::ConditionVariableType*, nn::os::MutexType*) {CRASH}
+void nn::os::WaitEvent(nn::os::EventType*) {CRASH}
+void nn::os::WaitLightEvent(nn::os::LightEventType*) {CRASH}
+void nn::os::WaitSystemEvent(nn::os::SystemEventType*) {CRASH}
+void nn::pl::GetSharedFontAddress(nn::pl::SharedFontType) {CRASH}
+void nn::pl::GetSharedFontLoadState(nn::pl::SharedFontType) {CRASH}
+void nn::pl::GetSharedFontSize(nn::pl::SharedFontType) {CRASH}
+void nn::prepo::PlayReport::Add(char const*, double) {CRASH}
+void nn::prepo::PlayReport::Add(char const*, long) {CRASH}
+void nn::prepo::PlayReport::PlayReport(char const*) {CRASH}
+void nn::prepo::PlayReport::Save(nn::account::Uid const&) {CRASH}
+void nn::prepo::PlayReport::SetBuffer(void*, u64) {CRASH}
+void nn::settings::LanguageCode::Make(nn::settings::Language) {CRASH}
+void nn::settings::operator==(nn::settings::LanguageCode const&, nn::settings::LanguageCode const&) {CRASH}
+void nn::socket::Accept(int, sockaddr*, unsigned int*) {CRASH}
+void nn::socket::Bind(int, sockaddr const*, unsigned int) {CRASH}
+void nn::socket::Close(int) {CRASH}
+void nn::socket::Connect(int, sockaddr const*, unsigned int) {CRASH}
+void nn::socket::Fcntl(int, int, ...) {CRASH}
+void nn::socket::Finalize() {CRASH}
+void nn::socket::FreeAddrInfo(addrinfo*) {CRASH}
+void nn::socket::GetAddrInfo(char const*, char const*, addrinfo const*, addrinfo**) {CRASH}
+void nn::socket::GetLastErrno() {CRASH}
+void nn::socket::GetPeerName(int, sockaddr*, unsigned int*) {CRASH}
+void nn::socket::GetSockName(int, sockaddr*, unsigned int*) {CRASH}
+void nn::socket::InetHtonl(unsigned int) {CRASH}
+void nn::socket::InetHtons(unsigned short) {CRASH}
+void nn::socket::InetNtoa(in_addr) {CRASH}
+void nn::socket::InetNtohl(unsigned int) {CRASH}
+void nn::socket::InetNtohs(unsigned short) {CRASH}
+void nn::socket::InetNtop(int, void const*, char*, unsigned int) {CRASH}
+void nn::socket::InetPton(int, char const*, void*) {CRASH}
+void nn::socket::Initialize(void*, u64, u64, int) {CRASH}
+void nn::socket::Listen(int, int) {CRASH}
+void nn::socket::Poll(pollfd*, u64, int) {CRASH}
+void nn::socket::Recv(int, void*, u64, int) {CRASH}
+void nn::socket::RecvFrom(int, void*, u64, int, sockaddr*, unsigned int*) {CRASH}
+void nn::socket::Send(int, void const*, u64, int) {CRASH}
+void nn::socket::SendTo(int, void const*, u64, int, sockaddr const*, unsigned int) {CRASH}
+void nn::socket::SetSockOpt(int, int, int, void const*, unsigned int) {CRASH}
+void nn::socket::Shutdown(int, int) {CRASH}
+void nn::socket::Socket(int, int, int) {CRASH}
+void nn::ssl::Context::Create(nn::ssl::Context::SslVersion) {CRASH}
+void nn::ssl::Context::ImportServerPki(u64*, char const*, unsigned int, nn::ssl::CertificateFormat) {CRASH}
+void nn::ssl::Finalize() {CRASH}
+void nn::ssl::Initialize() {CRASH}
+void nn::time::Finalize() {CRASH}
+void nn::time::ToCalendarTimeInUtc(nn::time::PosixTime const&) {CRASH}
+void nn::time::ToPosixTime(int*, nn::time::PosixTime*, int, nn::time::CalendarTime const&) {CRASH}
+void nn::time::ToPosixTimeFromUtc(nn::time::CalendarTime const&) {CRASH}
+void nn::util::BinaryBlockHeader::GetBlockSize() const {CRASH}
+void nn::util::BinaryFileHeader::GetAlignment() const {CRASH}
+void nn::util::BinaryFileHeader::GetFirstBlock() {CRASH}
+void nn::util::BinaryFileHeader::GetFirstBlock() const {CRASH}
+void nn::util::BinaryFileHeader::GetRelocationTable() {CRASH}
+void nn::util::BinaryFileHeader::IsAlignmentValid() const {CRASH}
+void nn::util::BinaryFileHeader::IsEndianReverse() const {CRASH}
+void nn::util::BinaryFileHeader::IsRelocated() const {CRASH}
+void nn::util::BinaryFileHeader::IsSignatureValid(long) const {CRASH}
+void nn::util::BinaryFileHeader::IsValid(long, int, int, int) const {CRASH}
+void nn::util::BinaryFileHeader::SetRelocated(bool) {CRASH}
+void nn::util::ConvertCharacterUtf8ToUtf32(unsigned int*, char const*) {CRASH}
+void nn::util::ConvertStringUtf16NativeToUtf8(char*, int, unsigned short const*, int) {CRASH}
+void nn::util::ConvertStringUtf8ToUtf16Native(unsigned short*, int, char const*, int) {CRASH}
+void nn::util::FloatPi {CRASH}
+void nn::util::MatrixRowMajor4x3f::ConstantIdentity {CRASH}
+void nn::util::PickOutCharacterFromUtf8String(char*, char const**) {CRASH}
+void nn::util::ReferSymbol(void const*) {CRASH}
+void nn::util::RelocationTable::Relocate() {CRASH}
+void nn::util::RelocationTable::Unrelocate() {CRASH}
+void nn::util::SNPrintf(char*, u64, char const*, ...) {CRASH}
+void nn::util::VSNPrintf(char*, u64, char const*, std::__va_list) {CRASH}
+void nn::util::detail::AngleIndexHalfRound {CRASH}
+void nn::util::detail::AtanCoefficients {CRASH}
+void nn::util::detail::CosCoefficients {CRASH}
+void nn::util::detail::Float1Divided2Pi {CRASH}
+void nn::util::detail::Float2Pi {CRASH}
+void nn::util::detail::FloatDegree180 {CRASH}
+void nn::util::detail::FloatPi {CRASH}
+void nn::util::detail::FloatPiDivided2 {CRASH}
+void nn::util::detail::FloatQuaternionEpsilon {CRASH}
+void nn::util::detail::FloatUlp {CRASH}
+void nn::util::detail::SinCoefficients {CRASH}
+void nn::util::detail::SinCosSampleTable {CRASH}
+void nn::vi::CreateLayer(nn::vi::Layer**, nn::vi::Display*) {CRASH}
+void nn::vi::GetDisplayVsyncEvent(nn::os::SystemEventType*, nn::vi::Display*) {CRASH}
+void nn::vi::GetNativeWindow(void**, nn::vi::Layer*) {CRASH}
+void nn::vi::Initialize() {CRASH}
+void nn::vi::OpenDefaultDisplay(nn::vi::Display**) {CRASH}
+void nn::vi::SetLayerScalingMode(nn::vi::Layer*, nn::vi::ScalingMode) {CRASH}
+void nn::web::OfflineHtmlPageReturnValue::GetLastUrl() const {CRASH}
+void nn::web::OfflineHtmlPageReturnValue::GetOfflineExitReason() const {CRASH}
+void nn::web::OfflineHtmlPageReturnValue::OfflineHtmlPageReturnValue() {CRASH}
+void nn::web::ShowOfflineHtmlPage(nn::web::OfflineHtmlPageReturnValue*, nn::web::ShowOfflineHtmlPageArg const&) {CRASH}
+void nn::web::ShowOfflineHtmlPageArg::SetBackgroundKind(nn::web::OfflineBackgroundKind const&) {CRASH}
+void nn::web::ShowOfflineHtmlPageArg::SetBootDisplayKind(nn::web::OfflineBootDisplayKind) {CRASH}
+void nn::web::ShowOfflineHtmlPageArg::SetFooterEnabled(bool) {CRASH}
+void nn::web::ShowOfflineHtmlPageArg::SetPointerEnabled(bool) {CRASH}
+void nn::web::ShowOfflineHtmlPageArgWithPlayReport::SetPlayReportEnabled(bool) {CRASH}
+void nn::web::ShowOfflineHtmlPageArgWithPlayReport::ShowOfflineHtmlPageArgWithPlayReport(nn::ApplicationId const&, char const*) {CRASH}
+void nv::InitializeGraphics(void*, u64) {CRASH}
+void nv::SetGraphicsAllocator(void* (*)(u64, u64, void*), void (*)(void*, void*), void* (*)(void*, u64, void*), void*) {CRASH}
+void nv::SetGraphicsDevtoolsAllocator(void* (*)(u64, u64, void*), void (*)(void*, void*), void* (*)(void*, u64, void*), void*) {CRASH}
+void nn::hid::GetTouchScreenState<1ul>(nn::hid::TouchScreenState<1ul>*) {CRASH}

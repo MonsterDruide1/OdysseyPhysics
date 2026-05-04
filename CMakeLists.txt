@@ -20,8 +20,30 @@ add_compile_options(-D_GNU_SOURCE)
 set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
 project(OdysseyPhysics)
+add_executable(OdysseyPhysics)
 
-add_compile_options(-O1 -g)
+# these appear before anything else, so they are overridden by anything in the decomp or simulator
+add_library(swsplrs STATIC IMPORTED)
+set_property(TARGET swsplrs PROPERTY IMPORTED_LOCATION /persist/home/monsterdruide1/swsplrs/out/obj/assembled.o)
+add_dependencies(OdysseyPhysics swsplrs)
+target_link_libraries(OdysseyPhysics PUBLIC swsplrs)
+
+#[[
+add_library(swsplrs_sdk STATIC IMPORTED)
+set_property(TARGET swsplrs_sdk PROPERTY IMPORTED_LOCATION /persist/home/monsterdruide1/swsplrs/out/libsdk.so)
+add_dependencies(OdysseyPhysics swsplrs_sdk)
+target_link_libraries(OdysseyPhysics PUBLIC swsplrs_sdk)
+
+add_library(swsplrs_subsdk0 STATIC IMPORTED)
+set_property(TARGET swsplrs_subsdk0 PROPERTY IMPORTED_LOCATION /persist/home/monsterdruide1/swsplrs/out/libsubsdk0.so)
+add_dependencies(OdysseyPhysics swsplrs_subsdk0)
+target_link_libraries(OdysseyPhysics PUBLIC swsplrs_subsdk0)
+#]]
+
+target_link_options(OdysseyPhysics PRIVATE -Wl,--allow-multiple-definition)
+#target_link_options(OdysseyPhysics PRIVATE -Wl,--unresolved-symbols=ignore-all)
+
+add_compile_options(-O0 -g)
 #add_compile_options(-stdlib=libc++)
 #add_link_options(-stdlib=libc++)
 
@@ -37,7 +59,7 @@ file(GLOB_RECURSE SOURCES_SMO ${PROJECT_SOURCE_DIR}/lib/smo/*.cpp ${PROJECT_SOUR
 file(GLOB_RECURSE SOURCES_APP ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_DIR}/src/*.c ${PROJECT_SOURCE_DIR}/src/*.h ${PROJECT_SOURCE_DIR}/src/*.hpp)
 
 
-add_executable(OdysseyPhysics ${SOURCES_APP})
+target_sources(OdysseyPhysics PRIVATE ${SOURCES_APP})
 #add_executable(OdysseyPhysics src/tas-studio.cpp src/ui/Scene.cpp src/ui/Camera.cpp src/file/KCollision.cpp)
 
 find_package(Threads REQUIRED)
