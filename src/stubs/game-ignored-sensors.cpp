@@ -12,5 +12,6 @@ bool isMsgEnableMapCheckPointWarpCollidedGround(al::SensorMsg const*, al::LiveAc
 al::HitSensor* tryGetCollidedCeilingSensor(IUsePlayerCollision const*) {WARN_UNIMPL;return nullptr;}
 
 void sendPlayerCollisionTouchMsg(al::LiveActor const*, al::HitSensor*, IUsePlayerCollision const*) {}
+void sendMsgBreakFloorToPlayer(al::LiveActor const*) {}
 
 }

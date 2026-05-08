@@ -146,6 +146,8 @@ void calcLayoutPosFromWorldPos(sead::Vector2f* a, al::IUseCamera const*, sead::V
 void updateMaterialCodePuddle(al::LiveActor*) {}
 const agl::TextureData* getWhite2DTexture() {WARN_UNIMPL; return nullptr;}
 void recreateModelDisplayList(al::LiveActor const*) {}
+void invalidateOcclusionQuery(al::LiveActor*) {}
+bool isValidOcclusionQuery(al::LiveActor const*) {return false;}
 
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}

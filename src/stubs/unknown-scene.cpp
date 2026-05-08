@@ -76,8 +76,6 @@ void al::PostProcessingFilter::decrementPreset() {CRASH}
 void al::PostProcessingFilter::incrementPreset() {CRASH}
 
 al::SimpleCameraPoserFactory::SimpleCameraPoserFactory(char const*) : al::CameraPoserFactory("") {CRASH}
-al::CameraPoserFactory::CameraPoserFactory(char const*) : al::Factory<CameraPoserCreatorFunction>("") {CRASH}
-al::CameraPoserEntrance* al::CameraPoserFactory::createEntranceCameraPoser() const {CRASH}
 
 void al::ViewRenderer::endForwardPlayerScreenFader(int) {CRASH}
 void al::ViewRenderer::startForwardPlayerScreenFader(int, int, float) {CRASH}

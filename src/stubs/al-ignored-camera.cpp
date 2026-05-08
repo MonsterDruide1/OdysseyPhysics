@@ -6,6 +6,7 @@
 #include "Library/Camera/CameraUtil.h"
 #include "Library/Camera/SceneCameraInfo.h"
 #include "Library/Camera/SnapShotCameraCtrl.h"
+#include "Library/Play/Camera/CameraPoserEntrance.h"
 #include "Library/Play/Camera/CameraPoserSubjective.h"
 #include "Library/Play/Camera/CameraVerticalAbsorber.h"
 #include "Library/PostProcessing/CameraBlurController.h"
@@ -36,6 +37,8 @@ void initCameraSubTargetTurnParam(al::CameraSubTargetBase*, al::CameraSubTargetT
 ActorCameraSubTarget* createActorCameraSubTarget(al::LiveActor const*, sead::Vector3<float> const*) {WARN_UNIMPL;return nullptr;}
 void resetCameraPlacementSubTarget(al::IUseCamera*, al::CameraSubTargetBase*) {}
 void setCameraPlacementSubTarget(al::IUseCamera*, al::CameraSubTargetBase*) {}
+void endCameraSub(al::IUseCamera const*, al::CameraTicket*, int) {}
+void startCameraSub(al::IUseCamera const*, al::CameraTicket*, int) {}
 
 CameraPoserSubjective::CameraPoserSubjective(char const*) : al::CameraPoser("") {}
 void CameraPoserSubjective::init() {}
@@ -83,8 +86,14 @@ void SnapShotCameraCtrl::makeLookAtCameraLast(sead::LookAtCamera*) const {}
 void SnapShotCameraCtrl::makeLookAtCameraPost(sead::LookAtCamera*) const {}
 void SnapShotCameraCtrl::start(float) {}
 
-al::CameraLimitRailKeeper::CameraLimitRailKeeper() {}
-void al::CameraLimitRailKeeper::init(al::PlacementInfo const&, int) {}
+CameraLimitRailKeeper::CameraLimitRailKeeper() {}
+void CameraLimitRailKeeper::init(al::PlacementInfo const&, int) {}
+
+CameraPoserEntrance::CameraPoserEntrance(char const* a) : al::CameraPoser(a) {}
+void CameraPoserEntrance::loadParam(const ByamlIter& iter) {}
+void CameraPoserEntrance::start(const CameraStartInfo& info) {}
+void CameraPoserEntrance::movement() {}
+void CameraPoserEntrance::update() {}
 
 }
 
