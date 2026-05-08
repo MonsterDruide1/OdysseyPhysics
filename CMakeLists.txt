@@ -16,6 +16,11 @@ set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
 # work around cross-compilation issue
 # raylib wants to use `-std=c99`, which does not expose `clockid_t` from `<time.h>`, whereas any `-std=gnu` dialect does
 add_compile_options(-D_GNU_SOURCE)
+add_compile_options(-nostdinc++ -nodefaultlibs)
+add_compile_options(-isystem/nix/store/kdphi01c71ji9r7dacrx10yal786mp1w-libcxx-aarch64-unknown-linux-gnu-21.1.8-dev/include/c++/v1)
+add_link_options(-lc -lc++ -lc++abi)
+#add_compile_options(-stdlib=libc++)
+add_link_options(-nostdlib++)
 
 set(CMAKE_BUILD_TYPE "RelWithDebInfo")
 
@@ -23,10 +28,16 @@ project(OdysseyPhysics)
 add_executable(OdysseyPhysics)
 
 # these appear before anything else, so they are overridden by anything in the decomp or simulator
-add_library(swsplrs STATIC IMPORTED)
-set_property(TARGET swsplrs PROPERTY IMPORTED_LOCATION /persist/home/monsterdruide1/swsplrs/out/obj/assembled.o)
-add_dependencies(OdysseyPhysics swsplrs)
-target_link_libraries(OdysseyPhysics PUBLIC swsplrs)
+#add_library(swsplrs STATIC IMPORTED)
+#set_property(TARGET swsplrs PROPERTY IMPORTED_LOCATION /persist/home/monsterdruide1/swsplrs/out/obj/assembled.o)
+#add_dependencies(OdysseyPhysics swsplrs)
+#target_link_libraries(OdysseyPhysics PUBLIC swsplrs)
+
+#add_library(swsplrs STATIC /persist/home/monsterdruide1/swsplrs/out/obj/assembled.o)
+#target_link_libraries(OdysseyPhysics PUBLIC swsplrs)
+#set_target_properties(swsplrs PROPERTIES
+#    LINKER_LANGUAGE CXX
+#)
 
 #[[
 add_library(swsplrs_sdk STATIC IMPORTED)
@@ -60,6 +71,8 @@ file(GLOB_RECURSE SOURCES_APP ${PROJECT_SOURCE_DIR}/src/*.cpp ${PROJECT_SOURCE_D
 
 
 target_sources(OdysseyPhysics PRIVATE ${SOURCES_APP})
+#target_sources(OdysseyPhysics PRIVATE /persist/home/monsterdruide1/swsplrs/out/obj/assembled.o)
+#target_sources(OdysseyPhysics PRIVATE src/test.cpp)
 #add_executable(OdysseyPhysics src/tas-studio.cpp src/ui/Scene.cpp src/ui/Camera.cpp src/file/KCollision.cpp)
 
 find_package(Threads REQUIRED)
@@ -91,3 +104,9 @@ add_library(odysseylib STATIC IMPORTED)
 set_property(TARGET odysseylib PROPERTY IMPORTED_LOCATION ${install_dir}/lib/libodyssey_lib.a)
 add_dependencies(OdysseyPhysics odyssey odysseylib)
 target_link_libraries(OdysseyPhysics PUBLIC odysseylib)
+
+add_library(swsplrs STATIC /persist/home/monsterdruide1/swsplrs/out/obj/assembled.o)
+target_link_libraries(OdysseyPhysics PUBLIC swsplrs)
+set_target_properties(swsplrs PROPERTIES
+    LINKER_LANGUAGE CXX
+)

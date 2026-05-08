@@ -45,6 +45,8 @@
           pkgsCross.aarch64-multiplatform.linuxHeaders
           pkgsCross.aarch64-multiplatform.glfw
           pkgsCross.aarch64-multiplatform.mesa  # see shellHook below
+          pkgsCross.aarch64-multiplatform.libcxx
+          pkgsCross.aarch64-multiplatform.llvmPackages.libunwind
         ];
 
         shellHook = ''
