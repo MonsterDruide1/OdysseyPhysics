@@ -54,6 +54,17 @@ nn::os::Tick nn::os::GetSystemTick() {
     return {0};
 }
 
+s32 nn::util::SNPrintf(char* buf, u64 buf_size, char const* format, ...) {
+    va_list args;
+    va_start(args, format);
+    s32 result = nn::util::VSNPrintf(buf, buf_size, format, args);
+    va_end(args);
+    return result;
+}
+s32 nn::util::VSNPrintf(char* buf, u64 buf_size, char const* format, va_list args) {
+    return vsnprintf(buf, buf_size, format, args);
+}
+
 void nn::os::FreeMemoryBlock(u64, u64){CRASH} nn::TimeSpan nn::os::ConvertToTimeSpan(Tick ticks){
     CRASH} nn::os::ThreadType* nn::os::GetCurrentThread(){
     CRASH} u64 nn::os::GetThreadId(const nn::os::ThreadType* thread){

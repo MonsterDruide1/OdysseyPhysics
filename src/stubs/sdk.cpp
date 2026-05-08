@@ -571,16 +571,16 @@ void DestroyFrameHeap(detail::HeapHead*);
 void nn::lmem::AllocateFromFrameHeap(nn::lmem::detail::HeapHead*, u64, int) {CRASH}
 void nn::lmem::CreateFrameHeap(void*, u64, int) {CRASH}
 void nn::lmem::DestroyFrameHeap(nn::lmem::detail::HeapHead*) {CRASH}
-void* nn::mem::StandardAllocator::Allocate(u64) {CRASH}
-void* nn::mem::StandardAllocator::Allocate(u64, u64) {CRASH}
+void* nn::mem::StandardAllocator::Allocate(u64 size) { return malloc(size); }
+void* nn::mem::StandardAllocator::Allocate(u64 size, u64 align) { return aligned_alloc(align, size); }
 void nn::mem::StandardAllocator::Dump() const {CRASH}
 void nn::mem::StandardAllocator::Finalize() {CRASH}
-void nn::mem::StandardAllocator::Free(void*) {CRASH}
+void nn::mem::StandardAllocator::Free(void*) {}
 size_t nn::mem::StandardAllocator::GetSizeOf(void const*) const {CRASH}
 size_t nn::mem::StandardAllocator::GetTotalFreeSize() const {CRASH}
-void nn::mem::StandardAllocator::Initialize(void*, u64) {CRASH}
+void nn::mem::StandardAllocator::Initialize(void*, u64) {}
 void* nn::mem::StandardAllocator::Reallocate(void*, u64) {CRASH}
-nn::mem::StandardAllocator::StandardAllocator() {CRASH}
+nn::mem::StandardAllocator::StandardAllocator() {}
 nn::mem::StandardAllocator::StandardAllocator(void*, u64) {CRASH}
 nn::Result nn::nfp::AttachActivateEvent(nn::os::SystemEventType*, nn::nfp::DeviceHandle const&) {CRASH}
 nn::Result nn::nfp::AttachDeactivateEvent(nn::os::SystemEventType*, nn::nfp::DeviceHandle const&) {CRASH}
@@ -607,20 +607,20 @@ nn::Result nn::nifm::HandleNetworkRequestResult() {CRASH}
 nn::Result nn::nifm::Initialize() {CRASH}
 bool nn::nifm::IsNetworkAvailable() {CRASH}
 bool nn::nifm::IsNetworkRequestOnHold() {CRASH}
-void nn::nifm::SetLocalNetworkMode(bool) {CRASH}
-void nn::nifm::SubmitNetworkRequest() {CRASH}
-void nn::nifm::SubmitNetworkRequestAndWait() {CRASH}
+void nn::nifm::SetLocalNetworkMode(bool) {WARN_UNIMPL;}
+void nn::nifm::SubmitNetworkRequest() {WARN_UNIMPL;}
+void nn::nifm::SubmitNetworkRequestAndWait() {WARN_UNIMPL;}
 
 namespace nn::nsd {
 class Fqdn;
 void ResolveEx(nn::nsd::Fqdn*, nn::nsd::Fqdn const&);
 }
-void nn::nsd::ResolveEx(nn::nsd::Fqdn*, nn::nsd::Fqdn const&) {CRASH}
+void nn::nsd::ResolveEx(nn::nsd::Fqdn*, nn::nsd::Fqdn const&) {}
 
 namespace nn::oe {
 void GetPerformanceConfiguration(nn::oe::PerformanceMode);
 }
-void nn::oe::EnableGamePlayRecording(void*, u64) {CRASH}
+void nn::oe::EnableGamePlayRecording(void*, u64) {}
 void nn::oe::FinishStartupLogo() {CRASH}
 nn::oe::FocusState nn::oe::GetCurrentFocusState() {CRASH}
 nn::settings::LanguageCode nn::oe::GetDesiredLanguage() {CRASH}
@@ -663,7 +663,7 @@ char* nn::os::GetThreadNamePointer(nn::os::ThreadType const*) {CRASH}
 void nn::os::InitializeConditionVariable(nn::os::ConditionVariableType*) {CRASH}
 void nn::os::InitializeEvent(nn::os::EventType*, bool, nn::os::EventClearMode) {CRASH}
 void nn::os::InitializeLightEvent(nn::os::LightEventType*, bool, nn::os::EventClearMode) {CRASH}
-void nn::os::SetMemoryHeapSize(u64) {CRASH}
+void nn::os::SetMemoryHeapSize(u64) {}
 void nn::os::SetThreadNamePointer(nn::os::ThreadType*, char const*) {CRASH}
 void nn::os::SetUserExceptionHandler(void (*)(nn::os::UserExceptionInfo*), void*, u64, nn::os::UserExceptionInfo*) {CRASH}
 void nn::os::SignalConditionVariable(nn::os::ConditionVariableType*) {CRASH}
@@ -744,8 +744,6 @@ nn::util::CharacterEncodingResult nn::util::PickOutCharacterFromUtf8String(char*
 void nn::util::ReferSymbol(void const*) {CRASH}
 void nn::util::RelocationTable::Relocate() {CRASH}
 void nn::util::RelocationTable::Unrelocate() {CRASH}
-s32 nn::util::SNPrintf(char*, u64, char const*, ...) {CRASH}
-s32 nn::util::VSNPrintf(char*, u64, char const*, va_list) {CRASH}
 nn::Result nn::vi::CreateLayer(nn::vi::Layer**, nn::vi::Display*) {CRASH}
 nn::Result nn::vi::GetDisplayVsyncEvent(nn::os::SystemEventType*, nn::vi::Display*) {CRASH}
 nn::Result nn::vi::GetNativeWindow(void**, nn::vi::Layer*) {CRASH}
