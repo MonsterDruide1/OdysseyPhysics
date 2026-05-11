@@ -34,7 +34,8 @@
 #include "Util/AmiiboUtil.h"
 #include "Util/CameraUtil.h"
 #include "Util/CollisionUtil.h"
-#include "Util/Hack.h"
+#include "Util/PlayerHackFunction.h"
+#include "Util/PlayerHackInputFunction.h"
 #include "Util/InputInterruptTutorialUtil.h"
 #include "Util/ObjUtil.h"
 #include "Util/PlayerUtil.h"
@@ -68,21 +69,15 @@ bool al::pushAndAddVelocityH(al::LiveActor*, al::HitSensor const*, al::HitSensor
 void al::showSilhouetteModel(al::LiveActor*) {CRASH}
 bool al::tryAddRippleRandomBlur(al::LiveActor const*, sead::Vector3f const&, float, float, float) {CRASH}
 bool al::tryAddRippleSmall(al::LiveActor const*) {CRASH}
-void rs::endHackFromTargetPos(IUsePlayerHack**, sead::Vector3f const&, sead::Quatf const&, sead::Vector3f const&) {CRASH}
-void rs::endReset(al::LiveActor*) {CRASH}
-void rs::hideHackCap(IUsePlayerHack*) {CRASH}
 void rs::hideTutorial(al::IUseSceneObjHolder const*) {CRASH}
-bool rs::isActiveHackStartDemo(IUsePlayerHack const*) {CRASH}
 bool rs::isHoldHackAction(IUsePlayerHack const*) {CRASH}
 bool rs::isHoldHackJump(IUsePlayerHack const*) {CRASH}
 bool rs::isTriggerHackAction(IUsePlayerHack const*) {CRASH}
 bool rs::isTriggerHackPreInputJump(IUsePlayerHack const*) {CRASH}
 bool rs::requestDownToDefaultCameraAngleBySpeed(al::LiveActor const*, float, int) {CRASH}
 void rs::requestStageStartHack(al::LiveActor const*, al::HitSensor*, CapTargetInfo const*, al::LiveActor*) {CRASH}
-void rs::showHackCap(IUsePlayerHack*) {CRASH}
 void rs::showTutorial(al::IUseSceneObjHolder const*) {CRASH}
 void rs::solveCollisionInHacking(al::LiveActor*, sead::Vector3f const&) {CRASH}
-void rs::startReset(al::LiveActor*) {CRASH}
 
 bool EventFlowFunction::isCapTargetHackType(CapTargetInfo const*, int) {CRASH}
 bool GotogotonMark::isMatch(GotogotonMark const*) const {CRASH}
@@ -92,7 +87,6 @@ void WhipTargetInfo::initWhipTarget(al::HitSensor*, sead::Vector3f const*) {CRAS
 void al::EventFlowExecutor::attackSensor(al::HitSensor*, al::HitSensor*) {CRASH}
 void al::validateShadowMask(al::LiveActor*, char const*) {CRASH}
 const sead::Vector3f& rs::getPlayerHeadPos(al::LiveActor const*) {CRASH}
-bool rs::isMsgHackerDamageAndCancel(al::SensorMsg const*) {CRASH}
 bool rs::isPlayerOnActor(al::LiveActor const*) {CRASH}
 bool rs::isPlayerSquat(al::LiveActor const*) {CRASH}
 bool rs::trySendMsgPlayerReflectOrTrample(al::LiveActor const*, al::HitSensor*, al::HitSensor*) {CRASH}

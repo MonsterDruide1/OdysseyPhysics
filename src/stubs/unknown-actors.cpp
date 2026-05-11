@@ -52,9 +52,10 @@
 #include "Project/Anim/InitResourceDataAnim.h"
 #include "Project/Resource/ResourceSystem.h"
 #include "System/GameDataFile.h"
+#include "Util/ActorDimensionUtil.h"
 #include "Util/BreakJudgeUtil.h"
 #include "Util/DemoUtil.h"
-#include "Util/Hack.h"
+#include "Util/PlayerHackFunction.h"
 #include "Util/InputInterruptTutorialUtil.h"
 #include "Util/NpcEventFlowUtil.h"
 #include "Util/ObjUtil.h"
@@ -168,3 +169,12 @@ const sead::Vector3f& rs::getPlayerBodyPos(al::LiveActor const*) {CRASH}
 bool rs::isEquipCapCatched(al::LiveActor const*) {CRASH}
 
 al::JudgeFuncPtr rs::getBreakJudgeFunction(char const*) {CRASH}
+
+bool rs::calcSnap2DPosition(sead::Vector3<float>*, IUseDimension const*, sead::Vector3<float> const&, float) {CRASH}
+bool rs::calcSnapTransSnapMoveAreaNoCollider(sead::Vector3<float>*, al::LiveActor const*, bool, sead::Vector3<float> const&, sead::Vector3<float> const&, float) {CRASH}
+const char* rs::getMaterialCodeGround(IUsePlayerCollision const*) {CRASH}
+bool rs::isCollisionCodeSafetyPoint(al::HitInfo const&) {CRASH}
+bool rs::isEnableRecordSafetyPoint(sead::Vector3<float>**, al::HitInfo const&, al::HitSensor*, sead::Vector3<float> const&) {CRASH}
+bool rs::isTouchDamageCode(al::LiveActor const*, IUsePlayerCollision const*) {CRASH}
+bool rs::isTouchDamageFireCode3D(al::LiveActor const*, IUsePlayerCollision const*) {CRASH}
+bool rs::isTouchDeadCode3D(al::LiveActor const*, IUsePlayerCollision const*) {CRASH}

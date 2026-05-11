@@ -13,7 +13,7 @@
 #include "Player/PlayerHackStartShaderCtrl.h"
 #include "PlayerUtil.h"
 #include "Util/ActorDimensionKeeper.h"
-#include "Util/Hack.h"
+#include "Util/PlayerHackInputFunction.h"
 #include "Util/HackerJudge.h"
 #include "Area/In2DAreaMoveControl.h"
 
@@ -71,32 +71,16 @@ al::AreaObj* tryFind2DAreaObj(al::LiveActor const*, sead::Vector3<float>*, sead:
 
 void calc2DAreaLockDir(sead::Vector3<float>*, al::AreaObj const*, sead::Vector3<float> const&) {}
 
-void endHack(IUsePlayerHack**) {}
-void endHackStartDemo(IUsePlayerHack*, al::LiveActor*) {}
 const char* getSpecialPurposeName2DOnly() {return "";}
-void hideShadowHackCap(IUsePlayerHack*) {}
-bool isHackStartDemoEnterMario(IUsePlayerHack const*) {return false;}
-IUsePlayerHack* startHack(al::HitSensor*, al::HitSensor*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
-IUsePlayerHack* startHackStartDemo(IUsePlayerHack*, al::LiveActor*) {WARN_UNIMPL;return nullptr;}
 bool isPlayerHackKuriboAny(al::LiveActor const*) {return false;}
 bool isPlayerHackTank(al::LiveActor const*) {return false;}
 void requestEndDemoNormal(al::LiveActor const*) {}
 bool requestStartDemoNormal(al::LiveActor*, bool) {return false;}
 void addDemoActor(al::LiveActor*, bool) {}
-void syncDamageVisibility(al::LiveActor*, IUsePlayerHack const*) {}
-bool tryEndHackStartDemo(IUsePlayerHack*, al::LiveActor*) {return false;}
-void endHackAirVelocity(IUsePlayerHack**, sead::Vector3<float> const&, sead::Quat<float> const&, sead::Vector3<float> const&, int) {}
-void endHackDir(IUsePlayerHack**, sead::Vector3<float> const&) {}
-void endHackTargetQuat(IUsePlayerHack**, sead::Quat<float> const&, sead::Vector3<float> const&) {}
 bool isTriggerHackSwing(IUsePlayerHack const*) {return false;}
-bool receiveMsgRequestTransferHack(al::SensorMsg const*, IUsePlayerHack*, al::HitSensor*) {return false;}
-bool requestDamage(IUsePlayerHack*) {return false;}
-bool sendMsgHackerNoReaction(IUsePlayerHack const*, al::HitSensor*, al::HitSensor*) {return false;}
 void updateDimensionKeeper(ActorDimensionKeeper*) {}
 
-void addHackStartDemoActor(IUsePlayerHack*, al::LiveActor*) {}
 void changeHackTutorialText(al::IUseSceneObjHolder const*, char const*) {}
-bool isHackCapSeparateFlying(IUsePlayerHack*) {return false;}
 bool isTriggerHackAnyButton(IUsePlayerHack const*) {return false;}
 bool isTriggerSubjectiveCamera(IUsePlayerHack const*) {return false;}
 void resetHackTutorialText(al::IUseSceneObjHolder const*) {}
@@ -104,8 +88,6 @@ void calcDimensionGravity(sead::Vector3<float>* x, IUseDimension const*, sead::V
 bool addHackActorAccelStick(al::LiveActor*, IUsePlayerHack const*, sead::Vector3<float>*, float, sead::Vector3<float> const&) {return false;}
 f32 calcHackMovePower(IUsePlayerHack const*) {return 0.0f;}
 bool isOnHackMoveStick(IUsePlayerHack const*) {return false;}
-bool isTouchHackCancelCollisionCode(al::LiveActor const*, IUsePlayerCollision const*) {return false;}
-bool isTouchHackDamageCollisionCode(al::LiveActor const*, IUsePlayerCollision const*) {return false;}
 
 void endBindAndPuppetNull(IUsePlayerPuppet**) {}
 void startPuppet(al::HitSensor*, al::HitSensor*) {}
@@ -169,13 +151,15 @@ void PlayerHackKeeper::deleteHackDemoModelEffect() {}
 void PlayerHackKeeper::killHackDemoModel() {}
 void PlayerHackKeeper::recordHack() {}
 void PlayerHackKeeper::updateHackDemoModel(sead::Matrix34<float> const&, float) {}
-
-PlayerRecoverySafetyPoint::PlayerRecoverySafetyPoint(al::LiveActor const*, HackCap const*,
-                                                     al::ActorInitInfo const&, IUseDimension const*,
-                                                     al::CollisionPartsFilterBase*,
-                                                     al::HitSensor*) {}
-
-void PlayerRecoverySafetyPoint::updateRecoveryBubble() {}
+void PlayerHackKeeper::addHackStartDemo(al::LiveActor*) {}
+void PlayerHackKeeper::endHack(HackEndParam const*) {}
+void PlayerHackKeeper::endHackStartDemo(al::LiveActor*) {}
+bool PlayerHackKeeper::isActiveHackStartDemo() const {}
+bool PlayerHackKeeper::receiveRequestTransferHack(al::HitSensor*) {}
+bool PlayerHackKeeper::requestDamage() {}
+void PlayerHackKeeper::startHack(al::HitSensor*, al::HitSensor*, al::LiveActor*) {}
+void PlayerHackKeeper::startHackStartDemo(al::LiveActor*) {}
+void PlayerHackKeeper::startHackStartDemoPuppetable(al::LiveActor*) {}
 
 bool PlayerEquipmentFunction::tryGetEquipmentForceDashInfo(int*, float*,
                                                            PlayerEquipmentUser const*) {

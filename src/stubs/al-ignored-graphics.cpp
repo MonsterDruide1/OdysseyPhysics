@@ -148,6 +148,7 @@ const agl::TextureData* getWhite2DTexture() {WARN_UNIMPL; return nullptr;}
 void recreateModelDisplayList(al::LiveActor const*) {}
 void invalidateOcclusionQuery(al::LiveActor*) {}
 bool isValidOcclusionQuery(al::LiveActor const*) {return false;}
+void setDepthShadowMapLength(al::LiveActor const*, float, char const*) {}
 
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}

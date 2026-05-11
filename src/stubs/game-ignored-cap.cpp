@@ -7,17 +7,12 @@
 
 namespace rs {
 
-CapTargetInfo* createCapTargetInfo(al::LiveActor*, char const*) {WARN_UNIMPL;return nullptr;}
-CapTargetInfo* createCapTargetInfoWithPlayerCollider(al::LiveActor*, IUsePlayerCollision*, char const*) {WARN_UNIMPL;return nullptr;}
-void requestLockOnCapHitReaction(al::LiveActor const*, CapTargetInfo const*, char const*) {}
 bool tryGetFlyingCapPos(sead::Vector3<float>*, al::LiveActor const*) {return false;}
 bool tryShowCapMsgCollectCoinGetFirst(al::IUseSceneObjHolder const*) {return false;}
 
 }
 
 bool PlayerCapFunction::isEnableBirdLandPlayerCapOn(al::LiveActor const*) {CRASH}
-
-void CapTargetInfo::setFollowLockOnMtx(char const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {CRASH}
 
 bool PlayerInput::isHoldCapSeparateJump() const {
     return false;
