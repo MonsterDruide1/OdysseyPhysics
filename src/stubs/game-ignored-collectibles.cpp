@@ -1,4 +1,3 @@
-#include "Item/CoinCollectHolder.h"
 #include "Item/CoinRotateCalculator.h"
 #include "Item/LifeMaxUpItem.h"
 #include "Item/LifeMaxUpItem2D.h"
@@ -7,13 +6,6 @@
 #include "MapObj/BlockStateSingleItem.h"
 #include "MapObj/BlockStateTenCoin.h"
 #include "Util/ItemUtil.h"
-
-CoinCollectHolder::CoinCollectHolder() {WARN_UNIMPL;}
-const char* CoinCollectHolder::getSceneObjName() const {WARN_UNIMPL;return "";}
-CoinCollectHolder* rs::createCoinCollectHolder(al::IUseSceneObjHolder const*) {WARN_UNIMPL;return nullptr;}
-void CoinCollectHolder::registerCoinCollect2D(CoinCollect2D*) {}
-void CoinCollectHolder::registerHintObj(CoinCollectHintObj*) {}
-void CoinCollectHolder::registerCoinCollect(CoinCollect*) {}
 
 CoinRotateCalculator::CoinRotateCalculator(al::LiveActor*) {}
 void CoinRotateCalculator::addFishingLineTouch() {}

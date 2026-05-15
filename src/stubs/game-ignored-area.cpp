@@ -1,6 +1,5 @@
 #include "Library/Area/AreaObjDirector.h"
 #include "Library/Area/AreaObjUtil.h"
-#include "Library/stuff.h"
 #include "MapObj/RouteGuideDirector.h"
 #include "Player/PlayerJudgeInvalidateInputFall.h"
 #include "PlayerUtil.h"
@@ -32,17 +31,6 @@ void rs::calcSnapVelocitySnapMoveArea(sead::Vector3<float>* result, al::LiveActo
 }
 
 bool rs::tryFindForceRecoveryArea(sead::Vector3<float>*, sead::Vector3<float>*, al::AreaObj const**, al::IUseAreaObj const*, sead::Vector3<float> const&) {
-    return false;
-}
-
-PlayerJudgeStartRise::PlayerJudgeStartRise(al::LiveActor const*, PlayerAreaChecker const*,
-                                           IPlayerModelChanger const*) {}
-
-void PlayerJudgeStartRise::reset() {}
-
-void PlayerJudgeStartRise::update() {}
-
-bool PlayerJudgeStartRise::judge() const {
     return false;
 }
 
