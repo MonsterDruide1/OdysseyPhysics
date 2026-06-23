@@ -178,3 +178,6 @@ bool rs::isEnableRecordSafetyPoint(sead::Vector3<float>**, al::HitInfo const&, a
 bool rs::isTouchDamageCode(al::LiveActor const*, IUsePlayerCollision const*) {CRASH}
 bool rs::isTouchDamageFireCode3D(al::LiveActor const*, IUsePlayerCollision const*) {CRASH}
 bool rs::isTouchDeadCode3D(al::LiveActor const*, IUsePlayerCollision const*) {CRASH}
+
+void rs::createRouteGuideDirector(al::IUseSceneObjHolder const*) {CRASH}
+void al::setSensorRadius(al::LiveActor*, float) {CRASH}
