@@ -4,6 +4,7 @@
 #include "Library/Camera/CameraPoserFunction.h"
 #include "Library/Camera/CameraTargetAreaLimitter.h"
 #include "Library/Camera/CameraUtil.h"
+#include "Library/Camera/CameraViewCtrlGyro.h"
 #include "Library/Camera/SceneCameraInfo.h"
 #include "Library/Camera/SnapShotCameraCtrl.h"
 #include "Library/Play/Camera/CameraPoserEntrance.h"
@@ -68,11 +69,15 @@ bool CameraAngleCtrlInfo::isFixByRangeHV() const {return false;}
 void CameraAngleCtrlInfo::load(al::ByamlIter const&) {}
 bool CameraAngleCtrlInfo::receiveRequestFromObject(al::CameraObjectRequestInfo const&) {return false;}
 void CameraAngleCtrlInfo::start(float) {}
+s32 CameraAngleCtrlInfo::getMaxResetStep() const {return 0;}
+bool CameraAngleCtrlInfo::isResetStartTiming() const {return false;}
+void CameraAngleCtrlInfo::update(sead::Vector2<float> const&, float, bool) {}
 
+void GyroCameraCtrl::update(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {}
+
+void CameraArrowCollider::update(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&) {}
 void CameraArrowCollider::makeLookAtCamera(sead::LookAtCamera*) const {}
 void CameraArrowCollider::start() {}
-
-void CameraPoser::movement() {}
 
 bool CameraTargetAreaLimitter::applyAreaLimit(sead::Vector3<float>*, sead::Vector3<float> const&) const {return false;}
 CameraTargetAreaLimitter* CameraTargetAreaLimitter::tryCreate(al::PlacementInfo const&) {WARN_UNIMPL; return nullptr;}
@@ -116,6 +121,17 @@ bool isTargetCollideGround(al::CameraPoser const*) {return false;}
 bool isTargetGrabCeil(al::CameraPoser const*) {return false;}
 bool checkFirstCameraCollisionArrow(sead::Vector3<float>*, sead::Vector3<float>*, al::IUseCollision const*, sead::Vector3<float> const&, sead::Vector3<float> const&) {return false;}
 void invalidateKeepDistanceNextCameraIfNoCollide(al::CameraPoser*) {}
+void calcCameraGyroPose(al::CameraPoser const*, sead::Vector3<float>*, sead::Vector3<float>*, sead::Vector3<float>*) {}
+void calcCameraRotateStick(sead::Vector2<float>*, al::CameraPoser const*) {}
+f32 getGyroSensitivityScale(al::CameraPoser const*) {return 1.0f;}
+const sead::Vector3f& getPreCameraPos(al::CameraPoser const*) {return sead::Vector3f::zero;}
+f32 getStickSensitivityScale(al::CameraPoser const*) {return 1.0f;}
+bool isChangeTarget(al::CameraPoser const*) {return false;}
+bool isStopUpdateGyro(al::CameraPoser const*) {return false;}
+bool isTriggerCameraResetRotate(al::CameraPoser const*) {return false;}
+bool isValidGyro(al::CameraPoser const*) {return false;}
+void startResetSnapShotCameraCtrl(al::CameraPoser*, int) {}
+void updateSnapShotCameraCtrl(al::CameraPoser*) {}
 
 }
 

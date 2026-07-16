@@ -215,10 +215,6 @@ bool PlayerJudgeEnablePeachAmiibo::judge() const {
     return false;
 }
 
-PlayerStateBind::PlayerStateBind(al::LiveActor*, PlayerConst const*, PlayerInput const*,
-                                 PlayerPuppet const*, IUsePlayerCollision const*, PlayerTrigger*)
-    : al::NerveStateBase("") {}
-
 PlayerStateEndHack::PlayerStateEndHack(al::LiveActor*, PlayerConst const*,
                                        IUsePlayerCollision const*, PlayerInput const*,
                                        PlayerTrigger*, PlayerAnimator*)
