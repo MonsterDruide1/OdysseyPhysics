@@ -6,12 +6,15 @@
     "configurations": [
         {
             "name": "C++ Launch",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
             "program": "${workspaceFolder}/build/OdysseyPhysics",
             "args": ["0"],
             "cwd": "${workspaceFolder}",
             "preLaunchTask": "buildme",
+            "env": {
+                "DISPLAY": ":0",
+            },
         }
     ]
 }

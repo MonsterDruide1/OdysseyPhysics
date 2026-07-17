@@ -11,7 +11,7 @@ void setupRaylibUtil() {
     cubeModel = LoadModelFromMesh(cubeMesh);
     sphereMesh = GenMeshSphere(50, 16, 16);
     sphereModel = LoadModelFromMesh(sphereMesh);
-    checkerShader = LoadShader("res/shaders/normal.vs", "res/shaders/normal.fs");
+    checkerShader = LoadShader("res/shaders/gles310/normal.vs", "res/shaders/gles310/normal.fs");
 }
 
 void unloadRaylibUtil() {

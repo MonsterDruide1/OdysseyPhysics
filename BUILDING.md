@@ -1,0 +1,12 @@
+- a lot of stuff has hardcoded paths, just replace them with the right paths and set up the respective projects/go through their building process
+- for `swsplrs`:
+    - run `make relink`
+    - in `out/asm/crt0.s`, delete everything
+    - in `out/asm/text.s`, delete functions between (inclusive) `_init` (`0x24`) and (exclusive) `0x19c`, and delete leading `.cfi_endproc` in `0x19c`
+    - in `out/asm/text.s`, delete definition of `_ZN2al13isEqualStringEPKcS1_` (find by `_ZN2al13isEqualStringEPKcS1_:`)
+    - in `out/asm/text.s`, delete definition of `_ZN2al13isEqualStringEPKDsS1_` (find by `_ZN2al13isEqualStringEPKDsS1_:`)
+    - in `out/asm/text.s`, delete definition of `_ZN4sead8TreeNode8findRootEv` (find by `_ZN4sead8TreeNode8findRootEv:`)
+    - in `out/asm/text.s`, delete definition of `_ZNK4sead8TreeNode8findRootEv` (find by `_ZNK4sead8TreeNode8findRootEv:`)
+    - in `out/asm/text.s`, delete definition of `_ZN4sead20FindContainHeapCache13tryRemoveHeapEPNS_4HeapE` (find by `_ZN4sead20FindContainHeapCache13tryRemoveHeapEPNS_4HeapE:`)
+    - in `out/asm/text.s`, delete block from `0x724b94` (inclusive) to `0x724d50` (exclusive) => malloc-related functions
+    - in `out`, run `make assemble`
