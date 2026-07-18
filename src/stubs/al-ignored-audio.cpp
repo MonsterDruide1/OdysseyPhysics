@@ -4,7 +4,9 @@
 #include "Library/Audio/System/AudioKeeperFunction.h"
 #include "Library/Audio/System/SimpleAudioUser.h"
 #include "Library/Bgm/BgmLineFunction.h"
+#include "Library/Demo/DemoSyncedEventKeeper.h"
 #include "Library/LiveActor/LiveActor.h"
+#include "Library/Se/Function/SeDbFunction.h"
 #include "Library/Se/SeFunction.h"
 #include "Library/Se/SeKeeper.h"
 #include "Project/Action/ActionSeCtrl.h"
@@ -50,10 +52,16 @@ ActionBgmCtrl* ActionBgmCtrl::tryCreate(al::AudioKeeper*){WARN_UNIMPL; return nu
 void ActionBgmCtrl::startAction(char const*) {}
 void ActionBgmCtrl::update(float, float, float, bool) {}
 
+AudioDirector::AudioDirector() {}
+void AudioDirector::init(al::AudioDirectorInitInfo const&) {}
+void AudioDirector::init3D(al::AudioDirectorInitInfo const&) {}
+void AudioDirector::setDependentModule(al::AudioDirector*) {}
+void AudioDirector::pauseSystem(bool, const char*, bool, f32, bool, bool, bool) {}
 void AudioDirector::finalize() {}
 void AudioDirector::initAfterInitPlacement() {}
 void AudioDirector::updatePost() {}
 void AudioDirector::updatePre() {}
+void AudioDirector::setPlayerHolder(const al::PlayerHolder *) {}
 
 ActionSeCtrl* ActionSeCtrl::tryCreate(al::AudioKeeper*) {WARN_UNIMPL; return nullptr;}
 void ActionSeCtrl::startAction(char const*) {}
@@ -70,6 +78,13 @@ al::AudioKeeper* alAudioKeeperFunction::createAudioKeeper(al::AudioDirector cons
 
 void alSeFunction::endListenerPoser(al::IUseAudioKeeper const*, char const*, int) {}
 void alSeFunction::startListenerPoser(al::IUseAudioKeeper const*, char const*, int) {}
+void alSeFunction::stopAllSe(al::AudioDirector const*, unsigned int) {}
 
 bool alAudioSystemFunction::tryDisableSoundMemoryPoolHandlerByFilePath(char const*, al::SeadAudioPlayer*) {return false;}
 al::SeadAudioPlayer* alAudioSystemFunction::tryFindAudioPlayerRegistedSoundMemoryPoolHandler(char const*, al::SeadAudioPlayer*, al::SeadAudioPlayer*) {WARN_UNIMPL; return nullptr;}
+void alAudioSystemFunction::enableAudioMaximizer(const al::GameSystemInfo*) {}
+void alAudioSystemFunction::setPadRumbleDirectorForSe(al::AudioDirector*, al::PadRumbleDirector*) {}
+
+const char* alSeDbFunction::tryFindSceneSeUserName(al::AudioSystemInfo const*, char const*, int) {}
+
+void alDemoSyncedEventFunction::tryCreateAndSetSeKeeper(al::DemoSyncedEventKeeper*, al::AudioDirector*, char const*) {}

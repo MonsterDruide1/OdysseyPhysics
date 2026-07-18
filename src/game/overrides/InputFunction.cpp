@@ -645,7 +645,10 @@ s32 getTouchPanelPort() {
 }
 
 s32 getMainControllerPort() {
-    return getPlayerControllerPort(0);
+    // PATCH:
+    return 0;
+    // END PATCH
+    //return getPlayerControllerPort(0);
 }
 
 s32 getMainJoyPadDoublePort() {

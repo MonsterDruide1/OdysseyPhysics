@@ -1,6 +1,6 @@
 #include "Library/Layout/LayoutActor.h"
 
-namespace al {
+/*namespace al {
 
 LayoutActor::LayoutActor(char const*) {}
 void LayoutActor::calcAnim(bool) {}
@@ -9,4 +9,4 @@ void LayoutActor::kill() {}
 void LayoutActor::movement() {}
 void LayoutActor::initExecuteInfo(al::LayoutExecuteInfo*) {}
 
-}
+}*/

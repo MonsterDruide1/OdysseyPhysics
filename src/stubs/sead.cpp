@@ -36,13 +36,8 @@ s32 sead::StringUtil::vsnw16printf(char16* s, size_t n, const char16* format, va
 bool sead::MemUtil::isStack(void const*) {
     return true;
 }
-sead::FrameHeap* sead::FrameHeap::create(u64, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
 
-sead::FrameHeap* sead::FrameHeap::tryCreate(u64, sead::SafeStringBase<char> const&, sead::Heap*, int, sead::Heap::HeapDirection, bool) {CRASH}
-
-void sead::Heap::makeMetaString_(BufferedSafeString* str) {
-    CRASH
-}
+void sead::Heap::makeMetaString_(BufferedSafeString* str) {}
 
 void sead::Heap::genInformation_(sead::hostio::Context* ctx) {
     CRASH

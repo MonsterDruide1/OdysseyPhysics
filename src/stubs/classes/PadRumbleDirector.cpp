@@ -16,6 +16,9 @@ void PadRumbleDirector::changeRumbleLoopPitch(char const*, sead::Vector3<float> 
 void PadRumbleDirector::startRumbleDirectValue(float, float, float, float, float, float, int) {}
 void PadRumbleDirector::stopRumbleDirectValue(int) {}
 void PadRumbleDirector::startRumbleWithVolume(char const*, float, float, int) {}
-
+void PadRumbleDirector::endPause() {}
+void PadRumbleDirector::pause() {}
+void PadRumbleDirector::setWaveVibrationHolder(al::WaveVibrationHolder*) {}
+void PadRumbleDirector::stopAllRumble() {}
 
 }

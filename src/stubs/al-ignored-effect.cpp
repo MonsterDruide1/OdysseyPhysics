@@ -2,6 +2,7 @@
 #include "Library/Effect/EffectSystem.h"
 #include "Library/Effect/EffectSystemInfo.h"
 #include "Library/Effect/PartsEffectGroup.h"
+#include "Library/Nature/NatureDirector.h"
 #include "Project/Action/ActionEffectCtrl.h"
 #include "Project/Action/ActionScreenEffectCtrl.h"
 
@@ -54,3 +55,7 @@ void alEffectSystemFunction::updateEffect2D(al::EffectSystem*) {}
 void alEffectSystemFunction::drawEffect2D(al::EffectSystem const*, sead::Viewport const*) {}
 
 void alEffectFunction::emitEffectIfExist(al::IUseEffectKeeper*, char const*, sead::Vector3<float> const*) {}
+
+namespace alEffectEnvUtil {
+void setNatureDirector(al::EffectSystem*, al::NatureDirector*) {}
+}

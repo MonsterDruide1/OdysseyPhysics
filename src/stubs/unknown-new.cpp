@@ -28,6 +28,7 @@
 #include "Project/Memory/Util.h"
 #include "Scene/QuestInfoHolder.h"
 #include "Scene/TemporaryScenarioCameraHolder.h"
+#include "System/GameDataFile.h"
 #include "System/GameDataHolderAccessor.h"
 #include "System/MapDataHolder.h"
 #include "System/ProjectNfpDirector.h"
@@ -92,13 +93,11 @@ bool rs::isPlayerSquat(al::LiveActor const*) {CRASH}
 bool rs::trySendMsgPlayerReflectOrTrample(al::LiveActor const*, al::HitSensor*, al::HitSensor*) {CRASH}
 bool rs::tryShowCapMsgCatchBombCatchFirst(al::IUseSceneObjHolder const*) {CRASH}
 
-ChangeStageInfo::ChangeStageInfo(GameDataHolder const*, al::PlacementInfo const&) {CRASH}
-ChangeStageInfo::ChangeStageInfo(GameDataHolder const*, char const*, char const*, bool, int, ChangeStageInfo::SubScenarioType) {CRASH}
-DecideIconLayout::DecideIconLayout(char const*, al::LayoutInitInfo const&) : al::NerveExecutor("") {CRASH}
+//ChangeStageInfo::ChangeStageInfo(GameDataHolder const*, al::PlacementInfo const&) {CRASH}
+//ChangeStageInfo::ChangeStageInfo(GameDataHolder const*, char const*, char const*, bool, int, ChangeStageInfo::SubScenarioType) {CRASH}
+//DecideIconLayout::DecideIconLayout(char const*, al::LayoutInitInfo const&) : al::NerveExecutor("") {CRASH}
 const sead::Matrix34f& MapDataHolder::findViewMtx(int) const {CRASH}
 al::NfpInfo* ProjectNfpDirector::tryGetTriggerTouchNfpInfo() {CRASH}
-ShineInfo::ShineInfo() {CRASH}
-void ShineInfo::init(char const*, char const*, char const*, QuestInfo const*, int) {CRASH}
 void TemporaryScenarioCameraHolder::registInfo(int, al::CameraTicket*) {CRASH}
 s32 agl::g3d::ResFile::GetTextureIndex(nn::g3d::ResFile const*, char const*) {CRASH}
 al::MessageTagDataHolder::MessageTagDataHolder(int) {CRASH}
@@ -122,7 +121,6 @@ bool rs::trySavePrepoChangeCapEvent(char const*, s64, s64, s64) {CRASH}
 bool rs::trySavePrepoChangeClothEvent(char const*, s64, s64, s64) {CRASH}
 bool sead::StringUtil::tryParseU32(unsigned int*, sead::SafeStringBase<char> const&, sead::StringUtil::CardinalNumber) {CRASH}
 void al::copyMemory(void*, void const*, unsigned int) {CRASH}
-sead::Heap* al::getCurrentHeap() {CRASH}
 
 void BirdMtxGlideCtrl::invalidateGlide() {CRASH}
 bool BirdMtxGlideCtrl::isWaitBird() const {CRASH}
@@ -135,10 +133,15 @@ const char* rs::getCheckpointLabelPrefix() {CRASH}
 const char* rs::getPlacementStageName(GameDataHolderAccessor, al::ActorInitInfo const&) {CRASH}
 const char* rs::getPlacementStageName(GameDataHolderAccessor, al::PlacementInfo const&) {CRASH}
 bool rs::isPlayerBinding(al::LiveActor const*) {CRASH}
-void rs::makeActorMessageLabel(sead::BufferedSafeStringBase<char>*, al::ActorInitInfo const&, char const*) {CRASH}
-void rs::registerCheckpointFlagToWatcher(CheckpointFlag*) {CRASH}
-void rs::registerLinkedPlayerStartInfoToHolder(al::IUseSceneObjHolder const*, al::ActorInitInfo const&, char const*, sead::Vector3f const*, sead::Quatf const*) {CRASH}
-void rs::requestHideCheckpointFlagBalloon(CheckpointFlag const*) {CRASH}
-void rs::requestShowCheckpointFlagBalloon(CheckpointFlag const*, sead::Vector3f const&) {CRASH}
-void rs::requestShowCheckpointFlagNameLayout(CheckpointFlag const*, char16_t const*) {CRASH}
-void rs::setTouchCheckpointFlagToWatcher(CheckpointFlag*) {CRASH}
+//void rs::makeActorMessageLabel(sead::BufferedSafeStringBase<char>*, al::ActorInitInfo const&, char const*) {CRASH}
+//void rs::registerCheckpointFlagToWatcher(CheckpointFlag*) {CRASH}
+//void rs::registerLinkedPlayerStartInfoToHolder(al::IUseSceneObjHolder const*, al::ActorInitInfo const&, char const*, sead::Vector3f const*, sead::Quatf const*) {CRASH}
+//void rs::requestHideCheckpointFlagBalloon(CheckpointFlag const*) {CRASH}
+//void rs::requestShowCheckpointFlagBalloon(CheckpointFlag const*, sead::Vector3f const&) {CRASH}
+//void rs::requestShowCheckpointFlagNameLayout(CheckpointFlag const*, char16_t const*) {CRASH}
+//void rs::setTouchCheckpointFlagToWatcher(CheckpointFlag*) {CRASH}
+
+const char16* rs::getCollectBgmMessage(al::IUseMessageSystem const*, CollectBgm const*) {WARN_UNIMPL;return u"MISSING IMPL";}
+
+// broken for some reason
+void GameDataFile::initializeCoinCollectList() {}

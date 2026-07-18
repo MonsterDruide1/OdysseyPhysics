@@ -47,7 +47,7 @@ int main_disabled() {
     initializeSead();
     {
         game::StageSceneManager sceneManager{};
-        game::StageScene* scene = sceneManager.getScene();
+        StageScene* scene = sceneManager.getScene();
         sceneManager.init("SandWorldMeganeExStageMap", 0);
 
         Input::instance()->setInputProvider(new InputProviderRaylib());

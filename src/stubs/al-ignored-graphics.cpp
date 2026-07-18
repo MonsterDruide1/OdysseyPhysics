@@ -1,7 +1,9 @@
 #include "Library/Clipping/ClippingActorHolder.h"
 #include "Library/Draw/GraphicsSystemInfo.h"
 #include "Library/Execute/ExecuteTableHolderUpdate.h"
+#include "Library/Joint/JointControllerBase.h"
 #include "Library/KeyPose/KeyPoseKeeper.h"
+#include "Library/Layout/LayoutActorUtil.h"
 #include "Library/Layout/LayoutInitInfo.h"
 #include "Library/Layout/LayoutKeeper.h"
 #include "Library/Light/ModelMaterialCategory.h"
@@ -142,6 +144,8 @@ void calcJointPos(sead::Vector3f* a, al::LiveActor const*, char const*) {a->set(
 void calcJointScale(sead::Vector3f* a,al::LiveActor const*,char const*) {a->set(sead::Vector3f::ones);}
 void initJointGlobalQuatController(al::LiveActor const*,sead::Quatf const*,char const*) {}
 bool isExistJoint(al::LiveActor const*, char const*) {return true;}
+void registerJointController(const al::LiveActor*, al::JointControllerBase*) {}
+void registerJointController(const al::LiveActor*, al::JointControllerBase*, const char*) {}
 void calcLayoutPosFromWorldPos(sead::Vector2f* a, al::IUseCamera const*, sead::Vector3f const&) {a->set(sead::Vector2f::zero);}
 void updateMaterialCodePuddle(al::LiveActor*) {}
 const agl::TextureData* getWhite2DTexture() {WARN_UNIMPL; return nullptr;}
@@ -149,6 +153,7 @@ void recreateModelDisplayList(al::LiveActor const*) {}
 void invalidateOcclusionQuery(al::LiveActor*) {}
 bool isValidOcclusionQuery(al::LiveActor const*) {return false;}
 void setDepthShadowMapLength(al::LiveActor const*, float, char const*) {}
+nn::ui2d::TextureInfo* createTextureInfo(char const*, char const*, char const*) {WARN_UNIMPL; return nullptr;}
 
 SEAD_SINGLETON_DISPOSER_IMPL(ShaderHolder);
 ShaderHolder::ShaderHolder() {}
@@ -254,6 +259,7 @@ void al::GraphicsSystemInfo::initAfterPlacement() {}
 void al::GraphicsSystemInfo::preDrawGraphics(const al::SceneCameraInfo*) {}
 void al::GraphicsSystemInfo::updateGraphics() {}
 al::GraphicsSystemInfo::~GraphicsSystemInfo() {}
+void al::GraphicsSystemInfo::initStageResource(al::Resource const*, char const*, char const*) {}
 
 al::GraphicsInitArg::GraphicsInitArg(agl::DrawContext*, sead::FrameBuffer*) {}
 

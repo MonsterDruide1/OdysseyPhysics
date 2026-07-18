@@ -128,6 +128,7 @@ void TempSaveData::writeInScenario(al::PlacementId const*, char const*) {}
 void TempSaveData::writeInWorld(al::PlacementId const*, char const*) {}
 void TempSaveData::writeInWorldResetMiniGame(al::PlacementId const*, char const*) {}
 
+/*
 void GameDataFile::addGrowFlowerGrowLevel(al::PlacementId const*, unsigned int) {}
 s32 GameDataFile::calcAllShineNumByObjectNameOrOptionalId(char const*) const {return 0;}
 s32 GameDataFile::calcGetShineNumByObjectNameOrOptionalId(char const*, GameDataFile::CountType) const {return 0;}
@@ -320,3 +321,7 @@ bool GameDataFile::tryReadByamlData(unsigned char const*) {}
 void GameDataFile::updateSaveInfoForDisp() {}
 void GameDataFile::updateSaveTime() {}
 void GameDataFile::writeToStream(sead::WriteStream*, sead::Heap*) const {}
+
+ShineInfo::ShineInfo() {}
+void ShineInfo::init(char const*, char const*, char const*, QuestInfo const*, int) {}
+*/

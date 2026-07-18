@@ -1,6 +1,7 @@
 #include "Library/LiveActor/ActorInitFunction.h"
 #include "Library/LiveActor/ActorPoseUtil.h"
 #include "Library/Math/MathUtil.h"
+#include "Library/Scene/Scene.h"
 #include "MapObj/SimpleSignBoard.h"
 #include "Player/Player.h"
 #include "PlayerUtil.h"
@@ -41,6 +42,10 @@ bool tryCalcPlayerModelHeadJointPos(sead::Vector3<float>*, al::LiveActor const*)
 bool tryCalcPlayerModelHeadJointSide(sead::Vector3<float>*, al::LiveActor const*) {return false;}
 bool tryCalcPlayerModelHeadJointUp(sead::Vector3<float>*, al::LiveActor const*) {return false;}
 bool tryCalcPlayerModelNoseJointMtx(sead::Matrix34<float>*, al::LiveActor const*) {return false;}
+
+void registerGraphicsPresetMoonGet(const al::Scene*) {}
+void registerGraphicsPresetPause(const al::Scene*) {}
+void registerGraphicsPresetShop(const al::Scene*) {}
 
 }  // namespace rs
 

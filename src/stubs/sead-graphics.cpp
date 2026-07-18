@@ -6,6 +6,7 @@ sead::Graphics::DevicePosture sead::Graphics::sDefaultDevicePosture;
 f32 sead::Graphics::sDefaultDeviceZOffset;
 f32 sead::Graphics::sDefaultDeviceZScale;
 
+/*
 void sead::Projection::doUpdateDeviceMatrix(sead::Matrix44<float>*, sead::Matrix44<float> const&, sead::Graphics::DevicePosture) const {CRASH}
 
 sead::PerspectiveProjection::PerspectiveProjection() {CRASH}
@@ -30,3 +31,4 @@ void sead::Camera::unprojectRayByMatrix(sead::Ray<sead::Vector3<float> >*, sead:
 void sead::DirectCamera::doUpdateMatrix(sead::Matrix34<float>*) const {CRASH}
 
 void sead::Viewport::project(sead::Vector2<float>*, sead::Vector3<float> const&) const {CRASH}
+*/

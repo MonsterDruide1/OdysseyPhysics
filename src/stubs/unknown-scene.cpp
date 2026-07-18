@@ -22,16 +22,12 @@
 #include "Library/Se/Function/SeDbFunction.h"
 #include "Library/Se/SeFunction.h"
 #include "Project/Clipping/ViewInfoCtrl.h"
+#include "Scene/StageSceneStateOption.h"
 
 al::ClippingActorHolder::ClippingActorHolder(int) {WARN_UNIMPL;}
-
-al::AudioDirector::AudioDirector() {CRASH}
-void al::AudioDirector::init(al::AudioDirectorInitInfo const&) {CRASH}
-void al::AudioDirector::init3D(al::AudioDirectorInitInfo const&) {CRASH}
-void al::AudioDirector::setDependentModule(al::AudioDirector*) {CRASH}
-void al::AudioDirector::pauseSystem(bool, const char*, bool, f32, bool, bool, bool) {CRASH}
 al::AreaObjDirector* al::AudioDirector::getAreaObjDirector() const {CRASH}
 
+/*
 void al::CameraDirector::registerCameraRailHolder(al::CameraRailHolder*) {}
 void al::CameraDirector::endInvalidStopJudgeByDemo() {CRASH}
 void al::CameraDirector::endSnapShotMode() {CRASH}
@@ -47,6 +43,7 @@ void al::CameraDirector::restartByDeathPlayer() {CRASH}
 void al::CameraDirector::startInvalidStopJudgeByDemo() {CRASH}
 void al::CameraDirector::startSnapShotMode(bool) {CRASH}
 void al::CameraDirector::stopByDeathPlayer() {CRASH}
+*/
 
 void al::ClippingActorHolder::endInit(al::ClippingGroupHolder*) {CRASH}
 al::ClippingActorInfo* al::ClippingActorHolder::find(al::LiveActor const*) const {CRASH}
@@ -63,15 +60,6 @@ al::LiveActor** al::DemoDirector::getDemoActorList() const {CRASH}
 s32 al::DemoDirector::getDemoActorNum() const {CRASH}
 bool al::DemoDirector::isActiveDemo() const {CRASH}
 
-void al::GraphicsSystemInfo::initStageResource(al::Resource const*, char const*, char const*) {CRASH}
-
-void al::LayoutInitInfo::init(al::ExecuteDirector*, al::EffectSystemInfo const*, al::SceneObjHolder*, al::AudioDirector const*, al::CameraDirector*, al::LayoutSystem const*, al::MessageSystem const*, al::GamePadSystem const*, al::PadRumbleDirector*) {CRASH}
-
-void al::PadRumbleDirector::endPause() {CRASH}
-void al::PadRumbleDirector::pause() {CRASH}
-void al::PadRumbleDirector::setWaveVibrationHolder(al::WaveVibrationHolder*) {CRASH}
-void al::PadRumbleDirector::stopAllRumble() {CRASH}
-
 void al::PostProcessingFilter::decrementPreset() {CRASH}
 void al::PostProcessingFilter::incrementPreset() {CRASH}
 
@@ -85,7 +73,6 @@ al::CameraTicket* al::initFixCamera(al::IUseCamera const*, char const*, sead::Ve
 void al::makeMtxSideNoSupport(sead::Matrix34<float>*, sead::Vector3<float> const&) {CRASH}
 bool al::isEventName(al::EventFlowEventData const*, char const*, ...) {return false;}
 
-void alAudioSystemFunction::setPadRumbleDirectorForSe(al::AudioDirector*, al::PadRumbleDirector*) {CRASH}
 void alEffectSystemFunction::drawEffectDeferred(al::EffectSystem const*, sead::Matrix44<float> const&, sead::Matrix34<float> const&, float, float, float) {CRASH}
-const char* alSeDbFunction::tryFindSceneSeUserName(al::AudioSystemInfo const*, char const*, int) {CRASH}
-void alSeFunction::stopAllSe(al::AudioDirector const*, unsigned int) {CRASH}
+
+StageSceneStateOption::StageSceneStateOption(char const*,al::Scene *x,al::LayoutInitInfo const&,FooterParts *,GameDataHolder *,bool) : al::HostStateBase<al::Scene>("", x) {}

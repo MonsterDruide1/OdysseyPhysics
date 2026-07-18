@@ -10,6 +10,7 @@ set(CMAKE_C_COMPILER_TARGET aarch64-linux-gnu)
 set(CMAKE_CXX_COMPILER_TARGET aarch64-linux-gnu)
 set(CMAKE_LIBRARY_ARCHITECTURE aarch64-linux-gnu)
 set(CMAKE_TRY_COMPILE_TARGET_TYPE STATIC_LIBRARY)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #add_link_options(-fuse-ld=lld)
 
 # work around cross-compilation issue
@@ -110,3 +111,5 @@ target_link_libraries(OdysseyPhysics PUBLIC swsplrs)
 set_target_properties(swsplrs PROPERTIES
     LINKER_LANGUAGE CXX
 )
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)

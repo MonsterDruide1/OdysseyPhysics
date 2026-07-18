@@ -13,6 +13,7 @@
 #include "Project/Action/ActionPadAndCameraCtrl.h"
 #include "Project/Camera/CameraAngleCtrlInfo.h"
 
+/*
 namespace al {
 
 CameraTicket* initDemoObjectCamera(al::IUseCamera const*, al::ActorInitInfo const&, char const*, char const*) {WARN_UNIMPL; return nullptr;}
@@ -126,3 +127,4 @@ void alCameraFunction::validateKeepPreSelfPoseNextCamera(al::CameraTicket*) {}
 
 void alCameraBlurFunction::resetCameraBlurName(al::LiveActor const*) {}
 void alCameraBlurFunction::setCameraBlurName(al::LiveActor const*, char const*) {}
+*/

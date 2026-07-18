@@ -87,6 +87,8 @@ const char* rs::getInitCapTypeName(PlayerInitInfo const&) {return "Mario";}
 al::ICollisionPartsKeeper* alCollisionUtil::getCollisionPartsKeeper(al::IUseCollision const* c) {return c->getCollisionDirector()->getActivePartsKeeper();}
 bool alCollisionUtil::getFirstPolyOnArrow(al::IUseCollision const*, sead::Vector3f*, al::Triangle*, sead::Vector3f const&, sead::Vector3f const&, al::CollisionPartsFilterBase const*, al::TriangleFilterBase const*) {WARN_UNIMPL;return false;}
 const char* al::getSubStringUnmatched(char const*, al::MatchStr const&) {WARN_UNIMPL; return nullptr;}
+void al::makeMtxQuatPos(sead::Matrix34<float>* a, sead::Quat<float> const&, sead::Vector3<float> const&) {WARN_UNIMPL;a->makeIdentity();}
+void al::calcMxtInvertOrtho(sead::Matrix34<float>* a, sead::Matrix34<float> const&) {WARN_UNIMPL;a->makeIdentity();}
 
 // NORMAL PRIORITY
 
@@ -115,8 +117,6 @@ void al::calcObbCorners(sead::Vector3<float>*, sead::Matrix34<float> const&, sea
 bool al::isNearAngleRadianHV(sead::Vector3<float> const&, sead::Vector3<float> const&, sead::Vector3<float> const&, float, float) {CRASH}
 // MtxUtil.o
 void al::makeMtxProj(sead::Matrix44f*, sead::Vector2f const&, sead::Vector3f const&, sead::Vector3f const&) {CRASH}
-void al::calcMxtInvertOrtho(sead::Matrix34<float>*, sead::Matrix34<float> const&) {CRASH}
-void al::makeMtxQuatPos(sead::Matrix34<float>*, sead::Quat<float> const&, sead::Vector3<float> const&) {CRASH}
 
 AnagramAlphabet::AnagramAlphabet(const char* name) : al::LiveActor(name) {}
 void AnagramAlphabet::init(const al::ActorInitInfo&) {}

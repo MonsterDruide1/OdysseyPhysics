@@ -1,4 +1,5 @@
 #include <basis/seadTypes.h>
+#include <cstring>
 #include "nn/account.h"
 #include "nn/audio.h"
 #include "nn/crypto.h"
@@ -624,7 +625,6 @@ void nn::oe::EnableGamePlayRecording(void*, u64) {}
 void nn::oe::FinishStartupLogo() {CRASH}
 nn::oe::FocusState nn::oe::GetCurrentFocusState() {CRASH}
 nn::settings::LanguageCode nn::oe::GetDesiredLanguage() {CRASH}
-void nn::oe::GetDisplayVersion(nn::oe::DisplayVersion*) {CRASH}
 void nn::oe::GetExpectedVolumeBalance(float*, float*) {CRASH}
 nn::oe::OperationMode nn::oe::GetOperationMode() {CRASH}
 void nn::oe::GetPerformanceConfiguration(nn::oe::PerformanceMode) {CRASH}
@@ -741,7 +741,6 @@ nn::util::CharacterEncodingResult nn::util::ConvertCharacterUtf8ToUtf32(unsigned
 nn::util::CharacterEncodingResult nn::util::ConvertStringUtf16NativeToUtf8(char*, int, unsigned short const*, int) {CRASH}
 nn::util::CharacterEncodingResult nn::util::ConvertStringUtf8ToUtf16Native(unsigned short*, int, char const*, int) {CRASH}
 nn::util::CharacterEncodingResult nn::util::PickOutCharacterFromUtf8String(char*, char const**) {CRASH}
-void nn::util::ReferSymbol(void const*) {CRASH}
 void nn::util::RelocationTable::Relocate() {CRASH}
 void nn::util::RelocationTable::Unrelocate() {CRASH}
 nn::Result nn::vi::CreateLayer(nn::vi::Layer**, nn::vi::Display*) {CRASH}
@@ -792,3 +791,9 @@ void nv::SetGraphicsDevtoolsAllocator(void* (*)(u64, u64, void*), void (*)(void*
 
 template <>
 void nn::hid::GetTouchScreenState<1ul>(nn::hid::TouchScreenState<1ul>*) {CRASH}
+
+
+void nn::oe::GetDisplayVersion(nn::oe::DisplayVersion* ver) {
+    memcpy(ver->name, "v1.0-PC", 7);
+}
+void nn::util::ReferSymbol(void const*) {}

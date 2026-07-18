@@ -1,8 +1,11 @@
 // ----------------------------------
 // Easy configuration stuff
+#include "Library/Camera/CameraDirector.h"
+#include "Library/Camera/SceneCameraInfo.h"
 #include "PlayerUtil.h"
 #include "System/Application.h"
-#define Stage "SandWorldMeganeExStageMap"
+#include "gfx/seadCamera.h"
+#define Stage "SandWorldHomeStage"
 #define TASFile "../scripts/current"
 #define TASPlayback false
 #define WSL_COMPATIBILITY false
@@ -15,6 +18,21 @@
 #define TEST_AGENT_ITERATIONS 110000
 // ----------------------------------
 
+namespace al {
+class Projection;
+class CameraViewFlag;
+class OrthoProjectionInfo;
+struct CameraViewInfo {
+    s32 mIndex;
+    bool mIsValid;
+    bool mIsActiveInterpole;
+    bool _6;
+    const sead::LookAtCamera *mLookAtCam;
+    const al::Projection *mProjection;
+    const al::CameraViewFlag *mViewFlag;
+    const al::OrthoProjectionInfo *mOrthoProjectionInfo;
+};
+}
 
 #include "Library/LiveActor/ActorPoseKeeper.h"
 #include "Library/Nerve/NerveKeeper.h"
@@ -103,7 +121,7 @@ int odyssey_physics_main(int argc, char *argv[]) {
         MyCameraMode camMode = MyCameraMode::Fixed;
 
         game::StageSceneManager sceneManager{};
-        game::StageScene* scene = sceneManager.getScene();
+        StageScene* scene = sceneManager.getScene();
         sceneManager.init(stage, 0);
 
         if (TASPlayback)
@@ -118,18 +136,19 @@ int odyssey_physics_main(int argc, char *argv[]) {
         rs::resetCollision(((PlayerActorHakoniwa*)scene->mPlayer->mActor)->getPlayerCollision());
         */
 
-        float angleH = 0;
+        /*float angleH = 0;
         float angleV = 60;
         float distance = 3000.000244140625;
         sead::Vector3f lookAtPos1 = {-250, 300, 1500};   // room 1
         sead::Vector3f lookAtPos2 = {-3050, 300, 1500};  // room 2
         sead::Vector3f lookAtPos3 = {-5850, 300, 1500};  // room 3
-        scene->mCamera->setup(angleH, angleV, distance, lookAtPos1);
+        scene->mCamera->setup(angleH, angleV, distance, lookAtPos1);*/
 
+        const sead::LookAtCamera* seadCam = scene->getCameraDirector()->getSceneCameraInfo()->getViewAt(0)->mLookAtCam;
         Camera3D cam = {0};
-        cam.position = raylibVec(scene->mCamera->position() * SCALE);
-        cam.target = raylibVec(scene->mCamera->at() * SCALE);
-        cam.up = raylibVec(scene->mCamera->up());
+        cam.position = raylibVec(seadCam->getPos() * SCALE);
+        cam.target = raylibVec(seadCam->getAt() * SCALE);
+        cam.up = raylibVec(seadCam->getUp());
         cam.fovy = 45;
         cam.projection = CAMERA_PERSPECTIVE;
 
@@ -138,7 +157,7 @@ int odyssey_physics_main(int argc, char *argv[]) {
             double time_start = GetTime();
             for(int i=0; i<TEST_FRAMES; i++) {
                 Input::instance()->update();
-                scene->update();
+                scene->control();
             }
             double time_end = GetTime();
             resume_stdout(fd);
@@ -194,27 +213,28 @@ int odyssey_physics_main(int argc, char *argv[]) {
                 TakeScreenshot("screenshot.png");
             scene = sceneManager.getScene();
 
+            PlayerActorHakoniwa* player = (PlayerActorHakoniwa*) rs::getPlayerActor(scene);
             if (IsKeyPressed(KEY_KP_8) || IsKeyPressedRepeat(KEY_KP_8))
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() - sead::Vector3f::ez*100);
+                player->mPoseKeeper->updatePoseTrans(player->mPoseKeeper->getTrans() - sead::Vector3f::ez*100);
             if (IsKeyPressed(KEY_KP_2) || IsKeyPressedRepeat(KEY_KP_2))
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() + sead::Vector3f::ez*100);
+                player->mPoseKeeper->updatePoseTrans(player->mPoseKeeper->getTrans() + sead::Vector3f::ez*100);
             if (IsKeyPressed(KEY_KP_4) || IsKeyPressedRepeat(KEY_KP_4))
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() - sead::Vector3f::ex*100);
+                player->mPoseKeeper->updatePoseTrans(player->mPoseKeeper->getTrans() - sead::Vector3f::ex*100);
             if (IsKeyPressed(KEY_KP_6) || IsKeyPressedRepeat(KEY_KP_6))
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() + sead::Vector3f::ex*100);
+                player->mPoseKeeper->updatePoseTrans(player->mPoseKeeper->getTrans() + sead::Vector3f::ex*100);
             if (IsKeyPressed(KEY_KP_0) || IsKeyPressedRepeat(KEY_KP_0))
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() + sead::Vector3f::ey*100);
+                player->mPoseKeeper->updatePoseTrans(player->mPoseKeeper->getTrans() + sead::Vector3f::ey*100);
             if (IsKeyPressed(KEY_KP_5) || IsKeyPressedRepeat(KEY_KP_5))
-                scene->mPlayer->mActor->mPoseKeeper->updatePoseTrans(scene->mPlayer->mActor->mPoseKeeper->getTrans() - sead::Vector3f::ey*100);
+                player->mPoseKeeper->updatePoseTrans(player->mPoseKeeper->getTrans() - sead::Vector3f::ey*100);
 
             //if(!TEST_UPWARPS || IsKeyPressedRepeat(KEY_U) || IsKeyPressed(KEY_U)) {
             if(shouldUpdate()) {
                 printf("--------------------------- %d ---------------------------------\n", Input::instance()->getInputCount());
-                al::NerveKeeper* playerNerveKeeper = scene->mPlayer->mActor->mNerveKeeper;
-                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
-                sead::Vector3f playerVel = scene->mPlayer->mActor->mPoseKeeper->getVelocity();
+                al::NerveKeeper* playerNerveKeeper = player->mNerveKeeper;
+                sead::Vector3f playerPos = player->mPoseKeeper->getTrans();
+                sead::Vector3f playerVel = player->mPoseKeeper->getVelocity();
                 sead::Vector3f playerFront;
-                al::calcFrontDir(&playerFront, scene->mPlayer->mActor);
+                al::calcFrontDir(&playerFront, player);
                 printf("Currently in %s\n",
                     playerNerveKeeper->getStateCtrl()->findStateInfo(playerNerveKeeper->getCurrentNerve())->name);
                 printf("Position: (%.17f, %.17f, %.17f)\n", playerPos.x, playerPos.y, playerPos.z);
@@ -225,13 +245,13 @@ int odyssey_physics_main(int argc, char *argv[]) {
                 }
 
                 Input::instance()->update();
-                scene->update();
+                scene->control();
             }
 
-            if (camMode == MyCameraMode::Free) {
+            /*if (camMode == MyCameraMode::Free) {
                 UpdateCamera(&cam, CAMERA_FREE);
             } else if (camMode == MyCameraMode::Fixed) {
-                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
+                sead::Vector3f playerPos = player->mPoseKeeper->getTrans();
                 float dist1 = sead::Vector3f(playerPos - lookAtPos1).squaredLength();
                 float dist2 = sead::Vector3f(playerPos - lookAtPos2).squaredLength();
                 float dist3 = sead::Vector3f(playerPos - lookAtPos3).squaredLength();
@@ -244,18 +264,19 @@ int odyssey_physics_main(int argc, char *argv[]) {
                 cam.position = raylibVec(scene->mCamera->position() * SCALE);
                 cam.target = raylibVec(scene->mCamera->at() * SCALE);
                 cam.up = raylibVec(scene->mCamera->up());
-            } else if (camMode == MyCameraMode::Follow) {
-                sead::Vector3f playerPos = scene->mPlayer->mActor->mPoseKeeper->getTrans();
-                scene->mCamera->setup(angleH, angleV, distance, playerPos);
-                cam.position = raylibVec(scene->mCamera->position() * SCALE);
-                cam.target = raylibVec(scene->mCamera->at() * SCALE);
-                cam.up = raylibVec(scene->mCamera->up());
-            }
+            } else if (camMode == MyCameraMode::Follow) {*/
+                sead::Vector3f playerPos = player->mPoseKeeper->getTrans();
+                //scene->mCamera->setup(angleH, angleV, distance, playerPos);
+                const sead::LookAtCamera* seadCam = scene->getCameraDirector()->getSceneCameraInfo()->getViewAt(0)->mLookAtCam;
+                cam.position = raylibVec(seadCam->getPos() * SCALE);
+                cam.target = raylibVec(seadCam->getAt() * SCALE);
+                cam.up = raylibVec(seadCam->getUp());
+            /*}*/
 
             sead::Vector3f cameraDir = (seadVec(cam.target) - seadVec(cam.position));
             cameraDir.normalize();
 
-            BeginDrawing();
+            /*BeginDrawing();
             {
                 ClearBackground(BLACK);
                 BeginMode3D(cam);
@@ -354,7 +375,7 @@ int odyssey_physics_main(int argc, char *argv[]) {
                     DrawText(TextFormat("Shine %d: %.2f", i, (shinePos - playerTrans).length()), 0, 90+40*i, 40, {255, 0, 0, 255});
                 }
             }
-            EndDrawing();
+            EndDrawing();*/
 
             frames++;
         }

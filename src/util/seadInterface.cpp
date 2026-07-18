@@ -46,7 +46,7 @@ void sead::system::Print(const char* format, ...) {
 }
 
 void initializeSead() {
-    sead::HeapMgr::initialize(0xBFC00000);
+    sead::HeapMgr::initialize(0x3BFC00000);
     sead::Heap* threadMgrHeap =
         sead::ExpHeap::create(0, "sead::ThreadMgr", sead::HeapMgr::getRootHeap(0), 16,
                               sead::Heap::cHeapDirection_Forward, 0);
